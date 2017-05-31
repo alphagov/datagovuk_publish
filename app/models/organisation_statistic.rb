@@ -1,0 +1,2 @@
+class OrganisationStatistic < ApplicationRecord
+end
