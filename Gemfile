@@ -9,12 +9,14 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
+gem 'devise'
 
 group :development, :test do
   gem 'byebug', '~> 9'
   gem 'pry', '~> 0.10'
   gem 'pry-byebug', '~> 3.4'
   gem 'pry-stack_explorer', '~> 0.4.9'
+  gem 'dotenv', '~> 2.2'
 end
 
 group :development do
