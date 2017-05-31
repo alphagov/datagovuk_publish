@@ -15,6 +15,7 @@ group :development, :test do
   gem 'pry', '~> 0.10'
   gem 'pry-byebug', '~> 3.4'
   gem 'pry-stack_explorer', '~> 0.4.9'
+  gem 'dotenv', '~> 2.2'
 end
 
 group :development do
