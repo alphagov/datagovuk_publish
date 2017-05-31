@@ -33,4 +33,109 @@ ActiveRecord::Schema.define(version: 20170531153836) do
     t.index ["reset_password_token"], name: "index_publishing_users_on_reset_password_token", unique: true
   end
 
+  create_table "datafiles", force: :cascade do |t|
+    t.string "name"
+    t.text "url"
+    t.string "format"
+    t.integer "size"
+    t.integer "dataset_id"
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "month"
+    t.integer "year"
+    t.integer "quarter"
+    t.boolean "broken"
+    t.datetime "last_check"
+    t.boolean "documentation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "datasets", force: :cascade do |t|
+    t.string "name"
+    t.string "title"
+    t.string "summary"
+    t.text "description"
+    t.string "dataset_type"
+    t.integer "organisation_id"
+    t.string "licence"
+    t.text "licence_other"
+    t.string "location1"
+    t.string "location2"
+    t.string "location3"
+    t.text "frequency"
+    t.integer "creator_id"
+    t.integer "owner_id"
+    t.boolean "published"
+    t.datetime "published_date"
+    t.boolean "harvested"
+    t.text "legacy_metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "inspire_datasets", force: :cascade do |t|
+    t.string "bbox_east_long"
+    t.string "bbox_west_long"
+    t.string "bbox_north_lat"
+    t.string "bbox_south_lat"
+    t.text "coupled_resource"
+    t.text "dataset_reference_date"
+    t.string "frequency_of_update"
+    t.string "guid"
+    t.text "harvest_object_id"
+    t.text "harvest_source_reference"
+    t.text "import_source"
+    t.string "metadata_date"
+    t.string "metadata_language"
+    t.text "provider"
+    t.string "resource_type"
+    t.text "responsible_party"
+    t.text "spatial"
+    t.string "spatial_data_service_type"
+    t.string "spatial_reference_system"
+    t.bigint "dataset_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dataset_id"], name: "index_inspire_datasets_on_dataset_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.string "location_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "organisation_statistics", force: :cascade do |t|
+    t.string "organisation_name", limit: 64
+    t.string "dataset_title", limit: 256
+    t.string "subject_title", limit: 64, default: "Downloads"
+    t.integer "value", default: 0
+    t.string "direction", limit: 4
+    t.string "since", limit: 20
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "organisations", force: :cascade do |t|
+    t.string "name"
+    t.string "title"
+    t.text "description"
+    t.string "abbreviation"
+    t.string "replace_by"
+    t.string "contact_email"
+    t.string "contact_phone"
+    t.string "contact_name"
+    t.string "foi_email"
+    t.string "foi_phone"
+    t.string "foi_name"
+    t.string "foi_web"
+    t.string "category"
+    t.integer "organisation_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "inspire_datasets", "datasets"
 end
