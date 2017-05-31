@@ -1,1 +1,5 @@
-# publish_data_beta
+# README
+
+## Publish Data
+
+This repository contains the beta-stage data publishing component of data.gov.uk.
