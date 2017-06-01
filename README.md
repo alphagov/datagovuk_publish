@@ -1,5 +1,7 @@
 ## Publish Data
 
+[![Code Climate](https://codeclimate.com/github/datagovuk/publish_data_beta/badges/gpa.svg)](https://codeclimate.com/github/datagovuk/publish_data_beta)
+
 This repository contains the beta-stage data publishing component of data.gov.uk.
 
 # Usage
