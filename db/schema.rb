@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170601084755) do
+ActiveRecord::Schema.define(version: 20170601090031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 20170601084755) do
     t.text "legacy_metadata"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "uuid"
+    t.index ["uuid"], name: "index_datasets_on_uuid"
   end
 
   create_table "inspire_datasets", force: :cascade do |t|
