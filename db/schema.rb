@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170601090031) do
+ActiveRecord::Schema.define(version: 20170601094505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 20170601090031) do
     t.boolean "documentation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "uuid"
+    t.index ["uuid"], name: "index_datafiles_on_uuid"
   end
 
   create_table "datasets", force: :cascade do |t|
@@ -82,7 +84,9 @@ ActiveRecord::Schema.define(version: 20170601090031) do
     t.bigint "dataset_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "uuid"
     t.index ["dataset_id"], name: "index_inspire_datasets_on_dataset_id"
+    t.index ["uuid"], name: "index_inspire_datasets_on_uuid"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -120,6 +124,8 @@ ActiveRecord::Schema.define(version: 20170601090031) do
     t.integer "organisation_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "uuid"
+    t.index ["uuid"], name: "index_organisations_on_uuid"
   end
 
   add_foreign_key "inspire_datasets", "datasets"
