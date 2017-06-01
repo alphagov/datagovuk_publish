@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170601085954) do
+ActiveRecord::Schema.define(version: 20170601094946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,10 +133,13 @@ ActiveRecord::Schema.define(version: 20170601085954) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "primary_organisation"
+    t.bigint "organisation_id"
+    t.integer "primary_organisation_id"
     t.index ["email"], name: "index_publishing_users_on_email", unique: true
+    t.index ["organisation_id"], name: "index_publishing_users_on_organisation_id"
     t.index ["reset_password_token"], name: "index_publishing_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "inspire_datasets", "datasets"
+  add_foreign_key "publishing_users", "organisations"
 end
