@@ -15,6 +15,11 @@ $ rake db:migrate
 $ rails s
 ```
 
+## Add seeds (dev example users, etc - do not use on production)
+```
+$ rake db:seed
+```
+
 ## Extra ENV vars for production
 ```
 $ export PUBLISH_DATA_BETA_DATABASE_PASSWORD=...
