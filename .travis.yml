@@ -1,0 +1,11 @@
+env: RAILS_ENV=test
+language: ruby
+rvm:
+  - 2.4
+services:
+  - postgresql
+script:
+  - bundle exec rake db:create
+  - bundle exec rake db:migrate
+  - bundle exec rake spec
+  - bundle exec codeclimate-test-reporter

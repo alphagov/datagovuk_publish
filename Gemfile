@@ -18,6 +18,8 @@ group :development, :test do
   gem 'pry-byebug', '~> 3.4'
   gem 'pry-stack_explorer', '~> 0.4.9'
   gem 'dotenv', '~> 2.2'
+  gem 'rspec-rails', '~> 3.6'
+  gem 'rspec', '~> 3.6'
 end
 
 group :development do
@@ -25,6 +27,11 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring', '~> 2.0'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :test do
+  gem "simplecov"
+  gem "codeclimate-test-reporter", "~> 1.0.0"
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

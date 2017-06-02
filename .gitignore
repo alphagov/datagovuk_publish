@@ -7,9 +7,11 @@ db/schema.rb
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+/coverage
 
 /node_modules
 /yarn-error.log
 
 .byebug_history
 .tern-port
+.env
