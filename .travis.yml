@@ -5,6 +5,7 @@ rvm:
 services:
   - postgresql
 script:
- - bundle exec rake db:create
- - bundle exec rake db:migrate
- - bundle exec rake spec
+  - bundle exec rake db:create
+  - bundle exec rake db:migrate
+  - bundle exec rake spec
+  - bundle exec codeclimate-test-reporter
