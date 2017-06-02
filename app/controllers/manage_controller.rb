@@ -1,0 +1,2 @@
+class ManageController < ApplicationController
+end
