@@ -13,3 +13,4 @@ db/schema.rb
 
 .byebug_history
 .tern-port
+.env
