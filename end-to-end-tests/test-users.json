@@ -1,0 +1,15 @@
+[
+    {
+        "username": "John Smith",
+        "password": "password",
+        "email": "test-co@localhost",
+        "apikey": "dcf2ae1d-5c68-43c1-87e8-35d57efbde3a"
+    },
+    {
+        "username": "Jane Smith",
+        "password": "password",
+        "email": "test-admin@localhost",
+        "apikey": "dcf2ae1d-5c68-43c1-87e8-35d57efbde3a",
+        "is_staff": true
+    }
+]
