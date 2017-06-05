@@ -6,25 +6,19 @@
 <% content_for :page_title do %>
   Data.gov.uk - Publish Data
 <% end %>
+<% content_for :homepage_url do %>/<% end %>
+<% content_for :global_header_text do %>
+  data.gov.uk<span class="separator"></span>publish
+<% end %>
+<% content_for :inside_header do %>
+  <!-- to hold options for authenticated users -->
+<% end %>
 <% content_for :content do %>
   <div id="skiplink-container">
     <div>
       <a href="#content" class="skiplink">Skip to main content</a>
     </div>
   </div>
-
-
-   <header role="banner" id="global-header" class="with-proposition global-header-dgu">
-    <div class="header-wrapper">
-      <div class="header-global">
-        <div class="header-logo">
-          <a href="/" title="Go to the GOV.UK homepage" id="logo" class="content">
-            data.gov.uk<span class="separator"></span>publish
-          </a>
-        </div>
-      </div>
-    </div>
-  </header>
 
   <main id="content" role="main" tabindex="-1">
     <div class="phase-banner">

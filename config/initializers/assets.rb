@@ -13,7 +13,6 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 Rails.application.config.assets.precompile += %w(
-  active_admin.css
   application.css
   application-ie8.css
   application-ie7.css

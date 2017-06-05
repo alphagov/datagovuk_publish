@@ -14,6 +14,3 @@
  *= require_self
  */
 
-/* Hide the header from govuk template, make sure the DGU one is shown */
-#global-header { display: none; }
-.global-header-dgu { display: block !important; }
