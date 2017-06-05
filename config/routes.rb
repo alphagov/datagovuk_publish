@@ -7,11 +7,11 @@ Rails.application.routes.draw do
       sessions: 'publishing_users/sessions'
     }
 
-  root to: 'tasks#index'
+  root to: 'tasks#my'
 
-  resources :tasks do
-    get 'organisation'
-  end
+  get 'tasks', to: 'tasks#my'
+  get 'tasks/organisation', to: 'tasks#organisation'
+
 
   resources :users
   resources :datasets
