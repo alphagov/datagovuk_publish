@@ -11,6 +11,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'devise', '~> 4.3'
 gem 'activeadmin', '~> 1'
+gem 'govuk_frontend_toolkit', '~> 6.0'
 
 group :development, :test do
   gem 'byebug', '~> 9'
