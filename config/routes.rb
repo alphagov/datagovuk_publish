@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       sessions: 'publishing_users/sessions'
     }
 
+  root to: 'tasks#index'
+
   resources :tasks do
     get 'organisation'
   end

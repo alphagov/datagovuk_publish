@@ -1,3 +1,3 @@
 class Organisation < ApplicationRecord
-  belongs_to :users
+  has_and_belongs_to_many :publishing_users
 end
