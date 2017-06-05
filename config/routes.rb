@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'home/index'
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :publishing_users, controllers: {
@@ -12,6 +14,7 @@ Rails.application.routes.draw do
   resources :users
   resources :datasets
 
+  get '', to: 'home#index'
   get 'manage', to: 'manage#manage_own'
   get 'manage/organisation', to: 'manage#manage_org'
 end
