@@ -15,7 +15,7 @@ publisher = PublishingUser.create!(
   password: 'password',
   password_confirmation: 'password',
   primary_organisation: Organisation.new(
-    name: 'Land_Registry'
+    name: 'Land Registry'
   )
 )
 
@@ -36,9 +36,16 @@ price_paid_dataset = Dataset.create!(
   organisation: Organisation.new
 )
 
-HMRC_spending_dataset = Dataset.create!(
+hmrc_spending_dataset = Dataset.create!(
   name: 'HMRC spending',
   title: 'HMRC spending over £25000',
   summary: 'Monthly details of HMRC’s spending with suppliers covering transactions over £25,000',
+  organisation: Organisation.new
+)
+
+council_tax_bands = Dataset.create!(
+  name: 'Council Tax',
+  title: 'Council Tax bands for London',
+  summary: 'Council tax bands for the current year',
   organisation: Organisation.new
 )

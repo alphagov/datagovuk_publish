@@ -6,8 +6,8 @@ class TasksController < ApplicationController
     @organisation = current_publishing_user.primary_organisation
     @datasets = Dataset.all
     @tasks = get_tasks_for_user(current_publishing_user)
-    @datasetsUpdate = @datasets[0,1]
-    @datasetsBroken = @datasets[0,1]
+    @datasetsUpdate = @datasets.all
+    @datasetsBroken = @datasets.all
   end
 
 
@@ -15,8 +15,8 @@ class TasksController < ApplicationController
     @organisation = current_publishing_user.primary_organisation
     @datasets = Dataset.all
     @tasks = get_tasks_for_organisation(@organisation.name)
-    @datasetsUpdate = @datasets[0,1]
-    @datasetsBroken = @datasets[0,1]
+    @datasetsUpdate = @datasets.all
+    @datasetsBroken = @datasets.all
   end
 
 private
