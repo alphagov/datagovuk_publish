@@ -3,9 +3,9 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  devise_for :publishing_users, controllers: {
-      sessions: 'publishing_users/sessions'
-    }
+  devise_for :publishing_users, path: 'users', controllers: {
+    sessions: 'publishing_users/sessions'
+  }
 
   root to: 'tasks#index'
 

@@ -1,15 +1,33 @@
 ActiveAdmin.register Organisation do
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
+  permit_params :name, :title, :description, :abbreviation, :replace_by,
+    :contact_email, :contact_phone, :contact_name, :foi_email, :foi_phone,
+    :foi_name, :foi_web, :category
 
+  form do |f|
+    f.semantic_errors
+
+    f.inputs 'Basic Information' do
+      input :name
+      input :title
+      input :description
+      input :abbreviation
+      input :replace_by
+      input :category
+    end
+
+    f.inputs 'Contact Information' do
+      input :contact_email
+      input :contact_phone
+      input :contact_name
+    end
+
+    f.inputs 'FOI Information' do
+      input :foi_email
+      input :foi_phone
+      input :foi_name
+      input :foi_web
+    end
+
+    f.actions
+  end
 end
