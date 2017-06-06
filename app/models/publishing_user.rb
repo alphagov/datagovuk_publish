@@ -3,8 +3,10 @@ class PublishingUser < ApplicationRecord
   belongs_to :primary_organisation, class_name: 'Organisation', foreign_key: 'primary_organisation_id'
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :email, presence: true
+
+  audited
 end

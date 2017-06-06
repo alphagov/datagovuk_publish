@@ -10,9 +10,11 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'devise', '~> 4.3'
+gem 'devise_invitable', '~> 1.7.2'
 gem 'activeadmin', '~> 1'
 gem 'govuk_frontend_toolkit', '~> 6.0'
 gem 'govuk_template', '~> 0.22'
+gem 'audited', '~> 4.5'
 
 group :development, :test do
   gem 'byebug', '~> 9'
