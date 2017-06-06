@@ -1,5 +1,5 @@
 ActiveAdmin.register PublishingUser do
-  permit_params :primary_organisation, :email
+  permit_params :primary_organisation_id, :email
 
   before_create do |publishing_user|
     publishing_user.invite!
