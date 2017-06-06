@@ -1,12 +1,12 @@
 <main role="main" id="content">
-<h1 class="heading-large">Tasks</h1>
-<div class="tasks">
-  <div class="tabs">
-    <h2 class="heading-small">My tasks<div class="ie-fix"></div></h2>
-    <div class="heading-small">
-      <%= link_to "#{@organisation.name} tasks", tasks_organisation_path %>
+  <h1 class="heading-large">Tasks</h1>
+  <div class="tasks">
+    <div class="tabs">
+      <h2 class="heading-small">My tasks<div class="ie-fix"></div></h2>
+      <div class="heading-small">
+        <%= link_to "#{@organisation.name} tasks", tasks_organisation_path %>
+      </div>
     </div>
+      <%= render partial: 'base' %>
   </div>
-    <%= render partial: 'base' %>
-</div>
 </main>
