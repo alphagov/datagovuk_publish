@@ -1,8 +1,9 @@
 <main id="content" role="main" tabindex="-1">
   <div class="grid-row">
-    <div class="column-two-thirds">
-        <h1 class="heading-large">Forgot your password?</h1>
-
+    <div class="full">
+        <h1 class="heading-large">Password Reset</h1>
+        Forgotten your password?<br /><br />
+        Enter your email address below, and we'll email instructions for setting a new one.<br /><br />
         <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
           <%= devise_error_messages! %>
 
@@ -12,11 +13,9 @@
           </div>
 
           <div class="actions">
-            <%= f.submit "Send me reset password instructions", class: "button" %>
+            <%= f.submit "Submit", class: "button" %>
           </div>
         <% end %>
-
-        <%= render "publishing_users/shared/links" %>
 
     </div>
   </div>
