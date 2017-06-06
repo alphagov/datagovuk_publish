@@ -6,13 +6,13 @@ ActiveAdmin.register PublishingUser do
   end
 
   form do |f|
-    semantic_errors(*object.errors.keys)
+    f.semantic_errors(*f.object.errors.keys)
 
-    inputs do
+    f.inputs do
       input :primary_organisation
       input :email
     end
 
-    actions
+    f.actions
   end
 end

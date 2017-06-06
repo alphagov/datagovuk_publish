@@ -4,9 +4,9 @@ ActiveAdmin.register Organisation do
     :foi_name, :foi_web, :category
 
   form do |f|
-    semantic_errors
+    f.semantic_errors
 
-    inputs 'Basic Information' do
+    f.inputs 'Basic Information' do
       input :name
       input :title
       input :description
@@ -15,19 +15,19 @@ ActiveAdmin.register Organisation do
       input :category
     end
 
-    inputs 'Contact Information' do
+    f.inputs 'Contact Information' do
       input :contact_email
       input :contact_phone
       input :contact_name
     end
 
-    inputs 'FOI Information' do
+    f.inputs 'FOI Information' do
       input :foi_email
       input :foi_phone
       input :foi_name
       input :foi_web
     end
 
-    actions
+    f.actions
   end
 end
