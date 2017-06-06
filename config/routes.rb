@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :publishing_users, path: 'users', controllers: {
-    sessions: 'publishing_users/sessions'
+    sessions: 'publishing_users/sessions',
+    passwords: 'publishing_users/passwords',
+    registrations: 'publishing_users/registrations'
   }
-
-
 
   get 'tasks', to: 'tasks#my'
   get 'tasks/organisation', to: 'tasks#organisation'
