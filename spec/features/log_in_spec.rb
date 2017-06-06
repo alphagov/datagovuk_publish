@@ -19,7 +19,7 @@ describe "logging in" do
     click_link 'Sign in'
     fill_in('Email', with: 'test@localhost')
     fill_in('Password', with: 'password')
-    click_button 'Log in'
+    click_button 'Sign in'
     expect(page).to have_current_path '/tasks'
   end
 end
