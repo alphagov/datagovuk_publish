@@ -21,12 +21,12 @@ class TasksController < ApplicationController
 
 private
 
-  def get_tasks_for_user(user)
+  def get_tasks_for_user(_user)
     Task.all
   end
 
   # For the given organisation name, find the tasks that they have in each category
-  def get_tasks_for_organisation(organisation)
+  def get_tasks_for_organisation(_organisation)
     Task.all
   end
 

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       sessions: 'publishing_users/sessions'
     }
 
-  root to: 'tasks#my'
+
 
   get 'tasks', to: 'tasks#my'
   get 'tasks/organisation', to: 'tasks#organisation'

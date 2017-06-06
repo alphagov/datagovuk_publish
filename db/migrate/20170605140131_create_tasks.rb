@@ -6,7 +6,6 @@ class CreateTasks < ActiveRecord::Migration[5.1]
       t.string :required_permission_name
       t.string :description, limit: 128, default: "", null: true
       t.string :category, limit: 20
-  #TODO rename to short_name?
       t.string :owning_organisation, limit: 128, null: true
       t.uuid :related_object_id, null: true
       t.timestamps
