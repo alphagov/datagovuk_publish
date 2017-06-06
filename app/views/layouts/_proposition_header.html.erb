@@ -1,0 +1,22 @@
+<div class="header-proposition">
+  <a href="#proposition-links" class="js-header-toggle menu">Menu</a>
+  <nav id="proposition-menu">
+    <ul id="proposition-links">
+      <li>
+        <%= link_to "Tasks", tasks_path =%>
+      </li>
+      <li>
+        <%= link_to "Manage datasets", manage_path =%>
+      </li>
+      <li>
+        <%= link_to "Performance" =%>
+      </li>
+      <li>
+        <%= link_to @current_publishing_user.try(:email)=%>
+      </li>
+      <li>
+        <%= link_to "Sign out" =%>
+      </li>
+    </ul>
+  </nav>
+</div>
