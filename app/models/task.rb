@@ -4,5 +4,4 @@ class Task < ApplicationRecord
   def self.short_name
     owning_organisation
   end
-
 end
