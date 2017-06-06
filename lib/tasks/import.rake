@@ -61,13 +61,13 @@ namespace :import do
       d.location2 = ""
       d.location3 = ""
       d.legacy_metadata = ""
-      d.save()
+      d.save!()
 
       # Add the inspire metadata if we have determined this is a ULKP
       # dataset.
       if d.dataset_type == 'inspire'
         inspire = add_inspire_metadata(d.id, obj)
-        inspire.save()
+        inspire.save!()
       end
 
       # Iterate over the resources list and add a new datafile for each
@@ -87,7 +87,7 @@ namespace :import do
           datafile.end_date   = dates[1]
         end
 
-        datafile.save()
+        datafile.save!()
       end
 
     end
@@ -98,7 +98,7 @@ end
 def add_inspire_metadata(dataset_id, dataset)
   extras = dataset["extras"]
 
-  inspire = InspireDataset.find_or_create_by(dataset_id: dataset["id"])
+  inspire = InspireDataset.find_or_create_by(dataset_id: dataset_id)
   inspire.bbox_east_long = get_extra(extras, 'bbox-east-long')
   inspire.bbox_north_lat = get_extra(extras, 'bbox-north-lat')
   inspire.bbox_south_lat = get_extra(extras, 'bbox-south-lat')
