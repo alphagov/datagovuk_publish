@@ -11,5 +11,15 @@ describe "logging in" do
 
   it "can visit the index page" do
     visit '/'
+    expect(page.status_code).to be 200
+  end
+
+  it "redirects logged in users" do
+    visit '/'
+    click_link 'Sign in'
+    fill_in('Email', with: 'test@localhost')
+    fill_in('Password', with: 'password')
+    click_button 'Log in'
+    expect(page).to have_current_path '/tasks'
   end
 end

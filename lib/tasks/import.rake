@@ -5,8 +5,9 @@ namespace :import do
 
   desc "Import organisations from a data.gov.uk dump"
   task :organisations, [:filename] => :environment do |_, args|
-    json_from_lines(args.filename) do |obj|
+    count = 1
 
+    json_from_lines(args.filename) do |obj|
       o = Organisation.find_by(name: obj["name"]) || Organisation.new
 
       o.name = obj["name"]
@@ -25,7 +26,11 @@ namespace :import do
       o.uuid = obj["id"]
 
       o.save()
+
+      print "Imported #{count} organisations...\r"
+      count += 1
     end
+    puts "\nDone"
   end
 
   desc "Import datasets from a data.gov.uk dump"
