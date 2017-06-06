@@ -8,4 +8,6 @@ class PublishingUser < ApplicationRecord
          :invitable
 
   validates :email, presence: true
+
+  audited
 end
