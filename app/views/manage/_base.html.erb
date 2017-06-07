@@ -1,0 +1,61 @@
+<div class="tabs-content">
+  <section class="show-hide">
+  </section>
+
+  <table
+      class="manage-data"
+      <%  if @datasets.count == 0 %>style="display:none"<% end %>>
+    <thead>
+      <tr>
+        <th class="sortable-heading">
+          <a
+              href=""
+              class="<% if @sort == 'name' %>sort-ascending<% elif @sort == '-name' %>sort-descending<% end %>">
+            Dataset name
+          </a>
+        </th>
+        <th class="sortable-heading">
+          <a
+              href=""
+              class="<% if @sort == 'published' %>sort-ascending<% elsif @sort == '-published' %>sort-descending<% end %>">
+            Status
+          </a>
+        </th>
+        <th><span class="visuallyhidden">Actions</span></th>
+      </tr>
+    </thead>
+    <tbody id="dataset-list">
+      <% @datasets.each do |dataset| %>
+        <tr>
+          <th>
+            <% if @find_url && dataset.published %>
+              <a href="<% @find_url %>/dataset/<% dataset.name %>"><%= dataset.title %></a>
+            <% else %>
+              <%= dataset.title %>
+            <% end %>
+          </th>
+          <td>
+            <% if dataset.published %>
+              Published
+            <% else %>
+              Draft
+            <% end %>
+          </td>
+          <td class="actions">
+            <% if dataset.name %>
+              <a href="{% url 'dataset_addfile' dataset.name %}">Add&nbsp;Data<span class="visuallyhidden"> to <% dataset.title %></span></a>
+              <a href="{% url 'full_dataset' dataset.name %}">Edit<span class="visuallyhidden"> <% dataset.title %></span></a><br/>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% if @datasets.count == 0 %>
+  <p
+      class="noresults"
+      style="display:<% if @datasets.count %>block<% else %>none<% end %>">
+    No results found
+  </p>
+  <% end %>
+</div>

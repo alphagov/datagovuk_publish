@@ -1,1 +1,15 @@
-manage own
+<main role="main" id="content">
+  <h1 class="heading-large">Manage your datasets</h1>
+
+  <%= render "manage/shared/search" %>
+
+  <div class="">
+    <div class="tabs">
+      <h2 class="heading-small">My datasets<div class="ie-fix"></div></h2>
+      <div class="heading-small">
+        <%= link_to "#{@organisation.title} tasks", manage_organisation_path %>
+      </div>
+    </div>
+      <%= render partial: 'base' %>
+  </div>
+</main>
