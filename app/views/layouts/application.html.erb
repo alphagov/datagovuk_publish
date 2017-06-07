@@ -10,7 +10,8 @@
 <% content_for :global_header_text do %>
   data.gov.uk<span class="separator"></span>publish
 <% end %>
-<% content_for :inside_header do %>
+<% content_for :header_class do %>with-proposition<% end %>
+<% content_for :proposition_header do %>
   <!-- to hold options for authenticated users -->
   <%= render partial: 'layouts/proposition_header' %>
 <% end %>
