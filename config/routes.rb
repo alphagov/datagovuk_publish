@@ -15,5 +15,5 @@ Rails.application.routes.draw do
   resources :datasets
 
   get 'manage', to: 'manage#manage_own'
-  get 'manage/organisation', to: 'manage#manage_org'
+  get 'manage/organisation', to: 'manage#manage_organisation'
 end
