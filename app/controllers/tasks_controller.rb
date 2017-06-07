@@ -1,18 +1,18 @@
 class TasksController < ApplicationController
   protect_from_forgery prepend: :true
-  before_action :authenticate_publishing_user!
+  before_action :authenticate_user!
 
   def my
-    @organisation = current_publishing_user.primary_organisation
+    @organisation = current_user.primary_organisation
     @datasets = Dataset.all
-    @tasks = get_tasks_for_user(current_publishing_user)
+    @tasks = get_tasks_for_user(current_user)
     @datasetsUpdate = @datasets.all
     @datasetsBroken = @datasets.all
   end
 
 
   def organisation
-    @organisation = current_publishing_user.primary_organisation
+    @organisation = current_user.primary_organisation
     @datasets = Dataset.all
     @tasks = get_tasks_for_organisation(@organisation.name)
     @datasetsUpdate = @datasets.all

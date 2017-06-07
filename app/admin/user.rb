@@ -1,8 +1,8 @@
-ActiveAdmin.register PublishingUser do
+ActiveAdmin.register User do
   permit_params :primary_organisation_id, :email
 
-  before_create do |publishing_user|
-    publishing_user.invite!
+  before_create do |user|
+    user.invite!
   end
 
   form do |f|

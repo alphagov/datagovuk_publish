@@ -6,7 +6,7 @@ class HomeController < ApplicationController
 
 private
   def home_path_for_user
-    if publishing_user_signed_in?
+    if user_signed_in?
       redirect_to tasks_path
     end
   end

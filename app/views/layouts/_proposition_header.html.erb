@@ -1,22 +1,24 @@
 <div class="header-proposition">
   <a href="#proposition-links" class="js-header-toggle menu">Menu</a>
   <nav id="proposition-menu">
-    <ul id="proposition-links">
-      <li>
-        <%= link_to "Tasks", tasks_path =%>
-      </li>
-      <li>
-        <%= link_to "Manage datasets", manage_path =%>
-      </li>
-      <li>
-        <%= link_to "Performance" =%>
-      </li>
-      <li>
-        <%= link_to @current_publishing_user.try(:email)=%>
-      </li>
-      <li>
-        <%= link_to "Sign out" =%>
-      </li>
-    </ul>
+    <% if user_signed_in? %>
+        <ul id="proposition-links">
+          <li>
+            <%= link_to "Tasks", tasks_path =%>
+          </li>
+          <li>
+            <%= link_to "Manage datasets", manage_path =%>
+          </li>
+          <li>
+            <%= link_to "Performance", tasks_path =%>
+          </li>
+          <li>
+            <%= link_to current_user.try(:email) =%>
+          </li>
+          <li>
+            <%= link_to "Sign out", destroy_user_session_path, method: :delete =%>
+          </li>
+        </ul>
+    <% end %>
   </nav>
 </div>
