@@ -17,7 +17,7 @@ describe "logging in" do
   it "redirects logged in users" do
     visit '/'
     click_link 'Sign in'
-    fill_in('publishing_user_email', with: 'test@localhost')
+    fill_in('user_email', with: 'test@localhost')
     fill_in('Password', with: 'password')
     click_button 'Sign in'
     expect(page).to have_current_path '/tasks'
