@@ -1,22 +1,21 @@
+
 class TasksController < ApplicationController
   protect_from_forgery prepend: :true
   before_action :authenticate_user!
 
   def my
     @organisation = current_user.primary_organisation
-    @datasets = Dataset.all
+    @datasets = Dataset.where(organisation: @organisation.id)
     @tasks = get_tasks_for_user(current_user)
-    @datasetsUpdate = @datasets.all
     @datasetsBroken = @datasets.all
   end
 
 
   def organisation
     @organisation = current_user.primary_organisation
-    @datasets = Dataset.all
+    @datasets = Dataset.where(organisation: @organisation.id)
     @tasks = get_tasks_for_organisation(@organisation.name)
-    @datasetsUpdate = @datasets.all
-    @datasetsBroken = @datasets.all
+    @datasetsBroken = @datasets
   end
 
 private

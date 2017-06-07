@@ -2,11 +2,11 @@
   <h1 class="heading-large">Tasks</h1>
   <div class="tasks">
     <div class="tabs">
-      <span class="visuallyhidden"> (<%=@organisation.name=%>)</span>
+      <span class="visuallyhidden"> (<%=@organisation.title =%>)</span>
       <div class="heading-small">
         <%= link_to "My tasks", tasks_path %>
       </div>
-      <h2 class="heading-small"><%=@organisation.name =%> tasks<div class="ie-fix"></div></h2>
+      <h2 class="heading-small"><%=@organisation.title =%> tasks<div class="ie-fix"></div></h2>
     </div>
     <%= render partial: 'base' %>
   </div>
