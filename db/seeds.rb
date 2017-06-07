@@ -10,7 +10,7 @@ admin = AdminUser.create!(
   password: 'password',
   password_confirmation: 'password')
 
-publisher = PublishingUser.create!(
+publisher = User.create!(
   email: 'publisher@example.com',
   password: 'password',
   password_confirmation: 'password',

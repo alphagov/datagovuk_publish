@@ -1,6 +1,6 @@
 class Organisation < ApplicationRecord
   audited
-  has_and_belongs_to_many :publishing_users
+  has_and_belongs_to_many :users
   has_many :tasks, dependent: :destroy
 
   before_destroy :deregister_users
@@ -15,7 +15,7 @@ class Organisation < ApplicationRecord
 
   private
   def deregister_users
-    publishing_users.where(primary_organisation: self).each do |p|
+    users.where(primary_organisation: self).each do |p|
       p.primary_organisation = nil
       p.save!
     end
