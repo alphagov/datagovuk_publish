@@ -21,10 +21,10 @@
       </thead>
       <tbody>
 
-      <% @datasetsUpdate.each do |dataset| %>
+      <% @tasks.each do |task| %>
           <tr class="show-hide-item">
             <th>
-              <a href=""><%= dataset.title =%></a>
+              <a href=""><%= task.description =%></a>
             </th>
             <td>
               <span class="update-date">03 Feb 2017</span>
@@ -50,7 +50,7 @@
   <section class="show-hide">
     <div class="table-title">
       <h2 class="heading-medium">
-        <%=@tasks.count=%> datasets have broken data links
+        <%=@datasetsBroken.count=%> datasets have broken data links
       </h2>
     </div>
     <table>
