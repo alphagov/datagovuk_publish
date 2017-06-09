@@ -4,17 +4,21 @@ class ManageController < ApplicationController
 
   def manage_own
     @organisation = current_user.primary_organisation
-    @datasets = Dataset.where(organisation: @organisation.id, creator_id: current_user.id)
+    @datasets = Dataset.where(
+                organisation: @organisation.id,
+                creator_id: current_user.id
+                ).page params[:page]
     @find_url = ""
     @sort = "published"
   end
 
   def manage_organisation
     @organisation = current_user.primary_organisation
-    @datasets = Dataset.where(organisation: @organisation.id)
+    @datasets = Dataset.where(
+                organisation: @organisation.id
+                ).page params[:page]
     @find_url = ""
     @sort = "published"
   end
 
 end
-

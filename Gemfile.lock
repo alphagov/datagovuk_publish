@@ -302,6 +302,7 @@ DEPENDENCIES
   govuk_frontend_toolkit (~> 6.0)
   govuk_template (~> 0.22)
   jbuilder (~> 2.5)
+  kaminari (~> 1.0.1)
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.18)
   pry (~> 0.10)
