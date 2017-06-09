@@ -12,7 +12,14 @@ Rails.application.routes.draw do
   get 'tasks', to: 'tasks#my'
   get 'tasks/organisation', to: 'tasks#organisation'
 
-  resources :datasets
+  resources :datasets do
+    get 'license'
+    get 'location'
+    get 'frequency'
+    get 'addfile'
+    get 'adddoc'
+    get 'publish'
+  end
 
   get 'manage', to: 'manage#manage_own'
   get 'manage/organisation', to: 'manage#manage_organisation'
