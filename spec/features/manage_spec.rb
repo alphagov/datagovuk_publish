@@ -33,7 +33,7 @@ describe "managing datasets" do
     expect(page).to have_selector(%(table), count: 0)
 
     # Expect to see the table with datasets in it.
-    click_link 'Land Registry tasks'
+    click_link 'Land Registry datasets'
     expect(page).to have_selector(%(table), count: 1)
   end
 end
