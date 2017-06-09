@@ -56,3 +56,12 @@ council_tax_bands = Dataset.create!(
   summary: 'Council tax bands for the current year',
   organisation: land_registry
 )
+
+for i in 1..30
+  Dataset.create!(
+  name: "Dataset_#{i} name",
+  title: "Dataset_#{i} title",
+  summary: "Dataset_#{i} summary",
+  organisation: land_registry
+  )
+end
