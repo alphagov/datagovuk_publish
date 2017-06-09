@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Where to find the app, and how to log in
-export APP_SERVER_URL=http://localhost:8010
-export USER_EMAIL=test-co@localhost
-export ADMIN_USER_EMAIL=test-admin@localhost
+export APP_SERVER_URL=http://localhost:3000
+export USER_EMAIL=publisher@example.com
+export ADMIN_USER_EMAIL=admin@example.com
 export USER_PASSWORD=password
 
 # Various executables needed to run tests
@@ -33,13 +33,8 @@ export DATABASE_URL=postgres://publisher:publisher@localhost:5432/publish_beta_t
 
 echo Starting test server
 RAILS_ENV=test rake db:migrate:reset
+RAILS_ENV=test rake db:seed
 
-# import fixtures
-# ./manage.py loaddata datasets/fixtures/organisations.json.gz
-# ./manage.py import_test_users < ../tests/test-users.json
-# ./manage.py loaddata locations
-
-#./manage.py runserver 0.0.0.0:8010 > /dev/null 2>&1 &
 RAILS_ENV=test rails s >/dev/null 2>&1 &
 PID=$!
 
