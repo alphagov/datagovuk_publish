@@ -21,13 +21,15 @@
       <a href="#content" class="skiplink">Skip to main content</a>
     </div>
   </div>
+  <main id="content" role="main" tabindex="-1">
+    <%= render partial: 'layouts/phase_banner' %>
+    <%= yield %>
+  </main>
 
-  <%= yield %>
 
   <div id="global-app-error" class="app-error hidden"></div>
 
   <script>if (typeof window.GOVUK === 'undefined') document.body.className = document.body.className.replace('js-enabled', '');</script>
-
 
 <% end %>
 <%= render template: 'layouts/govuk_template' %>
