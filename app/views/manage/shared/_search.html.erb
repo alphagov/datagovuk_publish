@@ -4,7 +4,7 @@
     </a>
 </p>
 
-<form method="GET" action="/manage/" id="filter-dataset-form" class="form">
+<form method="GET" action="" id="filter-dataset-form" class="form">
   <fieldset>
     <legend class="visuallyhidden">
       Filter datasets by name
@@ -13,8 +13,9 @@
     <div class="form-group wide-search-bar">
       <label for="q">
         <div>Search all datasets</div>
-        <input class="form-control" id="q" name="q" type="text" autocomplete="off" value="">
+        <input class="form-control" id="q" name="q" type="text" autocomplete="off" value="<%= @q %>">
       </label>
+      <button class="button" id="search" name="search">Search</button>
     </div>
   </fieldset>
 </form>

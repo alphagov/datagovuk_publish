@@ -7,7 +7,7 @@
     <div class="tabs">
       <span class="visuallyhidden"> (<%=@organisation.title =%>)</span>
       <div class="heading-small">
-        <%= link_to "My datasets", manage_path %>
+        <%= link_to "My datasets", manage_path(:q => @q) %>
       </div>
       <h2 class="heading-small"><%=@organisation.title =%> tasks<div class="ie-fix"></div></h2>
     </div>
