@@ -7,7 +7,7 @@
     <div class="tabs">
       <h2 class="heading-small">My datasets<div class="ie-fix"></div></h2>
       <div class="heading-small">
-        <%= link_to "#{@organisation.title} datasets", manage_organisation_path %>
+        <%= link_to "#{@organisation.title} datasets", manage_organisation_path(:q => @q) %>
       </div>
     </div>
       <%= render partial: 'base' %>
