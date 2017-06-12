@@ -23,7 +23,7 @@
 		  </div>
       <% end %>
 
-      <%= form_for @dataset, url: dataset_save_and_update_path(@dataset), method: 'post' do |f| %>
+      <%= form_for @dataset, url: new_licence_dataset_path(@dataset), method: 'post' do |f| %>
           <%= dataset_field f, @dataset,
             name: 'licence',
             input_type: :radio_button,
@@ -44,10 +44,8 @@
               label: 'Name of your licence:' %>
         </div>
 
-          <%= f.hidden_field 'flow', value: 'new' %>
-          <%= f.hidden_field 'action', value: 'location' %>
           <%= f.submit 'Save and continue', class: 'button' %>
-          <%= link_to 'Skip this step', dataset_location_path(@dataset) %>
+          <%= link_to 'Skip this step', new_location_dataset_path(@dataset) %>
       <% end %>
   </div>
 </main>

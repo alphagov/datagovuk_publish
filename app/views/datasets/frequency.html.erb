@@ -1,9 +1,9 @@
 <% content_for :page_title do %>
-    Add location -
+    Select frequency -
 <% end %>
 
 <main role="main" id="content">
-  <h1 class="heading-large">Choose a geographical area</h1>
+  <h1 class="heading-large">How frequently is this dataset updated?</h1>
   <div class="datasets">
       <% if @dataset.errors.any? %>
 		  <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
@@ -23,10 +23,8 @@
 		  </div>
       <% end %>
 
-      <%= form_for @dataset, url: new_location_dataset_path(@dataset), method: 'post' do |f| %>
-
+      <%= form_for @dataset, url: new_frequency_dataset_path(@dataset), method: 'post' do |f| %>
           <%= f.submit 'Save and continue', class: 'button' %>
-          <%= link_to 'Skip this step', new_frequency_dataset_path(@dataset) %>
       <% end %>
   </div>
 </main>

@@ -6,11 +6,11 @@ class DatasetsController < ApplicationController
   end
 
   def create
-    @dataset = Dataset.new(params.require(:dataset).permit(:id, :title, :description))
+    @dataset = Dataset.new(params.require(:dataset).permit(:id, :title, :summary, :description))
     @dataset.organisation = current_user.primary_organisation
 
     if @dataset.save
-      redirect_to dataset_license_path(@dataset.id)
+      redirect_to new_licence_dataset_path(@dataset.id)
     else
       render 'new'
     end
@@ -24,25 +24,26 @@ class DatasetsController < ApplicationController
     @dataset = current_dataset
   end
 
+  def frequency
+    @dataset = current_dataset
+  end
+
+  def addfile
+    @dataset = current_dataset
+  end
+
+  def adddoc
+    @dataset = current_dataset
+  end
+
+  def publish
+    @dataset = current_dataset
+  end
+
   DATASET_PERMITTED_PARAMS = [
     :licence,
     :licence_other
   ]
-
-  def save_and_update
-    refer_to = params.require(:dataset).permit(:flow, :action)
-    dataset_params = params.require(:dataset).permit(*DATASET_PERMITTED_PARAMS)
-    dataset_params[:licence] = get_licence(dataset_params)
-
-    current_dataset.update_attributes(dataset_params)
-    current_dataset.save!
-
-    if refer_to[:flow] = 'new'
-      redirect_to action: refer_to[:action]
-    else
-      redirect_to edit_dataset_path(current_dataset)
-    end
-  end
 
   private
   def get_licence(dataset_params)
@@ -54,6 +55,6 @@ class DatasetsController < ApplicationController
   end
 
   def current_dataset
-    Dataset.find(params.require(:dataset_id))
+    Dataset.find(params.require(:id))
   end
 end
