@@ -25,12 +25,12 @@ class ManageController < ApplicationController
     end
 
     result = if has_search_term
-      args[:search] = params[:q].downcase
-      query_string = "name ILIKE CONCAT('%',:search,'%') OR title ILIKE CONCAT('%',:search,'%')"
-      Dataset.where(query_string, args)
-    else
-      Dataset.where(args)
-    end
+               args[:search] = params[:q].downcase
+               query_string = "name ILIKE CONCAT('%',:search,'%') OR title ILIKE CONCAT('%',:search,'%')"
+               Dataset.where(query_string, args)
+             else
+               Dataset.where(args)
+             end
 
     result.page params[:page]
 
