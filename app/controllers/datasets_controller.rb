@@ -6,7 +6,7 @@ class DatasetsController < ApplicationController
   end
 
   def create
-    @dataset = Dataset.new(dataset_params)
+    @dataset = Dataset.new(params.require(:dataset).permit(:id, :title, :description))
     @dataset.organisation = current_user.primary_organisation
 
     if @dataset.save
@@ -16,22 +16,44 @@ class DatasetsController < ApplicationController
     end
   end
 
-  def license
+  def licence
     @dataset = current_dataset
   end
 
-  def save_and_update
-    # Handle
+  def location
+    @dataset = current_dataset
+  end
 
-    redirect_to
+  DATASET_PERMITTED_PARAMS = [
+    :licence,
+    :licence_other
+  ]
+
+  def save_and_update
+    refer_to = params.require(:dataset).permit(:flow, :action)
+    dataset_params = params.require(:dataset).permit(*DATASET_PERMITTED_PARAMS)
+    dataset_params[:licence] = get_licence(dataset_params)
+
+    current_dataset.update_attributes(dataset_params)
+    current_dataset.save!
+
+    if refer_to[:flow] = 'new'
+      redirect_to action: refer_to[:action]
+    else
+      redirect_to edit_dataset_path(current_dataset)
+    end
   end
 
   private
-  def current_dataset
-    Dataset.find(dataset_params[:dataset_id])
+  def get_licence(dataset_params)
+    if dataset_params[:licence] == 'other'
+      return dataset_params[:licence_other]
+    end
+
+    'uk-ogl'
   end
 
-  def dataset_params
-    params.permit(:dataset_id, :dataset, :id, :title, :summary, :description)
+  def current_dataset
+    Dataset.find(params.require(:dataset_id))
   end
 end

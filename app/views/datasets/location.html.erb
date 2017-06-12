@@ -1,0 +1,34 @@
+<% content_for :page_title do %>
+    Add location -
+<% end %>
+
+<main role="main" id="content">
+  <h1 class="heading-large">Choose a geographical area</h1>
+  <div class="datasets">
+      <% if @dataset.errors.any? %>
+		  <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+			  <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+				There was a problem
+			  </h1>
+			  <ul class="error-summary-list">
+                  <% @dataset.errors.each do |attr, message| %>
+                      <li>
+                          <a href="#<%= attr.to_s %>_form_group">
+                              <%= "#{attr.to_s.humanize} #{message}" %>
+                          </a>
+                          <span class="visuallyhidden">.</span>
+                      </li>
+				  <% end %>
+			  </ul>
+		  </div>
+      <% end %>
+
+      <%= form_for @dataset, url: dataset_save_and_update_path(@dataset), method: 'post' do |f| %>
+
+          <%= f.hidden_field 'flow', value: 'new' %>
+          <%= f.hidden_field 'action', value: 'frequency' %>
+          <%= f.submit 'Save and continue', class: 'button' %>
+          <%= link_to 'Skip this step', dataset_location_path(@dataset) %>
+      <% end %>
+  </div>
+</main>

@@ -1,23 +1,30 @@
 <div class="form-group<%= " error" if dataset.errors.keys.include?(field[:name])%>" id="<%= field[:name] %>-form-group">
     <%= f.label field[:name].to_sym,
                 "#{field.fetch(:label, field[:name].humanize)}#{field[:optional] ? ' (optional)' : ''}",
-                class: 'form-label-bold'
+                class: field[:label_class] || 'form-label-bold'
     %>
 
     <span class="form-hint"><%= field.fetch(:hint, '') %></span>
 
-    <% if field[:input_type] %>
+    <% if field[:input_type] == :radio_button %>
+      <%= f.radio_button field[:name], field[:value],
+                         {
+                           class: field[:input_class] || '',
+                           id: field[:id] || "id_#{field[:name]}",
+                           value: field[:value] || dataset.send(field[:name])
+                         }.merge(field.fetch(:input_options, {})) %>
+    <% elsif field[:input_type] %>
       <%= f.send(field[:input_type],
                  field[:name],
                  {
-                   class: "form-control form-control-2-3 #{field[:input_class]}",
-                   id: "id_#{field[:name]}",
-                   value: dataset.send(field[:name])
+                   class: "form-control #{field[:input_class]}",
+                   id: field[:id] || "id_#{field[:name]}",
+                   value: field[:value] || dataset.send(field[:name])
                  }.merge(field.fetch(:input_options, {}))) %>
     <% else %> 
       <%= f.text_field field[:name],
-                 class: "form-control form-control-2-3",
-                 id: "id_#{field[:name]}",
-                 value: dataset.send(field[:name]) %>
+                 class: "form-control #{field[:input_class]}",
+                 id: field[:id] || "id_#{field[:name]}",
+                 value: field[:value] || dataset.send(field[:name]) %>
     <% end %>
 </div>

@@ -13,12 +13,13 @@ Rails.application.routes.draw do
   get 'tasks/organisation', to: 'tasks#organisation'
 
   resources :datasets do
-    get 'license'
+    get 'licence'
     get 'location'
     get 'frequency'
     get 'addfile'
     get 'adddoc'
     get 'publish'
+    post 'save_and_update'
   end
 
   get 'manage', to: 'manage#manage_own'
