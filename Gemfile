@@ -16,6 +16,8 @@ gem 'govuk_frontend_toolkit', '~> 6.0'
 gem 'govuk_template', '~> 0.22'
 gem 'audited', '~> 4.5'
 gem 'kaminari', '~> 1.0.1'
+gem 'rest-client', '~> 2.0.2'
+gem 'mime-types', '~> 3.1'
 
 group :development, :test do
   gem 'byebug', '~> 9'
