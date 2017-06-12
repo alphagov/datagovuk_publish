@@ -31,7 +31,7 @@ module LinkChecker
     begin
       response = RestClient.head datafile.url
       save_result(datafile, response)
-    rescue RestClient::ExceptionWithResponse => e
+    rescue RestClient::ExceptionWithResponse
       datafile.broken = true
       datafile.save()
     end
