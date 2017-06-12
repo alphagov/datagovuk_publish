@@ -12,7 +12,6 @@ class ManageController < ApplicationController
     @datasets = get_query(false)
   end
 
-
   def get_query(with_owned)
     has_search_term = params[:q] != "" && params[:q] != nil
 
@@ -24,16 +23,17 @@ class ManageController < ApplicationController
       args[:creator_id] = current_user.id
     end
 
-    result = if has_search_term
-               args[:search] = params[:q].downcase
-               query_string = "name ILIKE CONCAT('%',:search,'%') OR title ILIKE CONCAT('%',:search,'%')"
-               Dataset.where(query_string, args)
-             else
-               Dataset.where(args)
-             end
+    perform_query(args, has_search_term).page params[:page]
+  end
 
-    result.page params[:page]
-
+  def perform_query(args, has_terms)
+    if has_terms
+      args[:search] = params[:q].downcase
+      query_string = "name ILIKE CONCAT('%',:search,'%') OR title ILIKE CONCAT('%',:search,'%')"
+      Dataset.where(query_string, args)
+    else
+      Dataset.where(args)
+    end
   end
 
   def set_common_args
@@ -43,5 +43,5 @@ class ManageController < ApplicationController
     @q = params[:q]
   end
 
-  private :set_common_args, :get_query
+  private :set_common_args, :get_query, :perform_query
 end
