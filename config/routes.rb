@@ -13,13 +13,14 @@ Rails.application.routes.draw do
   get 'tasks/organisation', to: 'tasks#organisation'
 
   resources :datasets do
-    get 'licence'
-    get 'location'
-    get 'frequency'
-    get 'addfile'
-    get 'adddoc'
-    get 'publish'
-    post 'save_and_update'
+    member do
+      match 'new/licence', to: 'dataset#licence', via: [:get, :post]
+      match 'new/location', to: 'dataset#location', via: [:get, :post]
+      match 'new/frequency', to: 'dataset#frequency', via: [:get, :post]
+      match 'new/addfile', to: 'dataset#addfile', via: [:get, :post]
+      match 'new/adddoc', to: 'dataset#adddoc', via: [:get, :post]
+      match 'new/publish', to: 'dataset#publish', via: [:get, :post]
+    end
   end
 
   get 'manage', to: 'manage#manage_own'
