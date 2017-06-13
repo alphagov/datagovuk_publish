@@ -1,9 +1,9 @@
 <% content_for :page_title do %>
-    Add location -
+    Add a link to your data -
 <% end %>
 
 <main role="main" id="content">
-  <h1 class="heading-large">Choose a geographical area</h1>
+  <h1 class="heading-large">Add a link to your data</h1>
   <div class="datasets">
       <% if @dataset.errors.any? %>
 		  <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
@@ -23,10 +23,21 @@
 		  </div>
       <% end %>
 
-      <%= form_for @dataset, url: new_location_dataset_path(@dataset), method: 'put' do |f| %>
+      <%= form_for @dataset, url: new_addfile_dataset_path(@dataset), method: 'put' do |f| %>
+          <%= dataset_field f, @dataset,
+              name: 'url',
+              label: 'URL',
+              hint: 'Enter a link (beginning with http:// or https://) to point directly to your data file. The file will usually be uploaded to either your organisation’s website or another website, like GOV.UK or Amazon Web Services (AWS).',
+              value: '' %>
+
+          <%= dataset_field f, @dataset,
+              name: 'name',
+              label: 'Link name',
+              hint: 'The link name mustn’t be the same as the URL. It should clearly describe the data so users can find it easily.',
+              value: '' %>
 
           <%= f.submit 'Save and continue', class: 'button' %>
-          <%= link_to 'Skip this step', new_frequency_dataset_path(@dataset) %>
+          <%= link_to 'Skip this step', new_adddoc_dataset_path(@dataset) %>
       <% end %>
   </div>
 </main>

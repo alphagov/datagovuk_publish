@@ -23,7 +23,50 @@
 		  </div>
       <% end %>
 
-      <%= form_for @dataset, url: new_frequency_dataset_path(@dataset), method: 'post' do |f| %>
+      <%= form_for @dataset, url: new_frequency_dataset_path(@dataset), method: 'put' do |f| %>
+          <%= dataset_field f, @dataset,
+            name: 'frequency',
+            input_type: :radio_button,
+            label: 'Daily',
+            label_class: 'block-label selection-button-radio',
+            value: 'daily' %>
+          <%= dataset_field f, @dataset,
+            name: 'frequency',
+            input_type: :radio_button,
+            label: 'Weekly',
+            label_class: 'block-label selection-button-radio',
+            value: 'weekly' %>
+          <%= dataset_field f, @dataset,
+            name: 'frequency',
+            input_type: :radio_button,
+            label: 'Monthly',
+            label_class: 'block-label selection-button-radio',
+            value: 'monthly' %>
+          <%= dataset_field f, @dataset,
+            name: 'frequency',
+            input_type: :radio_button,
+            label: 'Quarterly',
+            label_class: 'block-label selection-button-radio',
+            value: 'quarterly' %>
+          <%= dataset_field f, @dataset,
+            name: 'frequency',
+            input_type: :radio_button,
+            label: 'Annually (January to December)',
+            label_class: 'block-label selection-button-radio',
+            value: 'annually' %>
+          <%= dataset_field f, @dataset,
+            name: 'frequency',
+            input_type: :radio_button,
+            label: 'Annually (financial year April to March)',
+            label_class: 'block-label selection-button-radio',
+            value: 'financial-year' %>
+          <%= dataset_field f, @dataset,
+            name: 'frequency',
+            input_type: :radio_button,
+            label: 'One-off',
+            label_class: 'block-label selection-button-radio',
+            value: 'never' %>
+
           <%= f.submit 'Save and continue', class: 'button' %>
       <% end %>
   </div>

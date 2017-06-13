@@ -1,0 +1,72 @@
+<% content_for :page_title do %>
+    Check your dataset -
+<% end %>
+
+<main id="content" role="main">
+    <h1 class="heading-large">Publish '<%= @dataset.title %>'</h1>
+
+    <ul>
+        <li>Status: <%= @dataset.status %></li>
+        <li>Published by: <%= @dataset.organisation.name %></li>
+    </ul>
+
+    <table class="check-your-answers">
+        <tbody>
+            <tr>
+                <th class="dataset-item">Title</th>
+                <td><%= @dataset.title %>
+                <td class="actions">
+                </td>
+            </tr>
+            <tr>
+                <th class="dataset-item">Summary</th>
+                <td><%= @dataset.summary %>
+                <td class="actions">
+                </td>
+            </tr>
+            <tr>
+                <th class="dataset-item">Additional information</th>
+                <td><%= @dataset.description %>
+                <td class="actions">
+                </td>
+            </tr>
+            <tr>
+                <th class="dataset-item">Licence</th>
+                <td><%= @dataset.licence %>
+                <td class="actions">
+                </td>
+            </tr>
+            <tr>
+                <th class="dataset-item">Geographical location</th>
+                <td><%= @dataset.location1 %>
+                <td class="actions">
+                </td>
+            </tr>
+            <tr>
+                <th class="dataset-item">Frequency</th>
+                <td><%= @dataset.frequency %>
+                <td class="actions">
+                </td>
+            </tr>
+            <tr>
+                <th class="dataset-item">Data</th>
+                <td><%= @dataset.datafiles.datalinks.to_a %>
+                <td class="actions">
+                </td>
+            </tr>
+            <tr>
+                <th class="dataset-item">Documentation</th>
+                <td><%= @dataset.datafiles.documentation.to_a %>
+                <td class="actions">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <%= form_for @dataset, method: 'post' do |f| %>
+        <p><%= f.submit 'Publish', class: 'button' %></p>
+    <% end %>
+
+    <p><%= link_to 'Delete this dataset', root_path, class: 'secondary-button danger' %></p>
+    <p><%= link_to 'Back to manage your dataset', manage_path, class: 'secondary-button' %></p>
+</main>

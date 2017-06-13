@@ -26,7 +26,7 @@
       <%= form_for @dataset, action: 'create', method: 'post' do |f| %>
           <%= dataset_field f, @dataset,
               name: 'title',
-              hint: 'Titles should clearly describe the content of your dataset in under 100 characters' %>
+              hint: 'Titles should clearly describe the content of your dataset in under 65 characters' %>
 
           <%= dataset_field f, @dataset,
               name: 'summary',
