@@ -43,5 +43,4 @@ describe "Location API" do
     expect(page.status_code).to be 200
     expect(json.length).to eq(0)
   end
-
 end
