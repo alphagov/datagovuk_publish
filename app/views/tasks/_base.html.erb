@@ -9,10 +9,10 @@
       <thead>
         <tr>
           <th class="sortable-heading name">
-            <a href="" class="sort-ascending">Name</a>
+            <%=link_to "Name", tasks_path(sort_by: @update_name_sort), class:"sort-ascending" %>
           </th>
           <th class="sortable-heading update-by">
-            <a href=""class="sort-descending">Update by</a>
+            <%=link_to "Update by", tasks_path(sort_by: @update_date_sort), class:"sort-ascending" %>
           </th>
           <th class="actions">
             <span class="visuallyhidden">Actions</span>
@@ -21,13 +21,13 @@
       </thead>
       <tbody>
 
-      <% @tasks.each do |task| %>
+      <% sorted_update_tasks.each do |task| %>
           <tr class="show-hide-item">
             <th>
               <a href=""><%= task.description =%></a>
             </th>
             <td>
-              <span class="update-date">03 Feb 2017</span>
+              <span class="update-date"><%=task.created_at%></span>
               <div class="overdue">
                 Overdue
               </div>
@@ -50,17 +50,17 @@
   <section class="show-hide">
     <div class="table-title">
       <h2 class="heading-medium">
-        <%=@datasetsBroken.count=%> datasets have broken data links
+        <%=broken_dataset_count=%> datasets have broken data links
       </h2>
     </div>
     <table>
       <thead>
         <tr>
           <th class="sortable-heading name">
-            <a href="" class="sort-ascending">Name</a>
+            <%=link_to "Name", tasks_path(sort_by: @fix_name_sort), class:"sort-ascending" %>
           </th>
           <th class="sortable-heading broken-links">
-            <a href="" class="sort-ascending link-count">Broken links</a>
+            <%=link_to "Broken links", tasks_path(sort_by: @fix_count_sort), class:"sort-ascending link-count" %>
           </th>
           <th class="actions">
             <span class="visuallyhidden">Actions</span>
@@ -68,7 +68,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @datasetsBroken.each do |dataset| %>
+        <% sorted_fix_tasks.each do |dataset| %>
           <tr class="show-hide-item">
             <th>
               <a href=""><%=dataset.title=%></a>
