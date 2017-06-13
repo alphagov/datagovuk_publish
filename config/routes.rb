@@ -16,4 +16,7 @@ Rails.application.routes.draw do
 
   get 'manage', to: 'manage#manage_own'
   get 'manage/organisation', to: 'manage#manage_organisation'
+
+  get 'api/locations', to: 'locations#lookup'
+
 end
