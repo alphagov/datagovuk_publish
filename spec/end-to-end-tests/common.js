@@ -60,8 +60,8 @@ var login = function(browser, email, password) {
     .clickOnLink('Sign in')
     .waitForElementVisible('main', waitTimeout)
     .assert.containsText('h1', 'Sign in')
-    .clearSetValue('input[name=email]', email)
-    .clearSetValue('input[name=password]', password)
+    .clearSetValue('input[name="user[email]"]', email)
+    .clearSetValue('input[name="user[password]"]', password)
     .submitFormAndCheckNextTitle('Tasks');
   return browser;
 };

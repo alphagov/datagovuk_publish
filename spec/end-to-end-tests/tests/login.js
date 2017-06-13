@@ -8,8 +8,8 @@ var test_login = function(browser) {
     .clickOnLink('Sign in')
     .waitForElementVisible('main', common.waitTimeout)
     .assert.containsText('h1', 'Sign in')
-    .clearSetValue('input[name=email]', process.env.USER_EMAIL)
-    .clearSetValue('input[name=password]', process.env.USER_PASSWORD)
+    .clearSetValue('input[name="user[email]"]', process.env.USER_EMAIL)
+    .clearSetValue('input[name="user[password]"]', process.env.USER_PASSWORD)
     .submitFormAndCheckNextTitle('Tasks')
     .end();
 };
@@ -22,8 +22,8 @@ var test_failed_login = function(browser) {
     .clickOnLink('Sign in')
     .waitForElementVisible('main', common.waitTimeout)
     .assert.containsText('h1', 'Sign in')
-    .clearSetValue('input[name=email]', 'foo@bar.baz')
-    .clearSetValue('input[name=password]', 'qux')
+    .clearSetValue('input[name="user[email]"]', 'foo@bar.baz')
+    .clearSetValue('input[name="user[password]"]', 'qux')
     .submitFormAndCheckNextTitle('There was a problem signing you in')
     .end();
 };
@@ -36,8 +36,8 @@ var test_logout = function(browser) {
     .clickOnLink('Sign in')
     .waitForElementVisible('main', common.waitTimeout)
     .assert.containsText('h1', 'Sign in')
-    .clearSetValue('input[name=email]', process.env.USER_EMAIL)
-    .clearSetValue('input[name=password]', process.env.USER_PASSWORD)
+    .clearSetValue('input[name="user[email]"]', process.env.USER_EMAIL)
+    .clearSetValue('input[name="user[password]"]', process.env.USER_PASSWORD)
     .submitFormAndCheckNextTitle('Tasks')
     .clickOnLink('Sign out')
     .assert.containsText('h1', 'Publish and update data')
