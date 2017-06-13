@@ -30,7 +30,7 @@ def manage_sort
   @fix_name_sort      = "broken-name"
   @fix_count_sort     = "decreasing"
 
-  case params["sort_by"]
+  case params["update_sort_by"]
 
   when "descending"
     @update_date_sort = "ascending"
@@ -38,8 +38,12 @@ def manage_sort
     @update_date_sort = "descending"
   when "name"
     @update_name_sort = "-name"
-  when "-name"
+  else
     @update_name_sort = "name"
+  end
+
+  case params["fix_sort_by"]
+
   when "broken-name"
     @fix_name_sort = "-broken-name"
   when "-broken-name"
