@@ -1,5 +1,38 @@
 module TasksHelper
 
+  def manage_sort
+
+    @date_sort   = "descending"
+    @update_name_sort   = "name"
+    @fix_name_sort      = "broken-name"
+    @count_sort     = "decreasing"
+
+    case params["update_sort_by"]
+
+    when "descending"
+      @date_sort = "ascending"
+    when "ascending"
+      @date_sort = "descending"
+    when "name"
+      @update_name_sort = "-name"
+    else
+      @update_name_sort = "name"
+    end
+
+    case params["fix_sort_by"]
+
+    when "broken-name"
+      @fix_name_sort = "-broken-name"
+    when "-broken-name"
+      @fix_name_sort = "broken-name"
+    when "decreasing"
+      @count_sort = "increasing"
+    else
+      @count_sort = "decreasing"
+    end
+
+  end
+
   def sorted_update_tasks
     if params["update_sort_by"] == "ascending"
       @tasks.order(created_at: :asc)

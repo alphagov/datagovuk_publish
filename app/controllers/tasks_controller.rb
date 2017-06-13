@@ -2,6 +2,7 @@
 class TasksController < ApplicationController
   protect_from_forgery prepend: :true
   before_action :authenticate_user!
+  include TasksHelper
 
 
   def my
@@ -22,39 +23,6 @@ class TasksController < ApplicationController
   end
 
 private
-
-def manage_sort
-
-  @update_date_sort   = "descending"
-  @update_name_sort   = "name"
-  @fix_name_sort      = "broken-name"
-  @fix_count_sort     = "decreasing"
-
-  case params["update_sort_by"]
-
-  when "descending"
-    @update_date_sort = "ascending"
-  when "ascending"
-    @update_date_sort = "descending"
-  when "name"
-    @update_name_sort = "-name"
-  else
-    @update_name_sort = "name"
-  end
-
-  case params["fix_sort_by"]
-
-  when "broken-name"
-    @fix_name_sort = "-broken-name"
-  when "-broken-name"
-    @fix_name_sort = "broken-name"
-  when "decreasing"
-    @fix_count_sort = "increasing"
-  else
-    @fix_count_sort = "decreasing"
-  end
-
-end
 
   def get_tasks_for_user(_user)
     Task.all
