@@ -1,32 +1,36 @@
 module TasksHelper
 
+  SORT_TOGGLES = {
+    "broken-name"=>"-broken-name",
+    "-broken-name"=>"broken-name",
+    "increasing"=>"decreasing",
+    "decreasing"=>"increasing",
+    "descending"=>"ascending",
+    "ascending"=>"descending",
+    "-name"=>"name",
+    "name"=>"-name"
+  }
+  
   def manage_sort
-
-    @date_sort          = "descending"
+    @date_sort          = "ascending"
     @update_name_sort   = "name"
     @fix_name_sort      = "broken-name"
     @count_sort         = "decreasing"
 
-    case params["update_sort_by"]
-    when "descending"
-      @date_sort = "ascending"
-    when "ascending"
-      @date_sort = "descending"
-    when "name"
-      @update_name_sort = "-name"
-    else
-      @update_name_sort = "name"
+    ["update_sort_by","fix_sort_by"].each do |key|
+      toggle_sort(params[key])
     end
+  end
 
-    case params["fix_sort_by"]
-    when "broken-name"
-      @fix_name_sort = "-broken-name"
-    when "-broken-name"
-      @fix_name_sort = "broken-name"
-    when "decreasing"
-      @count_sort = "increasing"
-    else
-      @count_sort = "decreasing"
+  def toggle_sort(param)
+    if (param == "broken-name") || (param == "-broken-name")
+      @fix_name_sort = SORT_TOGGLES[param]
+    elsif (param == "decreasing") || (param == "increasing")
+      @count_sort = SORT_TOGGLES[param]
+    elsif (param == "descending") || (param == "ascending")
+      @date_sort = SORT_TOGGLES[param]
+    elsif (param == "name") || (param == "-name")
+      @update_name_sort = SORT_TOGGLES[param]
     end
   end
 
@@ -59,5 +63,4 @@ module TasksHelper
   def broken_dataset_count
     @broken_datasets.count
   end
-
 end
