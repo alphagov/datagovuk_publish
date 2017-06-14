@@ -1,15 +1,18 @@
 class ManageController < ApplicationController
   protect_from_forgery prepend: :true
   before_action :authenticate_user!
+  include ManageHelper
 
   def manage_own
     set_common_args
     @datasets = get_query(true)
+    manage_sort
   end
 
   def manage_organisation
     set_common_args
     @datasets = get_query(false)
+    manage_sort
   end
 
   def get_query(with_owned)
@@ -39,7 +42,6 @@ class ManageController < ApplicationController
   def set_common_args
     @organisation = current_user.primary_organisation
     @find_url = ""
-    @sort = "published"
     @q = params[:q]
   end
 
