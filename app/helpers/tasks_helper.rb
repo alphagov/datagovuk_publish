@@ -1,63 +1,32 @@
 module TasksHelper
 
-  SORT_TOGGLES = {
-    "broken-name"=>"-broken-name",
-    "-broken-name"=>"broken-name",
-    "increasing"=>"decreasing",
-    "decreasing"=>"increasing",
-    "descending"=>"ascending",
-    "ascending"=>"descending",
-    "-name"=>"name",
-    "name"=>"-name"
+  SORT_UPDATES = {
+    "ascending" => {created_at: :asc},
+    "-name" => {description: :desc},
+    "name" => {description: :asc},
+    "descending" => {created_at: :desc},
+    "-broken-name" => {title: :desc},
+    "decreasing" => {created_at: :desc},
+    "increasing" => {created_at: :asc},
+    "broken-name" => {title: :asc}
   }
-  
+
   def manage_sort
-    @date_sort          = "ascending"
-    @update_name_sort   = "name"
-    @fix_name_sort      = "broken-name"
-    @count_sort         = "decreasing"
+    @date_sort          = params["update_sort_by"] == "descending" ? "ascending" : "descending"
+    @update_name_sort   = params["update_sort_by"] == "name" ? "-name" : "name"
+    @count_sort         = params["fix_sort_by"] == "increasing" ? "decreasing" : "increasing"
+    @fix_name_sort      = params["fix_sort_by"] == "broken-name" ? "-broken-name" : "broken-name"
 
-    ["update_sort_by","fix_sort_by"].each do |key|
-      toggle_sort(params[key])
-    end
-  end
-
-  def toggle_sort(param)
-    if (param == "broken-name") || (param == "-broken-name")
-      @fix_name_sort = SORT_TOGGLES[param]
-    elsif (param == "decreasing") || (param == "increasing")
-      @count_sort = SORT_TOGGLES[param]
-    elsif (param == "descending") || (param == "ascending")
-      @date_sort = SORT_TOGGLES[param]
-    elsif (param == "name") || (param == "-name")
-      @update_name_sort = SORT_TOGGLES[param]
-    end
   end
 
   def sorted_update_tasks
-    if params["update_sort_by"] == "ascending"
-      @tasks.order(created_at: :asc)
-    elsif params["update_sort_by"] == "-name"
-      @tasks.order(description: :desc)
-    elsif params["update_sort_by"] == "name"
-      @tasks.order(:description)
-    else
-      @tasks.order(created_at: :desc)
-    end
+    sort = params["update_sort_by"] || @date_sort
+    @tasks.order(SORT_UPDATES[sort])
   end
 
   def sorted_fix_tasks
-    if params["fix_sort_by"] == "-broken-name"
-      @broken_datasets.order(title: :desc)
-    elsif params["fix_sort_by"] == "decreasing"
-      #TODO: should be ordered by broken link count, created_at just a place holder
-      @broken_datasets.order(created_at: :desc)
-    elsif params["fix_sort_by"] == "increasing"
-      # TODO: should be ordered by broken link count, created_at just a place holder
-      @broken_datasets.order(created_at: :asc)
-    else
-      @broken_datasets.order(title: :asc)
-    end
+    sort = params["fix_sort_by"] || @fix_name_sort
+    @broken_datasets.order(SORT_UPDATES[sort])
   end
 
   def broken_dataset_count
