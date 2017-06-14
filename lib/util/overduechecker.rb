@@ -27,7 +27,8 @@ module OverdueChecker
     return unless @@frequencies.key? dataset.frequency
 
     # Skip if there is already a task for this dataset
-    return if Task.find_by(related_object_id: dataset.uuid)
+    return if Task.find_by(related_object_id: dataset.uuid,
+                           category: "overdue")
 
     # Finds the max end_date from the datafiles, then determines the
     # number of days since that end_date.
