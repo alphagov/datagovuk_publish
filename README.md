@@ -21,6 +21,22 @@ $ rails s
 $ rake db:seed
 ```
 
+## Generating tasks
+
+### Checking for broken links
+
+```
+rake linkcheck:organisation[org-short-name]
+rake linkcheck:dataset[dataset-short-name]
+```
+
+### Checking for overdue dataset
+
+```
+rake overduecheck:organisation[org-short-name]
+rake overduecheck:dataset[dataset-short-name]
+```
+
 ## Extra ENV vars for production
 ```
 $ export PUBLISH_DATA_BETA_DATABASE_PASSWORD=...
