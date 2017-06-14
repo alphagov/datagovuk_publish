@@ -23,7 +23,7 @@
 		  </div>
       <% end %>
 
-      <%= form_for @dataset, url: new_frequency_dataset_path(@dataset), method: 'put' do |f| %>
+      <%= form_for @dataset, url: new_frequency_dataset_path(@dataset), method: 'post' do |f| %>
           <%= dataset_field f, @dataset,
             name: 'frequency',
             input_type: :radio_button,

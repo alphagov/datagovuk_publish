@@ -23,7 +23,7 @@
 		  </div>
       <% end %>
 
-      <%= form_for @dataset, url: new_location_dataset_path(@dataset), method: 'put' do |f| %>
+      <%= form_for @dataset, url: new_location_dataset_path(@dataset), method: 'post' do |f| %>
 
           <%= f.submit 'Save and continue', class: 'button' %>
           <%= link_to 'Skip this step', new_frequency_dataset_path(@dataset) %>
