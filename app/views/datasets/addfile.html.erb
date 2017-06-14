@@ -11,26 +11,27 @@
 				There was a problem
 			  </h1>
 			  <ul class="error-summary-list">
-                  <% @dataset.errors.each do |attr, message| %>
-                      <li>
-                          <a href="#<%= attr.to_s %>_form_group">
-                              <%= "#{attr.to_s.humanize} #{message}" %>
-                          </a>
-                          <span class="visuallyhidden">.</span>
-                      </li>
+          <%= @datafile.errors %>
+          <% @datafile.errors.each do |attr, message| %>
+              <li>
+                  <a href="#<%= attr.to_s %>_form_group">
+                      <%= "#{attr.to_s.humanize} #{message}" %>
+                  </a>
+                  <span class="visuallyhidden">.</span>
+              </li>
 				  <% end %>
 			  </ul>
 		  </div>
       <% end %>
 
-      <%= form_for @dataset, url: new_addfile_dataset_path(@dataset), method: 'post' do |f| %>
-          <%= dataset_field f, @dataset,
+      <%= form_for @datafile, url: new_addfile_dataset_path(@dataset), method: 'post' do |f| %>
+          <%= dataset_field f, @datafile,
               name: 'url',
               label: 'URL',
               hint: 'Enter a link (beginning with http:// or https://) to point directly to your data file. The file will usually be uploaded to either your organisation’s website or another website, like GOV.UK or Amazon Web Services (AWS).',
               value: '' %>
 
-          <%= dataset_field f, @dataset,
+          <%= dataset_field f, @datafile,
               name: 'name',
               label: 'Link name',
               hint: 'The link name mustn’t be the same as the URL. It should clearly describe the data so users can find it easily.',

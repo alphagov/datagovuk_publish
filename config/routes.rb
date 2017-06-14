@@ -27,6 +27,8 @@ Rails.application.routes.draw do
       match 'edit/adddoc',    to: 'datasets#edit_adddoc',    via: [:get, :put]
 
       match 'publish',       to: 'datasets#publish',   via: [:get, :post]
+
+      get 'confirm_delete', to: 'datasets#confirm_delete'
     end
   end
 

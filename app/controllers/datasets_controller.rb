@@ -19,7 +19,7 @@ class DatasetsController < ApplicationController
   def licence
     @dataset = current_dataset
 
-    if request.put?
+    if request.post?
       licence = get_licence(params.require(:dataset).permit(:licence, :licence_other))
       @dataset.licence = licence
 
@@ -30,7 +30,7 @@ class DatasetsController < ApplicationController
   def location
     @dataset = current_dataset
 
-    if request.put?
+    if request.post?
       location = params.require(:dataset).permit(:location)[:location]
       @dataset.location1 = location
 
@@ -41,7 +41,7 @@ class DatasetsController < ApplicationController
   def frequency
     @dataset = current_dataset
 
-    if request.put?
+    if request.post?
       @dataset.frequency = params.require(:dataset).permit(:frequency)[:frequency]
 
       redirect_to new_addfile_dataset_path(@dataset) if @dataset.save
@@ -50,20 +50,26 @@ class DatasetsController < ApplicationController
 
   def addfile
     @dataset = current_dataset
+    @datafile = Datafile.new
 
-    if request.put?
-      file_params = params.require(:dataset).permit(:url, :name)
-      datafile = Datafile.new(file_params)
+    if request.post?
+      file_params = params.require(:datafile).permit(:url, :name)
+      @datafile = Datafile.new(file_params)
 
-      redirect_to new_adddoc_dataset_path(@dataset) if datafile.save
+      if @datafile.save
+        redirect_to new_adddoc_dataset_path(@dataset)
+      end
+
+      binding.pry
     end
   end
 
   def adddoc
     @dataset = current_dataset
+    @datafile = Datafile.new
 
-    if request.put?
-      doc_params = params.require(:dataset).permit(:url, :name)
+    if request.post?
+      doc_params = params.require(:datafile).permit(:url, :name)
       doc = Datafile.new(doc_params.merge({documentation: true}))
 
       redirect_to publish_dataset_path(@dataset) if doc.save
@@ -73,7 +79,7 @@ class DatasetsController < ApplicationController
   def publish
     @dataset = current_dataset
 
-    if request.put?
+    if request.post?
       @dataset.published = true
 
       redirect_to manage_path if @dataset.save

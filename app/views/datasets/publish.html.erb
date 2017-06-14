@@ -57,7 +57,7 @@
             </tr>
             <tr>
                 <th class="dataset-item">Frequency</th>
-                <td><%= @dataset.frequency %>
+                <td><%= friendly_frequency(@dataset.frequency) %>
                 <td class="actions">
                     <% if @dataset.frequency %>
                         <%= link_to 'Change', edit_frequency_dataset_path(@dataset) %>
@@ -68,14 +68,32 @@
             </tr>
             <tr>
                 <th class="dataset-item">Data</th>
-                <td><%= @dataset.datafiles.datalinks.to_a %>
+                <td><%= 
+                        @dataset.datafiles.datalinks.map do |link|
+                          link_to link.title, link.url
+                        end.join(', ')
+                    %>
                 <td class="actions">
+                    <% if @dataset.datafiles.datalinks.any? %>
+                        <%= link_to 'Change', edit_addfile_dataset_path(@dataset) %>
+                    <% else %>
+                        <%= link_to 'Add', edit_addfile_dataset_path(@dataset) %>
+                    <% end %>
                 </td>
             </tr>
             <tr>
                 <th class="dataset-item">Documentation</th>
-                <td><%= @dataset.datafiles.documentation.to_a %>
+                <td><%=
+                        @dataset.datafiles.documentation.map do |doc|
+                          link_to doc.title, doc.url
+                        end.join(', ')
+                    %>
                 <td class="actions">
+                    <% if @dataset.datafiles.documentation.any? %>
+                        <%= link_to 'Change', edit_adddoc_dataset_path(@dataset) %>
+                    <% else %>
+                        <%= link_to 'Add', edit_adddoc_dataset_path(@dataset) %>
+                    <% end %>
                 </td>
             </tr>
         </tbody>
@@ -85,6 +103,6 @@
         <p><%= f.submit 'Publish', class: 'button' %></p>
     <% end %>
 
-    <p><%= link_to 'Delete this dataset', root_path, class: 'secondary-button danger' %></p>
+    <p><%= link_to 'Delete this dataset', confirm_delete_dataset_path, class: 'secondary-button danger' %></p>
     <p><%= link_to 'Back to manage your dataset', manage_path, class: 'secondary-button' %></p>
 </main>
