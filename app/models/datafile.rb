@@ -1,5 +1,10 @@
+require 'uri'
+
 class Datafile < ApplicationRecord
   belongs_to :dataset
+
+  validates :url, presence: true
+  validates :name, presence: true
 
   scope :published, -> { where(published: true) }
   scope :draft,     -> { where(published: false) }

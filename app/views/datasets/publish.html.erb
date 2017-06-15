@@ -70,7 +70,7 @@
                 <th class="dataset-item">Data</th>
                 <td><%= 
                         @dataset.datafiles.datalinks.map do |link|
-                          link_to link.title, link.url
+                          link_to link.name, link.url
                         end.join(', ')
                     %>
                 <td class="actions">
@@ -85,7 +85,7 @@
                 <th class="dataset-item">Documentation</th>
                 <td><%=
                         @dataset.datafiles.documentation.map do |doc|
-                          link_to doc.title, doc.url
+                          link_to doc.name, doc.url
                         end.join(', ')
                     %>
                 <td class="actions">

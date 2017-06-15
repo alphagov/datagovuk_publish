@@ -5,13 +5,12 @@
 <main role="main" id="content">
   <h1 class="heading-large">Add a link to your data</h1>
   <div class="datasets">
-      <% if @dataset.errors.any? %>
+      <% if @datafile.errors.any? %>
 		  <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
 			  <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
 				There was a problem
 			  </h1>
 			  <ul class="error-summary-list">
-          <%= @datafile.errors %>
           <% @datafile.errors.each do |attr, message| %>
               <li>
                   <a href="#<%= attr.to_s %>_form_group">
@@ -29,13 +28,13 @@
               name: 'url',
               label: 'URL',
               hint: 'Enter a link (beginning with http:// or https://) to point directly to your data file. The file will usually be uploaded to either your organisation’s website or another website, like GOV.UK or Amazon Web Services (AWS).',
-              value: '' %>
+              value: @datafile.url %>
 
           <%= dataset_field f, @datafile,
               name: 'name',
               label: 'Link name',
               hint: 'The link name mustn’t be the same as the URL. It should clearly describe the data so users can find it easily.',
-              value: '' %>
+              value: @datafile.name %>
 
           <%= f.submit 'Save and continue', class: 'button' %>
           <%= link_to 'Skip this step', new_adddoc_dataset_path(@dataset) %>

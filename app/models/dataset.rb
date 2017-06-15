@@ -2,7 +2,7 @@ class Dataset < ApplicationRecord
   belongs_to :organisation
   has_many :datafiles
 
-  validates :title, presence: true
+  validates :title, presence: true, uniqueness: true
   validates :summary, presence: true
 
   def published?

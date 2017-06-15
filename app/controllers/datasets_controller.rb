@@ -55,24 +55,25 @@ class DatasetsController < ApplicationController
     if request.post?
       file_params = params.require(:datafile).permit(:url, :name)
       @datafile = Datafile.new(file_params)
+      @datafile.dataset = @dataset
 
       if @datafile.save
         redirect_to new_adddoc_dataset_path(@dataset)
       end
-
-      binding.pry
     end
   end
 
   def adddoc
     @dataset = current_dataset
-    @datafile = Datafile.new
+    @doc = Datafile.new
 
     if request.post?
       doc_params = params.require(:datafile).permit(:url, :name)
-      doc = Datafile.new(doc_params.merge({documentation: true}))
+      @doc = Datafile.new(doc_params)
+      @doc.documentation = true
+      @doc.dataset = @dataset
 
-      redirect_to publish_dataset_path(@dataset) if doc.save
+      redirect_to publish_dataset_path(@dataset) if @doc.save
     end
   end
 
