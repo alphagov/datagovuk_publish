@@ -19,4 +19,5 @@ Rails.application.routes.draw do
 
   get 'api/locations', to: 'locations#lookup'
 
+  get 'account/:id', to: 'account#show', as: 'account_show'
 end
