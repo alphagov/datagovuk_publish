@@ -8,24 +8,16 @@
     <thead>
       <tr>
         <th class="sortable-heading">
-          <a
-              href=""
-              class="<% if @sort == 'name' %>sort-ascending<% elif @sort == '-name' %>sort-descending<% end %>">
-            Dataset name
-          </a>
+          <%= link_to "Dataset Name", set_path(sort_by: @name_sort, q: @q), class:"sort-ascending" %>
         </th>
         <th class="sortable-heading">
-          <a
-              href=""
-              class="<% if @sort == 'published' %>sort-ascending<% elsif @sort == '-published' %>sort-descending<% end %>">
-            Status
-          </a>
+          <%= link_to "Status", set_path(sort_by: @publish_sort, q: @q), class:"sort-ascending" %>
         </th>
         <th><span class="visuallyhidden">Actions</span></th>
       </tr>
     </thead>
     <tbody id="dataset-list">
-      <% @datasets.each do |dataset| %>
+      <% sorted_datasets.each do |dataset| %>
         <tr>
           <th>
             <% if @find_url && dataset.published %>

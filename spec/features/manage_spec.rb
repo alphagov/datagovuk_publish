@@ -39,10 +39,12 @@ describe "managing datasets" do
 
     # Don't expect any tables as creator_id not set on dataset
     click_link 'Manage datasets'
+    expect(page).to have_content('No results found')
     expect(page).to have_selector(%(table), count: 0)
 
     # Expect to see the table with datasets in it.
     click_link 'Land Registry datasets'
+    expect(page).to have_content('Price Paid data for all London Boroughs')
     expect(page).to have_selector(%(table), count: 1)
   end
 
@@ -50,13 +52,21 @@ describe "managing datasets" do
     click_link 'Manage datasets'
     click_link 'Land Registry datasets'
 
-    # 4 TH includes 3 from header row
-    expect(page).to have_selector(%(th), count: 5)
+    # expect 2 datasets to be displayed
+    within('#dataset-list') do
+      expect(page).to have_selector(%(th), count: 2)
+    end
+
     fill_in('q', with: "find")
     click_button 'Search'
 
-    # We expect to only have a single result now (plus the 3 header th)
-    expect(page).to have_selector(%(th), count: 4)
+    # We expect only a single result now
+    within('#dataset-list') do
+      expect(page).to have_selector(%(th), count: 1)
+    end
+
+    click_link 'My datasets'
+    expect(page).not_to have_content('Find data here')
 
     fill_in('q', with: "cats")
     click_button 'Search'
