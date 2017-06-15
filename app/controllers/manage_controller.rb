@@ -5,28 +5,36 @@ class ManageController < ApplicationController
 
   def manage_own
     set_common_args
-    @datasets = get_query
+    @datasets = get_query(true)
     manage_sort
   end
 
   def manage_organisation
     set_common_args
-    @datasets = get_query
+    @datasets = get_query(false)
     manage_sort
   end
 
-  def get_query
+  def get_query(with_owned)
     search_term = params[:q] != "" && params[:q] != nil
-    perform_query(search_term).page params[:page]
+
+    args = {}
+
+    if with_owned
+      args[:creator_id] = current_user.id
+    end
+
+    perform_query(args, search_term).page params[:page]
   end
 
-  def perform_query(search_term)
-    if search_term
-      args = {search: params[:q].downcase}
-      query_string = "name ILIKE CONCAT('%',:search,'%') OR title ILIKE CONCAT('%',:search,'%')"
-      @organisation.datasets.where(query_string, args)
+  def perform_query(args, terms)
+    if terms
+      args[:search] = params[:q].downcase
+      q_org = "name ILIKE CONCAT('%',:search,'%') OR title ILIKE CONCAT('%',:search,'%')"
+      q_own = "AND creator_id =(:creator_id)"
+      args[:creator_id] ? @organisation.datasets.where(q_org + q_own, args) : @organisation.datasets.where(q_org, args)
     else
-      @organisation.datasets
+      @organisation.datasets.where(args)
     end
   end
 
