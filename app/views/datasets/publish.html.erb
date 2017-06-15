@@ -99,7 +99,7 @@
         </tbody>
     </table>
 
-    <%= form_for @dataset, method: 'post' do |f| %>
+    <%= form_for @dataset, url: publish_dataset_path(@dataset), method: 'post' do |f| %>
         <p><%= f.submit 'Publish', class: 'button' %></p>
     <% end %>
 
