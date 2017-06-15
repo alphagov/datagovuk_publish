@@ -13,17 +13,29 @@ land_registry.name = "land-registry"
 land_registry.title = "Land Registry"
 land_registry.save!()
 
+hmrc = Organisation.new
+hmrc.name = "hmrc"
+hmrc.title = "hmrc"
+hmrc.save!()
+
 admin = AdminUser.create!(
   email: 'admin@example.com',
   password: 'password',
   password_confirmation: 'password'
 )
 
-publisher = User.create!(
+lr_publisher = User.create!(
   email: 'publisher@example.com',
   password: 'password',
   password_confirmation: 'password',
   primary_organisation: land_registry
+)
+
+hmrc_publisher = User.create!(
+  email: 'hmrc_publisher@example.com',
+  password: 'password',
+  password_confirmation: 'password',
+  primary_organisation: hmrc
 )
 
 fix_task = Task.create!(
@@ -57,11 +69,20 @@ council_tax_bands = Dataset.create!(
   organisation: land_registry
 )
 
-for i in 1..30
+for i in 1..5
   Dataset.create!(
-  name: "Dataset_#{i} name",
-  title: "Dataset_#{i} title",
-  summary: "Dataset_#{i} summary",
+  name: "LR_Dataset_#{i} name",
+  title: "LR_Dataset_#{i} title",
+  summary: "LR_Dataset_#{i} summary",
   organisation: land_registry
+  )
+end
+
+for i in 1..5
+  Dataset.create!(
+  name: "HMRC_Dataset_#{i} name",
+  title: "HMRC_Dataset_#{i} title",
+  summary: "HMRC_Dataset_#{i} summary",
+  organisation: hmrc
   )
 end

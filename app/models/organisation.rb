@@ -2,6 +2,7 @@ class Organisation < ApplicationRecord
   audited
   has_and_belongs_to_many :users
   has_many :tasks, dependent: :destroy
+  has_many :datasets
 
   before_destroy :deregister_users
 
