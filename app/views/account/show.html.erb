@@ -1,0 +1,11 @@
+<main role="main" id="content">
+  <h1 class="heading-large">Your account</h1>
+
+  <ul class="user-details">
+    <li><div class="label">Name</div><%= @user.try(:name) =%></li>
+    <li><div class="label">Email</div><%= @user.try(:email) =%></li>
+    <li>
+      <div class="label">Organisation</div><%= @user.try(:primary_organisation).try(:title) =%>
+    </li>
+  </ul>
+</main>

@@ -8,6 +8,7 @@ describe "Location API" do
     org.save!()
 
     User.create!(email:'test@localhost',
+                 name: 'Test User',
                  primary_organisation: org,
                  password: 'password',
                  password_confirmation: 'password')

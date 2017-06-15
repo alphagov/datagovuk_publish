@@ -7,7 +7,8 @@ describe "viewing tasks" do
     o.title = 'Land Registry'
     o.save!()
 
-    User.create!(email:'test@localhost',
+    User.create!(email: 'test@localhost',
+                 name: 'Test User',
                  primary_organisation: o,
                  password: 'password',
                  password_confirmation: 'password')

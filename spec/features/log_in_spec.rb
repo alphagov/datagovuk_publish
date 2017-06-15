@@ -3,7 +3,8 @@ require 'rails_helper'
 describe "logging in" do
   before(:each) do
     o = Organisation.create!
-    User.create!(email:'test@localhost',
+    User.create!(email: 'test@localhost',
+                 name: 'Test User',
                  primary_organisation: o,
                  password: 'password',
                  password_confirmation: 'password')

@@ -14,7 +14,7 @@
               <%= link_to "Performance", tasks_path =%>
             </li>
             <li>
-              <%= link_to current_user.try(:email) =%>
+              <%= link_to current_user.try(:name), account_show_path(current_user.id) =%>
             </li>
             <li>
               <%= link_to "Sign out", destroy_user_session_path, method: :delete =%>

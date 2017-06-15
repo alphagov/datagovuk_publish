@@ -15,12 +15,14 @@ land_registry.save!()
 
 admin = AdminUser.create!(
   email: 'admin@example.com',
+  name: 'Administrator',
   password: 'password',
   password_confirmation: 'password'
 )
 
 publisher = User.create!(
   email: 'publisher@example.com',
+  name: 'Publisher',
   password: 'password',
   password_confirmation: 'password',
   primary_organisation: land_registry
