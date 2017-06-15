@@ -33,7 +33,6 @@ describe "user page" do
     click_link 'Test User'
 
     visit '/account/boom'
-    get :show, :id => 345987
     expect(page.status_code).to be 404
   end
 
