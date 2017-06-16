@@ -1,7 +1,7 @@
 module ManageHelper
 
   SORT_OPTIONS = {"-name" => {title: :desc}}
-  SORT_OPTIONS.default = {title: :asc}
+  SORT_OPTIONS.default = {updated_at: :desc}
 
   def manage_sort
     @name_sort = params["sort_by"] == "name" ? "-name" : "name"
