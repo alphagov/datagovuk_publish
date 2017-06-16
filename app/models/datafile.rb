@@ -9,6 +9,6 @@ class Datafile < ApplicationRecord
   scope :published, -> { where(published: true) }
   scope :draft,     -> { where(published: false) }
 
-  scope :datalinks,     -> { where(documentation: false) }
+  scope :datalinks,     -> { where(documentation: [false, nil]) }
   scope :documentation, -> { where(documentation: true) }
 end

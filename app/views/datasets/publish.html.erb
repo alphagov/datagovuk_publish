@@ -7,7 +7,7 @@
 
     <ul>
         <li>Status: <%= @dataset.status %></li>
-        <li>Published by: <%= @dataset.organisation.name %></li>
+        <li>Published by: <%= @dataset.organisation.title %></li>
     </ul>
 
     <table class="check-your-answers">
@@ -68,11 +68,11 @@
             </tr>
             <tr>
                 <th class="dataset-item">Data</th>
-                <td><%= 
-                        @dataset.datafiles.datalinks.map do |link|
-                          link_to link.name, link.url
-                        end.join(', ')
-                    %>
+                <td>
+                  <% @dataset.datafiles.datalinks.each do |link| %>
+                      <%= link_to link.name, link.url %>
+                  <% end %>
+                </td>
                 <td class="actions">
                     <% if @dataset.datafiles.datalinks.any? %>
                         <%= link_to 'Change', edit_addfile_dataset_path(@dataset) %>
@@ -83,11 +83,9 @@
             </tr>
             <tr>
                 <th class="dataset-item">Documentation</th>
-                <td><%=
-                        @dataset.datafiles.documentation.map do |doc|
-                          link_to doc.name, doc.url
-                        end.join(', ')
-                    %>
+                <td><% @dataset.datafiles.documentation.each do |doc| %>
+                      <%= link_to doc.name, doc.url %>
+                    <% end %>
                 <td class="actions">
                     <% if @dataset.datafiles.documentation.any? %>
                         <%= link_to 'Change', edit_adddoc_dataset_path(@dataset) %>

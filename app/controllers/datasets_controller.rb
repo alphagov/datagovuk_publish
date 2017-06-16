@@ -31,8 +31,8 @@ class DatasetsController < ApplicationController
     @dataset = current_dataset
 
     if request.post?
-      location = params.require(:dataset).permit(:location)[:location]
-      @dataset.location1 = location
+      location_params = params.require(:dataset).permit(:location1, :location2, :location3)
+      @dataset.update_attributes(location_params)
 
       redirect_to new_frequency_dataset_path(@dataset) if @dataset.save
     end
