@@ -1,0 +1,43 @@
+<% content_for :page_title do %>
+    Add a link supporting documents -
+<% end %>
+
+<main role="main" id="content">
+  <h1 class="heading-large">Add a link to supporting documents</h1>
+  <div class="datasets">
+      <% if @doc.errors.any? %>
+		  <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+			  <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+				There was a problem
+			  </h1>
+			  <ul class="error-summary-list">
+          <% @doc.errors.each do |attr, message| %>
+              <li>
+                  <a href="#<%= attr.to_s %>_form_group">
+                      <%= "#{attr.to_s.humanize} #{message}" %>
+                  </a>
+                  <span class="visuallyhidden">.</span>
+              </li>
+				  <% end %>
+			  </ul>
+		  </div>
+      <% end %>
+
+      <%= form_for @doc, url: new_adddoc_dataset_path(@dataset), method: 'post' do |f| %>
+          <%= dataset_field f, @doc,
+              name: 'url',
+              label: 'URL',
+              hint: 'Enter a link (beginning with http:// or https://) to point directly to your document. The file will usually be uploaded to either your organisation’s website or another website, like GOV.UK or Amazon Web Services (AWS).',
+              value: @doc.url %>
+
+          <%= dataset_field f, @doc,
+              name: 'name',
+              label: 'Link name',
+              hint: 'The link name mustn’t be the same as the URL. It should clearly describe the document so users can find it easily.',
+              value: @doc.name %>
+
+          <%= f.submit 'Save and continue', class: 'button' %>
+          <%= link_to 'Skip this step', publish_dataset_path(@dataset) %>
+      <% end %>
+  </div>
+</main>

@@ -1,0 +1,106 @@
+<% content_for :page_title do %>
+    Check your dataset -
+<% end %>
+
+<main id="content" role="main">
+    <h1 class="heading-large">Publish '<%= @dataset.title %>'</h1>
+
+    <ul>
+        <li>Status: <%= @dataset.status %></li>
+        <li>Published by: <%= @dataset.organisation.title %></li>
+    </ul>
+
+    <table class="check-your-answers">
+        <tbody>
+            <tr>
+                <th class="dataset-item">Title</th>
+                <td><%= @dataset.title %>
+                <td class="actions">
+                    <%= link_to 'Change', edit_dataset_path(@dataset) %>
+                </td>
+            </tr>
+            <tr>
+                <th class="dataset-item">Summary</th>
+                <td><%= @dataset.summary %>
+                <td class="actions">
+                    <%= link_to 'Change', edit_dataset_path(@dataset) %>
+                </td>
+            </tr>
+            <tr>
+                <th class="dataset-item">Additional information</th>
+                <td><%= @dataset.description %>
+                <td class="actions">
+                    <%= link_to 'Change', edit_dataset_path(@dataset) %>
+                </td>
+            </tr>
+            <tr>
+                <th class="dataset-item">Licence</th>
+                <td><%= @dataset.licence == 'uk-ogl' ? 'Open Government Licence' : @dataset.licence %>
+                <td class="actions">
+                    <% if @dataset.licence %>
+                        <%= link_to 'Change', edit_licence_dataset_path(@dataset) %>
+                    <% else %>
+                        <%= link_to 'Select', edit_licence_dataset_path(@dataset) %>
+                    <% end %>
+                </td>
+            </tr>
+            <tr>
+                <th class="dataset-item">Geographical location</th>
+                <td><%= @dataset.location1 %>
+                <td class="actions">
+                    <% if @dataset.location1 %>
+                        <%= link_to 'Change', edit_location_dataset_path(@dataset) %>
+                    <% else %>
+                        <%= link_to 'Add', edit_location_dataset_path(@dataset) %>
+                    <% end %>
+                </td>
+            </tr>
+            <tr>
+                <th class="dataset-item">Frequency</th>
+                <td><%= friendly_frequency(@dataset.frequency) %>
+                <td class="actions">
+                    <% if @dataset.frequency %>
+                        <%= link_to 'Change', edit_frequency_dataset_path(@dataset) %>
+                    <% else %>
+                        <%= link_to 'Select', edit_frequency_dataset_path(@dataset) %>
+                    <% end %>
+                </td>
+            </tr>
+            <tr>
+                <th class="dataset-item">Data</th>
+                <td>
+                  <% @dataset.datafiles.datalinks.each do |link| %>
+                      <%= link_to link.name, link.url %>
+                  <% end %>
+                </td>
+                <td class="actions">
+                    <% if @dataset.datafiles.datalinks.any? %>
+                        <%= link_to 'Change', edit_addfile_dataset_path(@dataset) %>
+                    <% else %>
+                        <%= link_to 'Add', edit_addfile_dataset_path(@dataset) %>
+                    <% end %>
+                </td>
+            </tr>
+            <tr>
+                <th class="dataset-item">Documentation</th>
+                <td><% @dataset.datafiles.documentation.each do |doc| %>
+                      <%= link_to doc.name, doc.url %>
+                    <% end %>
+                <td class="actions">
+                    <% if @dataset.datafiles.documentation.any? %>
+                        <%= link_to 'Change', edit_adddoc_dataset_path(@dataset) %>
+                    <% else %>
+                        <%= link_to 'Add', edit_adddoc_dataset_path(@dataset) %>
+                    <% end %>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <%= form_for @dataset, url: publish_dataset_path(@dataset), method: 'post' do |f| %>
+        <p><%= f.submit 'Publish', class: 'button' %></p>
+    <% end %>
+
+    <p><%= link_to 'Delete this dataset', confirm_delete_dataset_path, class: 'secondary-button danger' %></p>
+    <p><%= link_to 'Back to manage your dataset', manage_path, class: 'secondary-button' %></p>
+</main>
