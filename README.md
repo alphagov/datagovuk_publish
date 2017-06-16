@@ -27,15 +27,15 @@ $ rake db:seed
 ### Checking for broken links
 
 ```
-rake linkcheck:organisation[org-short-name]
-rake linkcheck:dataset[dataset-short-name]
+rake check:links:organisation[org-short-name]
+rake check:links:dataset[dataset-short-name]
 ```
 
 ### Checking for overdue dataset
 
 ```
-rake overduecheck:organisation[org-short-name]
-rake overduecheck:dataset[dataset-short-name]
+rake check:overdue:organisation[org-short-name]
+rake check:overdue:dataset[dataset-short-name]
 ```
 
 ## Extra ENV vars for production
