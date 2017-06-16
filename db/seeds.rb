@@ -35,6 +35,7 @@ lr_publisher = User.create!(
 
 hmrc_publisher = User.create!(
   email: 'hmrc_publisher@example.com',
+  name: 'HMRC',
   password: 'password',
   password_confirmation: 'password',
   primary_organisation: hmrc
