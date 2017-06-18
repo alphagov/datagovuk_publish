@@ -44,8 +44,10 @@
               label: 'Name of your licence:' %>
         </div>
 
-          <%= f.submit 'Save and continue', class: 'button' %>
-          <%= link_to 'Skip this step', new_location_dataset_path(@dataset) %>
+        <div class="form-group">
+          <p><%= f.submit 'Save and continue', class: 'button' %> </br></p>
+          <p><%= link_to 'Skip this step', new_location_dataset_path(@dataset) %></p>
+        </div>
       <% end %>
   </div>
 </main>
