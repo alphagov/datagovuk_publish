@@ -13,5 +13,5 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require typeahead.bundle.min
+//= require vendor/typeahead.bundle.min
 //= require_tree .
