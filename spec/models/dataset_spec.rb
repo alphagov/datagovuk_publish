@@ -28,4 +28,29 @@ describe Dataset do
 
     expect(d2.name).to eq("dataset-2")
   end
+
+  it "validates more strictly when publishing" do
+    d = Dataset.new
+    d.title = "dataset"
+    d.summary = "Summary"
+    d.organisation_id = @org.id
+    d.published = true
+    expect(d.save).to eq(false)
+  end
+
+  it "can pass strict validation when publishing" do
+    d = Dataset.new
+    d.title = "dataset"
+    d.summary = "Summary"
+    d.organisation_id = @org.id
+    d.save()
+
+    Datafile.create(url: "http://127.0.0.1", name: "Test link", dataset: d)
+
+    d.frequency = "weekly"
+    d.licence = "uk-ogl"
+    d.published = true
+
+    expect(d.save).to eq(true)
+  end
 end
