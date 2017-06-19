@@ -1,16 +1,10 @@
 /* eslint-disable no-unused-expressions */
-/* global $, Bloodhound */
+/* global $, Locations */
 
 ;(function () {
   'use strict'
 
   // Utilities
-
-  // hide something, show something
-  var hs = function (stuffToHideSelector, stuffToShowSelector) {
-    if (stuffToHideSelector) $(stuffToHideSelector).attr('aria-hidden', 'true').hide()
-    if (stuffToShowSelector) $(stuffToShowSelector).attr('aria-hidden', 'false').show()
-  }
 
   // escape strings injected into the DOM
   function safeText (str) {
@@ -40,7 +34,7 @@
   function buildUrl (urlObj) {
     var queryString = ''
     for (var param in urlObj.params) {
-      if (urlObjparams.hasOwnProperty(param)) {
+      if (urlObj.params.hasOwnProperty(param)) {
         queryString +=
           (queryString === '' ? '?' : '&') +
           param + '=' + urlObj.params[param]
@@ -84,97 +78,6 @@
           if ($(this).index() >= event.data.rowLimit) $(this).hide()
         })
       }
-    }
-  }
-
-  var typeAhead = {
-    options: {
-      hint: true,
-      highlight: true,
-      minLength: 2,
-      classNames: {
-        input: 'form-control tt-input',
-        hint: 'form-control tt-hint'
-      }
-    },
-
-    sourceOptions: {
-      name: 'states',
-      source: new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: {
-          url: '/api/locations?q=%QUERY',
-          wildcard: '%QUERY'
-        }
-      })
-    },
-
-    // what to do when the first 'Add another area' button is clicked
-    add1: function () { hs('#add1', '#location2, #add2, #del1, #del2') },
-
-    // what to do when the second 'Add another area' button is clicked
-    add2: function () { hs('#add2', '#location3, #add2, #del2, #del3') },
-
-    // what to do when the first 'Remove' button is clicked
-    del1: function () {
-      // we've remove the first location, copy the 2 others down
-      $('#id_location1').val($('#id_location2').val())
-      $('#id_location2').val($('#id_location3').val())
-
-      // second location field disappears if not third present
-      if (!$('#location3').is(':visible')) {
-        hs('#location2, #add2', '#add1')
-      } else {
-        hs('', '#add2')
-      }
-      if (!$('#location2').is(':visible')) {
-        hs('#del1')
-      }
-      hs('#location3')
-      $('#location3').val('')
-    },
-
-    // second Remove button is clicked
-    del2: function () {
-      $('#id_location2').val($('#id_location3').val())
-      $('#id_location3').val('')
-      if (!$('#location3').is(':visible')) {
-        hs('#location2, #add2, #del1, #del2', '#add1')
-      } else {
-        hs('', '#add2')
-      }
-      hs('#location3')
-    },
-
-    del3: function () {
-      $('#id_location3').val('')
-      hs('#location3', '#add2')
-    },
-
-    init: function (params) {
-      // Removing Enter key as submit, as it makes
-      // it confusing to use with a screen reader
-      $('#id_location1, #id_location2, #id_location3')
-        .on('keypress', function (e) { return e.which !== 13 })
-
-      if ($('#id_location2').val()) {
-        hs('#add1', '#location2, #add2, #del2')
-      } else {
-        hs('', '#add1')
-      }
-
-      if ($('#id_location3').val()) {
-        hs('#add2', '#location3, #del3')
-      }
-
-      $('#add1').on('click', this.add1)
-      $('#add2').on('click', this.add2)
-      $('#del1').on('click', this.del1)
-      $('#del2').on('click', this.del2)
-      $('#del3').on('click', this.del3)
-
-      $(params.selector).typeahead(this.options, this.sourceOptions)
     }
   }
 
@@ -222,9 +125,34 @@
       })
     },
 
+    suggestOk: function (response) {
+      var safeSearchQuery = encodeURIComponent(this.value)
+      var self = this
+      var numResults = response.total
+      var $paginationSection = $('.pagination')
 
-    filterKeyRelease: function (event) {
-      var self = this;
+      if (numResults === 0) {
+        $('.manage-data').hide()
+        $('.noresults').show()
+      } else {
+        var searchResults = response.datasets
+
+        $('.manage-data').show()
+        $('.noresults').hide()
+
+        // rebuild the table with results
+        self.buildResultsTable(searchResults)
+        self.changeSortLinks(safeSearchQuery)
+      }
+
+      self.buildPagination(
+        $paginationSection,
+        numResults,
+        safeSearchQuery
+      )
+    },
+
+    keyCallback: function (event) {
       if (event.which === 0 ||
           event.which === 9 || // tab
           event.which === 16 || // shift-tab
@@ -233,36 +161,11 @@
           event.altKey) {
         return
       }
-      var safeSearchQuery = encodeURIComponent(this.value)
-      $.get('/api/datasets?q=' + this.value)
-        .success(function (response) {
-          var numResults = response.total
-          var $paginationSection = $('.pagination')
-
-          if (numResults === 0) {
-            $('.manage-data').hide()
-            $('.noresults').show()
-          } else {
-            var searchResults = response.datasets
-
-            $('.manage-data').show()
-            $('.noresults').hide()
-
-            // rebuild the table with results
-            self.buildResultsTable(searchResults)
-            self.changeSortLinks(safeSearchQuery)
-          }
-
-          self.buildPagination(
-            $paginationSection,
-            numResults,
-            safeSearchQuery
-          )
-        })
+      $.get('/api/datasets?q=' + this.value).success(this.suggestOk.bind(this))
     },
 
     init: function () {
-      $('#filter-dataset-form #q').on('keyup', this.filterKeyRelease.bind(this))
+      $('#filter-dataset-form #q').on('keyup', this.keyCallback.bind(this))
     }
   }
 
@@ -281,7 +184,7 @@
 
   $(document).ready(function () {
     showHide.init({ rowLimit: 5 })
-    typeAhead.init({ selector: '.location-input' })
+    locations.init({ selector: '.location-input' })
     searchDatasetsAsYouType.init('#filter-dataset-form')
     analytics.init()
   })
