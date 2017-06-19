@@ -40,6 +40,22 @@
               hint: 'The link name mustn’t be the same as the URL. It should clearly describe the data so users can find it easily.',
               value: @datafile.name %>
 
+          <% if @dataset.weekly? || @dataset.monthly? %>
+              <%= render 'date_field', period: 'start' %>
+          <% end %>
+
+          <% if @dataset.weekly? %>
+              <%= render 'date_field', period: 'end' %>
+          <% end %>
+
+		  <% if @dataset.quarterly? %>
+		      <%= render 'quarter_inputs' %>
+		  <% end %>
+
+          <% if @dataset.annually? || @dataset.financial_yearly? %>
+              <%= render 'year_input' %>
+          <% end %>
+
           <div class="form-group">
             <p><%= f.submit 'Save and continue', class: 'button' %></p>
             <p><%= link_to 'Skip this step', new_adddoc_dataset_path(@dataset) %></p>

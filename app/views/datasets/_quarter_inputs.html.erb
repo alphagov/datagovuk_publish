@@ -1,0 +1,35 @@
+<div class="form-group">
+	<fieldset>
+		<legend class="form-label-bold">
+			Time period of this link
+		</legend>
+		<label class="form-label">
+			Quarter
+		</label>
+		
+		<div class="form-group " id="quarter_form_group">
+			<label for="q1" class="block-label selection-button-radio">
+				<%= radio_button_tag 'dataset[quarter]', '1', id: 'q1' %>
+				<span>Q1 (April to June)</span>
+			</label>
+			<label for="q2" class="block-label selection-button-radio">
+				<%= radio_button_tag 'dataset[quarter]', '2', id: 'q2' %>
+				<span>Q2 (July to September)</span>
+			</label>
+			<label for="q3" class="block-label selection-button-radio">
+				<%= radio_button_tag 'dataset[quarter]', '3', id: 'q3' %>
+				<span>Q3 (October to December)</span>
+			</label>
+			<label for="4" class="block-label selection-button-radio">
+				<%= radio_button_tag 'dataset[quarter]', '4', id: 'q4' %>
+				<span>Q4 (January to March)</span>
+			</label>
+		</div>
+		<div class="form-date">
+			<div id="year_form_group" class="form-group form-group-year ">
+				<label class="form-label" for="period_year">Year</label>
+				<%= text_field_tag 'dataset[year]', "", id: "period_year", class: "form-control" %>
+			</div>
+		</div>
+	</fieldset>
+</div>

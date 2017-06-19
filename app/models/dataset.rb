@@ -5,6 +5,9 @@ class Dataset < ApplicationRecord
   has_many :datafiles
   friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
 
+  validates :frequency, inclusion: %w(daily weekly monthly quarterly annually financial-year never),
+                        allow_nil: true # To allow creation before setting this value
+
   validates :title,
     presence: { message: "Please enter a valid title" },
     length: { maximum: 100, message: "Ensure this value has at most 100 characters" }
@@ -23,7 +26,6 @@ class Dataset < ApplicationRecord
 
   validate :dataset_must_have_datafiles_validation,
     :if => lambda{ published }
-
 
   def slug_candidates
     [:title, :title_and_sequence]
@@ -53,4 +55,35 @@ class Dataset < ApplicationRecord
     end
   end
 
+  def daily?
+    frequency == 'daily'
+  end
+
+  def weekly?
+    frequency == 'weekly'
+  end
+
+  def monthly?
+    frequency == 'monthly'
+  end
+
+  def quarterly?
+    frequency == 'quarterly'
+  end
+
+  def annually?
+    frequency == 'annually'
+  end
+
+  def financial_yearly?
+    frequency == 'financial-year'
+  end
+
+  def never?
+    frequency == 'never'
+  end
+
+  def one_off?
+    never?
+  end
 end
