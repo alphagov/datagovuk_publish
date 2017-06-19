@@ -7,6 +7,7 @@ class DatasetsController < ApplicationController
 
   def create
     @dataset = Dataset.new(params.require(:dataset).permit(:id, :title, :summary, :description))
+    @dataset.creator_id = current_user.id
     @dataset.organisation = current_user.primary_organisation
 
     if @dataset.save
