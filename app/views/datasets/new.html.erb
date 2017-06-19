@@ -26,16 +26,19 @@
       <%= form_for @dataset, action: 'create', method: 'post' do |f| %>
           <%= dataset_field f, @dataset,
               name: 'title',
+              input_class: 'form-control-2-3',
               hint: 'Titles should clearly describe the content of your dataset in under 65 characters' %>
 
           <%= dataset_field f, @dataset,
               name: 'summary',
+              input_class: 'form-control-2-3',
               input_type: :text_area,
               input_options: { rows: 4 },
               hint: 'Write a short description in plain English including any key information that will help users understand the dataset contents. Both the title and summary will appear in search results.' %>
 
           <%= dataset_field f, @dataset,
               name: 'description',
+              input_class: 'form-control-2-3',
               label: 'Additional information',
               optional: true,
               input_type: :text_area,

@@ -1,4 +1,19 @@
 <div class="form-group<%= " error" if dataset.errors.keys.include?(field[:name])%>" id="<%= field[:name] %>-form-group">
+
+  <% if field[:input_type] == :radio_button %>
+    <span class="form-hint"><%= field.fetch(:hint, '') %></span>
+
+    <%= f.label field[:name].to_sym, class: field[:label_class] || 'form-label-bold' do %>
+      <%="#{field.fetch(:label, field[:name].humanize)}#{field[:optional] ? ' (optional)' : ''}" %>
+
+        <%= f.radio_button field[:name], (field[:value] || dataset.send(field[:name])),{
+           class: field[:input_class] || '',
+           id: field[:id] || "id_#{field[:name]}",
+           value: field[:value] || dataset.send(field[:name])
+         }.merge(field.fetch(:input_options, {})) %>
+    <% end %>
+
+  <% else %>
     <%= f.label field[:name].to_sym,
                 "#{field.fetch(:label, field[:name].humanize)}#{field[:optional] ? ' (optional)' : ''}",
                 class: field[:label_class] || 'form-label-bold'
@@ -6,25 +21,20 @@
 
     <span class="form-hint"><%= field.fetch(:hint, '') %></span>
 
-    <% if field[:input_type] == :radio_button %>
-      <%= f.radio_button field[:name], field[:value],
-                         {
-                           class: field[:input_class] || '',
-                           id: field[:id] || "id_#{field[:name]}",
-                           value: field[:value] || dataset.send(field[:name])
-                         }.merge(field.fetch(:input_options, {})) %>
-    <% elsif field[:input_type] %>
+    <% if field[:input_type] %>
       <%= f.send(field[:input_type],
                  field[:name],
                  {
-                   class: "form-control #{field[:input_class]}",
+                   class: "form-control #{field[:input_class]} form-control-2-3",
                    id: field[:id] || "id_#{field[:name]}",
                    value: field[:value] || dataset.send(field[:name])
                  }.merge(field.fetch(:input_options, {}))) %>
-    <% else %> 
+    <% else %>
       <%= f.text_field field[:name],
-                 class: "form-control #{field[:input_class]}",
+                 class: "form-control #{field[:input_class]} form-control-2-3",
                  id: field[:id] || "id_#{field[:name]}",
                  value: field[:value] || dataset.send(field[:name]) %>
     <% end %>
+  <% end %>
+
 </div>
