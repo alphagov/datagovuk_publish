@@ -224,6 +224,7 @@
 
 
     filterKeyRelease: function (event) {
+      var self = this;
       if (event.which === 0 ||
           event.which === 9 || // tab
           event.which === 16 || // shift-tab
@@ -261,8 +262,7 @@
     },
 
     init: function () {
-      var self = this
-      $('#filter-dataset-form #q').on('keyup', filterKeyRelease)
+      $('#filter-dataset-form #q').on('keyup', this.filterKeyRelease.bind(this))
     }
   }
 
