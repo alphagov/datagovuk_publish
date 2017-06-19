@@ -5,15 +5,20 @@ class Dataset < ApplicationRecord
   has_many :datafiles
   friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
 
-  validates :title, presence: true
-  validates :summary, presence: true
+  validates :title,
+    presence: { message: "Please enter a valid title" },
+    length: { maximum: 100, message: "Ensure this value has at most 100 characters" }
 
-  validates :licence,
-    :presence => true,
-    :if => lambda{ published }
+  validates :summary,
+    presence: { message: "Please enter a valid summary" },
+    length: { maximum: 200, message: "Ensure this value has at most 200 characters" }
 
   validates :frequency,
-    :presence => true,
+    :presence => { message: "Please indicate how often this dataset is updated" },
+    :if => lambda { published }
+
+  validates :licence,
+    :presence => { message: "Please select a licence for your dataset" },
     :if => lambda{ published }
 
   validate :dataset_must_have_datafiles_validation,
@@ -44,7 +49,7 @@ class Dataset < ApplicationRecord
 
   def dataset_must_have_datafiles_validation
     if self.datafiles.count() == 0
-      errors.add(:base, "Dataset must have at least one data file")
+      errors.add(:base, "You must add at least one link")
     end
   end
 

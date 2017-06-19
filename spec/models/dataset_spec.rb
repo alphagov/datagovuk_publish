@@ -8,6 +8,7 @@ describe Dataset do
     d = Dataset.new
     d.title = "This is a dataset"
     d.summary = "Summary"
+    d.frequency = "daily"
     d.organisation_id = @org.id
     expect(d.save).to eq(true)
     expect(d.name).to eq("this-is-a-dataset")
@@ -18,12 +19,14 @@ describe Dataset do
     d1.title = "dataset"
     d1.summary = "Summary"
     d1.organisation_id = @org.id
+    d1.frequency = "daily"
     expect(d1.save).to eq(true)
 
     d2 = Dataset.new
     d2.title = "dataset"
     d2.summary = "Summary"
     d2.organisation_id = @org.id
+    d2.frequency = "daily"
     expect(d2.save).to eq(true)
 
     expect(d2.name).to eq("dataset-2")
@@ -34,6 +37,7 @@ describe Dataset do
     d.title = "dataset"
     d.summary = "Summary"
     d.organisation_id = @org.id
+    d.frequency = "daily"
     d.published = true
     expect(d.save).to eq(false)
   end
@@ -43,11 +47,11 @@ describe Dataset do
     d.title = "dataset"
     d.summary = "Summary"
     d.organisation_id = @org.id
+    d.frequency = "daily"
     d.save()
 
     Datafile.create(url: "http://127.0.0.1", name: "Test link", dataset: d)
 
-    d.frequency = "weekly"
     d.licence = "uk-ogl"
     d.published = true
 

@@ -1,4 +1,4 @@
-<div class="form-group<%= " error" if dataset.errors.keys.include?(field[:name])%>" id="<%= field[:name] %>-form-group">
+<div class="form-group<%= " error" if dataset.errors.include?(field[:name])%>" id="<%= field[:name] %>-form-group">
 
   <% if field[:input_type] == :radio_button %>
     <span class="form-hint"><%= field.fetch(:hint, '') %></span>
@@ -18,6 +18,10 @@
                 "#{field.fetch(:label, field[:name].humanize)}#{field[:optional] ? ' (optional)' : ''}",
                 class: field[:label_class] || 'form-label-bold'
     %>
+
+    <% if dataset.errors.key? field[:name] %>
+      <span class="error-message"><%= dataset.errors[field[:name]].first %></span>
+    <% end %>
 
     <span class="form-hint"><%= field.fetch(:hint, '') %></span>
 
