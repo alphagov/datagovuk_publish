@@ -5,42 +5,42 @@
 <main role="main" id="content">
   <h1 class="heading-large">Choose a geographical area</h1>
   <div class="datasets">
-      <% if @dataset.errors.any? %>
-		  <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
-			  <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
-				There was a problem
-			  </h1>
-			  <ul class="error-summary-list">
-                  <% @dataset.errors.each do |attr, message| %>
-                      <li>
-                          <a href="#<%= attr.to_s %>_form_group">
-                              <%= "#{attr.to_s.humanize} #{message}" %>
-                          </a>
-                          <span class="visuallyhidden">.</span>
-                      </li>
-				  <% end %>
-			  </ul>
-		  </div>
-      <% end %>
+    <% if @dataset.errors.any? %>
+      <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+        <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+        There was a problem
+        </h1>
+        <ul class="error-summary-list">
+          <% @dataset.errors.each do |attr, message| %>
+            <li>
+              <a href="#<%= attr.to_s %>_form_group">
+                <%= "#{attr.to_s.humanize} #{message}" %>
+              </a>
+              <span class="visuallyhidden">.</span>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-      <%= form_for @dataset, url: new_location_dataset_path(@dataset), method: 'post' do |f| %>
-          <%= dataset_field f, @dataset,
-                            name: 'location1',
-                            label: "Enter the area covered by this dataset",
-                            input_class: 'location-input form-control-2-3 tt-input' %>
+    <%= form_for @dataset, url: new_location_dataset_path(@dataset), method: 'post' do |f| %>
+      <%= dataset_field f, @dataset,
+        name: 'location1',
+        label: "Enter the area covered by this dataset",
+        input_class: 'location-input form-control-2-3 tt-input' %>
 
-          <%= dataset_field f, @dataset,
-                            name: 'location2',
-                            label: "Enter another area",
-                            input_class: 'location-input form-control-2-3 tt-input' %>
+      <%= dataset_field f, @dataset,
+        name: 'location2',
+        label: "Enter another area",
+        input_class: 'location-input form-control-2-3 tt-input' %>
 
-          <%= dataset_field f, @dataset,
-                            name: 'location3',
-                            label: "Enter another area",
-                            input_class: 'location-input form-control-2-3 tt-input' %>
+      <%= dataset_field f, @dataset,
+        name: 'location3',
+        label: "Enter another area",
+        input_class: 'location-input form-control-2-3 tt-input' %>
 
-          <p><%= f.submit 'Save and continue', class: 'button' %></p>
-          <p><%= link_to 'Skip this step', new_frequency_dataset_path(@dataset) %></p>
-      <% end %>
+      <p><%= f.submit 'Save and continue', class: 'button' %></p>
+      <p><%= link_to 'Skip this step', new_frequency_dataset_path(@dataset) %></p>
+    <% end %>
   </div>
 </main>
