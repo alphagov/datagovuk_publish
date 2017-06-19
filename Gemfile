@@ -19,6 +19,7 @@ gem 'kaminari', '~> 1.0.1'
 gem 'rest-client', '~> 2.0.2'
 gem 'mime-types', '~> 3.1'
 gem 'friendly_id', '~> 5.2.1'
+gem 'jquery'
 
 group :development, :test do
   gem 'byebug', '~> 9'

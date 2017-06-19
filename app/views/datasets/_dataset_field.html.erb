@@ -21,20 +21,15 @@
 
     <span class="form-hint"><%= field.fetch(:hint, '') %></span>
 
-    <% if field[:input_type] %>
-      <%= f.send(field[:input_type],
-                 field[:name],
-                 {
-                   class: "form-control #{field[:input_class]} form-control-2-3",
-                   id: field[:id] || "id_#{field[:name]}",
-                   value: field[:value] || dataset.send(field[:name])
-                 }.merge(field.fetch(:input_options, {}))) %>
-    <% else %>
-      <%= f.text_field field[:name],
-                 class: "form-control #{field[:input_class]} form-control-2-3",
+
+
+    <%= f.send(field[:input_type],
+               field[:name],
+               {
+                 class: "form-control #{field[:input_class]}",
                  id: field[:id] || "id_#{field[:name]}",
-                 value: field[:value] || dataset.send(field[:name]) %>
-    <% end %>
+                 value: field[:value] || dataset.send(field[:name])
+               }.merge(field.fetch(:input_options, {}))) %>
   <% end %>
 
 </div>
