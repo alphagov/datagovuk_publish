@@ -3,11 +3,22 @@ class Dataset < ApplicationRecord
 
   belongs_to :organisation
   has_many :datafiles
+  friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
 
   validates :title, presence: true
   validates :summary, presence: true
 
-  friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
+  validates :licence,
+    :presence => true,
+    :if => lambda{ published }
+
+  validates :frequency,
+    :presence => true,
+    :if => lambda{ published }
+
+  validate :dataset_must_have_datafiles_validation,
+    :if => lambda{ published }
+
 
   def slug_candidates
     [:title, :title_and_sequence]
@@ -30,4 +41,11 @@ class Dataset < ApplicationRecord
       "Draft"
     end
   end
+
+  def dataset_must_have_datafiles_validation
+    if self.datafiles.count() == 0
+      errors.add(:base, "Dataset must have at least one data file")
+    end
+  end
+
 end
