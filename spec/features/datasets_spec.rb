@@ -117,7 +117,7 @@ describe "creating and editing datasets" do
         fill_in "dataset[summary]", with: "my test dataset summary"
         click_button "Save and continue"
         expect(page).to have_content("There was a problem")
-        expect(page).to have_content("Title can't be blank")
+        expect(page).to have_content("Please enter a valid title")
         expect(Dataset.where(title: "my test dataset").length).to eq(0)
       end
 
@@ -125,15 +125,15 @@ describe "creating and editing datasets" do
         fill_in "dataset[title]", with: "my test dataset"
         click_button "Save and continue"
         expect(page).to have_content("There was a problem")
-        expect(page).to have_content("Summary can't be blank")
+        expect(page).to have_content("Please enter a valid summary")
         expect(Dataset.where(title: "my test dataset").length).to eq(0)
       end
 
       it "missing both" do
         click_button "Save and continue"
         expect(page).to have_content("There was a problem")
-        expect(page).to have_content("Title can't be blank")
-        expect(page).to have_content("Summary can't be blank")
+        expect(page).to have_content("Please enter a valid title")
+        expect(page).to have_content("Please enter a valid summary")
         expect(Dataset.where(title: "my test dataset").length).to eq(0)
       end
     end

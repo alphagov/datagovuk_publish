@@ -11,22 +11,23 @@
 				There was a problem
 			  </h1>
 			  <ul class="error-summary-list">
-                  <% @dataset.errors.each do |attr, message| %>
-                      <li>
-                          <a href="#<%= attr.to_s %>_form_group">
-                              <%= "#{attr.to_s.humanize} #{message}" %>
-                          </a>
-                          <span class="visuallyhidden">.</span>
-                      </li>
+          <% @dataset.errors.each do |attr, message| %>
+              <li>
+                  <a href="#<%= attr.to_s %>_form_group">
+                      <%= "Please enter a valid #{attr.to_s.humanize.downcase}" %>
+                  </a>
+                  <span class="visuallyhidden">.</span>
+              </li>
 				  <% end %>
 			  </ul>
 		  </div>
       <% end %>
 
       <%= form_for @dataset, action: 'create', method: 'post' do |f| %>
+
           <%= dataset_field f, @dataset,
               name: 'title',
-              input_class: 'form-control-2-3',
+              input_class: 'form-control-2-3 error',
               hint: 'Titles should clearly describe the content of your dataset in under 65 characters' %>
 
           <%= dataset_field f, @dataset,
