@@ -15,7 +15,7 @@ class Dataset < ApplicationRecord
 
   def title_and_sequence
     slug = title.to_param
-    sequence = Dataset.where("name like '#{slug}-%'").count + 2
+    sequence = Dataset.where("name like ?", "#{slug}-%").count + 2
     "#{slug}-#{sequence}"
   end
 
