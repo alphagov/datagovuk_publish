@@ -4,7 +4,7 @@ describe "creating and editing datasets" do
   # let! used here to force it to eager evaluate before each test
   let! (:org)  { Organisation.create!(name: "land-registry", title: "Land Registry") }
   let! (:user) do
-    User.create!(email: "test@localhost",
+    @user = User.create!(email: "test@localhost",
                  name: "Test User",
                  primary_organisation: org,
                  password: "password",
@@ -36,6 +36,7 @@ describe "creating and editing datasets" do
       click_button "Save and continue"
 
       expect(Dataset.where(title: "my test dataset").length).to eq(1)
+      expect(Dataset.find_by(title: "my test dataset").creator_id).to eq(@user.id)
     end
 
     it "should be able to go through the entire dataset creation flow" do
