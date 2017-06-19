@@ -103,6 +103,6 @@ class DatasetsController < ApplicationController
   end
 
   def current_dataset
-    Dataset.find(params.require(:id))
+    Dataset.find_by(:name => params.require(:id))
   end
 end
