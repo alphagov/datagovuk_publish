@@ -18,6 +18,7 @@ $ rails s
 ```
 
 ## Add seeds (dev example users, etc - do not use on production)
+
 ```
 $ rake db:seed
 ```
