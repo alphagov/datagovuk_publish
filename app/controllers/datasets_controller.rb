@@ -107,17 +107,11 @@ class DatasetsController < ApplicationController
   ]
 
   def set_dates(date_params)
-    set_daily_dates(date_params)            if @dataset.daily?
     set_weekly_dates(date_params)           if @dataset.weekly?
     set_monthly_dates(date_params)          if @dataset.monthly?
     set_quarterly_dates(date_params)        if @dataset.quarterly?
     set_yearly_dates(date_params)           if @dataset.annually?
     set_financial_yearly_dates(date_params) if @dataset.financial_yearly?
-  end
-
-  def set_daily_dates(date_params)
-    @datafile.start_date = Date.today
-    @datafile.end_date = Date.tomorrow
   end
 
   def set_weekly_dates(date_params)
