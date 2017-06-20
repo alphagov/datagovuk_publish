@@ -106,8 +106,12 @@ class DatasetsController < ApplicationController
     :end_year
   ]
 
-  # TODO NEEDS TESTS!
   def set_dates(date_params)
+    if @dataset.daily?
+      @datafile.start_date = Date.today
+      @datafile.end_date = Date.tomorrow
+    end
+
     if @dataset.weekly? || @dataset.monthly?
       @datafile.start_date = start_date(date_params)
     end
@@ -115,36 +119,45 @@ class DatasetsController < ApplicationController
     if @dataset.weekly?
       @datafile.end_date = end_date(date_params)
     elsif @dataset.monthly?
-      @datefile.end_date = @datafile.start_date + 1.month
+      @datafile.end_date = @datafile.start_date + 1.month
     end
 
     if @dataset.quarterly?
       @datafile.start_date = quarter(date_params)
+      @datafile.end_date = (@datafile.start_date + 2.months).end_of_month
     end
 
     if @dataset.annually?
-      @datafile.start_date = Date.new(date_params[:year])
-      @datafile.end_date = Date.new(date_params[:year]) + 1.year
+      @datafile.start_date = Date.new(date_params[:year].to_i)
+      @datafile.end_date = Date.new(date_params[:year].to_i, 12).end_of_month
     end
 
     if @dataset.financial_yearly?
-      @datafile.start_date = Date.new(date_params[:year], 4, 1)
-      @datafile.end_date = Date.new(date_params[:year], 4, 1) + 1.year
+      @datafile.start_date = Date.new(date_params[:year].to_i, 4, 1)
+      @datafile.end_date = Date.new(date_params[:year].to_i + 1, 3).end_of_month
     end
   end
 
   def start_date(date_params)
-    Date.new(date_params[:start_year], date_params[:start_month], date_params[:start_day])
+    if @dataset.monthly?
+      date_params[:start_day] = "1"
+    end
+
+    Date.new(date_params[:start_year].to_i,
+             date_params[:start_month].to_i,
+             date_params[:start_day].to_i)
   end
 
   def end_date(date_params)
-    Date.new(date_params[:end_year], date_params[:end_month], date_params[:end_day])
+    Date.new(date_params[:end_year].to_i,
+             date_params[:end_month].to_i,
+             date_params[:end_day].to_i)
   end
 
   def quarter(date_params)
-    year_start = Date.new(date_params[:year], 1, 1)
-    quarter_offset = 4 + (data_params[:quarter] - 1) * 3 # Q1: 4, Q2: 7, Q3: 10, Q4: 13
-    year_start + quarter_offset.months
+    year_start = Date.new(date_params[:year].to_i, 1, 1)
+    quarter_offset = 4 + (date_params[:quarter].to_i - 1) * 3 # Q1: 4, Q2: 7, Q3: 10, Q4: 13
+    year_start + (quarter_offset - 1).months
   end
 
   def get_licence(dataset_params)
