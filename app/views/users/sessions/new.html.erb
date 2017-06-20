@@ -1,27 +1,23 @@
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <h1 class="heading-large">Sign in</h1>
+  </div>
+</div>
 
-<main id="content" role="main" tabindex="-1">
-  <div class="grid-row">
-    <div class="column-two-thirds">
-      <h1 class="heading-large">Sign in</h1>
-    </div>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="form-group">
+    <%= f.label :email_address %><br />
+    <%= f.email_field :email, autofocus: true, class: "form-control" %>
   </div>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="form-group">
-      <%= f.label :email_address %><br />
-      <%= f.email_field :email, autofocus: true, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-    </div>
+  <div class="form-group">
+    <%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+  </div>
 
     <div class="actions">
       <%= f.submit "Sign in", class: "button" %>
     </div>
-  <% end %>
+<% end %>
 
-  <%= render "users/shared/links" %>
-
-</main>
+<%= render "users/shared/links" %>

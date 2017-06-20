@@ -1,15 +1,13 @@
-<main role="main" id="content">
-  <h1 class="heading-large">Manage your datasets</h1>
+<h1 class="heading-large">Manage your datasets</h1>
 
-  <%= render "manage/shared/search" %>
+<%= render "manage/shared/search" %>
 
-  <div class="">
-    <div class="tabs">
-      <h2 class="heading-small">My datasets<div class="ie-fix"></div></h2>
-      <div class="heading-small">
-        <%= link_to "#{@organisation.title} datasets", manage_organisation_path(:q => @q) %>
-      </div>
+<div class="">
+  <div class="tabs">
+    <h2 class="heading-small">My datasets<div class="ie-fix"></div></h2>
+    <div class="heading-small">
+      <%= link_to "#{@organisation.title} datasets", manage_organisation_path(:q => @q) %>
     </div>
-      <%= render partial: 'base' %>
   </div>
-</main>
+  <%= render partial: 'base' %>
+</div>
