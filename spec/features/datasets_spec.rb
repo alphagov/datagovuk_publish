@@ -142,7 +142,7 @@ describe "creating and editing datasets" do
         expect(Dataset.last.datafiles.last.end_date).to be_nil
       end
 
-      it "should show no fields for daily but set dates" do
+      it "should show no fields for daily and don't set dates" do
         choose option: 'daily'
         click_button "Save and continue"
 
@@ -154,8 +154,8 @@ describe "creating and editing datasets" do
         fill_in 'datafile[name]', with: 'my test doc'
         click_button "Save and continue"
 
-        expect(Dataset.last.datafiles.last.start_date).to eq(Date.today)
-        expect(Dataset.last.datafiles.last.end_date).to eq(Date.tomorrow)
+        expect(Dataset.last.datafiles.last.start_date).to be_nil
+        expect(Dataset.last.datafiles.last.end_date).to be_nil
       end
 
       it "should show start and end date fields for weekly and set dates" do
