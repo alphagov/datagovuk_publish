@@ -2,7 +2,7 @@
   <section class="show-hide">
     <div class="table-title">
       <h2 class="heading-medium" id="update-datasets">
-      <%= @tasks.count =%> datasets need to be updated
+        <%= @tasks.count =%> datasets need to be updated
       </h2>
     </div>
     <table>
@@ -10,15 +10,15 @@
         <tr>
           <th class="sortable-heading name">
             <%= link_to "Name",
-                         tasks_path(update_sort_by: @update_name_sort,
-                                    fix_sort_by: params[:fix_sort_by]) + "#update-datasets",
-                         class:"sort-ascending" %>
+            tasks_path(update_sort_by: @update_name_sort,
+                       fix_sort_by: params[:fix_sort_by]) + "#update-datasets",
+                       class:"sort-ascending" %>
           </th>
           <th class="sortable-heading update-by">
             <%=link_to "Update by",
-                        tasks_path(update_sort_by: @date_sort,
-                        fix_sort_by: params[:fix_sort_by]) + "#update-datasets",
-                        class:"sort-ascending" %>
+            tasks_path(update_sort_by: @date_sort,
+                       fix_sort_by: params[:fix_sort_by]) + "#update-datasets",
+                       class:"sort-ascending" %>
           </th>
           <th class="actions">
             <span class="visuallyhidden">Actions</span>
@@ -27,7 +27,7 @@
       </thead>
       <tbody>
 
-      <% sorted_update_tasks.each do |task| %>
+        <% sorted_update_tasks.each do |task| %>
           <tr class="show-hide-item">
             <th>
               <a href=""><%= task.description =%></a>
@@ -64,13 +64,13 @@
         <tr>
           <th class="sortable-heading name">
             <%=link_to "Name",
-                       tasks_path(fix_sort_by: @fix_name_sort,
-                                  update_sort_by: params[:update_sort_by]) + "#broken-datasets",
+            tasks_path(fix_sort_by: @fix_name_sort,
+                       update_sort_by: params[:update_sort_by]) + "#broken-datasets",
                        class:"sort-ascending" %>
           </th>
           <th class="sortable-heading broken-links">
             <%=link_to "Broken links",
-                       tasks_path(fix_sort_by: @count_sort,
+            tasks_path(fix_sort_by: @count_sort,
                        update_sort_by: params[:update_sort_by]) + "#broken-datasets",
                        class:"sort-ascending link-count" %>
           </th>
