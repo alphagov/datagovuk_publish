@@ -22,7 +22,19 @@ $ rails s
 $ rake db:seed
 ```
 
-## Generating tasks
+## Importing data
+
+You can import data from source files using the following commands:
+
+```
+rake import:locations[locations.csv]
+rake import:organisations[orgs.jsonl]
+rake import:datasets[datasets.jsonl]
+```
+
+Note that organisations need to be imported before datasets.
+
+## Generating 'tasks'.
 
 ### Checking for broken links
 
