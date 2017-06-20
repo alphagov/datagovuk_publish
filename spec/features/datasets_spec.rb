@@ -204,7 +204,7 @@ describe "creating and editing datasets" do
         click_button "Save and continue"
 
         expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(2020, 1, 1))
-        expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(2020, 2, 1))
+        expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(2020, 1).end_of_month)
       end
 
       describe "quarters" do

@@ -107,35 +107,42 @@ class DatasetsController < ApplicationController
   ]
 
   def set_dates(date_params)
-    if @dataset.daily?
-      @datafile.start_date = Date.today
-      @datafile.end_date = Date.tomorrow
-    end
+    set_daily_dates(date_params)            if @dataset.daily?
+    set_weekly_dates(date_params)           if @dataset.weekly?
+    set_monthly_dates(date_params)          if @dataset.monthly?
+    set_quarterly_dates(date_params)        if @dataset.quarterly?
+    set_yearly_dates(date_params)           if @dataset.annually?
+    set_financial_yearly_dates(date_params) if @dataset.financial_yearly?
+  end
 
-    if @dataset.weekly? || @dataset.monthly?
-      @datafile.start_date = start_date(date_params)
-    end
+  def set_daily_dates(date_params)
+    @datafile.start_date = Date.today
+    @datafile.end_date = Date.tomorrow
+  end
 
-    if @dataset.weekly?
-      @datafile.end_date = end_date(date_params)
-    elsif @dataset.monthly?
-      @datafile.end_date = @datafile.start_date + 1.month
-    end
+  def set_weekly_dates(date_params)
+    @datafile.start_date = start_date(date_params)
+    @datafile.end_date = end_date(date_params)
+  end
 
-    if @dataset.quarterly?
-      @datafile.start_date = quarter(date_params)
-      @datafile.end_date = (@datafile.start_date + 2.months).end_of_month
-    end
+  def set_monthly_dates(date_params)
+    @datafile.start_date = start_date(date_params)
+    @datafile.end_date = @datafile.start_date.end_of_month
+  end
 
-    if @dataset.annually?
-      @datafile.start_date = Date.new(date_params[:year].to_i)
-      @datafile.end_date = Date.new(date_params[:year].to_i, 12).end_of_month
-    end
+  def set_quarterly_dates(date_params)
+    @datafile.start_date = quarter(date_params)
+    @datafile.end_date = (@datafile.start_date + 2.months).end_of_month
+  end
 
-    if @dataset.financial_yearly?
-      @datafile.start_date = Date.new(date_params[:year].to_i, 4, 1)
-      @datafile.end_date = Date.new(date_params[:year].to_i + 1, 3).end_of_month
-    end
+  def set_yearly_dates(date_params)
+    @datafile.start_date = Date.new(date_params[:year].to_i)
+    @datafile.end_date = Date.new(date_params[:year].to_i, 12).end_of_month
+  end
+
+  def set_financial_yearly_dates(date_params)
+    @datafile.start_date = Date.new(date_params[:year].to_i, 4, 1)
+    @datafile.end_date = Date.new(date_params[:year].to_i + 1, 3).end_of_month
   end
 
   def start_date(date_params)
