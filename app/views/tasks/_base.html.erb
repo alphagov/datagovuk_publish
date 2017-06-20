@@ -33,7 +33,7 @@
               <a href=""><%= task.description =%></a>
             </th>
             <td>
-              <span class="update-date"><%=task.created_at%></span>
+              <span class="update-date"><%=task.created_at.strftime("%d %b %Y")%></span>
               <div class="overdue">
                 Overdue
               </div>
