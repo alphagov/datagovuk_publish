@@ -1,0 +1,39 @@
+
+<% content_for :page_title do %>
+    Links to your data -
+<% end %>
+
+<main role="main" id="content">
+  <h1 class="heading-large">Links to your data</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Link name</th>
+        <th>Valid</th>
+        <th><span class="visuallyhidden">Actions</span></th>
+      </tr>
+    </thead>
+  <tbody>
+    <% @datafiles.each do |link| %>
+      <tr id="file_1">
+        <th><a href="<%= link.url %>"><%= link.name %></a></th>
+        <td>✔</td>
+        <td class="actions">
+          <a href="">Edit</a>
+          <a href="">Delete</a>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+  </table>
+
+  <p>
+    <%= link_to 'Add another link', new_addfile_dataset_path(@dataset), class: "secondary-button" %>
+  </p>
+
+  <p>
+    <%= link_to 'Save and continue', new_adddoc_dataset_path(@dataset), class: "button" %>
+  </p>
+
+</main>

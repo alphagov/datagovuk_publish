@@ -18,7 +18,9 @@ Rails.application.routes.draw do
       match 'new/location',  to: 'datasets#location',  via: [:get, :post]
       match 'new/frequency', to: 'datasets#frequency', via: [:get, :post]
       match 'new/addfile',   to: 'datasets#addfile',   via: [:get, :post]
+      match 'new/files',     to: 'datasets#files',   via: [:get, :post]
       match 'new/adddoc',    to: 'datasets#adddoc',    via: [:get, :post]
+      match 'new/documents', to: 'datasets#documents',   via: [:get, :post]
 
       match 'edit/licence',   to: 'datasets#edit_licence',   via: [:get, :put]
       match 'edit/location',  to: 'datasets#edit_location',  via: [:get, :put]
