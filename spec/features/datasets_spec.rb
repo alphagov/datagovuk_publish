@@ -108,6 +108,182 @@ describe "creating and editing datasets" do
       expect(Dataset.last.published).to be(true)
     end
 
+    describe "should set file dates correctly based on which frequency is set" do
+      before(:each) do
+        visit "/datasets/new"
+        # NEW
+        fill_in "dataset[title]", with: "my test dataset"
+        fill_in "dataset[summary]", with: "my test dataset summary"
+        fill_in "dataset[description]", with: "my test dataset description"
+        click_button "Save and continue"
+        # LICENCE
+        choose option: "uk-ogl"
+        click_button "Save and continue"
+        # LOCATION
+        fill_in "dataset[location1]", with: "Aviation House"
+        fill_in "dataset[location2]", with: "London"
+        fill_in "dataset[location3]", with: "England"
+        click_button "Save and continue"
+      end
+
+      it "should not show date fields or set dates for never" do
+        choose option: 'never'
+        click_button "Save and continue"
+
+        expect(page).to_not have_content('Start Date')
+        expect(page).to_not have_content('End Date')
+        expect(page).to_not have_content('Year')
+
+        fill_in 'datafile[url]', with: 'https://localhost/doc'
+        fill_in 'datafile[name]', with: 'my test doc'
+        click_button "Save and continue"
+
+        expect(Dataset.last.datafiles.last.start_date).to be_nil
+        expect(Dataset.last.datafiles.last.end_date).to be_nil
+      end
+
+      it "should show no fields for daily and don't set dates" do
+        choose option: 'daily'
+        click_button "Save and continue"
+
+        expect(page).to_not have_content('Start Date')
+        expect(page).to_not have_content('End Date')
+        expect(page).to_not have_content('Year')
+
+        fill_in 'datafile[url]', with: 'https://localhost/doc'
+        fill_in 'datafile[name]', with: 'my test doc'
+        click_button "Save and continue"
+
+        expect(Dataset.last.datafiles.last.start_date).to be_nil
+        expect(Dataset.last.datafiles.last.end_date).to be_nil
+      end
+
+      it "should show start and end date fields for weekly and set dates" do
+        choose option: 'weekly'
+        click_button "Save and continue"
+
+        expect(page).to     have_content('Start Date')
+        expect(page).to     have_content('End Date')
+        expect(page).to_not have_content('Year')
+
+        fill_in 'datafile[url]', with: 'https://localhost/doc'
+        fill_in 'datafile[name]', with: 'my test doc'
+
+        # Start Date
+        fill_in 'datafile[start_day]',   with: '1'
+        fill_in 'datafile[start_month]', with: '1'
+        fill_in 'datafile[start_year]',  with: '2020'
+
+        # End Date
+        fill_in 'datafile[end_day]',   with: '8'
+        fill_in 'datafile[end_month]', with: '1'
+        fill_in 'datafile[end_year]',  with: '2020'
+
+        click_button "Save and continue"
+
+        expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(2020, 1, 1))
+        expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(2020, 1, 8))
+      end
+
+      it "should show start date field for monthly and set dates" do
+        choose option: 'monthly'
+        click_button "Save and continue"
+
+        expect(page).to_not have_content('Start Date')
+        expect(page).to_not have_content('End Date')
+        expect(page).to     have_content('Month')
+        expect(page).to     have_content('Year')
+
+        fill_in 'datafile[url]', with: 'https://localhost/doc'
+        fill_in 'datafile[name]', with: 'my test doc'
+
+        # Start Date
+        fill_in 'datafile[start_month]', with: '1'
+        fill_in 'datafile[start_year]',  with: '2020'
+
+        click_button "Save and continue"
+
+        expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(2020, 1, 1))
+        expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(2020, 1).end_of_month)
+      end
+
+      describe "quarters" do
+        before(:each) do
+          choose option: 'quarterly'
+          click_button "Save and continue"
+
+          expect(page).to_not have_content('Start Date')
+          expect(page).to_not have_content('End Date')
+          expect(page).to_not have_content('Month')
+          expect(page).to     have_content('Year')
+          expect(page).to     have_content('Quarter')
+        end
+
+        def pick_quarter(quarter)
+          fill_in 'datafile[url]', with: 'https://localhost/doc'
+          fill_in 'datafile[name]', with: 'my test doc'
+
+          choose option: quarter.to_s
+          fill_in "datafile[year]", with: Date.today.year
+          click_button "Save and continue"
+        end
+
+        it "should calculate correct dates for Q1" do
+          pick_quarter(1)
+          expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(Date.today.year, 4, 1))
+          expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Date.today.year, 6).end_of_month)
+        end
+
+        it "should calculate correct dates for Q2" do
+          pick_quarter(2)
+          expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(Date.today.year, 7, 1))
+          expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Date.today.year, 9).end_of_month)
+        end
+
+        it "should calculate correct dates for Q3" do
+          pick_quarter(3)
+          expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(Date.today.year, 10, 1))
+          expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Date.today.year, 12).end_of_month)
+        end
+
+        it "should calculate correct dates for Q4" do
+          pick_quarter(4)
+          expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(Date.today.year, 1, 1) + 1.year)
+          expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Date.today.year, 3).end_of_month + 1.year)
+        end
+      end
+
+      def pick_year(year_type)
+        choose option: year_type
+        click_button "Save and continue"
+
+        expect(page).to_not have_content('Start Date')
+        expect(page).to_not have_content('End Date')
+        expect(page).to_not have_content('Month')
+        expect(page).to     have_content('Year')
+
+        fill_in 'datafile[url]', with: 'https://localhost/doc'
+        fill_in 'datafile[name]', with: 'my test doc'
+
+        # Start Date
+        fill_in 'datafile[year]',  with: '2015'
+
+        click_button "Save and continue"
+      end
+
+      it "should show year field for yearly and set dates" do
+        pick_year('annually')
+        expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(2015, 1, 1))
+        expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(2015, 12).end_of_month)
+      end
+
+      it "should show year field for financial year and set dates" do
+        pick_year('financial-year')
+        expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(2015, 4, 1))
+        expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(2016, 3).end_of_month)
+      end
+    end
+
     describe "should not be able to start a new draft with invalid inputs" do
       before(:each) do
         visit "/datasets/new"
