@@ -27,6 +27,7 @@
           <%= dataset_field f, @doc,
               name: 'url',
               label: 'URL',
+              input_type: :text_field,
               input_class: 'form-control-2-3',
               hint: 'Enter a link (beginning with http:// or https://) to point directly to your document. The file will usually be uploaded to either your organisation’s website or another website, like GOV.UK or Amazon Web Services (AWS).',
               value: @doc.url %>
@@ -34,6 +35,7 @@
           <%= dataset_field f, @doc,
               name: 'name',
               label: 'Link name',
+              input_type: :text_field,
               input_class: 'form-control-2-3',
               hint: 'The link name mustn’t be the same as the URL. It should clearly describe the document so users can find it easily.',
               value: @doc.name %>
