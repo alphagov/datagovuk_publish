@@ -87,9 +87,7 @@ Dataset.create!(
     summary: "LR_Dataset_#{i} summary",
     organisation: land_registry
   )
-end
 
-(1..5).each do |i|
   Dataset.create!(
   name: "HMRC_Dataset_#{i} name",
   title: "HMRC_Dataset_#{i} title",
