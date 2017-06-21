@@ -28,5 +28,9 @@ describe User do
     u.organisations << org2
     u.organisations << org3
     expect(u.organisations.count()).to eq(2)
+
+    expect(u.in_organisation org).to eq(true)
+    expect(u.in_organisation org2).to eq(true)
+    expect(u.in_organisation org3).to eq(true)
   end
 end
