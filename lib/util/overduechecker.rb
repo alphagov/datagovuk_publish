@@ -1,21 +1,13 @@
+require 'util/organisation_checker'
 
 module OverdueChecker
+  include OrganisationChecker
 
   @@frequencies = {
     "monthly" => 30,
     "annually" => 365,
     "quarterly" => 90
   }
-
-  # Checks for any overdue datasets in the organisation and creates a task if
-  # one does not already exist for each that is overdue.
-  def check_organisation(organisation)
-    puts "Checking datasets for #{organisation.title}"
-    Dataset.where(:organisation_id => organisation.id).find_each(:batch_size => 10) do |dataset|
-      check_dataset(dataset)
-    end
-
-  end
 
   # Checks the dataset to see if it has a frequency, and whether the
   # datafiles are up to date.
@@ -58,7 +50,6 @@ module OverdueChecker
     t.created_at = t.updated_at = DateTime.now
     t.description = "'#{dataset.title}' is overdue"
     t.save()
-
   end
 
   # Find the lastest end_date in the datafiles for this dataset and return
@@ -71,5 +62,4 @@ module OverdueChecker
   end
 
   module_function :check_organisation, :check_dataset, :find_end_date, :create_overdue_task
-
 end

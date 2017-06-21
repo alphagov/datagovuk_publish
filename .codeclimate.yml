@@ -9,7 +9,11 @@ engines:
     enabled: true
     config:
       languages:
-      - javascript
+        ruby:
+          mass_threshold: 20
+        javascript:
+          mass_threshold: 50
+      
 ratings:
   paths:
   - app/**
@@ -17,5 +21,8 @@ ratings:
   - "**.rb"
   - "**.go"
 exclude_paths:
-- spec/**/*
-- "**/vendor/**/*"
+  - spec/**/*
+  - "**/vendor/**/*"
+  - config/environments/*.rb
+  - lib/tasks/*.rake
+  - db/seeds.rb
