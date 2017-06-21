@@ -20,5 +20,7 @@ ratings:
   - "**.rb"
   - "**.go"
 exclude_paths:
-- spec/**/*
-- "**/vendor/**/*"
+  - spec/**/*
+  - "**/vendor/**/*"
+  - config/environments/*.rb
+  - lib/tasks/*.rake
