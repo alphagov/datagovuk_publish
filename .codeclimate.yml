@@ -25,3 +25,4 @@ exclude_paths:
   - "**/vendor/**/*"
   - config/environments/*.rb
   - lib/tasks/*.rake
+  - db/seeds.rb
