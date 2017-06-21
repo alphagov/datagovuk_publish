@@ -17,14 +17,16 @@
 
   <% if devise_mapping.rememberable? -%>
     <div class="form-group multiple-choice>
-                <%= f.check_box :remember_me %>
-                <%= f.label :remember_me %>
-                </div>
-  <% end -%>
-
-                <div class="actions">
-      <%= f.submit "Sign in", class: "button" %>
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
     </div>
+   <% end -%>
+
+  <p>
+    <%= f.submit "Sign in", class: "button" %>
+  </p>
 <% end %>
 
-<%= render "users/shared/links" %>
+<p>
+  <%= render "users/shared/links" %>
+</p>
