@@ -9,7 +9,10 @@ engines:
     enabled: true
     config:
       languages:
-      - javascript
+        ruby:
+        javascript:
+          mass_threshold: 50
+      
 ratings:
   paths:
   - app/**
