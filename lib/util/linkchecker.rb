@@ -1,17 +1,9 @@
 require 'rest-client'
 require 'mime/types'
+require 'util/organisation_checker'
 
 module LinkChecker
-
-  # Checks all of the datafiles in all of the dataset that belong to
-  # the specified organisation.
-  def check_organisation(organisation)
-    puts "Checking datasets for #{organisation.title}"
-    Dataset.where(:organisation_id => organisation.id).find_each(:batch_size => 10) do |dataset|
-      check_dataset(dataset)
-    end
-
-  end
+  include OrganisationChecker
 
   # Checks all of the links within the specified dataset and updates each
   # link as necessary with success, size, mimetype, last-modified etc.
@@ -68,5 +60,4 @@ module LinkChecker
 
   module_function :check_organisation, :check_dataset, :check_link,
     :save_result, :parse_content_type
-
 end
