@@ -60,8 +60,26 @@ class DatasetsController < ApplicationController
       set_dates(params.require(:datafile).permit(DATE_PARAMS))
 
       if @datafile.save
-        redirect_to new_adddoc_dataset_path(@dataset)
+        redirect_to new_files_dataset_path(@dataset)
       end
+    end
+  end
+
+  def files
+    @dataset = current_dataset
+    @datafiles = @dataset.datafiles.datalinks
+
+    if request.post?
+      redirect_to new_adddoc_dataset_path(@dataset)
+    end
+  end
+
+  def documents
+    @dataset = current_dataset
+    @datafiles = @dataset.datafiles.documentation
+
+    if request.post?
+      redirect_to publish_dataset(@dataset)
     end
   end
 
@@ -75,7 +93,7 @@ class DatasetsController < ApplicationController
       @doc.documentation = true
       @doc.dataset = @dataset
 
-      redirect_to publish_dataset_path(@dataset) if @doc.save
+      redirect_to new_documents_dataset_path(@dataset) if @doc.save
     end
   end
 

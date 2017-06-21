@@ -81,6 +81,11 @@ describe "creating and editing datasets" do
       expect(Dataset.last.datafiles.last.url).to eq('https://localhost')
       expect(Dataset.last.datafiles.last.name).to eq('my test datafile')
 
+      # Files page
+      expect(page).to have_content("Links to your data")
+      expect(page).to have_content("my test datafile")
+      click_link "Save and continue"
+
       # Page 6: Add Documents
       fill_in 'datafile[url]', with: 'https://localhost/doc'
       fill_in 'datafile[name]', with: 'my test doc'
@@ -90,7 +95,12 @@ describe "creating and editing datasets" do
       expect(Dataset.last.datafiles.last.url).to eq('https://localhost/doc')
       expect(Dataset.last.datafiles.last.name).to eq('my test doc')
 
-      # Page 7: Publish Page
+      # Documents page
+      expect(page).to have_content("Links to supporting documents")
+      expect(page).to have_content("my test doc")
+      click_link "Save and continue"
+
+      # Page 9: Publish Page
       expect(Dataset.last.published).to be(false)
       expect(page).to have_content(Dataset.last.status)
       expect(page).to have_content(Dataset.last.organisation.title)
