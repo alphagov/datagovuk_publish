@@ -11,4 +11,9 @@ class User < ApplicationRecord
   validates :email, presence: true
 
   audited
+
+  def in_organisation(organisation)
+    self.primary_organisation == organisation ||
+      self.organisations.include?(organisation)
+  end
 end

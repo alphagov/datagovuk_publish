@@ -24,9 +24,17 @@ describe User do
 
     org2 = Organisation.create!(name: "cabinet-office", title: "Cabinet Office")
     org3 = Organisation.create!(name: "home-office", title: "Home Office")
+    org_private = Organisation.create!(name: "private-organisation", title: "Private Organisation")
 
     u.organisations << org2
     u.organisations << org3
     expect(u.organisations.count()).to eq(2)
+
+    expect(u.in_organisation org).to eq(true)
+    expect(u.in_organisation org2).to eq(true)
+    expect(u.in_organisation org3).to eq(true)
+
+    expect(u.in_organisation org_private).to eq(false)
+
   end
 end
