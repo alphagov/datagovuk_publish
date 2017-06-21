@@ -58,6 +58,7 @@ var login = function(browser, email, password) {
     .waitForElementVisible('body', waitTimeout)
     .assert.containsText('h1', 'Publish and update data')
     .clickOnLink('Sign in')
+    .pause(3000)
     .waitForElementVisible('main', waitTimeout)
     .assert.containsText('h1', 'Sign in')
     .clearSetValue('input[name="user[email]"]', email)
