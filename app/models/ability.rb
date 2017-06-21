@@ -7,10 +7,8 @@ class Ability
       can :manage, :all
     end
 
-    can :create, Dataset do |dataset|
-      # Publishers can always create a dataset
-      true
-    end
+    # Publishers can always create a dataset
+    can :create, Dataset
 
     can :read, Dataset do |dataset|
       # User can read a dataset if they are a creator, or
@@ -26,7 +24,7 @@ class Ability
         user.in_organisation(dataset.organisation)
     end
 
-    can :delete, Dataset do |dataset|
+    can :delete, Dataset do |_|
       # Only sysadmins should be able to delete datasets
       user.admin?
     end
