@@ -16,7 +16,7 @@ export SECRET_KEY_BASE=test_key
 export DEVISE_SECRET_KEY=test_key
 
 # Which browser to use for tests (phantomjs, geckodriver or chrome)
-export BROWSER_NAME=chrome
+export BROWSER_NAME=phantomjs
 
 # Prefix for all test titles
 export TEST_TITLE_PREFIX='TEST-'
@@ -50,7 +50,7 @@ PID=$!
 sleep 5
 # run all tests
 cd ../end-to-end-tests
-nightwatch tests/login.js || true
+nightwatch || true
 
 # flush db
 #cd ../src
