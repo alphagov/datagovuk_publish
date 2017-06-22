@@ -23,4 +23,14 @@ describe "logging in" do
     click_button 'Sign in'
     expect(page).to have_current_path '/tasks'
   end
+
+  it "displays an error if credentials are incorrect" do
+    visit '/'
+    click_link 'Sign in'
+    fill_in('user_email', with: 'test@localhost')
+    fill_in('Password', with: 'bad_password')
+    click_button 'Sign in'
+    expect(page).to have_content 'There was a problem signing you in'
+  end
+
 end

@@ -1,34 +1,5 @@
 var common = require('../common.js')
 
-var test_login = function(browser) {
-  common.extended(browser)
-    .url(process.env.APP_SERVER_URL)
-    .waitForElementVisible('body', common.waitTimeout)
-    .assert.containsText('h1', 'Publish and update data')
-    .clickOnLink('Sign in')
-    .waitForElementVisible('main', common.waitTimeout)
-    .pause(3000)
-    .assert.containsText('h1', 'Sign in')
-    .clearSetValue('#user_email', process.env.USER_EMAIL)
-    .clearSetValue('#user_password', process.env.USER_PASSWORD)
-    .submitFormAndCheckNextTitle('Tasks')
-    .end();
-};
-
-var test_failed_login = function(browser) {
-  common.extended(browser)
-    .url(process.env.APP_SERVER_URL)
-    .waitForElementVisible('body', common.waitTimeout)
-    .assert.containsText('h1', 'Publish and update data')
-    .clickOnLink('Sign in')
-    .pause(3000)
-    .waitForElementVisible('main', common.waitTimeout)
-    .assert.containsText('h1', 'Sign in')
-    .clearSetValue('#user_email', 'foo@bar.baz')
-    .clearSetValue('#user_password', 'qux')
-    .submitFormAndCheckNextTitle('There was a problem signing you in')
-    .end();
-};
 
 var test_logout = function(browser) {
   common.extended(browser)
