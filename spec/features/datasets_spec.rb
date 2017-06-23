@@ -4,12 +4,44 @@ describe "creating and editing datasets" do
   # let! used here to force it to eager evaluate before each test
   let! (:org)  { Organisation.create!(name: "land-registry", title: "Land Registry") }
   let! (:user) do
-    @user = User.create!(email: "test@localhost",
-                 name: "Test User",
-                 primary_organisation: org,
-                 password: "password",
-                 password_confirmation: "password")
+     User.create!(email: "test@localhost",
+                  name: "Test User",
+                  primary_organisation: org,
+                  password: "password",
+                  password_confirmation: "password")
   end
+  let (:unpublished_dataset) do
+    d = Dataset.create!(
+      organisation: org,
+      title: 'test title unpublished',
+      summary: 'test summary',
+      frequency: 'never',
+      licence: 'uk-ogl',
+      published: false
+    )
+
+    d.datafiles << Datafile.create!(url: 'http://localhost', name: 'my test file')
+    d.save
+
+    d
+  end
+
+  let (:published_dataset) do
+    d = Dataset.create!(
+      organisation: org,
+      title: 'test title published',
+      summary: 'test summary',
+      frequency: 'never',
+      licence: 'uk-ogl',
+      published: true
+    )
+
+    d.datafiles << Datafile.create!(url: 'http://localhost', name: 'my published test file')
+    d.save
+
+    d
+  end
+
 
   before(:each) do
     visit "/"
@@ -17,6 +49,9 @@ describe "creating and editing datasets" do
     fill_in("user_email", with: "test@localhost")
     fill_in("Password", with: "password")
     click_button "Sign in"
+  end
+
+  describe 'editing datasets' do
   end
 
   describe "creating datasets" do
@@ -36,7 +71,7 @@ describe "creating and editing datasets" do
       click_button "Save and continue"
 
       expect(Dataset.where(title: "my test dataset").length).to eq(1)
-      expect(Dataset.find_by(title: "my test dataset").creator_id).to eq(@user.id)
+      expect(Dataset.find_by(title: "my test dataset").creator_id).to eq(user.id)
     end
 
     it "should be able to go through the entire dataset creation flow" do
