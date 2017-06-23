@@ -1,8 +1,18 @@
 class DatasetsController < ApplicationController
   before_action :authenticate_user!
 
+  def show
+    @dataset = current_dataset
+  end
+
   def new
     @dataset = Dataset.new
+    render 'dataset'
+  end
+
+  def edit
+    @dataset = current_dataset
+    render 'dataset'
   end
 
   def create
@@ -13,39 +23,59 @@ class DatasetsController < ApplicationController
     if @dataset.save
       redirect_to new_licence_dataset_path(@dataset)
     else
-      render 'new'
+      render 'dataset'
+    end
+  end
+
+  def update
+    @dataset = current_dataset
+    @dataset.update_attributes(params.require(:dataset).permit(:title, :summary, :description))
+
+    if @dataset.save
+      redirect_to show_dataset_path(@dataset)
+    else
+      render 'dataset'
     end
   end
 
   def licence
     @dataset = current_dataset
 
-    if request.post?
+    unless request.get?
       licence = get_licence(params.require(:dataset).permit(:licence, :licence_other))
       @dataset.licence = licence
 
-      redirect_to new_location_dataset_path(@dataset) if @dataset.save
+      if @dataset.save
+        redirect_to new_location_dataset_path(@dataset) if request.post?
+        redirect_to show_dataset_path(@dataset) if request.put?
+      end
     end
   end
 
   def location
     @dataset = current_dataset
 
-    if request.post?
+    unless request.get?
       location_params = params.require(:dataset).permit(:location1, :location2, :location3)
       @dataset.update_attributes(location_params)
 
-      redirect_to new_frequency_dataset_path(@dataset) if @dataset.save
+      if @dataset.save
+        redirect_to new_frequency_dataset_path(@dataset) if @dataset.post?
+        redirect_to show_dataset_path(@dataset) if request.put?
+      end
     end
   end
 
   def frequency
     @dataset = current_dataset
 
-    if request.post?
+    unless request.get?
       @dataset.frequency = params.require(:dataset).permit(:frequency)[:frequency]
 
-      redirect_to new_addfile_dataset_path(@dataset) if @dataset.save
+      if @dataset.save
+        redirect_to new_addfile_dataset_path(@dataset) if request.post?
+        redirect_to show_dataset_path(@dataset) if request.put?
+      end
     end
   end
 
@@ -53,14 +83,15 @@ class DatasetsController < ApplicationController
     @dataset = current_dataset
     @datafile = Datafile.new
 
-    if request.post?
+    unless request.get?
       file_params = params.require(:datafile).permit(:url, :name)
       @datafile = Datafile.new(file_params)
       @datafile.dataset = @dataset
       set_dates(params.require(:datafile).permit(DATE_PARAMS))
 
       if @datafile.save
-        redirect_to new_files_dataset_path(@dataset)
+        redirect_to new_files_dataset_path(@dataset) if request.post?
+        redirect_to edit_dataset_path(@dataset) if request.put?
       end
     end
   end

@@ -20,7 +20,7 @@
         <th><a href="<%= link.url %>"><%= link.name %></a></th>
         <td>✔</td>
         <td class="actions">
-          <a href="">Edit</a>
+          <a href="">Edit</a> <!-- TODO -->
           <a href="">Delete</a>
         </td>
       </tr>
@@ -29,11 +29,19 @@
   </table>
 
   <p>
-    <%= link_to 'Add another link', new_addfile_dataset_path(@dataset), class: "secondary-button" %>
+    <% if creating? %>
+      <%= link_to 'Add another link', new_addfile_dataset_path(@dataset), class: "secondary-button" %>
+    <% else %>
+      <%= link_to 'Add another link', edit_addfile_dataset_path(@dataset), class: "secondary-button" %>
+    <% end %>
   </p>
 
   <p>
-    <%= link_to 'Save and continue', new_adddoc_dataset_path(@dataset), class: "button" %>
+    <% if creating? %>
+      <%= link_to 'Save and continue', new_adddoc_dataset_path(@dataset), class: "button" %>
+    <% else %>
+      <%= link_to 'Save and continue', show_dataset_path(@dataset), class: "button" %>
+    <% end %>
   </p>
 
 </main>

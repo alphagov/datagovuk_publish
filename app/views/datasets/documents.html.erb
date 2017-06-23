@@ -29,11 +29,19 @@
   </table>
 
   <p>
-    <%= link_to 'Add another link', new_adddoc_dataset_path(@dataset), class: "secondary-button" %>
+    <% if creating? %>
+      <%= link_to 'Add another link', new_adddoc_dataset_path(@dataset), class: "secondary-button" %>
+    <% else %>
+      <%= link_to 'Add another link', edit_adddoc_dataset_path(@dataset), class: "secondary-button"  %>
+    <% end %>
   </p>
 
   <p>
-    <%= link_to 'Save and continue', publish_dataset_url(@dataset), class: "button" %>
+    <% if creating? %>
+      <%= link_to 'Save and continue', publish_dataset_url(@dataset), class: "button" %>
+    <% else %>
+      <%= link_to 'Save and continue', show_dataset_path(@dataset), class: "button" %>
+    <% end %>
   </p>
 
 

@@ -25,7 +25,6 @@
   <%= form_for @dataset, url: new_licence_dataset_path(@dataset), method: 'post' do |f| %>
     <div class="form-group">
       <fieldset>
-
         <legend class="visually-hidden">Choose a licence for this dataset</legend>
 
         <%= dataset_field f, @dataset,
@@ -52,7 +51,11 @@
 
     <div class="form-group">
       <p><%= f.submit 'Save and continue', class: 'button' %> </br></p>
-      <p><%= link_to 'Skip this step', new_location_dataset_path(@dataset) %></p>
+      <% if creating? %>
+        <p><%= link_to 'Skip this step', new_location_dataset_path(@dataset) %></p>
+      <% else %>
+        <p><%= link_to 'Skip this step', show_dataset_path(@dataset) %></p>
+      <% end %>
     </div>
   <% end %>
 </div>
