@@ -27,6 +27,22 @@ class Dataset < ApplicationRecord
   validate :dataset_must_have_datafiles_validation,
     :if => lambda{ published }
 
+  def owner
+    User.find(id: self.owner_id)
+  end
+
+  def owner=(user)
+    self.owner_id = user.id
+  end
+
+  def creator
+    User.find(id: self.creator_id)
+  end
+
+  def creator=(user)
+    self.creator_id = user.id
+  end
+
   def slug_candidates
     [:title, :title_and_sequence]
   end

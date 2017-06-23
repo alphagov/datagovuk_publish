@@ -10,33 +10,38 @@ describe "creating and editing datasets" do
                   password: "password",
                   password_confirmation: "password")
   end
-  let (:unpublished_dataset) do
+  let! (:unpublished_dataset) do
     d = Dataset.create!(
       organisation: org,
       title: 'test title unpublished',
       summary: 'test summary',
       frequency: 'never',
       licence: 'uk-ogl',
-      published: false
+      published: false,
+      creator: user,
+      owner: user
     )
 
-    d.datafiles << Datafile.create!(url: 'http://localhost', name: 'my test file')
+    d.datafiles << Datafile.create!(url: 'http://localhost', name: 'my test file', dataset: d)
     d.save
 
     d
   end
 
-  let (:published_dataset) do
+  let! (:published_dataset) do
     d = Dataset.create!(
       organisation: org,
       title: 'test title published',
       summary: 'test summary',
       frequency: 'never',
       licence: 'uk-ogl',
-      published: true
+      published: false,
+      creator: user,
+      owner: user
     )
 
-    d.datafiles << Datafile.create!(url: 'http://localhost', name: 'my published test file')
+    d.datafiles << Datafile.create!(url: 'http://localhost', name: 'my published test file', dataset: d)
+    d.published = true
     d.save
 
     d
@@ -52,6 +57,11 @@ describe "creating and editing datasets" do
   end
 
   describe 'editing datasets' do
+    it "should be able to go to datasets's page" do
+      click_link 'Manage datasets'
+      expect(page).to have_content(unpublished_dataset.title)
+      expect(page).to have_content(published_dataset.title)
+    end
   end
 
   describe "creating datasets" do
