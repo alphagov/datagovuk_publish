@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get 'tasks/organisation', to: 'tasks#organisation'
 
   resources :datasets do
+    get 'show/:id', to: 'datatsets#show'
+
     member do
       match 'licence',   to: 'datasets#licence',     via: [:post, :put]
       match 'location',  to: 'datasets#location',    via: [:post, :put]

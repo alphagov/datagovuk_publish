@@ -60,7 +60,7 @@ class DatasetsController < ApplicationController
       @dataset.update_attributes(location_params)
 
       if @dataset.save
-        redirect_to new_frequency_dataset_path(@dataset) if @dataset.post?
+        redirect_to new_frequency_dataset_path(@dataset) if request.post?
         redirect_to show_dataset_path(@dataset) if request.put?
       end
     end
