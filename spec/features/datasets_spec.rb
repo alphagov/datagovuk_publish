@@ -61,6 +61,22 @@ describe "creating and editing datasets" do
       click_link 'Manage datasets'
       expect(page).to have_content(unpublished_dataset.title)
       expect(page).to have_content(published_dataset.title)
+      first(:link, 'Edit').click
+    end
+
+    context 'editing from show page' do
+      before(:each) do
+        click_link 'Manage datasets'
+        first(:link, 'Edit').click
+      end
+
+      it "should be able to update title" do
+        all(:link, "Change").first.click
+        fill_in 'dataset[title]', with: 'a new title'
+        click_button 'Save and continue'
+
+        expect(published_dataset.title).to eq('a new title')
+      end
     end
   end
 

@@ -32,7 +32,7 @@ class DatasetsController < ApplicationController
     @dataset.update_attributes(params.require(:dataset).permit(:title, :summary, :description))
 
     if @dataset.save
-      redirect_to show_dataset_path(@dataset)
+      redirect_to dataset_path(@dataset)
     else
       render 'dataset'
     end
@@ -47,7 +47,7 @@ class DatasetsController < ApplicationController
 
       if @dataset.save
         redirect_to new_location_dataset_path(@dataset) if request.post?
-        redirect_to show_dataset_path(@dataset) if request.put?
+        redirect_to dataset_path(@dataset) if request.put?
       end
     end
   end
@@ -61,7 +61,7 @@ class DatasetsController < ApplicationController
 
       if @dataset.save
         redirect_to new_frequency_dataset_path(@dataset) if request.post?
-        redirect_to show_dataset_path(@dataset) if request.put?
+        redirect_to dataset_path(@dataset) if request.put?
       end
     end
   end
@@ -74,7 +74,7 @@ class DatasetsController < ApplicationController
 
       if @dataset.save
         redirect_to new_addfile_dataset_path(@dataset) if request.post?
-        redirect_to show_dataset_path(@dataset) if request.put?
+        redirect_to dataset_path(@dataset) if request.put?
       end
     end
   end
