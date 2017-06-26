@@ -78,6 +78,24 @@ describe "creating and editing datasets" do
         expect(page).to have_content('a new title')
         expect(last_updated_dataset.title).to eq('a new title')
       end
+
+      it "should be able to update summary" do
+        all(:link, "Change").first.click
+        fill_in 'dataset[summary]', with: 'a new summary'
+        click_button 'Save and continue'
+
+        expect(page).to have_content('a new summary')
+        expect(last_updated_dataset.summary).to eq('a new summary')
+      end
+
+      it "should be able to update additional info" do
+        all(:link, "Change").first.click
+        fill_in 'dataset[description]', with: 'a new description'
+        click_button 'Save and continue'
+
+        expect(page).to have_content('a new description')
+        expect(last_updated_dataset.description).to eq('a new description')
+      end
     end
   end
 
