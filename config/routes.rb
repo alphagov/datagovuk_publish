@@ -37,6 +37,8 @@ Rails.application.routes.draw do
       get 'edit/frequency', to: 'datasets#frequency'
       get 'edit/addfile',   to: 'datasets#addfile'
       get 'edit/adddoc',    to: 'datasets#adddoc'
+      get 'edit/files',     to: 'datasets#files'
+      get 'edit/documents', to: 'datasets#documents'
 
       match 'publish',       to: 'datasets#publish',   via: [:get, :post]
 

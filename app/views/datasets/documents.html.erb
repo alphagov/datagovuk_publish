@@ -40,7 +40,7 @@
     <% if creating? %>
       <%= link_to 'Save and continue', publish_dataset_url(@dataset), class: "button" %>
     <% else %>
-      <%= link_to 'Save and continue', show_dataset_path(@dataset), class: "button" %>
+      <%= link_to 'Save and continue', dataset_path(@dataset), class: "button" %>
     <% end %>
   </p>
 
