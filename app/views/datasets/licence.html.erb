@@ -54,7 +54,7 @@
       <% if creating? %>
         <p><%= link_to 'Skip this step', new_location_dataset_path(@dataset) %></p>
       <% else %>
-        <p><%= link_to 'Skip this step', show_dataset_path(@dataset) %></p>
+        <p><%= link_to 'Skip this step', dataset_path(@dataset) %></p>
       <% end %>
     </div>
   <% end %>

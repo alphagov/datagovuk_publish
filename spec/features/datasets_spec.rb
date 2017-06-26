@@ -80,7 +80,7 @@ describe "creating and editing datasets" do
       end
 
       it "should be able to update summary" do
-        all(:link, "Change").first.click
+        all(:link, "Change")[1].click
         fill_in 'dataset[summary]', with: 'a new summary'
         click_button 'Save and continue'
 
@@ -89,12 +89,22 @@ describe "creating and editing datasets" do
       end
 
       it "should be able to update additional info" do
-        all(:link, "Change").first.click
+        all(:link, "Change")[2].click
         fill_in 'dataset[description]', with: 'a new description'
         click_button 'Save and continue'
 
         expect(page).to have_content('a new description')
         expect(last_updated_dataset.description).to eq('a new description')
+      end
+
+      it "should be able to update licence" do
+        all(:link, "Change")[3].click
+        choose(option: 'other')
+        fill_in 'dataset[licence_other]', with: 'MIT'
+        click_button 'Save and continue'
+
+        expect(page).to have_content('MIT')
+        expect(last_updated_dataset.licence).to eq('MIT')
       end
     end
   end
