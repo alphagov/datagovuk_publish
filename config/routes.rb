@@ -32,15 +32,19 @@ Rails.application.routes.draw do
       get 'new/adddoc',    to: 'datasets#adddoc'
       get 'new/documents', to: 'datasets#documents'
 
-      get 'edit/licence',   to: 'datasets#licence'
-      get 'edit/location',  to: 'datasets#location'
-      get 'edit/frequency', to: 'datasets#frequency'
-      get 'edit/addfile',   to: 'datasets#addfile'
-      get 'edit/adddoc',    to: 'datasets#adddoc'
-      get 'edit/files',     to: 'datasets#files'
-      get 'edit/documents', to: 'datasets#documents'
+      get 'edit/licence',     to: 'datasets#licence'
+      get 'edit/location',    to: 'datasets#location'
+      get 'edit/frequency',   to: 'datasets#frequency'
+      get 'edit/addfile/',    to: 'datasets#addfile'
+      get 'edit/adddoc/',     to: 'datasets#adddoc'
+      get 'edit/addfile/:file_id', to: 'datasets#addfile'
+      get 'edit/adddoc/:file_id',  to: 'datasets#adddoc'
+      get 'edit/files',       to: 'datasets#files'
+      get 'edit/documents',   to: 'datasets#documents'
 
       match 'publish',       to: 'datasets#publish',   via: [:get, :post]
+
+      delete 'edit/delete_file/:id', to: 'datasets#destroy_file'
 
       get 'confirm_delete', to: 'datasets#confirm_delete'
     end

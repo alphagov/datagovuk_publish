@@ -127,16 +127,19 @@ describe "creating and editing datasets" do
         expect(last_updated_dataset.frequency).to eq('daily')
       end
 
-      xit "should be able to add a new file" do
+      it "should be able to add a new file" do
+        save_and_open_page
+        all(:link, "Change")[6].click
 
+        fail
       end
 
       xit "should be able to edit an existing file" do
-
+        all(:link, "Change")[6].click
       end
 
       xit "should be able to remove a file" do
-
+        all(:link, "Change")[6].click
       end
 
       xit "should be able to add a new doc" do

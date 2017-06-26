@@ -96,8 +96,10 @@
   </tbody>
 </table>
 
-<%= form_for @dataset, url: publish_dataset_path(@dataset), method: 'post' do |f| %>
-  <p><%= f.submit 'Publish', class: 'button' %></p>
+<% unless @dataset.published? %>
+  <%= form_for @dataset, url: publish_dataset_path(@dataset), method: 'post' do |f| %>
+    <p><%= f.submit 'Publish', class: 'button' %></p>
+  <% end %>
 <% end %>
 
 <p><%= link_to 'Delete this dataset', confirm_delete_dataset_path, class: 'secondary-button danger' %></p>

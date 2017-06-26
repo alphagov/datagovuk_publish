@@ -74,7 +74,7 @@
       </td>
       <td class="actions">
         <% if @dataset.datafiles.datalinks.any? %>
-          <%= link_to 'Change', edit_addfile_dataset_path(@dataset) %>
+          <%= link_to 'Change', edit_files_dataset_path(@dataset) %>
         <% else %>
           <%= link_to 'Add', edit_addfile_dataset_path(@dataset) %>
         <% end %>
@@ -87,7 +87,7 @@
       <% end %>
       <td class="actions">
         <% if @dataset.datafiles.documentation.any? %>
-          <%= link_to 'Change', edit_adddoc_dataset_path(@dataset) %>
+          <%= link_to 'Change', edit_documents_dataset_path(@dataset) %>
         <% else %>
           <%= link_to 'Add', edit_adddoc_dataset_path(@dataset) %>
         <% end %>
@@ -95,6 +95,12 @@
     </tr>
   </tbody>
 </table>
+
+<% unless @dataset.published? %>
+  <%= form_for @dataset, url: publish_dataset_path(@dataset), method: 'post' do |f| %>
+    <p><%= f.submit 'Publish', class: 'button' %></p>
+  <% end %>
+<% end %>
 
 <p><%= link_to 'Delete this dataset', confirm_delete_dataset_path, class: 'secondary-button danger' %></p>
 <p><%= link_to 'Back to manage your dataset', manage_path, class: 'secondary-button' %></p>
