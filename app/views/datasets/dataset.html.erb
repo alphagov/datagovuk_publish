@@ -22,7 +22,7 @@
 		</div>
   <% end %>
 
-  <%= form_for @dataset, url: creating? ? create_dataset_path : update_dataset_path,
+  <%= form_for @dataset, url: editing? ? dataset_path(@dataset) : datasets_path,
                          method: update_method do |f| %>
 
     <%= dataset_field f, @dataset,
