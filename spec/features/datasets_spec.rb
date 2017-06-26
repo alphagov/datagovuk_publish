@@ -17,6 +17,7 @@ describe "creating and editing datasets" do
       summary: 'test summary',
       frequency: 'never',
       licence: 'uk-ogl',
+      location1: 'somewhere',
       published: false,
       creator: user,
       owner: user
@@ -35,6 +36,7 @@ describe "creating and editing datasets" do
       summary: 'test summary',
       frequency: 'never',
       licence: 'uk-ogl',
+      location1: 'here',
       published: false,
       creator: user,
       owner: user
@@ -105,6 +107,52 @@ describe "creating and editing datasets" do
 
         expect(page).to have_content('MIT')
         expect(last_updated_dataset.licence).to eq('MIT')
+      end
+
+      it "should be able to update location" do
+        all(:link, "Change")[4].click
+        fill_in 'dataset[location1]', with: 'there'
+        click_button 'Save and continue'
+
+        expect(page).to have_content('there')
+        expect(last_updated_dataset.location1).to eq('there')
+      end
+
+      it "should be able to update frequency" do
+        all(:link, "Change")[5].click
+        choose option: 'daily'
+        click_button 'Save and continue'
+
+        expect(page).to have_content('Daily')
+        expect(last_updated_dataset.frequency).to eq('daily')
+      end
+
+      xit "should be able to add a new file" do
+
+      end
+
+      xit "should be able to edit an existing file" do
+
+      end
+
+      xit "should be able to remove a file" do
+
+      end
+
+      xit "should be able to add a new doc" do
+
+      end
+
+      xit "should be able to edit an existing doc" do
+
+      end
+
+      xit "should be able to remove a doc" do
+
+      end
+
+      xit "should be able to publish an unpublished dataset" do
+
       end
     end
   end

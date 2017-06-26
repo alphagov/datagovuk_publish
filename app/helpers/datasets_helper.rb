@@ -8,7 +8,7 @@ module DatasetsHelper
   }
 
   def friendly_frequency(frequency)
-    FRIENDLY_FREQUENCIES.fetch(frequency, 'One-off')
+    FRIENDLY_FREQUENCIES.fetch(frequency, frequency.humanize)
   end
 
   def creating?
