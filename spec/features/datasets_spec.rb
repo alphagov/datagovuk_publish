@@ -75,7 +75,8 @@ describe "creating and editing datasets" do
         fill_in 'dataset[title]', with: 'a new title'
         click_button 'Save and continue'
 
-        expect(published_dataset.title).to eq('a new title')
+        expect(page).to have_content('a new title')
+        expect(last_updated_dataset.title).to eq('a new title')
       end
     end
   end
