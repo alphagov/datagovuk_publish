@@ -24,6 +24,7 @@ describe "creating and editing datasets" do
     )
 
     d.datafiles << Datafile.create!(url: 'http://localhost', name: 'my test file', dataset: d)
+    d.datafiles << Datafile.create!(url: 'http://localhost/doc', name: 'my test doc', dataset: d, documentation: true)
     d.save
 
     d
@@ -43,6 +44,7 @@ describe "creating and editing datasets" do
     )
 
     d.datafiles << Datafile.create!(url: 'http://localhost', name: 'my published test file', dataset: d)
+    d.datafiles << Datafile.create!(url: 'http://localhost/doc', name: 'my published test doc', dataset: d, documentation: true)
     d.published = true
     d.save
 
@@ -137,31 +139,71 @@ describe "creating and editing datasets" do
 
         click_button 'Save and continue'
 
-        save_and_open_page
+        expect(page).to have_content('my other test file')
       end
 
-      xit "should be able to edit an existing file" do
+      it "should be able to edit an existing file" do
         all(:link, "Change")[6].click
+        expect(page).to have_content("my published test file")
+        click_link 'Edit'
+
+        fill_in 'datafile[name]', with: 'my published test file extreme edition'
+
+        click_button 'Save and continue'
+
+        expect(page).to have_content('my published test file extreme edition')
       end
 
-      xit "should be able to remove a file" do
+      it "should be able to remove a file" do
         all(:link, "Change")[6].click
+        expect(page).to have_content("my published test file")
+        click_link 'Delete'
+        expect(last_updated_dataset.datafiles.datalinks).to be_empty
       end
 
-      xit "should be able to add a new doc" do
+      it "should be able to add a new doc" do
+        all(:link, "Change")[7].click
+        expect(page).to have_content("my published test doc")
+        click_link 'Add another link'
+
+        fill_in 'datafile[url]', with: 'http://localhost/doc'
+        fill_in 'datafile[name]', with: 'my other test doc'
+
+        click_button 'Save and continue'
+
+        expect(page).to have_content('my other test doc')
+      end
+
+      it "should be able to edit an existing doc" do
+        all(:link, "Change")[7].click
+        expect(page).to have_content("my published test doc")
+        click_link 'Edit'
+
+        fill_in 'datafile[name]', with: 'my published test doc extreme edition'
+
+        click_button 'Save and continue'
+
+        expect(page).to have_content('my published test doc extreme edition')
+      end
+
+      it "should be able to remove a doc" do
+        all(:link, "Change")[7].click
+        expect(page).to have_content("my published test doc")
+        click_link 'Delete'
+        expect(last_updated_dataset.datafiles.documentation).to be_empty
 
       end
 
-      xit "should be able to edit an existing doc" do
-
+      it "should not be able to publish a published dataset" do
+        expect(page).to_not have_selector("input[type=submit][value='Publish']")
       end
 
-      xit "should be able to remove a doc" do
-
-      end
-
-      xit "should be able to publish an unpublished dataset" do
-
+      it "should be able to publish an unpublished dataset" do
+        visit dataset_url(unpublished_dataset)
+        expect(unpublished_dataset.published).to be false
+        click_button 'Publish'
+        expect(last_updated_dataset.id).to eq(unpublished_dataset.id)
+        expect(last_updated_dataset.published).to be true
       end
     end
   end
@@ -232,6 +274,8 @@ describe "creating and editing datasets" do
       expect(page).to have_content("Links to your data")
       expect(page).to have_content("my test datafile")
       click_link "Save and continue"
+
+      click_link "Add"
 
       # Page 6: Add Documents
       fill_in 'datafile[url]', with: 'https://localhost/doc'

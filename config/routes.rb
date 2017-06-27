@@ -20,8 +20,8 @@ Rails.application.routes.draw do
       match 'location',      to: 'datasets#location',    via: [:post, :put]
       match 'frequency',     to: 'datasets#frequency',   via: [:post, :put]
 
-      resources :datafiles, as: 'files', param: :file_id
-      resources :datafiles, as: 'documents', param: :doc_id
+      resources :files,     controller: 'datafiles', param: :file_id
+      resources :documents, controller: 'datafiles', param: :file_id
 
       get 'new/licence',    to: 'datasets#licence'
       get 'new/location',   to: 'datasets#location'
