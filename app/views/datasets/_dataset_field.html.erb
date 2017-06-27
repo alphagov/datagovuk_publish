@@ -1,23 +1,21 @@
-<div class="form-group<%= " error" if dataset.errors.include?(field[:name])%>" id="<%= field[:name] %>-form-group">
-
   <% if field[:input_type] == :radio_button %>
-    <span class="form-hint"><%= field.fetch(:hint, '') %></span>
+    <div class="multiple-choice" <% if field[:target] %>data-target=<%= field[:target] %><% end %>>
 
-    <%= f.label field[:name].to_sym, class: field[:label_class] || 'form-label-bold' do %>
-      <%="#{field.fetch(:label, field[:name].humanize)}#{field[:optional] ? ' (optional)' : ''}" %>
+      <%= f.radio_button field[:name], (field[:value] || dataset.send(field[:name])),{
+        class: field[:input_class],
+        id: field[:id] || "id_#{field[:name]}",
+        value: field[:value] || dataset.send(field[:name])
+      }.merge(field.fetch(:input_options, {})) %>
 
-        <%= f.radio_button field[:name], (field[:value] || dataset.send(field[:name])),{
-           class: field[:input_class] || '',
-           id: field[:id] || "id_#{field[:name]}",
-           value: field[:value] || dataset.send(field[:name])
-         }.merge(field.fetch(:input_options, {})) %>
-    <% end %>
-
+      <%= f.label field[:label], class: field[:label_class], for: field[:id] || "id_#{field[:name]}" %>
+    </div>
   <% else %>
-    <%= f.label field[:name].to_sym,
-                "#{field.fetch(:label, field[:name].humanize)}#{field[:optional] ? ' (optional)' : ''}",
-                class: field[:label_class] || 'form-label-bold'
-    %>
+    <div class="form-group<%= " error" if dataset.errors.include?(field[:name])%>" id="<%= field[:name] %>-form-group">
+
+      <%= f.label field[:name].to_sym,
+      "#{field.fetch(:label, field[:name].humanize)}#{field[:optional] ? ' (optional)' : ''}",
+      class: field[:label_class] || 'form-label-bold'
+      %>
 
     <% if dataset.errors.key? field[:name] %>
       <span class="error-message"><%= dataset.errors[field[:name]].first %></span>
@@ -34,6 +32,5 @@
                  id: field[:id] || "id_#{field[:name]}",
                  value: field[:value] || dataset.send(field[:name])
                }.merge(field.fetch(:input_options, {}))) %>
+    </div>
   <% end %>
-
-</div>
