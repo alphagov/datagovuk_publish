@@ -23,49 +23,48 @@
   <% end %>
 
   <%= form_for @dataset, url: new_frequency_dataset_path(@dataset), method: 'post' do |f| %>
-    <%= dataset_field f, @dataset,
-    name: 'frequency',
-    input_type: :radio_button,
-    label: 'Daily',
-    label_class: 'block-label selection-button-radio',
-    value: 'daily' %>
-    <%= dataset_field f, @dataset,
-    name: 'frequency',
-    input_type: :radio_button,
-    label: 'Weekly',
-    label_class: 'block-label selection-button-radio',
-    value: 'weekly' %>
-    <%= dataset_field f, @dataset,
-    name: 'frequency',
-    input_type: :radio_button,
-    label: 'Monthly',
-    label_class: 'block-label selection-button-radio',
-    value: 'monthly' %>
-    <%= dataset_field f, @dataset,
-    name: 'frequency',
-    input_type: :radio_button,
-    label: 'Quarterly',
-    label_class: 'block-label selection-button-radio',
-    value: 'quarterly' %>
-    <%= dataset_field f, @dataset,
-    name: 'frequency',
-    input_type: :radio_button,
-    label: 'Annually (January to December)',
-    label_class: 'block-label selection-button-radio',
-    value: 'annually' %>
-    <%= dataset_field f, @dataset,
-    name: 'frequency',
-    input_type: :radio_button,
-    label: 'Annually (financial year April to March)',
-    label_class: 'block-label selection-button-radio',
-    value: 'financial-year' %>
-    <%= dataset_field f, @dataset,
-    name: 'frequency',
-    input_type: :radio_button,
-    label: 'One-off',
-    label_class: 'block-label selection-button-radio',
-    value: 'never' %>
+    <div class="form-group">
+      <fieldset>
 
+        <legend class="visually-hidden">How frequently is this dataset updated?</legend>
+
+        <%= dataset_field f, @dataset,
+        name: 'frequency',
+        input_type: :radio_button,
+        label: 'Daily',
+        value: 'daily' %>
+        <%= dataset_field f, @dataset,
+        name: 'frequency',
+        input_type: :radio_button,
+        label: 'Weekly',
+        value: 'weekly' %>
+        <%= dataset_field f, @dataset,
+        name: 'frequency',
+        input_type: :radio_button,
+        label: 'Monthly',
+        value: 'monthly' %>
+        <%= dataset_field f, @dataset,
+        name: 'frequency',
+        input_type: :radio_button,
+        label: 'Quarterly',
+        value: 'quarterly' %>
+        <%= dataset_field f, @dataset,
+        name: 'frequency',
+        input_type: :radio_button,
+        label: 'Annually (January to December)',
+        value: 'annually' %>
+        <%= dataset_field f, @dataset,
+        name: 'frequency',
+        input_type: :radio_button,
+        label: 'Annually (financial year April to March)',
+        value: 'financial-year' %>
+        <%= dataset_field f, @dataset,
+        name: 'frequency',
+        input_type: :radio_button,
+        label: 'One-off',
+        value: 'never' %>
+      </fieldset>
+    </div>
     <%= f.submit 'Save and continue', class: 'button' %>
   <% end %>
 </div>

@@ -23,25 +23,31 @@
   <% end %>
 
   <%= form_for @dataset, url: new_licence_dataset_path(@dataset), method: 'post' do |f| %>
-    <%= dataset_field f, @dataset,
-    name: 'licence',
-    input_type: :radio_button,
-    label: 'Open Government Licence',
-    label_class: 'block-label selection-button-radio',
-    value: 'uk-ogl' %>
+    <div class="form-group">
+      <fieldset>
 
-    <%= dataset_field f, @dataset,
-    name: 'licence',
-    input_type: :radio_button,
-    label: 'Other',
-    label_class: 'block-label selection-button-radio',
-    value: 'other' %>
+        <legend class="visually-hidden">Choose a licence for this dataset</legend>
 
-    <div class="panel panel-border-narrow" id="other-licence">
-      <%= dataset_field f, @dataset,
-      input_type: :text_field,
-      name: 'licence_other',
-      label: 'Name of your licence:' %>
+        <%= dataset_field f, @dataset,
+        name: 'licence',
+        input_type: :radio_button,
+        label: 'Open Government Licence',
+        value: 'uk-ogl' %>
+
+        <%= dataset_field f, @dataset,
+        target: 'other-licence',
+        name: 'licence',
+        input_type: :radio_button,
+        label: 'Other',
+        value: 'other' %>
+
+        <div class="panel panel-border-narrow js-hidden" id="other-licence">
+          <%= dataset_field f, @dataset,
+          input_type: :text_field,
+          name: 'licence_other',
+          label: 'Name of your licence:' %>
+        </div>
+      </fieldset>
     </div>
 
     <div class="form-group">

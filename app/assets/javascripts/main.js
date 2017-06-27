@@ -183,6 +183,11 @@
   }
 
   $(document).ready(function () {
+
+    var showHideContent = new GOVUK.ShowHideContent()
+    showHideContent.init()
+
+
     showHide.init({ rowLimit: 5 })
     locations.init({ selector: '.location-input' })
     searchDatasetsAsYouType.init('#filter-dataset-form')
