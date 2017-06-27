@@ -20,8 +20,8 @@
         <th><a href="<%= link.url %>"><%= link.name %></a></th>
         <td>✔</td>
         <td class="actions">
-          <%= link_to 'Edit', edit_addfile_dataset_path(link.id) %>
-          <%= link_to 'Delete', destroy_file_dataset_path(link.id), method: :delete %>
+          <%= link_to 'Edit', edit_addfile_dataset_path(@dataset.id, link.id) %>
+          <%= link_to 'Delete', file_path(@dataset.id, link.id), method: :delete %>
         </td>
       </tr>
     <% end %>

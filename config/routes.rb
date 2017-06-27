@@ -16,13 +16,16 @@ Rails.application.routes.draw do
     get 'show/:id', to: 'datatsets#show'
 
     member do
-      match 'licence',   to: 'datasets#licence',     via: [:post, :put]
-      match 'location',  to: 'datasets#location',    via: [:post, :put]
-      match 'frequency', to: 'datasets#frequency',   via: [:post, :put]
-      match 'addfile',   to: 'datasets#addfile',     via: [:post, :put]
-      match 'files',     to: 'datasets#files',       via: [:post, :put]
-      match 'adddoc',    to: 'datasets#adddoc',      via: [:post, :put]
-      match 'documents', to: 'datasets#documents',   via: [:post, :put]
+      match 'licence',       to: 'datasets#licence',     via: [:post, :put]
+      match 'location',      to: 'datasets#location',    via: [:post, :put]
+      match 'frequency',     to: 'datasets#frequency',   via: [:post, :put]
+      match 'addfile',       to: 'datasets#addfile',     via: [:post, :put]
+      match 'files',         to: 'datasets#files',       via: [:post, :put]
+      match 'adddoc',        to: 'datasets#adddoc',      via: [:post, :put]
+      match 'documents',     to: 'datasets#documents',   via: [:post, :put]
+
+      resources :datafiles, as: 'files'
+      resources :datafiles, as: 'documents'
 
       get 'new/licence',   to: 'datasets#licence'
       get 'new/location',  to: 'datasets#location'
