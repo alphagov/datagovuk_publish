@@ -128,10 +128,16 @@ describe "creating and editing datasets" do
       end
 
       it "should be able to add a new file" do
-        save_and_open_page
         all(:link, "Change")[6].click
+        expect(page).to have_content("my published test file")
+        click_link 'Add another link'
 
-        fail
+        fill_in 'datafile[url]', with: 'http://localhost'
+        fill_in 'datafile[name]', with: 'my other test file'
+
+        click_button 'Save and continue'
+
+        save_and_open_page
       end
 
       xit "should be able to edit an existing file" do

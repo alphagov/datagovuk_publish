@@ -221,4 +221,8 @@ class DatasetsController < ApplicationController
   def current_dataset
     Dataset.find_by(:name => params.require(:id))
   end
+
+  def current_file
+    Datafile.find(params.require(:file_id))
+  end
 end

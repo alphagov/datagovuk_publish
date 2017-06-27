@@ -19,36 +19,17 @@ Rails.application.routes.draw do
       match 'licence',       to: 'datasets#licence',     via: [:post, :put]
       match 'location',      to: 'datasets#location',    via: [:post, :put]
       match 'frequency',     to: 'datasets#frequency',   via: [:post, :put]
-      match 'addfile',       to: 'datasets#addfile',     via: [:post, :put]
-      match 'files',         to: 'datasets#files',       via: [:post, :put]
-      match 'adddoc',        to: 'datasets#adddoc',      via: [:post, :put]
-      match 'documents',     to: 'datasets#documents',   via: [:post, :put]
 
-      resources :datafiles, as: 'files'
-      resources :datafiles, as: 'documents'
+      resources :datafiles, as: 'files', param: :file_id
+      resources :datafiles, as: 'documents', param: :doc_id
 
-      get 'new/licence',   to: 'datasets#licence'
-      get 'new/location',  to: 'datasets#location'
-      get 'new/frequency', to: 'datasets#frequency'
-      get 'new/addfile',   to: 'datasets#addfile'
-      get 'new/files',     to: 'datasets#files'
-      get 'new/adddoc',    to: 'datasets#adddoc'
-      get 'new/documents', to: 'datasets#documents'
-
-      get 'edit/licence',     to: 'datasets#licence'
-      get 'edit/location',    to: 'datasets#location'
-      get 'edit/frequency',   to: 'datasets#frequency'
-      get 'edit/addfile/',    to: 'datasets#addfile'
-      get 'edit/adddoc/',     to: 'datasets#adddoc'
-      get 'edit/addfile/:file_id', to: 'datasets#addfile'
-      get 'edit/adddoc/:file_id',  to: 'datasets#adddoc'
-      get 'edit/files',       to: 'datasets#files'
-      get 'edit/documents',   to: 'datasets#documents'
-
-      match 'publish',       to: 'datasets#publish',   via: [:get, :post]
-
-      delete 'edit/delete_file/:id', to: 'datasets#destroy_file'
-
+      get 'new/licence',    to: 'datasets#licence'
+      get 'new/location',   to: 'datasets#location'
+      get 'new/frequency',  to: 'datasets#frequency'
+      get 'edit/licence',   to: 'datasets#licence'
+      get 'edit/location',  to: 'datasets#location'
+      get 'edit/frequency', to: 'datasets#frequency'
+      match 'publish',      to: 'datasets#publish',   via: [:get, :post]
       get 'confirm_delete', to: 'datasets#confirm_delete'
     end
   end
