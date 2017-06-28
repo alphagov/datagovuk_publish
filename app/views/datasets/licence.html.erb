@@ -22,7 +22,7 @@
 		</div>
   <% end %>
 
-  <%= form_for @dataset, url: new_licence_dataset_path(@dataset), method: 'post' do |f| %>
+  <%= form_for @dataset, url: licence_dataset_path(@dataset), method: update_method do |f| %>
     <div class="form-group">
       <fieldset>
         <legend class="visually-hidden">Choose a licence for this dataset</legend>
