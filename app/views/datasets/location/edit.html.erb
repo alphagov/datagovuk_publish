@@ -1,0 +1,115 @@
+<% content_for :page_title do %>
+    Add location -
+<% end %>
+
+<% if @dataset.errors.any? %>
+  <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+    <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+      There was a problem
+    </h1>
+    <ul class="error-summary-list">
+      <% @dataset.errors.each do |attr, message| %>
+        <li>
+          <a href="#<%= attr.to_s %>_form_group">
+            <%= "#{attr.to_s.humanize} #{message}" %>
+          </a>
+          <span class="visuallyhidden">.</span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h1 class="heading-large">Choose a geographical area</h1>
+
+<%= form_for @dataset, url: location_dataset_path(@dataset), method: update_method do |f| %>
+  <fieldset>
+    <legend class="visually-hidden">
+      Choose a location
+    </legend>
+
+    <div id="location1">
+      <input
+        type="button"
+        id="del1"
+        class="linky-button"
+        style="display: none"
+        aria-hidden="true"
+        value="Remove"/>
+
+      <%= dataset_field f, @dataset,
+      input_type: :text_field,
+      id: 'id_location1',
+      name: 'location1',
+      label: "Enter the area covered by this dataset",
+      input_options: { autocomplete: false },
+      input_class: 'location-input form-control-2-3' %>
+    </div>
+    <p>
+      <input
+        type="button"
+        id="add1"
+        class="linky-button"
+        style="display: none"
+        aria-hidden="true"
+        value="Enter another area" />
+    </p>
+
+    <div id="location2">
+      <script>document.getElementById('location2').style.display='none'</script>
+
+      <input
+        type="button"
+        id="del2"
+        class="linky-button"
+        style="display: none"
+        aria-hidden="true"
+        value="Remove" />
+
+      <%= dataset_field f, @dataset,
+      input_type: :text_field,
+      id: 'id_location2',
+      name: 'location2',
+      label: "Enter another area",
+      input_options: { autocomplete: false },
+      input_class: 'location-input form-control-2-3' %>
+    </div>
+
+    <p>
+      <input
+        type="button"
+        id="add2"
+        class="linky-button"
+        style="display: none"
+        aria-hidden="true"
+        value="Enter another area" />
+          </button>
+    </p>
+
+    <div id="location3">
+      <script>document.getElementById('location3').style.display='none'</script>
+
+      <input
+        type="button"
+        id="del3"
+        class="linky-button"
+        style="display: none"
+        aria-hidden="true"
+        value="Remove" />
+
+      <%= dataset_field f, @dataset,
+      input_type: :text_field,
+      id: 'id_location3',
+      name: 'location3',
+      label: "Enter another area",
+      input_options: { autocomplete: false },
+      input_class: 'location-input form-control-2-3' %>
+    </div>
+  </fieldset>
+  <p><%= f.submit 'Save and continue', class: 'button' %></p>
+  <% if creating? %>
+    <p><%= link_to 'Skip this step', new_frequency_dataset_path(@dataset) %></p>
+  <% else %>
+    <p><%= link_to 'Skip this step', dataset_path(@dataset) %></p>
+  <% end %>
+<% end %>
