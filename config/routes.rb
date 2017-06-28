@@ -20,15 +20,15 @@ Rails.application.routes.draw do
       match 'location',      to: 'datasets#location',    via: [:post, :put]
       match 'frequency',     to: 'datasets#frequency',   via: [:post, :put]
 
-      resources :files,     controller: 'datafiles', param: :file_id
-      resources :documents, controller: 'datafiles', param: :file_id
+      resources :files,     controller: 'datasets/datafiles', param: :file_id
+      resources :documents, controller: 'datasets/datafiles', param: :file_id
 
-      get 'new/licence',    to: 'datasets#licence'
-      get 'new/location',   to: 'datasets#location'
-      get 'new/frequency',  to: 'datasets#frequency'
-      get 'edit/licence',   to: 'datasets#licence'
-      get 'edit/location',  to: 'datasets#location'
-      get 'edit/frequency', to: 'datasets#frequency'
+      scope module: :datasets do
+        resources :licence
+        resources :location
+        resources :frequency
+      end
+
       match 'publish',      to: 'datasets#publish',   via: [:get, :post]
       get 'confirm_delete', to: 'datasets#confirm_delete'
     end

@@ -1,0 +1,2 @@
+module Datasets::LocationHelper
+end
