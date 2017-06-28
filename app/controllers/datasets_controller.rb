@@ -38,44 +38,21 @@ class DatasetsController < ApplicationController
     end
   end
 
-  def licence
+  def files
     @dataset = current_dataset
+    @datafiles = @dataset.datafiles.datalinks
 
-    unless request.get?
-      licence = get_licence(params.require(:dataset).permit(:licence, :licence_other))
-      @dataset.licence = licence
-
-      if @dataset.save
-        redirect_to new_location_dataset_path(@dataset) if request.post?
-        redirect_to dataset_path(@dataset) if request.put?
-      end
+    if request.post?
+      redirect_to new_document_path(@dataset)
     end
   end
 
-  def location
+  def documents
     @dataset = current_dataset
+    @datafiles = @dataset.datafiles.documentation
 
-    unless request.get?
-      location_params = params.require(:dataset).permit(:location1, :location2, :location3)
-      @dataset.update_attributes(location_params)
-
-      if @dataset.save
-        redirect_to new_frequency_dataset_path(@dataset) if request.post?
-        redirect_to dataset_path(@dataset) if request.put?
-      end
-    end
-  end
-
-  def frequency
-    @dataset = current_dataset
-
-    unless request.get?
-      @dataset.frequency = params.require(:dataset).permit(:frequency)[:frequency]
-
-      if @dataset.save
-        redirect_to new_file_path(@dataset) if request.post?
-        redirect_to dataset_path(@dataset) if request.put?
-      end
+    if request.post?
+      redirect_to publish_dataset(@dataset)
     end
   end
 
@@ -93,24 +70,6 @@ class DatasetsController < ApplicationController
         redirect_to files_path(@dataset) if request.post?
         redirect_to edit_dataset_path(@dataset) if request.put?
       end
-    end
-  end
-
-  def files
-    @dataset = current_dataset
-    @datafiles = @dataset.datafiles.datalinks
-
-    if request.post?
-      redirect_to new_document_path(@dataset)
-    end
-  end
-
-  def documents
-    @dataset = current_dataset
-    @datafiles = @dataset.datafiles.documentation
-
-    if request.post?
-      redirect_to publish_dataset(@dataset)
     end
   end
 
@@ -138,20 +97,7 @@ class DatasetsController < ApplicationController
     end
   end
 
-  DATASET_PERMITTED_PARAMS = [
-    :licence,
-    :licence_other
-  ]
-
   private
-  def get_licence(dataset_params)
-    if dataset_params[:licence] == 'other'
-      return dataset_params[:licence_other]
-    end
-
-    'uk-ogl'
-  end
-
   def current_dataset
     Dataset.find_by(:name => params.require(:id))
   end
