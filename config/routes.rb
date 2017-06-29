@@ -13,15 +13,11 @@ Rails.application.routes.draw do
   get 'tasks/organisation', to: 'tasks#organisation'
 
   resources :datasets do
-    get 'show/:id', to: 'datatsets#show'
+    get 'show/:id', to: 'datasets#show'
 
     member do
-      match 'licence',       to: 'datasets#licence',     via: [:post, :put]
-      match 'location',      to: 'datasets#location',    via: [:post, :put]
-      match 'frequency',     to: 'datasets#frequency',   via: [:post, :put]
-
-      resources :files,     controller: 'datasets/datafiles', param: :file_id
-      resources :documents, controller: 'datasets/datafiles', param: :file_id
+      resources :files,     controller: 'datafiles', param: :file_id
+      resources :documents, controller: 'datafiles', param: :file_id
 
       scope module: :datasets do
         resources :licence

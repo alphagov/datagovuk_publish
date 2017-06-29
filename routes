@@ -1,0 +1,169 @@
+                                    Prefix Verb       URI Pattern                                           Controller#Action
+                                      root GET        /                                                     home#index
+                    new_admin_user_session GET        /admin/login(.:format)                                active_admin/devise/sessions#new
+                        admin_user_session POST       /admin/login(.:format)                                active_admin/devise/sessions#create
+                destroy_admin_user_session DELETE|GET /admin/logout(.:format)                               active_admin/devise/sessions#destroy
+                   new_admin_user_password GET        /admin/password/new(.:format)                         active_admin/devise/passwords#new
+                  edit_admin_user_password GET        /admin/password/edit(.:format)                        active_admin/devise/passwords#edit
+                       admin_user_password PATCH      /admin/password(.:format)                             active_admin/devise/passwords#update
+                                           PUT        /admin/password(.:format)                             active_admin/devise/passwords#update
+                                           POST       /admin/password(.:format)                             active_admin/devise/passwords#create
+                                admin_root GET        /admin(.:format)                                      admin/dashboard#index
+            batch_action_admin_admin_users POST       /admin/admin_users/batch_action(.:format)             admin/admin_users#batch_action
+                         admin_admin_users GET        /admin/admin_users(.:format)                          admin/admin_users#index
+                                           POST       /admin/admin_users(.:format)                          admin/admin_users#create
+                      new_admin_admin_user GET        /admin/admin_users/new(.:format)                      admin/admin_users#new
+                     edit_admin_admin_user GET        /admin/admin_users/:id/edit(.:format)                 admin/admin_users#edit
+                          admin_admin_user GET        /admin/admin_users/:id(.:format)                      admin/admin_users#show
+                                           PATCH      /admin/admin_users/:id(.:format)                      admin/admin_users#update
+                                           PUT        /admin/admin_users/:id(.:format)                      admin/admin_users#update
+                                           DELETE     /admin/admin_users/:id(.:format)                      admin/admin_users#destroy
+                           admin_dashboard GET        /admin/dashboard(.:format)                            admin/dashboard#index
+              batch_action_admin_datafiles POST       /admin/datafiles/batch_action(.:format)               admin/datafiles#batch_action
+                           admin_datafiles GET        /admin/datafiles(.:format)                            admin/datafiles#index
+                                           POST       /admin/datafiles(.:format)                            admin/datafiles#create
+                        new_admin_datafile GET        /admin/datafiles/new(.:format)                        admin/datafiles#new
+                       edit_admin_datafile GET        /admin/datafiles/:id/edit(.:format)                   admin/datafiles#edit
+                            admin_datafile GET        /admin/datafiles/:id(.:format)                        admin/datafiles#show
+                                           PATCH      /admin/datafiles/:id(.:format)                        admin/datafiles#update
+                                           PUT        /admin/datafiles/:id(.:format)                        admin/datafiles#update
+                                           DELETE     /admin/datafiles/:id(.:format)                        admin/datafiles#destroy
+               batch_action_admin_datasets POST       /admin/datasets/batch_action(.:format)                admin/datasets#batch_action
+                            admin_datasets GET        /admin/datasets(.:format)                             admin/datasets#index
+                                           POST       /admin/datasets(.:format)                             admin/datasets#create
+                         new_admin_dataset GET        /admin/datasets/new(.:format)                         admin/datasets#new
+                        edit_admin_dataset GET        /admin/datasets/:id/edit(.:format)                    admin/datasets#edit
+                             admin_dataset GET        /admin/datasets/:id(.:format)                         admin/datasets#show
+                                           PATCH      /admin/datasets/:id(.:format)                         admin/datasets#update
+                                           PUT        /admin/datasets/:id(.:format)                         admin/datasets#update
+                                           DELETE     /admin/datasets/:id(.:format)                         admin/datasets#destroy
+       batch_action_admin_inspire_datasets POST       /admin/inspire_datasets/batch_action(.:format)        admin/inspire_datasets#batch_action
+                    admin_inspire_datasets GET        /admin/inspire_datasets(.:format)                     admin/inspire_datasets#index
+                                           POST       /admin/inspire_datasets(.:format)                     admin/inspire_datasets#create
+                 new_admin_inspire_dataset GET        /admin/inspire_datasets/new(.:format)                 admin/inspire_datasets#new
+                edit_admin_inspire_dataset GET        /admin/inspire_datasets/:id/edit(.:format)            admin/inspire_datasets#edit
+                     admin_inspire_dataset GET        /admin/inspire_datasets/:id(.:format)                 admin/inspire_datasets#show
+                                           PATCH      /admin/inspire_datasets/:id(.:format)                 admin/inspire_datasets#update
+                                           PUT        /admin/inspire_datasets/:id(.:format)                 admin/inspire_datasets#update
+                                           DELETE     /admin/inspire_datasets/:id(.:format)                 admin/inspire_datasets#destroy
+              batch_action_admin_locations POST       /admin/locations/batch_action(.:format)               admin/locations#batch_action
+                           admin_locations GET        /admin/locations(.:format)                            admin/locations#index
+                                           POST       /admin/locations(.:format)                            admin/locations#create
+                        new_admin_location GET        /admin/locations/new(.:format)                        admin/locations#new
+                       edit_admin_location GET        /admin/locations/:id/edit(.:format)                   admin/locations#edit
+                            admin_location GET        /admin/locations/:id(.:format)                        admin/locations#show
+                                           PATCH      /admin/locations/:id(.:format)                        admin/locations#update
+                                           PUT        /admin/locations/:id(.:format)                        admin/locations#update
+                                           DELETE     /admin/locations/:id(.:format)                        admin/locations#destroy
+          batch_action_admin_organisations POST       /admin/organisations/batch_action(.:format)           admin/organisations#batch_action
+                       admin_organisations GET        /admin/organisations(.:format)                        admin/organisations#index
+                                           POST       /admin/organisations(.:format)                        admin/organisations#create
+                    new_admin_organisation GET        /admin/organisations/new(.:format)                    admin/organisations#new
+                   edit_admin_organisation GET        /admin/organisations/:id/edit(.:format)               admin/organisations#edit
+                        admin_organisation GET        /admin/organisations/:id(.:format)                    admin/organisations#show
+                                           PATCH      /admin/organisations/:id(.:format)                    admin/organisations#update
+                                           PUT        /admin/organisations/:id(.:format)                    admin/organisations#update
+                                           DELETE     /admin/organisations/:id(.:format)                    admin/organisations#destroy
+batch_action_admin_organisation_statistics POST       /admin/organisation_statistics/batch_action(.:format) admin/organisation_statistics#batch_action
+             admin_organisation_statistics GET        /admin/organisation_statistics(.:format)              admin/organisation_statistics#index
+                                           POST       /admin/organisation_statistics(.:format)              admin/organisation_statistics#create
+          new_admin_organisation_statistic GET        /admin/organisation_statistics/new(.:format)          admin/organisation_statistics#new
+         edit_admin_organisation_statistic GET        /admin/organisation_statistics/:id/edit(.:format)     admin/organisation_statistics#edit
+              admin_organisation_statistic GET        /admin/organisation_statistics/:id(.:format)          admin/organisation_statistics#show
+                                           PATCH      /admin/organisation_statistics/:id(.:format)          admin/organisation_statistics#update
+                                           PUT        /admin/organisation_statistics/:id(.:format)          admin/organisation_statistics#update
+                                           DELETE     /admin/organisation_statistics/:id(.:format)          admin/organisation_statistics#destroy
+                  batch_action_admin_users POST       /admin/users/batch_action(.:format)                   admin/users#batch_action
+                               admin_users GET        /admin/users(.:format)                                admin/users#index
+                                           POST       /admin/users(.:format)                                admin/users#create
+                            new_admin_user GET        /admin/users/new(.:format)                            admin/users#new
+                           edit_admin_user GET        /admin/users/:id/edit(.:format)                       admin/users#edit
+                                admin_user GET        /admin/users/:id(.:format)                            admin/users#show
+                                           PATCH      /admin/users/:id(.:format)                            admin/users#update
+                                           PUT        /admin/users/:id(.:format)                            admin/users#update
+                                           DELETE     /admin/users/:id(.:format)                            admin/users#destroy
+                            admin_comments GET        /admin/comments(.:format)                             admin/comments#index
+                                           POST       /admin/comments(.:format)                             admin/comments#create
+                             admin_comment GET        /admin/comments/:id(.:format)                         admin/comments#show
+                                           DELETE     /admin/comments/:id(.:format)                         admin/comments#destroy
+                          new_user_session GET        /users/sign_in(.:format)                              users/sessions#new
+                              user_session POST       /users/sign_in(.:format)                              users/sessions#create
+                      destroy_user_session DELETE     /users/sign_out(.:format)                             users/sessions#destroy
+                         new_user_password GET        /users/password/new(.:format)                         users/passwords#new
+                        edit_user_password GET        /users/password/edit(.:format)                        users/passwords#edit
+                             user_password PATCH      /users/password(.:format)                             users/passwords#update
+                                           PUT        /users/password(.:format)                             users/passwords#update
+                                           POST       /users/password(.:format)                             users/passwords#create
+                  cancel_user_registration GET        /users/cancel(.:format)                               users/registrations#cancel
+                     new_user_registration GET        /users/sign_up(.:format)                              users/registrations#new
+                    edit_user_registration GET        /users/edit(.:format)                                 users/registrations#edit
+                         user_registration PATCH      /users(.:format)                                      users/registrations#update
+                                           PUT        /users(.:format)                                      users/registrations#update
+                                           DELETE     /users(.:format)                                      users/registrations#destroy
+                                           POST       /users(.:format)                                      users/registrations#create
+                    accept_user_invitation GET        /users/invitation/accept(.:format)                    devise/invitations#edit
+                    remove_user_invitation GET        /users/invitation/remove(.:format)                    devise/invitations#destroy
+                       new_user_invitation GET        /users/invitation/new(.:format)                       devise/invitations#new
+                           user_invitation PATCH      /users/invitation(.:format)                           devise/invitations#update
+                                           PUT        /users/invitation(.:format)                           devise/invitations#update
+                                           POST       /users/invitation(.:format)                           devise/invitations#create
+                                     tasks GET        /tasks(.:format)                                      tasks#my
+                        tasks_organisation GET        /tasks/organisation(.:format)                         tasks#organisation
+                                           GET        /datasets/:dataset_id/show/:id(.:format)              datatsets#show
+                           licence_dataset POST|PUT   /datasets/:id/licence(.:format)                       datasets#licence
+                          location_dataset POST|PUT   /datasets/:id/location(.:format)                      datasets#location
+                         frequency_dataset POST|PUT   /datasets/:id/frequency(.:format)                     datasets#frequency
+                                     files GET        /datasets/:id/files(.:format)                         datasets/datafiles#index
+                                           POST       /datasets/:id/files(.:format)                         datasets/datafiles#create
+                                  new_file GET        /datasets/:id/files/new(.:format)                     datasets/datafiles#new
+                                 edit_file GET        /datasets/:id/files/:file_id/edit(.:format)           datasets/datafiles#edit
+                                      file GET        /datasets/:id/files/:file_id(.:format)                datasets/datafiles#show
+                                           PATCH      /datasets/:id/files/:file_id(.:format)                datasets/datafiles#update
+                                           PUT        /datasets/:id/files/:file_id(.:format)                datasets/datafiles#update
+                                           DELETE     /datasets/:id/files/:file_id(.:format)                datasets/datafiles#destroy
+                                 documents GET        /datasets/:id/documents(.:format)                     datasets/datafiles#index
+                                           POST       /datasets/:id/documents(.:format)                     datasets/datafiles#create
+                              new_document GET        /datasets/:id/documents/new(.:format)                 datasets/datafiles#new
+                             edit_document GET        /datasets/:id/documents/:file_id/edit(.:format)       datasets/datafiles#edit
+                                  document GET        /datasets/:id/documents/:file_id(.:format)            datasets/datafiles#show
+                                           PATCH      /datasets/:id/documents/:file_id(.:format)            datasets/datafiles#update
+                                           PUT        /datasets/:id/documents/:file_id(.:format)            datasets/datafiles#update
+                                           DELETE     /datasets/:id/documents/:file_id(.:format)            datasets/datafiles#destroy
+                             licence_index GET        /datasets/:id/licence(.:format)                       datasets/licence#index
+                                           POST       /datasets/:id/licence(.:format)                       datasets/licence#create
+                               new_licence GET        /datasets/:id/licence/new(.:format)                   datasets/licence#new
+                              edit_licence GET        /datasets/:id/licence/:id/edit(.:format)              datasets/licence#edit
+                                   licence GET        /datasets/:id/licence/:id(.:format)                   datasets/licence#show
+                                           PATCH      /datasets/:id/licence/:id(.:format)                   datasets/licence#update
+                                           PUT        /datasets/:id/licence/:id(.:format)                   datasets/licence#update
+                                           DELETE     /datasets/:id/licence/:id(.:format)                   datasets/licence#destroy
+                            location_index GET        /datasets/:id/location(.:format)                      datasets/location#index
+                                           POST       /datasets/:id/location(.:format)                      datasets/location#create
+                              new_location GET        /datasets/:id/location/new(.:format)                  datasets/location#new
+                             edit_location GET        /datasets/:id/location/:id/edit(.:format)             datasets/location#edit
+                                  location GET        /datasets/:id/location/:id(.:format)                  datasets/location#show
+                                           PATCH      /datasets/:id/location/:id(.:format)                  datasets/location#update
+                                           PUT        /datasets/:id/location/:id(.:format)                  datasets/location#update
+                                           DELETE     /datasets/:id/location/:id(.:format)                  datasets/location#destroy
+                           frequency_index GET        /datasets/:id/frequency(.:format)                     datasets/frequency#index
+                                           POST       /datasets/:id/frequency(.:format)                     datasets/frequency#create
+                             new_frequency GET        /datasets/:id/frequency/new(.:format)                 datasets/frequency#new
+                            edit_frequency GET        /datasets/:id/frequency/:id/edit(.:format)            datasets/frequency#edit
+                                 frequency GET        /datasets/:id/frequency/:id(.:format)                 datasets/frequency#show
+                                           PATCH      /datasets/:id/frequency/:id(.:format)                 datasets/frequency#update
+                                           PUT        /datasets/:id/frequency/:id(.:format)                 datasets/frequency#update
+                                           DELETE     /datasets/:id/frequency/:id(.:format)                 datasets/frequency#destroy
+                           publish_dataset GET|POST   /datasets/:id/publish(.:format)                       datasets#publish
+                    confirm_delete_dataset GET        /datasets/:id/confirm_delete(.:format)                datasets#confirm_delete
+                                  datasets GET        /datasets(.:format)                                   datasets#index
+                                           POST       /datasets(.:format)                                   datasets#create
+                               new_dataset GET        /datasets/new(.:format)                               datasets#new
+                              edit_dataset GET        /datasets/:id/edit(.:format)                          datasets#edit
+                                   dataset GET        /datasets/:id(.:format)                               datasets#show
+                                           PATCH      /datasets/:id(.:format)                               datasets#update
+                                           PUT        /datasets/:id(.:format)                               datasets#update
+                                           DELETE     /datasets/:id(.:format)                               datasets#destroy
+                                    manage GET        /manage(.:format)                                     manage#manage_own
+                       manage_organisation GET        /manage/organisation(.:format)                        manage#manage_organisation
+                             api_locations GET        /api/locations(.:format)                              locations#lookup
+                              account_show GET        /account/:id(.:format)                                account#show
