@@ -18,13 +18,8 @@
   <%= render partial: 'layouts/proposition_header' %>
 <% end %>
 <% content_for :content do %>
-  <div id="skiplink-container">
-    <div>
-      <a href="#content" class="skiplink">Skip to main content</a>
-    </div>
-  </div>
-  <main id="content" role="main" tabindex="-1">
-    <%= render partial: 'layouts/phase_banner' %>
+  <main role="main" tabindex="-1" id="<%= 'content' unless current_page? root_path %>">
+    <%= render partial: 'layouts/phase_banner' unless current_page? root_path %>
     <%= yield %>
   </main>
 
