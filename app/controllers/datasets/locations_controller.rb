@@ -1,4 +1,4 @@
-class Datasets::LocationController < ApplicationController
+class Datasets::LocationsController < ApplicationController
   before_action :authenticate_user!
 
   def new
@@ -15,7 +15,7 @@ class Datasets::LocationController < ApplicationController
     @dataset.update_attributes(location_params)
 
     if @dataset.save
-      redirect_to new_frequency_dataset_path(@dataset)
+      redirect_to new_frequency_path(@dataset)
     else
       render "new"
     end

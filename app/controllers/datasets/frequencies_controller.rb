@@ -1,4 +1,4 @@
-class Datasets::FrequencyController < ApplicationController
+class Datasets::FrequenciesController < ApplicationController
   before_action :authenticate_user!
 
   def new
@@ -9,7 +9,7 @@ class Datasets::FrequencyController < ApplicationController
     @dataset = current_dataset
   end
 
-  def frequency
+  def create
     @dataset = current_dataset
     @dataset.frequency = params.require(:dataset).permit(:frequency)[:frequency]
 

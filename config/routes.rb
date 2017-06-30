@@ -20,9 +20,9 @@ Rails.application.routes.draw do
       resources :documents, controller: 'datafiles', param: :file_id
 
       scope module: :datasets do
-        resources :licence
-        resources :location
-        resources :frequency
+        resource :licence
+        resource :location
+        resource :frequency
       end
 
       match 'publish',      to: 'datasets#publish',   via: [:get, :post]

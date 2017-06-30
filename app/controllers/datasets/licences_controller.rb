@@ -1,4 +1,4 @@
-class Datasets::LicenceController < ApplicationController
+class Datasets::LicencesController < ApplicationController
   before_action :authenticate_user!
 
   def new
@@ -15,7 +15,7 @@ class Datasets::LicenceController < ApplicationController
     @dataset.licence = licence
 
     if @dataset.save
-      redirect_to new_location_dataset_path(@dataset)
+      redirect_to new_location_path(@dataset)
     else
       render 'new'
     end

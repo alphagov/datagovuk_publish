@@ -22,7 +22,7 @@
 
 <h1 class="heading-large">Choose a geographical area</h1>
 
-<%= form_for @dataset, url: location_dataset_path(@dataset), method: update_method do |f| %>
+<%= form_for @dataset, url: location_path(@dataset), method: :put do |f| %>
   <fieldset>
     <legend class="visually-hidden">
       Choose a location
@@ -107,9 +107,5 @@
     </div>
   </fieldset>
   <p><%= f.submit 'Save and continue', class: 'button' %></p>
-  <% if creating? %>
-    <p><%= link_to 'Skip this step', new_frequency_dataset_path(@dataset) %></p>
-  <% else %>
-    <p><%= link_to 'Skip this step', dataset_path(@dataset) %></p>
-  <% end %>
+  <p><%= link_to 'Skip this step', dataset_path(@dataset) %></p>
 <% end %>
