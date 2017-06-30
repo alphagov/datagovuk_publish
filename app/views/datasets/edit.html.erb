@@ -1,0 +1,51 @@
+<% content_for :page_title do %>
+    Add dataset title -
+<% end %>
+
+<h1 class="heading-large">Create a dataset</h1>
+<div class="datasets">
+  <% if @dataset.errors.any? %>
+		<div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+			<h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+				There was a problem
+			</h1>
+			<ul class="error-summary-list">
+        <% @dataset.errors.each do |attr, message| %>
+          <li>
+            <a href="#<%= attr.to_s %>_form_group">
+              <%= "Please enter a valid #{attr.to_s.humanize.downcase}" %>
+            </a>
+            <span class="visuallyhidden">.</span>
+          </li>
+				<% end %>
+			</ul>
+		</div>
+  <% end %>
+
+  <%= form_for @dataset, url: dataset_path(@dataset), method: :put do |f| %>
+
+    <%= dataset_field f, @dataset,
+    input_type: :text_field,
+    name: 'title',
+    input_class: 'form-control-2-3 error',
+    hint: 'Titles should clearly describe the content of your dataset in under 65 characters' %>
+
+    <%= dataset_field f, @dataset,
+    name: 'summary',
+    input_class: 'form-control-2-3',
+    input_type: :text_area,
+    input_options: { rows: 4 },
+    hint: 'Write a short description in plain English including any key information that will help users understand the dataset contents. Both the title and summary will appear in search results.' %>
+
+    <%= dataset_field f, @dataset,
+    name: 'description',
+    input_class: 'form-control-2-3',
+    label: 'Additional information',
+    optional: true,
+    input_type: :text_area,
+    input_options: { rows: 10 },
+    hint: 'Explain technical terms, acronyms or errors in the data' %>
+
+    <%= f.submit 'Save and continue', class: 'button' %>
+  <% end %>
+</div>

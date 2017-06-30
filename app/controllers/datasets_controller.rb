@@ -7,12 +7,10 @@ class DatasetsController < ApplicationController
 
   def new
     @dataset = Dataset.new
-    render 'dataset'
   end
 
   def edit
     @dataset = current_dataset
-    render 'dataset'
   end
 
   def create
@@ -23,7 +21,7 @@ class DatasetsController < ApplicationController
     if @dataset.save
       redirect_to new_licence_path(@dataset)
     else
-      render 'dataset'
+      render 'new'
     end
   end
 
@@ -34,7 +32,7 @@ class DatasetsController < ApplicationController
     if @dataset.save
       redirect_to dataset_path(@dataset)
     else
-      render 'dataset'
+      render 'edit'
     end
   end
 
