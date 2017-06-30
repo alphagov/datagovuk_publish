@@ -236,85 +236,58 @@ a.danger, a.danger:visited {
 // =============================================================================
 // tasks pages
 
-.tasks {
-  .bignum {
-    font-size: 200%;
-    padding-right: .5em;
+.dgu-tasklist {
+
+  &__title {
+    margin: 0;
+    width: 100%;
   }
-  .table-title {
-    > h2 {
-      display: table-cell;
-      width: 100%;
-      vertical-align: baseline;
-    }
-    > div {
-      display: table-cell;
-      min-width: 10em;
-      vertical-align: baseline;
-      text-align: right;
-    }
-  }
-  .update-date {
+
+  &__update-date {
     float: left;
     width: 6em;
   }
-  .overdue {
+
+  &__alert {
     display: inline-block;
     color: $error-colour;
     border-left: 4px solid $error-colour;
     padding-left: 10px;
     margin-left: 2px;
   }
-  .passed {
-    color: $grey-1;
-  }
-  h2 {
-    margin-bottom: 0;
-  }
-  table {
+
+  &__table {
     margin-bottom: 2em;
-    &.todos {
-      border-top: 1px solid $grey-2;
-    }
     tbody tr:hover {
-        background-color: $panel-colour;
-    }
-    thead {
-      th.name {
-        width: 60%;
-      }
-      th.update-by {
-        width: 25%;
-      }
-      th.broken-links {
-        width: 25%;
-        padding-right: 7px;
-      }
-      th.actions {
-        width: 10%;
-      }
+      background-color: $panel-colour;
     }
     thead td, tbody td {
       padding-left: .3em;
       padding-right: .3em;
-      .nb-downloads {
-        display: inline-block;
-        min-width: 3em;
-      }
-    }
-    td {
-      .text-supporting {
-        color: $grey-1;
-      }
-      &.broken-links {
-        text-align: right;
-        .link-count {
-          width: 5em;
-        }
-      }
     }
   }
+
+  &__name-column {
+    width: 65%;
+  }
+
+  &__update-by-column {
+    width: 25%;
+  }
+
+  &__broken-links-column {
+    width: 25%;
+    padding-right: 5em !important;
+    text-align: right;
+  }
+
+  &__actions-column {
+    width: 10%;
+    text-align: right;
+  }
+
 }
+
 
 // =============================================================================
 // user page

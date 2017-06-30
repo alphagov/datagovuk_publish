@@ -1,46 +1,40 @@
 <div class="dgu-tabs__content">
   <section class="dgu-show-all">
-    <div class="table-title">
-      <h2 class="heading-medium" id="update-datasets">
-        <%= @tasks.count =%> datasets need to be updated
-      </h2>
-    </div>
-    <table>
+    <h2 class="heading-medium dgu-tasklist__title" id="update-datasets">
+      <%= @tasks.count =%> datasets need to be updated
+    </h2>
+    <table class="dgu-tasklist__table">
       <thead>
         <tr>
-          <th class="sortable-column__heading name">
+          <th class="dgu-sortable-column__heading dgu-tasklist__name-column">
             <%= link_to "Name",
             tasks_path(update_sort_by: @update_name_sort,
                        fix_sort_by: params[:fix_sort_by]) + "#update-datasets",
-                       class:"sortable-column__heading__ascending" %>
+                       class:"dgu-sortable-column__heading__ascending" %>
           </th>
-          <th class="sortable-column__heading update-by">
+          <th class="sortable-column__heading dgu-tasklist__update-by-column">
             <%=link_to "Update by",
             tasks_path(update_sort_by: @date_sort,
                        fix_sort_by: params[:fix_sort_by]) + "#update-datasets",
-                       class:"sortable-column__heading__ascending" %>
+                       class:"dgu-sortable-column__heading__ascending" %>
           </th>
-          <th class="actions">
+          <th class="dgu-tasklist__actions-column">
             <span class="visuallyhidden">Actions</span>
           </th>
         </tr>
       </thead>
       <tbody>
-
         <% sorted_update_tasks.each do |task| %>
           <tr class="dgu-show-all__item">
             <th>
               <a href=""><%= task.description =%></a>
             </th>
             <td>
-              <span class="update-date"><%=task.created_at.strftime("%d %b %Y")%></span>
-              <div class="overdue">
-                Overdue
-              </div>
+              <span class="dgu-tasklist__update-date"><%=task.created_at.strftime("%d %b %Y")%></span>
+              <div class="dgu-tasklist__alert">Overdue</div>
             </td>
-            <td class="actions">
-              <a class="update" href="">Update
-              </a>
+            <td class="dgu-tasklist__actions-column">
+              <a href="">Update</a>
             </td>
           </tr>
         <% end %>
@@ -54,27 +48,25 @@
   </section>
 
   <section class="dgu-show-all">
-    <div class="table-title">
-      <h2 class="heading-medium" id="broken-datasets">
-        <%=broken_dataset_count=%> datasets have broken data links
-      </h2>
-    </div>
-    <table>
+    <h2 class="heading-medium dgu-tasklist__title" id="broken-datasets">
+      <%=broken_dataset_count=%> datasets have broken data links
+    </h2>
+    <table class="dgu-tasklist__table">
       <thead>
         <tr>
-          <th class="sortable-column__heading name">
+          <th class="dgu-sortable-column__heading dgu-tasklist__name-column">
             <%=link_to "Name",
             tasks_path(fix_sort_by: @fix_name_sort,
                        update_sort_by: params[:update_sort_by]) + "#broken-datasets",
-                       class:"sortable-column__heading__ascending" %>
+                       class:"dgu-sortable-column__heading__ascending" %>
           </th>
-          <th class="sortable-column broken-links">
+          <th class="dgu-sortable-column dgu-tasklist__broken-links-column">
             <%=link_to "Broken links",
             tasks_path(fix_sort_by: @count_sort,
                        update_sort_by: params[:update_sort_by]) + "#broken-datasets",
-                       class:"sortable-column__heading__ascending link-count" %>
+                       class:"dgu-sortable-column__heading__ascending dgu-tasklist__link-count" %>
           </th>
-          <th class="actions">
+          <th class="dgu-tasklist__actions-column">
             <span class="visuallyhidden">Actions</span>
           </th>
         </tr>
@@ -85,9 +77,9 @@
             <th>
               <a href=""><%=dataset.title=%></a>
             </th>
-            <td class="broken-links"><div class="link-count">3</div></td>
-            <td class="actions">
-              <a class="update" href="">Fix</a>
+            <td class="dgu-tasklist__broken-links-column">3</td>
+            <td class="dgu-tasklist__actions-column">
+              <a href="">Fix</a>
             </td>
           </tr>
         <% end %>
@@ -114,9 +106,9 @@
       </thead>
       <tbody>
         <tr id="row-template" style="display: none">
-          <td class="stats-title"></td>
+          <td class="dgu-stats-title"></td>
           <td>
-            <span class="stats-downloads"></span>
+            <span class="dgu-stats-downloads"></span>
           </td>
         </tr>
       </tbody>
