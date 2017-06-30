@@ -292,12 +292,12 @@ a.danger, a.danger:visited {
 // =============================================================================
 // user page
 
-ul.user-details {
+.dgu-user-details {
   li {
     margin-bottom: 1em;
     border-bottom: 1px solid $grey-2;
   }
-  div.label {
+  &__label {
     display: inline-block;
     font-weight: bold;
     width: 8em;
