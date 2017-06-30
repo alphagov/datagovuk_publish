@@ -37,7 +37,9 @@ table.manage-data {
   }
 }
 
-.show-hide a.toggle {
+// == show-all =================================================================
+
+.show-all__toggle {
   color: $link-colour;
   cursor: pointer;
 }
