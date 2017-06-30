@@ -45,7 +45,7 @@ table.manage-data {
 
 // == show-all =================================================================
 
-.show-all__toggle {
+.dgu-show-all__toggle {
   color: $link-colour;
   cursor: pointer;
 }
@@ -108,7 +108,7 @@ table.manage-data {
 // =============================================================================
 // Sortable column in table
 
-.sortable-column {
+.dgu-sortable-column {
 
   &__heading {
     position: relative;
@@ -152,7 +152,7 @@ a.danger, a.danger:visited {
 // =============================================================================
 // Tabs
 
-.tabs {
+.dgu-tabs {
   > h2 {
     display: inline-block;
     position: relative;

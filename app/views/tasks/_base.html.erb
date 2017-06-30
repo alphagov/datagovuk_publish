@@ -1,5 +1,5 @@
 <div class="tabs__content">
-  <section class="show-all">
+  <section class="dgu-show-all">
     <div class="table-title">
       <h2 class="heading-medium" id="update-datasets">
         <%= @tasks.count =%> datasets need to be updated
@@ -28,7 +28,7 @@
       <tbody>
 
         <% sorted_update_tasks.each do |task| %>
-          <tr class="show-all__item">
+          <tr class="dgu-show-all__item">
             <th>
               <a href=""><%= task.description =%></a>
             </th>
@@ -47,13 +47,13 @@
       </tbody>
       <tfoot>
         <tr>
-          <td><a class="show-all__toggle" style="display:none">Show all</a></td>
+          <td><a class="dgu-show-all__toggle" style="display:none">Show all</a></td>
         </tr>
       </tfoot>
     </table>
   </section>
 
-  <section class="show-all">
+  <section class="dgu-show-all">
     <div class="table-title">
       <h2 class="heading-medium" id="broken-datasets">
         <%=broken_dataset_count=%> datasets have broken data links
@@ -81,7 +81,7 @@
       </thead>
       <tbody>
         <% sorted_fix_tasks.each do |dataset| %>
-          <tr class="show-all__item">
+          <tr class="dgu-show-all__item">
             <th>
               <a href=""><%=dataset.title=%></a>
             </th>
@@ -94,7 +94,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <td><a class="show-all__toggle" style="display:none">Show all</a>
+          <td><a class="dgu-show-all__toggle" style="display:none">Show all</a>
           </td>
         </tr>
       </tfoot>

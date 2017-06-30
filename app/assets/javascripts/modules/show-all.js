@@ -1,6 +1,6 @@
 var showAll = {}
 
-showAll._selector = '.show-all';
+showAll._selector = '.dgu-show-all';
 
 showAll._callback = function (event) {
   var itemSelector = showAll._selector + '__item';
