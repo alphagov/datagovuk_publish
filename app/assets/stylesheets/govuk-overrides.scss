@@ -131,3 +131,24 @@ a.secondary-button, a.secondary-button:visited {
   cursor: pointer;
   text-decoration: underline;
 }
+
+// =============================================================================
+// class-less HTML styles
+
+nav ul {
+  list-style-type: none;
+  margin-bottom: 1em;
+  li {
+    margin-bottom: 1em;
+    a {
+      text-decoration: none;
+      &:visited {
+        color: $link-colour;
+      }
+    }
+  }
+}
+
+table {
+  margin-bottom: 1em;
+}

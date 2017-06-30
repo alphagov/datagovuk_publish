@@ -194,26 +194,23 @@ a.danger, a.danger:visited {
 // =============================================================================
 // start page
 
-.masthead {
+.dgu-masthead {
   margin: 0;
   background: $alpine-fresh;
   color: $page-colour;
-  .button-get-started {
-    color: $alpine-fresh;
-    background-color: $page-colour;
-  }
-  .login-white {
-    line-height: 42px;
-  }
 
   a {
     color: $page-colour;
   }
 
-  // Start now buttons
-  .button-start,
-  .button-get-started {
+  &__login-white {
+    line-height: 42px;
+  }
+
+  &__button-get-started {
     @include bold-24;
+    color: $alpine-fresh!important;
+    background-color: $page-colour!important;
     background-image: file-url("icon-pointer-green.png");
     background-repeat: no-repeat;
     background-position: 95% 50%;
@@ -228,33 +225,12 @@ a.danger, a.danger:visited {
       background-image: file-url("icon-pointer-green-2x.png");
     }
   }
-}
 
-.masthead .inner, .contact {
-  margin: 0 auto;
-  padding-bottom: 3em;
-  max-width: 960px;
-}
-
-// =============================================================================
-// navigation bar
-
-nav ul {
-  list-style-type: none;
-  margin-bottom: 1em;
-  li {
-    margin-bottom: 1em;
-    a {
-      text-decoration: none;
-      &:visited {
-        color: $link-colour;
-      }
-    }
+  &__inner, &__contact {
+    margin: 0 auto;
+    padding-bottom: 3em;
+    max-width: 960px;
   }
-}
-
-table {
-  margin-bottom: 1em;
 }
 
 // =============================================================================
