@@ -1,5 +1,8 @@
 // Components
 
+// =============================================================================
+// Check Your Answers table
+
 table.check-your-answers {
   margin-top: 1em;
   table-layout: fixed;
@@ -20,6 +23,9 @@ table.check-your-answers {
     width: 5em;
   }
 }
+
+// =============================================================================
+// Manage Datasets table
 
 table.manage-data {
   td {
@@ -143,9 +149,10 @@ a.danger, a.danger:visited {
   color: $error-colour;
 }
 
+// =============================================================================
 // Tabs
 
-div.tabs {
+.tabs {
   > h2 {
     display: inline-block;
     position: relative;
@@ -166,7 +173,8 @@ div.tabs {
   a:visited {
     color: $link-colour;
   }
-  div.ie-fix {
+
+  &__ie-fix {
     // We need to add this in order to make up for IE's box model accuracy errors
     position:absolute;
     top: 2em;
@@ -175,13 +183,15 @@ div.tabs {
     height: 20px;
     background: $page-colour;
   }
+
+  &__content {
+    border-top: 1px solid $grey-2;
+    padding-top: 1em;
+  }
 }
 
-div.tabs-content {
-  border-top: 1px solid $grey-2;
-  padding-top: 1em;
-}
 
+// =============================================================================
 // start page
 
 .masthead {
@@ -226,6 +236,7 @@ div.tabs-content {
   max-width: 960px;
 }
 
+// =============================================================================
 // navigation bar
 
 nav ul {
@@ -246,6 +257,7 @@ table {
   margin-bottom: 1em;
 }
 
+// =============================================================================
 // tasks pages
 
 .tasks {
@@ -328,6 +340,7 @@ table {
   }
 }
 
+// =============================================================================
 // user page
 
 ul.user-details {
