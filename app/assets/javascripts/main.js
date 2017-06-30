@@ -189,7 +189,7 @@
 
 
     showHide.init({ rowLimit: 5 })
-    locations.init({ selector: '.location-input' })
+    locations.init({ selector: '.dgu-location__input' })
     searchDatasetsAsYouType.init('#filter-dataset-form')
     analytics.init()
   })
