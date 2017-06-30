@@ -12,7 +12,7 @@
                        fix_sort_by: params[:fix_sort_by]) + "#update-datasets",
                        class:"dgu-sortable-column__heading__ascending" %>
           </th>
-          <th class="sortable-column__heading dgu-tasklist__update-by-column">
+          <th class="dgu-sortable-column__heading dgu-tasklist__update-by-column">
             <%=link_to "Update by",
             tasks_path(update_sort_by: @date_sort,
                        fix_sort_by: params[:fix_sort_by]) + "#update-datasets",
@@ -60,7 +60,7 @@
                        update_sort_by: params[:update_sort_by]) + "#broken-datasets",
                        class:"dgu-sortable-column__heading__ascending" %>
           </th>
-          <th class="dgu-sortable-column dgu-tasklist__broken-links-column">
+          <th class="dgu-sortable-column__heading dgu-tasklist__broken-links-column">
             <%=link_to "Broken links",
             tasks_path(fix_sort_by: @count_sort,
                        update_sort_by: params[:update_sort_by]) + "#broken-datasets",
