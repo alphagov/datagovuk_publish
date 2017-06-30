@@ -100,32 +100,39 @@ table.manage-data {
 }
 
 // =============================================================================
+// Sortable column in table
 
-th.sortable-heading {
-  position: relative;
-  font-weight: normal;
-  a:visited {
-    color: $link-colour;
+.sortable-column {
+
+  &__heading {
+    position: relative;
+    font-weight: normal;
+    a:visited {
+      color: $link-colour;
+    }
+
+    &__ascending, &__descending {
+      font-weight: bold;
+    }
+
+    &__ascending::after {
+      content: "\00a0\00a0\25BC";
+      position: absolute;
+      font-size: 12px;
+      top: 1.6em;
+    }
+
+    &__descending::after {
+      content: "\00a0\00a0\25B2";
+      position: absolute;
+      font-size: 12px;
+      top: 1.6em;
+    }
   }
+
 }
 
-.sort-ascending, .sort-descending {
-  font-weight: bold;
-}
-
-.sort-ascending::after {
-  content: "\00a0\00a0\25BC";
-  position: absolute;
-  font-size: 12px;
-  top: 1.6em;
-}
-
-.sort-descending::after {
-  content: "\00a0\00a0\25B2";
-  position: absolute;
-  font-size: 12px;
-  top: 1.6em;
-}
+// =============================================================================
 
 
 .pagination span a:visited {

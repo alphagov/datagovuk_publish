@@ -81,7 +81,7 @@
     },
 
     changeSortLinks: function (searchQuery) {
-      $('.sortable-heading').each(function () {
+      $('.sortable-column__heading').each(function () {
         var link = $(this).find('a')
         var hrefObj = splitUrl(link.attr('href'))
         hrefObj.params.q = searchQuery

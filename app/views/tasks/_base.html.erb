@@ -8,17 +8,17 @@
     <table>
       <thead>
         <tr>
-          <th class="sortable-heading name">
+          <th class="sortable-column__heading name">
             <%= link_to "Name",
             tasks_path(update_sort_by: @update_name_sort,
                        fix_sort_by: params[:fix_sort_by]) + "#update-datasets",
-                       class:"sort-ascending" %>
+                       class:"sortable-column__heading__ascending" %>
           </th>
-          <th class="sortable-heading update-by">
+          <th class="sortable-column__heading update-by">
             <%=link_to "Update by",
             tasks_path(update_sort_by: @date_sort,
                        fix_sort_by: params[:fix_sort_by]) + "#update-datasets",
-                       class:"sort-ascending" %>
+                       class:"sortable-column__heading__ascending" %>
           </th>
           <th class="actions">
             <span class="visuallyhidden">Actions</span>
@@ -62,17 +62,17 @@
     <table>
       <thead>
         <tr>
-          <th class="sortable-heading name">
+          <th class="sortable-column__heading name">
             <%=link_to "Name",
             tasks_path(fix_sort_by: @fix_name_sort,
                        update_sort_by: params[:update_sort_by]) + "#broken-datasets",
-                       class:"sort-ascending" %>
+                       class:"sortable-column__heading__ascending" %>
           </th>
-          <th class="sortable-heading broken-links">
+          <th class="sortable-column broken-links">
             <%=link_to "Broken links",
             tasks_path(fix_sort_by: @count_sort,
                        update_sort_by: params[:update_sort_by]) + "#broken-datasets",
-                       class:"sort-ascending link-count" %>
+                       class:"sortable-column__heading__ascending link-count" %>
           </th>
           <th class="actions">
             <span class="visuallyhidden">Actions</span>
