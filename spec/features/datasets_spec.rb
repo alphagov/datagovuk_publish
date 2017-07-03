@@ -10,6 +10,16 @@ describe "creating and editing datasets" do
                   password: "password",
                   password_confirmation: "password")
   end
+  let! (:unfinished_dataset) do
+    Dataset.create!(
+      organisation: org,
+      title: 'test title unfinished',
+      summary: 'test summary',
+      creator: user,
+      owner: user
+    )
+  end
+
   let! (:unpublished_dataset) do
     d = Dataset.create!(
       organisation: org,
@@ -58,6 +68,14 @@ describe "creating and editing datasets" do
     fill_in("user_email", with: "test@localhost")
     fill_in("Password", with: "password")
     click_button "Sign in"
+  end
+
+  describe 'unfinished datasets' do
+    it 'should be able to show an unfinished dataset' do
+      click_link 'Manage datasets'
+      expect(page).to have_content(unfinished_dataset.title)
+      visit '/datasets/test-title-unfinished'
+    end
   end
 
   describe 'editing datasets' do
