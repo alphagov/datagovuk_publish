@@ -20,7 +20,7 @@ var extended = function(browser) {
   browser.selectRadioButton = function(text) {
     return this
       .useXpath()
-      .click('//label[contains(span/text(), "'+text+'")]')
+      .click('//label[contains(text(), "'+text+'")]')
       .useCss();
   };
   browser.submitFormAndCheckNextTitle = function(title) {
