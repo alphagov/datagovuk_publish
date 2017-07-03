@@ -3,11 +3,13 @@
 
       <%= f.radio_button field[:name], (field[:value] || dataset.send(field[:name])),{
         class: field[:input_class],
-        id: field[:id] || "id_#{field[:name]}",
+        id: field[:id] || "id_#{field[:name]}_#{field[:value]}",
         value: field[:value] || dataset.send(field[:name])
       }.merge(field.fetch(:input_options, {})) %>
 
-      <%= f.label field[:label], class: field[:label_class], for: field[:id] || "id_#{field[:name]}" %>
+      <%= f.label field[:label], field[:label],
+      class: field[:label_class],
+        for: field[:id] || "id_#{field[:name]}_#{field[:value]}" %>
     </div>
   <% else %>
     <div class="form-group<%= " error" if dataset.errors.include?(field[:name])%>" id="<%= field[:name] %>-form-group">
