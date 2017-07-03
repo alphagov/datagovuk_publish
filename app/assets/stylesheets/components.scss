@@ -1,0 +1,305 @@
+// Components
+
+// =============================================================================
+// Check Your Answers table
+
+table.check-your-answers {
+  margin-top: 1em;
+  table-layout: fixed;
+  td.dataset-item {
+    width: 22%;
+  }
+  th, td {
+    vertical-align: top;
+  }
+  th { width: 12em; }
+  td.file-list {
+    overflow-x: hidden;
+    ul {
+      width: 2000px;
+    }
+  }
+  td.actions {
+    width: 5em;
+  }
+}
+
+// =============================================================================
+// Manage Datasets table
+
+table.manage-data {
+  td {
+    padding-left: .3em;
+    padding-right: .3em
+  }
+  tbody tr:hover {
+    background-color: $panel-colour;
+  }
+  tr td.actions {
+    width: 8em;
+    a + a {
+      margin-left: .7em;
+    }
+  }
+}
+
+// == show-all =================================================================
+
+.dgu-show-all__toggle {
+  color: $link-colour;
+  cursor: pointer;
+}
+
+// == location =================================================================
+
+.dgu-location {
+  &__button {
+    background: $page-colour;
+    border: none;
+    padding: 0;
+    color: $link-colour;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  &__input {
+    display: block;
+  }
+}
+
+// == customisation of the typeahead component ====================-------------
+
+.twitter-typeahead {
+  width: 100%;
+  .tt-menu.tt-open {
+    width: 66.6%;
+    @include media(mobile) {
+      width: 100%;
+    }
+    border: 3px solid orange;
+    border-top: none;
+    left: -3px!important;
+  }
+  .tt-cursor {
+    background: $grey-3;
+  }
+  .tt-hint {
+    color: $grey-1;
+  }
+  .tt-menu {
+    border: 1px solid $grey-1;
+    background: $page-colour;
+    overflow: hidden;
+  }
+  .tt-dropdown-menu {
+      width: 100%;
+  }
+  .tt-highlight {
+    text-decoration: underline;
+  }
+  .tt-cursor {
+    color: white;
+    background: $link-colour;
+  }
+  .tt-suggestion {
+    padding-left: 2px;
+  }
+}
+
+// =============================================================================
+// Sortable column in table
+
+.dgu-sortable-column {
+
+  &__heading {
+    position: relative;
+    font-weight: normal;
+    a:visited {
+      color: $link-colour;
+    }
+
+    &__ascending, &__descending {
+      font-weight: bold;
+    }
+
+    &__ascending::after {
+      content: "\00a0\00a0\25BC";
+      position: absolute;
+      font-size: 12px;
+      top: 1.6em;
+    }
+
+    &__descending::after {
+      content: "\00a0\00a0\25B2";
+      position: absolute;
+      font-size: 12px;
+      top: 1.6em;
+    }
+  }
+
+}
+
+// =============================================================================
+
+
+.pagination span a:visited {
+  color: $link-colour;
+}
+
+a.danger, a.danger:visited {
+  color: $error-colour;
+}
+
+// =============================================================================
+// Tabs
+
+.dgu-tabs {
+  > h2 {
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    margin: 0;
+    padding: 15px;
+    border-width: 1px 1px 0px 1px;
+    border-color: $grey-2;
+    border-style: solid;
+    background: $page-colour;
+  }
+  > div {
+    display: inline-block;
+    margin: 0;
+    padding: 15px;
+    padding-bottom: 14px;
+  }
+  a:visited {
+    color: $link-colour;
+  }
+
+  &__ie-fix {
+    // We need to add this in order to make up for IE's box model accuracy errors
+    position:absolute;
+    top: 2em;
+    left: 0px;
+    width: 100%;
+    height: 20px;
+    background: $page-colour;
+  }
+
+  &__content {
+    border-top: 1px solid $grey-2;
+    padding-top: 1em;
+  }
+}
+
+
+// =============================================================================
+// start page
+
+.dgu-masthead {
+  margin: 0;
+  background: $alpine-fresh;
+  color: $page-colour;
+
+  a {
+    color: $page-colour;
+  }
+
+  &__login-white {
+    line-height: 42px;
+  }
+
+  &__button-get-started {
+    @include bold-24;
+    color: $alpine-fresh!important;
+    background-color: $page-colour!important;
+    background-image: file-url("icon-pointer-green.png");
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+    padding: em(5) em(41) em(6) em(16);
+
+    @include device-pixel-ratio {
+      background-image: file-url("icon-pointer-green-2x.png");
+      background-size: 30px 19px;
+    }
+
+    @include ie(6) {
+      background-image: file-url("icon-pointer-green-2x.png");
+    }
+  }
+
+  &__inner, &__contact {
+    margin: 0 auto;
+    padding-bottom: 3em;
+    max-width: 960px;
+  }
+}
+
+// =============================================================================
+// tasks pages
+
+.dgu-tasklist {
+
+  &__title {
+    margin: 0;
+    width: 100%;
+  }
+
+  &__update-date {
+    float: left;
+    width: 6em;
+  }
+
+  &__alert {
+    display: inline-block;
+    color: $error-colour;
+    border-left: 4px solid $error-colour;
+    padding-left: 10px;
+    margin-left: 2px;
+  }
+
+  &__table {
+    margin-bottom: 2em;
+    tbody tr:hover {
+      background-color: $panel-colour;
+    }
+    thead td, tbody td {
+      padding-left: .3em;
+      padding-right: .3em;
+    }
+  }
+
+  &__name-column {
+    width: 65%;
+  }
+
+  &__update-by-column {
+    width: 25%;
+  }
+
+  &__broken-links-column {
+    width: 25%;
+    padding-right: 5em !important;
+    text-align: right;
+  }
+
+  &__actions-column {
+    width: 10%;
+    text-align: right;
+  }
+
+}
+
+
+// =============================================================================
+// user page
+
+.dgu-user-details {
+  li {
+    margin-bottom: 1em;
+    border-bottom: 1px solid $grey-2;
+  }
+  &__label {
+    display: inline-block;
+    font-weight: bold;
+    width: 8em;
+  }
+}

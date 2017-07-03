@@ -45,42 +45,6 @@
 
   // Components
 
-  var showHide = {
-    selector: '.show-hide',
-
-    init: function (params) {
-      var that = this
-      $.each($(this.selector), function (index, showHide) {
-        var rows = $(showHide).find('.show-hide-item')
-        rows.each(function () {
-          if ($(this).index() >= params.rowLimit) {
-            $(this).hide()
-          }
-        })
-        if (rows.length > params.rowLimit) {
-          $(showHide).find('a.toggle')
-            .on('click', params, that.callback)
-            .show()
-        }
-      })
-    },
-
-    callback: function (event) {
-      var a = $(this)
-      var rows = $(this).parents('.show-hide').first().find('.show-hide-item')
-      a.toggleClass('expanded')
-      if (a.hasClass('expanded')) {
-        a.text('Close')
-        rows.show()
-      } else {
-        a.text('Show all')
-        rows.each(function (i) {
-          if ($(this).index() >= event.data.rowLimit) $(this).hide()
-        })
-      }
-    }
-  }
-
   var searchDatasetsAsYouType = {
 
     buildResultsTable: function (results) {
@@ -117,7 +81,7 @@
     },
 
     changeSortLinks: function (searchQuery) {
-      $('.sortable-heading').each(function () {
+      $('.dgu-sortable-column__heading').each(function () {
         var link = $(this).find('a')
         var hrefObj = splitUrl(link.attr('href'))
         hrefObj.params.q = searchQuery
@@ -188,8 +152,8 @@
     showHideContent.init()
 
 
-    showHide.init({ rowLimit: 5 })
-    locations.init({ selector: '.location-input' })
+    showAll.init({ rowLimit: 5 })
+    locations.init({ selector: '.dgu-location__input' })
     searchDatasetsAsYouType.init('#filter-dataset-form')
     analytics.init()
   })

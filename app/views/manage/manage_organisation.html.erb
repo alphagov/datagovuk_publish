@@ -3,12 +3,12 @@
 <%= render "manage/shared/search" %>
 
 <div class="">
-  <div class="tabs">
+  <div class="dgu-tabs">
     <span class="visuallyhidden"> (<%=@organisation.title =%>)</span>
     <div class="heading-small">
       <%= link_to "My datasets", manage_path(:q => @q) %>
     </div>
-    <h2 class="heading-small"><%=@organisation.title =%> tasks<div class="ie-fix"></div></h2>
+    <h2 class="heading-small"><%=@organisation.title =%> tasks<div class="dgu-tabs__ie-fix"></div></h2>
   </div>
   <%= render partial: 'base' %>
 </div>

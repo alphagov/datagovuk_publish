@@ -1,4 +1,4 @@
-<div class="tabs-content">
+<div class="dgu-tabs__content">
   <section class="show-hide">
   </section>
 
@@ -7,11 +7,11 @@
       <%  if @datasets.count == 0 %>style="display:none"<% end %>>
     <thead>
       <tr>
-        <th class="sortable-heading">
-          <%= link_to "Dataset Name", set_path(sort_by: @name_sort, q: @q), class:"sort-ascending" %>
+        <th class="dgu-sortable-column__heading">
+          <%= link_to "Dataset Name", set_path(sort_by: @name_sort, q: @q), class:"dgu-sortable-column__heading__ascending" %>
         </th>
-        <th class="sortable-heading">
-          <%= link_to "Status", set_path(sort_by: @publish_sort, q: @q), class:"sort-ascending" %>
+        <th class="dgu-sortable-column__heading">
+          <%= link_to "Status", set_path(sort_by: @publish_sort, q: @q), class:"dgu-sortable-column__heading__ascending" %>
         </th>
         <th><span class="visuallyhidden">Actions</span></th>
       </tr>
