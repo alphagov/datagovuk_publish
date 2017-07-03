@@ -40,7 +40,7 @@ class ManageController < ApplicationController
 
   def set_common_args
     @organisation = current_user.primary_organisation
-    @find_url = ""
+    @find_url = ENV["FIND_URL"] || ""
     @q = params[:q]
   end
 
