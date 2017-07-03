@@ -65,6 +65,7 @@ class DatafilesController < ApplicationController
 
   def files
     @datafiles = @dataset.datafiles.datalinks
+    @initialising = params[:new]
     render 'files'
   end
 
