@@ -10,12 +10,12 @@
     <div class="form-date">
       <div class="form-group form-group-month">
         <label for="start_month">Month</label>
-        <%= text_field_tag "datafile[start_month]", nil, id: "start_month", class: "form-control" %>
+        <%= text_field_tag "datafile[start_month]", @datafile.start_month, id: "start_month", class: "form-control" %>
       </div>
 
       <div class="form-group form-group-year">
         <label for="start_year">Year</label>
-        <%= text_field_tag "datafile[start_year]", nil, id: "start_year", class: "form-control" %>
+        <%= text_field_tag "datafile[start_year]", @datafile.start_year, id: "start_year", class: "form-control" %>
       </div>
     </div>
   </fieldset>
