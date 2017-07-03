@@ -1,0 +1,22 @@
+<div class="form-group" id="start_date_form_group">
+  <fieldset>
+    <legend>
+      <span class="form-label-bold">
+          Time period of this link
+          <span class="form-hint">For example, 3 2016</span>
+      </span>
+    </legend>
+
+    <div class="form-date">
+      <div class="form-group form-group-month">
+        <label for="start_month">Month</label>
+        <%= text_field_tag "datafile[start_month]", nil, id: "start_month", class: "form-control" %>
+      </div>
+
+      <div class="form-group form-group-year">
+        <label for="start_year">Year</label>
+        <%= text_field_tag "datafile[start_year]", nil, id: "start_year", class: "form-control" %>
+      </div>
+    </div>
+  </fieldset>
+</div>

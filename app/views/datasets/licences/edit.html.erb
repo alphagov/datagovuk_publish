@@ -1,0 +1,57 @@
+<% content_for :page_title do %>
+    Add license -
+<% end %>
+
+<h1 class="heading-large">Choose a licence for this dataset</h1>
+<div class="datasets">
+  <% if @dataset.errors.any? %>
+		<div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+			<h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+				There was a problem
+			</h1>
+			<ul class="error-summary-list">
+        <% @dataset.errors.each do |attr, message| %>
+          <li>
+            <a href="#<%= attr.to_s %>_form_group">
+              <%= "#{attr.to_s.humanize} #{message}" %>
+            </a>
+            <span class="visuallyhidden">.</span>
+          </li>
+				<% end %>
+			</ul>
+		</div>
+  <% end %>
+
+  <%= form_for @dataset, url: licence_path(@dataset), method: :put do |f| %>
+    <div class="form-group">
+      <fieldset>
+        <legend class="visually-hidden">Choose a licence for this dataset</legend>
+
+        <%= dataset_field f, @dataset,
+        name: 'licence',
+        input_type: :radio_button,
+        label: 'Open Government Licence',
+        value: 'uk-ogl' %>
+
+        <%= dataset_field f, @dataset,
+        target: 'other-licence',
+        name: 'licence',
+        input_type: :radio_button,
+        label: 'Other',
+        value: 'other' %>
+
+        <div class="panel panel-border-narrow js-hidden" id="other-licence">
+          <%= dataset_field f, @dataset,
+          input_type: :text_field,
+          name: 'licence_other',
+          label: 'Name of your licence:' %>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="form-group">
+      <p><%= f.submit 'Save and continue', class: 'button' %> </br></p>
+      <p><%= link_to 'Skip this step', dataset_path(@dataset) %></p>
+    </div>
+  <% end %>
+</div>

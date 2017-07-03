@@ -4,12 +4,53 @@ describe "creating and editing datasets" do
   # let! used here to force it to eager evaluate before each test
   let! (:org)  { Organisation.create!(name: "land-registry", title: "Land Registry") }
   let! (:user) do
-    @user = User.create!(email: "test@localhost",
-                 name: "Test User",
-                 primary_organisation: org,
-                 password: "password",
-                 password_confirmation: "password")
+     User.create!(email: "test@localhost",
+                  name: "Test User",
+                  primary_organisation: org,
+                  password: "password",
+                  password_confirmation: "password")
   end
+  let! (:unpublished_dataset) do
+    d = Dataset.create!(
+      organisation: org,
+      title: 'test title unpublished',
+      summary: 'test summary',
+      frequency: 'never',
+      licence: 'uk-ogl',
+      location1: 'somewhere',
+      published: false,
+      creator: user,
+      owner: user
+    )
+
+    d.datafiles << Datafile.create!(url: 'http://localhost', name: 'my test file', dataset: d)
+    d.datafiles << Datafile.create!(url: 'http://localhost/doc', name: 'my test doc', dataset: d, documentation: true)
+    d.save
+
+    d
+  end
+
+  let! (:published_dataset) do
+    d = Dataset.create!(
+      organisation: org,
+      title: 'test title published',
+      summary: 'test summary',
+      frequency: 'never',
+      licence: 'uk-ogl',
+      location1: 'here',
+      published: false,
+      creator: user,
+      owner: user
+    )
+
+    d.datafiles << Datafile.create!(url: 'http://localhost', name: 'my published test file', dataset: d)
+    d.datafiles << Datafile.create!(url: 'http://localhost/doc', name: 'my published test doc', dataset: d, documentation: true)
+    d.published = true
+    d.save
+
+    d
+  end
+
 
   before(:each) do
     visit "/"
@@ -17,6 +58,154 @@ describe "creating and editing datasets" do
     fill_in("user_email", with: "test@localhost")
     fill_in("Password", with: "password")
     click_button "Sign in"
+  end
+
+  describe 'editing datasets' do
+    it "should be able to go to datasets's page" do
+      click_link 'Manage datasets'
+      expect(page).to have_content(unpublished_dataset.title)
+      expect(page).to have_content(published_dataset.title)
+      first(:link, 'Edit').click
+    end
+
+    context 'editing from show page' do
+      before(:each) do
+        click_link 'Manage datasets'
+        first(:link, 'Edit').click
+      end
+
+      it "should be able to update title" do
+        all(:link, "Change").first.click
+        fill_in 'dataset[title]', with: 'a new title'
+        click_button 'Save and continue'
+
+        expect(page).to have_content('a new title')
+        expect(last_updated_dataset.title).to eq('a new title')
+      end
+
+      it "should be able to update summary" do
+        all(:link, "Change")[1].click
+        fill_in 'dataset[summary]', with: 'a new summary'
+        click_button 'Save and continue'
+
+        expect(page).to have_content('a new summary')
+        expect(last_updated_dataset.summary).to eq('a new summary')
+      end
+
+      it "should be able to update additional info" do
+        all(:link, "Change")[2].click
+        fill_in 'dataset[description]', with: 'a new description'
+        click_button 'Save and continue'
+
+        expect(page).to have_content('a new description')
+        expect(last_updated_dataset.description).to eq('a new description')
+      end
+
+      it "should be able to update licence" do
+        all(:link, "Change")[3].click
+        choose(option: 'other')
+        fill_in 'dataset[licence_other]', with: 'MIT'
+        click_button 'Save and continue'
+
+        expect(page).to have_content('MIT')
+        expect(last_updated_dataset.licence).to eq('MIT')
+      end
+
+      it "should be able to update location" do
+        all(:link, "Change")[4].click
+        fill_in 'dataset[location1]', with: 'there'
+        click_button 'Save and continue'
+
+        expect(page).to have_content('there')
+        expect(last_updated_dataset.location1).to eq('there')
+      end
+
+      it "should be able to update frequency" do
+        all(:link, "Change")[5].click
+        choose option: 'daily'
+        click_button 'Save and continue'
+
+        expect(page).to have_content('Daily')
+        expect(last_updated_dataset.frequency).to eq('daily')
+      end
+
+      it "should be able to add a new file" do
+        all(:link, "Change")[6].click
+        expect(page).to have_content("my published test file")
+        click_link 'Add another link'
+
+        fill_in 'datafile[url]', with: 'http://localhost'
+        fill_in 'datafile[name]', with: 'my other test file'
+
+        click_button 'Save and continue'
+
+        expect(page).to have_content('my other test file')
+      end
+
+      it "should be able to edit an existing file" do
+        all(:link, "Change")[6].click
+        expect(page).to have_content("my published test file")
+        click_link 'Edit'
+
+        fill_in 'datafile[name]', with: 'my published test file extreme edition'
+
+        click_button 'Save and continue'
+
+        expect(page).to have_content('my published test file extreme edition')
+      end
+
+      it "should be able to remove a file" do
+        all(:link, "Change")[6].click
+        expect(page).to have_content("my published test file")
+        click_link 'Delete'
+        expect(last_updated_dataset.datafiles.datalinks).to be_empty
+      end
+
+      it "should be able to add a new doc" do
+        all(:link, "Change")[7].click
+        expect(page).to have_content("my published test doc")
+        click_link 'Add another link'
+
+        fill_in 'datafile[url]', with: 'http://localhost/doc'
+        fill_in 'datafile[name]', with: 'my other test doc'
+
+        click_button 'Save and continue'
+
+        expect(page).to have_content('my other test doc')
+      end
+
+      it "should be able to edit an existing doc" do
+        all(:link, "Change")[7].click
+        expect(page).to have_content("my published test doc")
+        click_link 'Edit'
+
+        fill_in 'datafile[name]', with: 'my published test doc extreme edition'
+
+        click_button 'Save and continue'
+
+        expect(page).to have_content('my published test doc extreme edition')
+      end
+
+      it "should be able to remove a doc" do
+        all(:link, "Change")[7].click
+        expect(page).to have_content("my published test doc")
+        click_link 'Delete'
+        expect(last_updated_dataset.datafiles.documentation).to be_empty
+
+      end
+
+      it "should not be able to publish a published dataset" do
+        expect(page).to_not have_selector("input[type=submit][value='Publish']")
+      end
+
+      it "should be able to publish an unpublished dataset" do
+        visit dataset_url(unpublished_dataset)
+        expect(unpublished_dataset.published).to be false
+        click_button 'Publish'
+        expect(last_updated_dataset.id).to eq(unpublished_dataset.id)
+        expect(last_updated_dataset.published).to be true
+      end
+    end
   end
 
   describe "creating datasets" do
@@ -36,7 +225,7 @@ describe "creating and editing datasets" do
       click_button "Save and continue"
 
       expect(Dataset.where(title: "my test dataset").length).to eq(1)
-      expect(Dataset.find_by(title: "my test dataset").creator_id).to eq(@user.id)
+      expect(Dataset.find_by(title: "my test dataset").creator_id).to eq(user.id)
     end
 
     it "should be able to go through the entire dataset creation flow" do
@@ -85,6 +274,8 @@ describe "creating and editing datasets" do
       expect(page).to have_content("Links to your data")
       expect(page).to have_content("my test datafile")
       click_link "Save and continue"
+
+      click_link "Add"
 
       # Page 6: Add Documents
       fill_in 'datafile[url]', with: 'https://localhost/doc'

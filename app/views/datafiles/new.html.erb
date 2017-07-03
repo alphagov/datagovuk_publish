@@ -22,7 +22,7 @@
     </div>
   <% end %>
 
-  <%= form_for @datafile, url: addfile_dataset_path(@dataset), method: update_method do |f| %>
+  <%= form_for @datafile, url: files_path(@dataset, file: @datafile), method: update_method do |f| %>
     <%= dataset_field f, @datafile,
     name: 'url',
     label: 'URL',
@@ -60,7 +60,7 @@
       <p><%= f.submit 'Save and continue', class: 'button' %></p>
       <p>
         <% if creating? %>
-          <%= link_to 'Skip this step', new_adddoc_dataset_path(@dataset) %>
+          <%= link_to 'Skip this step', new_document_path(@dataset) %>
         <% else %>
           <%= link_to 'Skip this step', dataset_path(@dataset) %>
         <% end %>

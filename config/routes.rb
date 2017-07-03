@@ -13,23 +13,19 @@ Rails.application.routes.draw do
   get 'tasks/organisation', to: 'tasks#organisation'
 
   resources :datasets do
+    get 'show/:id', to: 'datasets#show'
+
     member do
-      match 'new/licence',   to: 'datasets#licence',   via: [:get, :post]
-      match 'new/location',  to: 'datasets#location',  via: [:get, :post]
-      match 'new/frequency', to: 'datasets#frequency', via: [:get, :post]
-      match 'new/addfile',   to: 'datasets#addfile',   via: [:get, :post]
-      match 'new/files',     to: 'datasets#files',   via: [:get, :post]
-      match 'new/adddoc',    to: 'datasets#adddoc',    via: [:get, :post]
-      match 'new/documents', to: 'datasets#documents',   via: [:get, :post]
+      resources :files,     controller: 'datafiles', param: :file_id
+      resources :documents, controller: 'datafiles', param: :file_id
 
-      match 'edit/licence',   to: 'datasets#edit_licence',   via: [:get, :put]
-      match 'edit/location',  to: 'datasets#edit_location',  via: [:get, :put]
-      match 'edit/frequency', to: 'datasets#edit_frequency', via: [:get, :put]
-      match 'edit/addfile',   to: 'datasets#edit_addfile',   via: [:get, :put]
-      match 'edit/adddoc',    to: 'datasets#edit_adddoc',    via: [:get, :put]
+      scope module: :datasets do
+        resource :licence
+        resource :location
+        resource :frequency
+      end
 
-      match 'publish',       to: 'datasets#publish',   via: [:get, :post]
-
+      match 'publish',      to: 'datasets#publish',   via: [:get, :post]
       get 'confirm_delete', to: 'datasets#confirm_delete'
     end
   end

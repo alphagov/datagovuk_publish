@@ -35,8 +35,8 @@
           </td>
           <td class="actions">
             <% if dataset.name %>
-              <a href="{% url 'dataset_addfile' dataset.name %}">Add&nbsp;Data<span class="visuallyhidden"> to <% dataset.title %></span></a>
-              <a href="{% url 'full_dataset' dataset.name %}">Edit<span class="visuallyhidden"> <% dataset.title %></span></a><br/>
+              <%= link_to 'Add Data', files_path(dataset) %>
+              <%= link_to 'Edit', dataset_path(dataset) %><br/>
             <% end %>
           </td>
         </tr>

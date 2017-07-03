@@ -1,0 +1,2 @@
+module Datasets::FrequencyHelper
+end

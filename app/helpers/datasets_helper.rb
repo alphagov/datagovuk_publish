@@ -8,6 +8,22 @@ module DatasetsHelper
   }
 
   def friendly_frequency(frequency)
-    FRIENDLY_FREQUENCIES.fetch(frequency, 'One-off')
+    FRIENDLY_FREQUENCIES.fetch(frequency, frequency.humanize)
+  end
+
+  def creating?
+    url_contains('/new')
+  end
+
+  def editing?
+    url_contains('/edit')
+  end
+
+  def update_method
+    if creating?
+      'post'
+    else
+      'put'
+    end
   end
 end

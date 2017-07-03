@@ -4,13 +4,13 @@
 
 <h1 class="heading-large">Add a link to supporting documents</h1>
 <div class="datasets">
-  <% if @doc.errors.any? %>
+  <% if @datafile.errors.any? %>
 		<div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
 			<h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
 				There was a problem
 			</h1>
 			<ul class="error-summary-list">
-        <% @doc.errors.each do |attr, message| %>
+        <% @datafile.errors.each do |attr, message| %>
           <li>
             <a href="#<%= attr.to_s %>_form_group">
               <%= "#{attr.to_s.humanize} #{message}" %>
@@ -22,30 +22,26 @@
 		</div>
   <% end %>
 
-  <%= form_for @doc, url: adddoc_dataset_path(@dataset), method: update_method do |f| %>
-    <%= dataset_field f, @doc,
+  <%= form_for @datafile, url: documents_path(@dataset), method: 'post' do |f| %>
+    <%= dataset_field f, @datafile,
     name: 'url',
     label: 'URL',
     input_type: :text_field,
     input_class: 'form-control-2-3',
     hint: 'Enter a link (beginning with http:// or https://) to point directly to your document. The file will usually be uploaded to either your organisation’s website or another website, like GOV.UK or Amazon Web Services (AWS).',
-    value: @doc.url %>
+    value: @datafile.url %>
 
-    <%= dataset_field f, @doc,
+    <%= dataset_field f, @datafile,
     name: 'name',
     label: 'Link name',
     input_type: :text_field,
     input_class: 'form-control-2-3',
     hint: 'The link name mustn’t be the same as the URL. It should clearly describe the document so users can find it easily.',
-    value: @doc.name %>
+    value: @datafile.name %>
     <div class="form-group">
       <p><%= f.submit 'Save and continue', class: 'button' %></p>
       <p>
-        <% if creating? %>
-          <%= link_to 'Skip this step', publish_dataset_path(@dataset) %>
-        <% else %>
-          <%= link_to 'Skip this step', show_dataset_path(@dataset) %>
-        <% end %>
+        <%= link_to 'Skip this step', dataset_path(@dataset) %>
       </p>
     </div>
   <% end %>

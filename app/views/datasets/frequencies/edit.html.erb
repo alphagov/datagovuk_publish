@@ -22,12 +22,10 @@
 		</div>
   <% end %>
 
-  <%= form_for @dataset, url: new_frequency_dataset_path(@dataset), method: 'post' do |f| %>
+  <%= form_for @dataset, url: frequency_path(@dataset), method: :put do |f| %>
     <div class="form-group">
       <fieldset>
-
         <legend class="visually-hidden">How frequently is this dataset updated?</legend>
-
         <%= dataset_field f, @dataset,
         name: 'frequency',
         input_type: :radio_button,
