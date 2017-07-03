@@ -1,25 +1,31 @@
-// Components
+// =============================================================================
+// mixins for components
+
+@mixin actions {
+  text-align: right;
+  a:visited {
+    color: $link-colour;
+  }
+}
+
 
 // =============================================================================
 // Check Your Answers table
 
-table.check-your-answers {
+.dgu-checklist {
   margin-top: 1em;
   table-layout: fixed;
-  td.dataset-item {
+  &__heading {
     width: 22%;
   }
   th, td {
     vertical-align: top;
   }
-  th { width: 12em; }
-  td.file-list {
-    overflow-x: hidden;
-    ul {
-      width: 2000px;
-    }
+  th {
+    width: 12em;
   }
-  td.actions {
+  &__actions {
+    @include actions;
     width: 5em;
   }
 }
@@ -27,7 +33,7 @@ table.check-your-answers {
 // =============================================================================
 // Manage Datasets table
 
-table.manage-data {
+.dgu-datasets-table {
   td {
     padding-left: .3em;
     padding-right: .3em
@@ -35,7 +41,8 @@ table.manage-data {
   tbody tr:hover {
     background-color: $panel-colour;
   }
-  tr td.actions {
+  &__actions {
+    @include actions;
     width: 8em;
     a + a {
       margin-left: .7em;
@@ -282,8 +289,8 @@ a.danger, a.danger:visited {
   }
 
   &__actions-column {
+    @include actions;
     width: 10%;
-    text-align: right;
   }
 
 }

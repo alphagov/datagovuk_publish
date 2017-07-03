@@ -9,33 +9,33 @@
   <li>Published by: <%= @dataset.organisation.title %></li>
 </ul>
 
-<table class="check-your-answers">
+<table class="dgu-checklist">
   <tbody>
     <tr>
-      <th class="dataset-item">Title</th>
+      <th class="dgu-checklist__heading">Title</th>
       <td><%= @dataset.title %>
-        <td class="actions">
+        <td class="dgu-checklist__actions">
           <%= link_to 'Change', edit_dataset_path(@dataset) %>
         </td>
     </tr>
     <tr>
-      <th class="dataset-item">Summary</th>
+      <th class="dgu-checklist__heading">Summary</th>
       <td><%= @dataset.summary %>
-        <td class="actions">
+        <td class="dgu-checklist__actions">
           <%= link_to 'Change', edit_dataset_path(@dataset) %>
         </td>
     </tr>
     <tr>
-      <th class="dataset-item">Additional information</th>
+      <th class="dgu-checklist__heading">Additional information</th>
       <td><%= @dataset.description %>
-        <td class="actions">
+        <td class="dgu-checklist__actions">
           <%= link_to 'Change', edit_dataset_path(@dataset) %>
         </td>
     </tr>
     <tr>
-      <th class="dataset-item">Licence</th>
+      <th class="dgu-checklist__heading">Licence</th>
       <td><%= @dataset.licence == 'uk-ogl' ? 'Open Government Licence' : @dataset.licence %>
-        <td class="actions">
+        <td class="dgu-checklist__actions">
           <% if @dataset.licence %>
             <%= link_to 'Change', edit_licence_dataset_path(@dataset) %>
           <% else %>
@@ -44,9 +44,9 @@
         </td>
     </tr>
     <tr>
-      <th class="dataset-item">Geographical location</th>
+      <th class="dgu-checklist__heading">Geographical location</th>
       <td><%= @dataset.location1 %>
-        <td class="actions">
+        <td class="dgu-checklist__actions">
           <% if @dataset.location1 %>
             <%= link_to 'Change', edit_location_dataset_path(@dataset) %>
           <% else %>
@@ -55,9 +55,9 @@
         </td>
     </tr>
     <tr>
-      <th class="dataset-item">Frequency</th>
+      <th class="dgu-checklist__heading">Frequency</th>
       <td><%= friendly_frequency(@dataset.frequency) %>
-        <td class="actions">
+        <td class="dgu-checklist__actions">
           <% if @dataset.frequency %>
             <%= link_to 'Change', edit_frequency_dataset_path(@dataset) %>
           <% else %>
@@ -66,13 +66,13 @@
         </td>
     </tr>
     <tr>
-      <th class="dataset-item">Data</th>
+      <th class="dgu-checklist__heading">Data</th>
       <td>
         <% @dataset.datafiles.datalinks.each do |link| %>
           <%= link_to link.name, link.url %>
         <% end %>
       </td>
-      <td class="actions">
+      <td class="dgu-checklist__actions">
         <% if @dataset.datafiles.datalinks.any? %>
           <%= link_to 'Change', edit_files_dataset_path(@dataset) %>
         <% else %>
@@ -81,11 +81,11 @@
       </td>
     </tr>
     <tr>
-      <th class="dataset-item">Documentation</th>
+      <th class="dgu-checklist__heading">Documentation</th>
       <td><% @dataset.datafiles.documentation.each do |doc| %>
         <%= link_to doc.name, doc.url %>
       <% end %>
-      <td class="actions">
+      <td class="dgu-checklist__actions">
         <% if @dataset.datafiles.documentation.any? %>
           <%= link_to 'Change', edit_documents_dataset_path(@dataset) %>
         <% else %>

@@ -119,13 +119,6 @@ table {
   }
 }
 
-table tr .actions {
-  text-align: right;
-  &:visited {
-    color: $link-colour;
-  }
-}
-
 a.secondary-button, a.secondary-button:visited {
   color: $link-colour;
   cursor: pointer;
