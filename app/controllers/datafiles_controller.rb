@@ -130,6 +130,7 @@ class DatafilesController < ApplicationController
     @datafile.end_date = Date.new(date_params[:year].to_i + 1, 3).end_of_month
   end
 
+  # TODO: MOVE THESE TO THE CONTROLLER
   def start_date(date_params)
     if @dataset.monthly?
       date_params[:start_day] = "1"

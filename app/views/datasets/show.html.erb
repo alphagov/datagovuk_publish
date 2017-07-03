@@ -13,28 +13,32 @@
   <tbody>
     <tr>
       <th class="dataset-item">Title</th>
-      <td><%= @dataset.title %>
+      <td><%= @dataset.title %></td>
         <td class="actions">
           <%= link_to 'Change', edit_dataset_path(@dataset) %>
         </td>
     </tr>
     <tr>
       <th class="dataset-item">Summary</th>
-      <td><%= @dataset.summary %>
+      <td><%= @dataset.summary %></td>
         <td class="actions">
           <%= link_to 'Change', edit_dataset_path(@dataset) %>
         </td>
     </tr>
     <tr>
       <th class="dataset-item">Additional information</th>
-      <td><%= @dataset.description %>
+      <td><%= @dataset.description %></td>
         <td class="actions">
           <%= link_to 'Change', edit_dataset_path(@dataset) %>
         </td>
     </tr>
     <tr>
       <th class="dataset-item">Licence</th>
-      <td><%= @dataset.licence == 'uk-ogl' ? 'Open Government Licence' : @dataset.licence %>
+        <td>
+          <% if @dataset.licence %>
+              <%= @dataset.licence == 'uk-ogl' ? 'Open Government Licence' : @dataset.licence %>
+            <% end %>
+        </td>
         <td class="actions">
           <% if @dataset.licence %>
             <%= link_to 'Change', edit_licence_path(@dataset) %>
@@ -45,7 +49,7 @@
     </tr>
     <tr>
       <th class="dataset-item">Geographical location</th>
-      <td><%= @dataset.location1 %>
+      <td><%= [@dataset.location1, @dataset.location2, @dataset.location3].compact.join(', ') %></td>
         <td class="actions">
           <% if @dataset.location1 %>
             <%= link_to 'Change', edit_location_path(@dataset) %>
@@ -56,7 +60,7 @@
     </tr>
     <tr>
       <th class="dataset-item">Frequency</th>
-      <td><%= friendly_frequency(@dataset.frequency) %>
+      <td><%= friendly_frequency(@dataset.frequency) if @dataset.frequency %></td>
         <td class="actions">
           <% if @dataset.frequency %>
             <%= link_to 'Change', edit_frequency_path(@dataset) %>

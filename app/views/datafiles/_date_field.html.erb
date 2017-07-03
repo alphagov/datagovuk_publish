@@ -10,17 +10,17 @@
     <div class="form-date">
       <div class="form-group form-group-day">
         <label for="#<%= period %>_day">Day</label>
-        <%= text_field_tag "datafile[#{period}_day]", nil, id: "#{period}_day", class: "form-control" %>
+        <%= text_field_tag "datafile[#{period}_day]", @datafile.dates[period][:day], id: "#{period}_day", class: "form-control" %>
       </div>
 
       <div class="form-group form-group-month">
         <label for="<%= period %>_month">Month</label>
-        <%= text_field_tag "datafile[#{period}_month]", nil, id: "#{period}_month", class: "form-control" %>
+        <%= text_field_tag "datafile[#{period}_month]", @datafile.dates[period][:month], id: "#{period}_month", class: "form-control" %>
       </div>
 
       <div class="form-group form-group-year">
         <label for="<%= period %>_year">year</label>
-        <%= text_field_tag "datafile[#{period}_year]", nil, id: "#{period}_year", class: "form-control" %>
+        <%= text_field_tag "datafile[#{period}_year]", @datafile.dates[period][:year], id: "#{period}_year", class: "form-control" %>
       </div>
     </div>
   </fieldset>
