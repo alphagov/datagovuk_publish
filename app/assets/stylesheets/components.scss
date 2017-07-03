@@ -1,4 +1,13 @@
-// Components
+// =============================================================================
+// mixins for components
+
+@mixin actions {
+  text-align: right;
+  a:visited {
+    color: $link-colour;
+  }
+}
+
 
 // =============================================================================
 // Check Your Answers table
@@ -24,7 +33,7 @@
 // =============================================================================
 // Manage Datasets table
 
-table.manage-data {
+.dgu-datasets-table {
   td {
     padding-left: .3em;
     padding-right: .3em
@@ -32,7 +41,8 @@ table.manage-data {
   tbody tr:hover {
     background-color: $panel-colour;
   }
-  tr td.actions {
+  &__actions {
+    @include actions;
     width: 8em;
     a + a {
       margin-left: .7em;
@@ -279,8 +289,8 @@ a.danger, a.danger:visited {
   }
 
   &__actions-column {
+    @include actions;
     width: 10%;
-    text-align: right;
   }
 
 }

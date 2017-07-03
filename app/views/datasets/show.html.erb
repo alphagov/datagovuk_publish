@@ -12,58 +12,29 @@
 <table class="dgu-checklist">
   <tbody>
     <tr>
-<<<<<<< Updated upstream
-      <th class="dataset-item">Title</th>
-      <td><%= @dataset.title %></td>
-        <td class="actions">
-=======
-      <th class="dgu-checklist__heading">Title</th>
       <td><%= @dataset.title %>
         <td class="dgu-checklist__actions">
->>>>>>> Stashed changes
           <%= link_to 'Change', edit_dataset_path(@dataset) %>
         </td>
     </tr>
     <tr>
-<<<<<<< Updated upstream
-      <th class="dataset-item">Summary</th>
-      <td><%= @dataset.summary %></td>
-        <td class="actions">
-=======
       <th class="dgu-checklist__heading">Summary</th>
       <td><%= @dataset.summary %>
         <td class="dgu-checklist__actions">
->>>>>>> Stashed changes
           <%= link_to 'Change', edit_dataset_path(@dataset) %>
         </td>
     </tr>
     <tr>
-<<<<<<< Updated upstream
-      <th class="dataset-item">Additional information</th>
-      <td><%= @dataset.description %></td>
-        <td class="actions">
-=======
       <th class="dgu-checklist__heading">Additional information</th>
       <td><%= @dataset.description %>
         <td class="dgu-checklist__actions">
->>>>>>> Stashed changes
           <%= link_to 'Change', edit_dataset_path(@dataset) %>
         </td>
     </tr>
     <tr>
-<<<<<<< Updated upstream
-      <th class="dataset-item">Licence</th>
-        <td>
-          <% if @dataset.licence %>
-              <%= @dataset.licence == 'uk-ogl' ? 'Open Government Licence' : @dataset.licence %>
-            <% end %>
-        </td>
-        <td class="actions">
-=======
       <th class="dgu-checklist__heading">Licence</th>
       <td><%= @dataset.licence == 'uk-ogl' ? 'Open Government Licence' : @dataset.licence %>
         <td class="dgu-checklist__actions">
->>>>>>> Stashed changes
           <% if @dataset.licence %>
             <%= link_to 'Change', edit_licence_path(@dataset) %>
           <% else %>
@@ -72,15 +43,9 @@
         </td>
     </tr>
     <tr>
-<<<<<<< Updated upstream
-      <th class="dataset-item">Geographical location</th>
-      <td><%= [@dataset.location1, @dataset.location2, @dataset.location3].compact.join(', ') %></td>
-        <td class="actions">
-=======
       <th class="dgu-checklist__heading">Geographical location</th>
       <td><%= @dataset.location1 %>
         <td class="dgu-checklist__actions">
->>>>>>> Stashed changes
           <% if @dataset.location1 %>
             <%= link_to 'Change', edit_location_path(@dataset) %>
           <% else %>
