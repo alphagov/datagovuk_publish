@@ -20,8 +20,8 @@
         <th><a href="<%= link.url %>"><%= link.name %></a></th>
         <td>✔</td>
         <td class="actions">
-          <%= link_to 'Edit', edit_addfile_dataset_path(@dataset.id, link.id) %>
-          <%= link_to 'Delete', file_path(@dataset.id, link.id), method: :delete %>
+          <%= link_to 'Edit', edit_file_path(@dataset, link) %>
+          <%= link_to 'Delete', file_path(@dataset, link), method: :delete %>
         </td>
       </tr>
     <% end %>
@@ -30,15 +30,15 @@
 
   <p>
     <% if creating? %>
-      <%= link_to 'Add another link', new_addfile_dataset_path(@dataset), class: "secondary-button" %>
+      <%= link_to 'Add another link', new_file_path(@dataset), class: "secondary-button" %>
     <% else %>
-      <%= link_to 'Add another link', edit_addfile_dataset_path(@dataset), class: "secondary-button" %>
+      <%= link_to 'Add another link', edit_file_path(@dataset), class: "secondary-button" %>
     <% end %>
   </p>
 
   <p>
     <% if creating? %>
-      <%= link_to 'Save and continue', new_adddoc_dataset_path(@dataset), class: "button" %>
+      <%= link_to 'Save and continue', new_document_path(@dataset), class: "button" %>
     <% else %>
       <%= link_to 'Save and continue', dataset_path(@dataset), class: "button" %>
     <% end %>

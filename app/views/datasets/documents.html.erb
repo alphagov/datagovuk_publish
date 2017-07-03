@@ -20,8 +20,8 @@
         <th><a href="<%= link.url %>"><%= link.name %></a></th>
         <td>✔</td>
         <td class="actions">
-          <a href="">Edit</a>
-          <a href="">Delete</a>
+          <%= link_to 'Edit', edit_document_path(@dataset, link) %>
+          <%= link_to 'Delete', document_path(@dataset, link), method: :delete %>
         </td>
       </tr>
     <% end %>
@@ -30,15 +30,15 @@
 
   <p>
     <% if creating? %>
-      <%= link_to 'Add another link', new_adddoc_dataset_path(@dataset), class: "secondary-button" %>
+      <%= link_to 'Add another link', new_document_path(@dataset), class: "secondary-button" %>
     <% else %>
-      <%= link_to 'Add another link', edit_adddoc_dataset_path(@dataset), class: "secondary-button"  %>
+      <%= link_to 'Add another link', edit_document_path(@dataset), class: "secondary-button"  %>
     <% end %>
   </p>
 
   <p>
     <% if creating? %>
-      <%= link_to 'Save and continue', publish_dataset_url(@dataset), class: "button" %>
+      <%= link_to 'Save and continue', publish_dataset_path(@dataset), class: "button" %>
     <% else %>
       <%= link_to 'Save and continue', dataset_path(@dataset), class: "button" %>
     <% end %>
