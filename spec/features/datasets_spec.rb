@@ -293,8 +293,6 @@ describe "creating and editing datasets" do
       expect(page).to have_content("my test datafile")
       click_link "Save and continue"
 
-      click_link "Add"
-
       # Page 6: Add Documents
       fill_in 'datafile[url]', with: 'https://localhost/doc'
       fill_in 'datafile[name]', with: 'my test doc'
