@@ -119,11 +119,16 @@ table {
   }
 }
 
-table tr .actions {
+@mixin actions {
   text-align: right;
   &:visited {
     color: $link-colour;
   }
+}
+
+// should be removed later as we rewrite actions as BEM components
+table tr .actions {
+  @include actions;
 }
 
 a.secondary-button, a.secondary-button:visited {

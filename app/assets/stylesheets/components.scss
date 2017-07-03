@@ -3,23 +3,20 @@
 // =============================================================================
 // Check Your Answers table
 
-table.check-your-answers {
+.dgu-checklist {
   margin-top: 1em;
   table-layout: fixed;
-  td.dataset-item {
+  &__heading {
     width: 22%;
   }
   th, td {
     vertical-align: top;
   }
-  th { width: 12em; }
-  td.file-list {
-    overflow-x: hidden;
-    ul {
-      width: 2000px;
-    }
+  th {
+    width: 12em;
   }
-  td.actions {
+  &__actions {
+    @include actions;
     width: 5em;
   }
 }
