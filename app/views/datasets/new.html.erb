@@ -12,7 +12,7 @@
         <% @dataset.errors.each do |attr, message| %>
           <li>
             <a href="#<%= attr.to_s %>_form_group">
-              <%= "Please enter a valid #{attr.to_s.humanize.downcase}" %>
+              <%= message %>
             </a>
             <span class="visuallyhidden">.</span>
           </li>
