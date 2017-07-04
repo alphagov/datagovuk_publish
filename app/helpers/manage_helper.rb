@@ -30,8 +30,8 @@ module ManageHelper
     params["sort_by"].nil? || params["sort_by"].include?("name")
   end
 
-  def find_url(dataset)
-    "#{ENV['FIND_URL'] || ''}/dataset/#{dataset.name}"
+  def find_url(dataset_name)
+    "#{ENV['FIND_URL'] || ''}/dataset/#{dataset_name}"
   end
 
 end

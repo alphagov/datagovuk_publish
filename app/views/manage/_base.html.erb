@@ -22,7 +22,7 @@
         <tr>
           <th>
             <% if dataset.published %>
-              <a href="<%= find_url(dataset) %>"><%= dataset.title %></a>
+              <a href="<%= find_url(dataset.name) %>"><%= dataset.title %></a>
             <% else %>
               <%= dataset.title %>
             <% end %>
