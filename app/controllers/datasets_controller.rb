@@ -91,7 +91,7 @@ class DatasetsController < ApplicationController
     if request.post?
       @dataset.published = true
 
-      flash[:success] = "Your dataset has been created"
+      flash[:success] = I18n.t 'dataset_published'
       flash[:extra] = @dataset
 
       redirect_to manage_path if @dataset.save
