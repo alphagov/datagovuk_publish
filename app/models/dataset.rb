@@ -9,12 +9,10 @@ class Dataset < ApplicationRecord
                         allow_nil: true # To allow creation before setting this value
 
   validates :title,
-    presence: { message: "Please enter a valid title" },
-    length: { maximum: 100, message: "Ensure this value has at most 100 characters" }
+    presence: { message: "Please enter a valid title" }
 
   validates :summary,
-    presence: { message: "Please enter a valid summary" },
-    length: { maximum: 200, message: "Ensure this value has at most 200 characters" }
+    presence: { message: "Please provide a summary" }
 
   validates :frequency,
     :presence => { message: "Please indicate how often this dataset is updated" },
