@@ -222,7 +222,7 @@ describe "creating and editing datasets" do
         click_button 'Publish'
         expect(last_updated_dataset.id).to eq(unpublished_dataset.id)
         expect(last_updated_dataset.published).to be true
-        expect(page).to have_content("Your dataset has been created")
+        expect(page).to have_content("Your dataset has been published")
       end
     end
   end
@@ -323,7 +323,7 @@ describe "creating and editing datasets" do
 
       click_button "Publish"
 
-      expect(page).to have_content("Your dataset has been created")
+      expect(page).to have_content("Your dataset has been published")
       expect(Dataset.last.published).to be(true)
     end
 
