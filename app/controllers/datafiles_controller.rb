@@ -21,10 +21,11 @@ class DatafilesController < ApplicationController
     file_params = params.require(:datafile).permit(:url, :name)
     @datafile = Datafile.new(file_params)
     @datafile.dataset = @dataset
-    set_dates(params.require(:datafile).permit(DATE_PARAMS))
 
     if documents?
       @datafile.documentation = true
+    else
+      set_dates(params.require(:datafile).permit(DATE_PARAMS))
     end
 
     if @datafile.save
