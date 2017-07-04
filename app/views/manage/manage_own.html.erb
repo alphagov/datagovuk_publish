@@ -1,3 +1,13 @@
+<% if flash[:success] %>
+<div class="govuk-box-highlight">
+  <h1 class="bold-large"><%= flash[:success] %></h1>
+  <h2>
+    <a href="/dataset/<%= flash[:extra]["name"] %>">View it</a>
+  </h2>
+</div>
+<% end %>
+
+
 <h1 class="heading-large">Manage your datasets</h1>
 
 <%= render "manage/shared/search" %>
