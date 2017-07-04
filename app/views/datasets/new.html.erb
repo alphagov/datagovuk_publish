@@ -2,7 +2,6 @@
     Add dataset title -
 <% end %>
 
-<h1 class="heading-large">Create a dataset</h1>
 <div class="datasets">
   <% if @dataset.errors.any? %>
 		<div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
@@ -13,7 +12,7 @@
         <% @dataset.errors.each do |attr, message| %>
           <li>
             <a href="#<%= attr.to_s %>_form_group">
-              <%= "Please enter a valid #{attr.to_s.humanize.downcase}" %>
+              <%= message %>
             </a>
             <span class="visuallyhidden">.</span>
           </li>
@@ -21,6 +20,8 @@
 			</ul>
 		</div>
   <% end %>
+
+  <h1 class="heading-large">Create a dataset</h1>
 
   <%= form_for @dataset, url: datasets_path, method: :post do |f| %>
 

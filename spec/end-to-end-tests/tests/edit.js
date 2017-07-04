@@ -7,9 +7,9 @@ var createDataset = function (browser, is_admin) {
   return common.login(browser, username, process.env.USER_PASSWORD)
     .clickAndCheckNextTitle('Manage data', 'Manage your data')
     .clickAndCheckNextTitle('Create a dataset', 'Create a dataset')
-    .clearSetValue('input[name=title]', common.datasetTitle)
-    .clearSetValue('textarea[name=summary]', 'Summary of my dataset')
-    .clearSetValue('textarea[name=description]', 'Description of my dataset')
+    .clearSetValue('input[name="dataset[title]"]', common.datasetTitle)
+    .clearSetValue('textarea[name="dataset[summary]"]', 'Summary of my dataset')
+    .clearSetValue('textarea[name="dataset[description]"]', 'Description of my dataset')
     .submitFormAndCheckNextTitle('Choose a licence')
     .selectRadioButton('Open Government Licence')
     .submitFormAndCheckNextTitle('Choose a geographical area')
@@ -23,8 +23,8 @@ var createDataset = function (browser, is_admin) {
       'https://data.gov.uk/data/site-usage/data_all.csv'
     )
     .setValue('input[id=id_name]', common.datafileTitle)
-    .setValue('input[id=period_month]', '12')
-    .setValue('input[id=period_year]', '2016')
+    .setValue('input[id=start_month]', '12')
+    .setValue('input[id=start_year]', '2016')
     .submitFormAndCheckNextTitle('Links to your data')
     .clickAndCheckNextTitle(
       'Save and continue',
@@ -49,7 +49,7 @@ var test_edit_title = function (browser) {
   createDataset(browser)
     .clickAndCheckNextTitle('Edit', 'Edit ‘' + common.datasetTitle + '’')
     .click('a[href*="edit"]')
-    .clearSetValue('input[name=title]', common.datasetTitle2)
+    .clearSetValue('input[name="dataset[title]"]', common.datasetTitle2)
     .submitFormAndCheckNextTitle('Edit ‘' + common.datasetTitle2 + '’')
     .submitFormAndCheckNextTitle('Your dataset has been edited')
     .assert.containsText('table', common.datasetTitle2)
