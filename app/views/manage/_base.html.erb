@@ -21,8 +21,8 @@
       <% sorted_datasets.each do |dataset| %>
         <tr>
           <th>
-            <% if @find_url && dataset.published %>
-              <a href="<%= @find_url %>/dataset/<%= dataset.name %>"><%= dataset.title %></a>
+            <% if dataset.published %>
+              <a href="<%= find_url(dataset) %>"><%= dataset.title %></a>
             <% else %>
               <%= dataset.title %>
             <% end %>
