@@ -2,7 +2,6 @@
     Add license -
 <% end %>
 
-<h1 class="heading-large">Choose a licence for this dataset</h1>
 <div class="datasets">
   <% if @dataset.errors.any? %>
 		<div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
@@ -21,6 +20,8 @@
 			</ul>
 		</div>
   <% end %>
+
+  <h1 class="heading-large">Choose a licence for this dataset</h1>
 
   <%= form_for @dataset, url: licence_path(@dataset), method: :post do |f| %>
     <div class="form-group">
