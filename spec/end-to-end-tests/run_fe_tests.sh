@@ -42,6 +42,7 @@ rake db:drop > /dev/null 2>&1
 rake db:create > /dev/null 2>&1
 rake db:migrate > /dev/null 2>&1
 rake db:seed > /dev/null 2>&1
+rake import:locations\['lib/seeds/locations.csv'\]
 
 echo Starting test server
 rails s -p ${TEST_APP_PORT} >/dev/null 2>&1 &
