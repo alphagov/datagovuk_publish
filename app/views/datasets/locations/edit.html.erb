@@ -1,5 +1,5 @@
 <% content_for :page_title do %>
-    Add location -
+  Edit location -
 <% end %>
 
 <% if @dataset.errors.any? %>
@@ -25,46 +25,23 @@
 <%= form_for @dataset, url: location_path(@dataset), method: :put do |f| %>
   <fieldset>
     <legend class="visually-hidden">
-      Choose a location
+      Choose a geographical area
     </legend>
 
-    <div id="location1">
-      <input
-        type="button"
-        id="del1"
-        class="linky-button"
-        style="display: none"
-        aria-hidden="true"
-        value="Remove"/>
-
+    <div id="location1" class="dgu-location">
       <%= dataset_field f, @dataset,
       input_type: :text_field,
       id: 'id_location1',
       name: 'location1',
       label: "Enter the area covered by this dataset",
       input_options: { autocomplete: false },
-      input_class: 'location-input form-control-2-3' %>
+      input_class: 'dgu-location__input',
+      remove: 'del1',
+      add: 'add1' %>
     </div>
-    <p>
-      <input
-        type="button"
-        id="add1"
-        class="linky-button"
-        style="display: none"
-        aria-hidden="true"
-        value="Enter another area" />
-    </p>
 
-    <div id="location2">
+    <div id="location2" class="dgu-location">
       <script>document.getElementById('location2').style.display='none'</script>
-
-      <input
-        type="button"
-        id="del2"
-        class="linky-button"
-        style="display: none"
-        aria-hidden="true"
-        value="Remove" />
 
       <%= dataset_field f, @dataset,
       input_type: :text_field,
@@ -72,30 +49,13 @@
       name: 'location2',
       label: "Enter another area",
       input_options: { autocomplete: false },
-      input_class: 'location-input form-control-2-3' %>
+      input_class: 'dgu-location__input form-control-2-3',
+      remove: 'del2',
+      add: 'add2' %>
     </div>
 
-    <p>
-      <input
-        type="button"
-        id="add2"
-        class="linky-button"
-        style="display: none"
-        aria-hidden="true"
-        value="Enter another area" />
-          </button>
-    </p>
-
-    <div id="location3">
+    <div id="location3" class="dgu-location">
       <script>document.getElementById('location3').style.display='none'</script>
-
-      <input
-        type="button"
-        id="del3"
-        class="linky-button"
-        style="display: none"
-        aria-hidden="true"
-        value="Remove" />
 
       <%= dataset_field f, @dataset,
       input_type: :text_field,
@@ -103,8 +63,10 @@
       name: 'location3',
       label: "Enter another area",
       input_options: { autocomplete: false },
-      input_class: 'location-input form-control-2-3' %>
+      input_class: 'dgu-location__input form-control-2-3',
+      remove: 'del3' %>
     </div>
+
   </fieldset>
   <p><%= f.submit 'Save and continue', class: 'button' %></p>
   <p><%= link_to 'Skip this step', dataset_path(@dataset) %></p>

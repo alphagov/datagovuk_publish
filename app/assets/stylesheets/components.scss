@@ -60,7 +60,11 @@
 // == location =================================================================
 
 .dgu-location {
-  &__button {
+  width: 66%;
+  label {
+    float: left;
+  }
+  &__button-add, &__button-del {
     background: $page-colour;
     border: none;
     padding: 0;
@@ -68,8 +72,12 @@
     cursor: pointer;
     text-decoration: underline;
   }
+  &__button-del {
+    float: right;
+  }
   &__input {
     display: block;
+    width: 100%;
   }
 }
 

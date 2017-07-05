@@ -166,8 +166,8 @@ var test_create_omit_region = function (browser) {
 var test_create_region_autocomplete = function (browser) {
   goToCreateRegion(browser)
     .clearSetValue('input[id=id_location1]', 'Swa')
-    .waitForElementVisible('div[role=listbox]', 5000)
-    .assert.containsText('div[role=listbox]', 'Swansea (local authority)')
+    .waitForElementVisible('div.tt-menu', 5000)
+    .assert.containsText('div.tt-menu', 'Swansea (local authority)')
     .end();
 };
 

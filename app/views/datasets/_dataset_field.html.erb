@@ -19,13 +19,21 @@
       class: field[:label_class] || 'form-label-bold'
       %>
 
+      <% if field[:remove] %>
+        <input
+          type="button"
+          id="<%= field[:remove] %>"
+          class="dgu-location__button-del"
+          style="display: none"
+          aria-hidden="true"
+          value="Remove"/>
+    <% end %>
+
     <% if dataset.errors.key? field[:name] %>
       <span class="error-message"><%= dataset.errors[field[:name]].first %></span>
     <% end %>
 
     <span class="form-hint"><%= field.fetch(:hint, '') %></span>
-
-
 
     <%= f.send(field[:input_type],
                field[:name],
@@ -34,5 +42,19 @@
                  id: field[:id] || "id_#{field[:name]}",
                  value: field[:value] || dataset.send(field[:name])
                }.merge(field.fetch(:input_options, {}))) %>
+
+    <% if field[:add] %>
+      <p>
+        <input
+          type="button"
+          id="<%= field[:add] %>"
+          class="dgu-location__button-add"
+          style="display: none"
+          aria-hidden="true"
+          value="Enter another area" />
+      </p>
+
+    <% end %>
+
     </div>
   <% end %>
