@@ -377,7 +377,7 @@ var test_create_omit_url = function (browser) {
 
 var test_create_modify_title = function (browser) {
   goToCheckPage(browser)
-    .click('td.actions a')
+    .click('td.dgu-checklist__actions a')
     .waitForElementVisible('h1', common.waitTimeout)
     .assert.containsText('h1', 'Change your dataset\'s details')
     .clearSetValue('input[name="dataset[title]"]', common.datasetTitle2)
