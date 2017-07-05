@@ -1,8 +1,12 @@
 <% content_for :page_title do %>
-  Edit your dataset -
+  <% if @dataset.published? %>Edit<% else %>Publish<% end %> your dataset -
 <% end %>
 
-<h1 class="heading-large">Edit ‘<%= @dataset.title %>’</h1>
+<% if @dataset.published? %>
+  <h1 class="heading-large">Edit ‘<%= @dataset.title %>’</h1>
+<% else %>
+  <h1 class="heading-large">Publish ‘<%= @dataset.title %>’</h1>
+<% end %>
 
 <ul>
   <li>Status: <%= @dataset.status %></li>
