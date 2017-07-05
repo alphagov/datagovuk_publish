@@ -1,5 +1,7 @@
 db/schema.rb
 
+.DS_Store
+
 /.bundle
 
 # Ignore all logfiles and tempfiles.
