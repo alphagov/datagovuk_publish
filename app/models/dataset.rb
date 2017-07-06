@@ -15,21 +15,21 @@ class Dataset < ApplicationRecord
     presence: { message: "Please provide a summary" }
 
   validates :frequency,
-    :presence => { message: "Please indicate how often this dataset is updated" },
-    :if => lambda { published }
+    presence: { message: "Please indicate how often this dataset is updated" },
+    if: lambda { published }
 
   validates :licence,
-    :presence => { message: "Please select a licence for your dataset" },
-    :if => lambda{ published }
+    presence: { message: "Please select a licence for your dataset" },
+    inclusion: %w(uk-ogl other),
+    if: lambda{ published }
 
   validates :licence_other,
-    :presence => true,
+    presence: { message: "Please specify a licence for your dataset" },
     allow_blank: false,
-    :if => lambda { licence == 'other' }
-
+    if: lambda { licence == 'other' }
 
   validate :dataset_must_have_datafiles_validation,
-    :if => lambda{ published }
+    if: lambda{ published }
 
   def owner
     User.find(id: self.owner_id)
