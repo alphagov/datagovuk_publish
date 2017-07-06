@@ -24,7 +24,7 @@ class Dataset < ApplicationRecord
     if: lambda{ published }
 
   validates :licence_other,
-    presence: { message: "Please specify a licence for your dataset" },
+    presence: { message: "Please type the name of your licence" },
     allow_blank: false,
     if: lambda { licence == 'other' }
 
