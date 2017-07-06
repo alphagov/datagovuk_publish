@@ -11,8 +11,7 @@ class Datasets::LicencesController < ApplicationController
 
   def create
     @dataset = current_dataset
-    licence = get_licence(params.require(:dataset).permit(:licence, :licence_other))
-    @dataset.licence = licence
+    @dataset.update_attributes(params.require(:dataset).permit(:licence, :licence_other))
 
     if @dataset.save
       redirect_to new_location_path(@dataset)
@@ -23,8 +22,7 @@ class Datasets::LicencesController < ApplicationController
 
   def update
     @dataset = current_dataset
-    licence = get_licence(params.require(:dataset).permit(:licence, :licence_other))
-    @dataset.licence = licence
+    @dataset.update_attributes(params.require(:dataset).permit(:licence, :licence_other))
 
     if @dataset.save
       redirect_to dataset_path(@dataset)
@@ -36,13 +34,5 @@ class Datasets::LicencesController < ApplicationController
   private
   def current_dataset
     Dataset.find_by(:name => params.require(:id))
-  end
-
-  def get_licence(dataset_params)
-    if dataset_params[:licence] == 'other'
-      return dataset_params[:licence_other]
-    end
-
-    'uk-ogl'
   end
 end

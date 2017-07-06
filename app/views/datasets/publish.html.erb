@@ -34,12 +34,12 @@
     </tr>
     <tr>
       <th class="dgu-checklist__heading">Licence</th>
-      <td><%= @dataset.licence == 'uk-ogl' ? 'Open Government Licence' : @dataset.licence %>
+      <td><%= @dataset.licence == 'uk-ogl' ? 'Open Government Licence' : @dataset.licence_other %>
         <td class="dgu-checklist__actions">
           <% if @dataset.licence %>
-            <%= link_to 'Change', edit_licence_dataset_path(@dataset) %>
+            <%= link_to 'Change', edit_licence_path(@dataset) %>
           <% else %>
-            <%= link_to 'Select', edit_licence_dataset_path(@dataset) %>
+            <%= link_to 'Select', edit_licence_path(@dataset) %>
           <% end %>
         </td>
     </tr>
@@ -48,9 +48,9 @@
       <td><%= @dataset.location1 %>
         <td class="dgu-checklist__actions">
           <% if @dataset.location1 %>
-            <%= link_to 'Change', edit_location_dataset_path(@dataset) %>
+            <%= link_to 'Change', edit_location_path(@dataset) %>
           <% else %>
-            <%= link_to 'Add', edit_location_dataset_path(@dataset) %>
+            <%= link_to 'Add', edit_location_path(@dataset) %>
           <% end %>
         </td>
     </tr>
@@ -59,9 +59,9 @@
       <td><%= friendly_frequency(@dataset.frequency) %>
         <td class="dgu-checklist__actions">
           <% if @dataset.frequency %>
-            <%= link_to 'Change', edit_frequency_dataset_path(@dataset) %>
+            <%= link_to 'Change', edit_frequency_path(@dataset) %>
           <% else %>
-            <%= link_to 'Select', edit_frequency_dataset_path(@dataset) %>
+            <%= link_to 'Select', edit_frequency_path(@dataset) %>
           <% end %>
         </td>
     </tr>
@@ -74,9 +74,9 @@
       </td>
       <td class="dgu-checklist__actions">
         <% if @dataset.datafiles.datalinks.any? %>
-          <%= link_to 'Change', edit_files_dataset_path(@dataset) %>
+          <%= link_to 'Change', files_path(@dataset) %>
         <% else %>
-          <%= link_to 'Add', edit_addfile_dataset_path(@dataset) %>
+          <%= link_to 'Add', new_file_path(@dataset) %>
         <% end %>
       </td>
     </tr>
@@ -87,9 +87,9 @@
       <% end %>
       <td class="dgu-checklist__actions">
         <% if @dataset.datafiles.documentation.any? %>
-          <%= link_to 'Change', edit_documents_dataset_path(@dataset) %>
+          <%= link_to 'Change', documents_path(@dataset) %>
         <% else %>
-          <%= link_to 'Add', edit_adddoc_dataset_path(@dataset) %>
+          <%= link_to 'Add', new_document_path(@dataset) %>
         <% end %>
       </td>
     </tr>

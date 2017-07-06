@@ -126,7 +126,8 @@ describe "creating and editing datasets" do
         click_button 'Save and continue'
 
         expect(page).to have_content('MIT')
-        expect(last_updated_dataset.licence).to eq('MIT')
+        expect(last_updated_dataset.licence).to eq('other')
+        expect(last_updated_dataset.licence_other).to eq('MIT')
       end
 
       it "should be able to update location" do
