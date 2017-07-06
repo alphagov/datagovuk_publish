@@ -22,6 +22,12 @@ class Dataset < ApplicationRecord
     :presence => { message: "Please select a licence for your dataset" },
     :if => lambda{ published }
 
+  validates :licence_other,
+    :presence => true,
+    allow_blank: false,
+    :if => lambda { licence == 'other' }
+
+
   validate :dataset_must_have_datafiles_validation,
     :if => lambda{ published }
 
