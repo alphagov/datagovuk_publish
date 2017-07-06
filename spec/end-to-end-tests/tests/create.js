@@ -152,7 +152,7 @@ var test_create_blank_other_licence = function (browser) {
     .selectRadioButton('Other')
     .submitFormAndCheckNextTitle('There was a problem')
     .checkError('Please type the name of your licence')
-    .clearSetValue('input[id=id_licence_other]', 'other licence')
+    .clearSetValue('input[name="dataset[licence_other]"]', 'other licence')
     .submitFormAndCheckNextTitle('Choose a geographical area')
     .end();
 };
