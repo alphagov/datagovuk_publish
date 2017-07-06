@@ -4,7 +4,7 @@ class DateConstructionValidator < ActiveModel::Validator
   def validate(record)
     if record.dataset.monthly? || record.dataset.weekly?
       begin
-        Date.new(record.start_year.to_i, record.start_month.to_i, record.start_day.to_i)
+        Date.new(record.start_year.to_i, record.start_month.to_i, (record.start_day || 1).to_i)
       rescue ArgumentError
         record.errors[:start_date] << "Invalid start date"
       end
@@ -31,11 +31,11 @@ class Datafile < ApplicationRecord
   validates :name, presence: true
 
   # Weekly & Monthly
-  validates :start_day,   presence: true, if: -> { self.dataset.weekly? || self.dataset.monthly? }
   validates :start_month, presence: true, if: -> { self.dataset.weekly? || self.dataset.monthly? }
   validates :start_year,  presence: true, if: -> { self.dataset.weekly? || self.dataset.monthly? }
 
   # Weekly
+  validates :start_day,  presence: true, if: -> { self.dataset.weekly? }
   validates :end_day,   presence: true, if: -> { self.dataset.weekly? }
   validates :end_month, presence: true, if: -> { self.dataset.weekly? }
   validates :end_year,  presence: true, if: -> { self.dataset.weekly? }

@@ -27,15 +27,13 @@ class DatafilesController < ApplicationController
 
     if documents?
       @datafile.documentation = true
-    else
-      set_dates(params.require(:datafile).permit(DATE_PARAMS))
     end
 
     if @datafile.save
       redirect_to files_path(@dataset, new: true) if files?
       redirect_to documents_path(@dataset) if documents?
     else
-      redirect_to action: :new, flash: @datafile.errors
+      render 'new'
     end
   end
 
@@ -51,7 +49,7 @@ class DatafilesController < ApplicationController
       redirect_to files_path(@dataset) if files?
       redirect_to documents_path(@dataset) if documents?
     else
-      redirect_to action: :edit, flash: @datafile.errors
+      render 'edit'
     end
   end
 
