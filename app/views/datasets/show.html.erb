@@ -34,7 +34,7 @@
     </tr>
     <tr>
       <th class="dgu-checklist__heading">Licence</th>
-      <td><%= @dataset.licence == 'uk-ogl' ? 'Open Government Licence' : @dataset.licence %>
+      <td><%= @dataset.licence == 'uk-ogl' ? 'Open Government Licence' : @dataset.licence_other %>
         <td class="dgu-checklist__actions">
           <% if @dataset.licence %>
             <%= link_to 'Change', edit_licence_path(@dataset) %>
