@@ -1,5 +1,11 @@
+require 'elasticsearch/model'
+
 class Dataset < ApplicationRecord
+  include Elasticsearch::Model
   extend FriendlyId
+
+  index_name    "datasets-#{Rails.env}"
+  document_type "dataset"
 
   belongs_to :organisation
   has_many :datafiles
@@ -30,6 +36,14 @@ class Dataset < ApplicationRecord
 
   validate :dataset_must_have_datafiles_validation,
     if: lambda{ published }
+
+  # What we actually want to index in Elastic, rather than the whole
+  # dataset.
+  def as_indexed_json(_options={})
+    as_json(
+      only: [:name, :title]
+    )
+  end
 
   def owner
     User.find(id: self.owner_id)
@@ -106,4 +120,5 @@ class Dataset < ApplicationRecord
   def one_off?
     never?
   end
+
 end
