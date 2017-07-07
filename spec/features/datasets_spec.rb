@@ -362,7 +362,7 @@ describe "creating and editing datasets" do
         expect(Dataset.last.datafiles.last.end_date).to be_nil
       end
 
-      it "should show no fields for daily and don't set dates" do
+      it "should fail with an error when no date is set" do
         choose option: 'daily'
         click_button "Save and continue"
 
@@ -425,6 +425,52 @@ describe "creating and editing datasets" do
 
         expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(2020, 1, 1))
         expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(2020, 1).end_of_month)
+      end
+
+      context "should show an error if no date is entered" do
+        it "weekly" do
+          choose option: 'weekly'
+          click_button "Save and continue"
+
+          expect(page).to     have_content('Start Date')
+          expect(page).to     have_content('End Date')
+          expect(page).to_not have_content('Year')
+
+          fill_in 'datafile[url]', with: 'https://localhost/doc'
+          fill_in 'datafile[name]', with: 'my test doc'
+
+          click_button "Save and continue"
+
+          expect(page).to have_content("There was a problem")
+          expect(page).to have_content("Start day can't be blank")
+          expect(page).to have_content("Start month can't be blank")
+          expect(page).to have_content("Start year can't be blank")
+          expect(page).to have_content("Invalid start date")
+          expect(page).to have_content("End day can't be blank")
+          expect(page).to have_content("End month can't be blank")
+          expect(page).to have_content("End year can't be blank")
+          expect(page).to have_content("Invalid end date")
+        end
+
+        it "monthly" do
+          choose option: 'monthly'
+          click_button "Save and continue"
+
+          expect(page).to_not have_content('Start Date')
+          expect(page).to_not have_content('End Date')
+          expect(page).to     have_content('Month')
+          expect(page).to     have_content('Year')
+
+          fill_in 'datafile[url]', with: 'https://localhost/doc'
+          fill_in 'datafile[name]', with: 'my test doc'
+
+          click_button "Save and continue"
+
+          expect(page).to have_content("There was a problem")
+          expect(page).to have_content("Start month can't be blank")
+          expect(page).to have_content("Start year can't be blank")
+          expect(page).to have_content("Invalid start date")
+        end
       end
 
       describe "quarters" do

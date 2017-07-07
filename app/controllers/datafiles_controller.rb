@@ -18,31 +18,38 @@ class DatafilesController < ApplicationController
   end
 
   def create
-    file_params = params.require(:datafile).permit(:url, :name)
+    file_params = params.require(:datafile).permit(:url, :name,
+                                                   :start_day, :start_month, :start_year,
+                                                   :end_day, :end_month, :end_year,
+                                                   :year, :quarter)
     @datafile = Datafile.new(file_params)
     @datafile.dataset = @dataset
 
     if documents?
       @datafile.documentation = true
-    else
-      set_dates(params.require(:datafile).permit(DATE_PARAMS))
     end
 
     if @datafile.save
       redirect_to files_path(@dataset, new: true) if files?
       redirect_to documents_path(@dataset) if documents?
+    else
+      render 'new'
     end
   end
 
   def update
     @datafile = current_datafile
-    file_params = params.require(:datafile).permit(:url, :name)
+    file_params = params.require(:datafile).permit(:url, :name,
+                                                   :start_day, :start_month, :start_year,
+                                                   :end_day, :end_month, :end_year,
+                                                   :year, :quarter)
     @datafile.update_attributes(file_params)
-    set_dates(params.require(:datafile).permit(DATE_PARAMS))
 
     if @datafile.save
       redirect_to files_path(@dataset) if files?
       redirect_to documents_path(@dataset) if documents?
+    else
+      render 'edit'
     end
   end
 
@@ -98,62 +105,6 @@ class DatafilesController < ApplicationController
     :end_month,
     :end_year
   ]
-
-  def set_dates(date_params)
-    set_weekly_dates(date_params)           if @dataset.weekly?
-    set_monthly_dates(date_params)          if @dataset.monthly?
-    set_quarterly_dates(date_params)        if @dataset.quarterly?
-    set_yearly_dates(date_params)           if @dataset.annually?
-    set_financial_yearly_dates(date_params) if @dataset.financial_yearly?
-  end
-
-  def set_weekly_dates(date_params)
-    @datafile.start_date = start_date(date_params)
-    @datafile.end_date = end_date(date_params)
-  end
-
-  def set_monthly_dates(date_params)
-    @datafile.start_date = start_date(date_params)
-    @datafile.end_date = @datafile.start_date.end_of_month
-  end
-
-  def set_quarterly_dates(date_params)
-    @datafile.start_date = quarter(date_params)
-    @datafile.end_date = (@datafile.start_date + 2.months).end_of_month
-  end
-
-  def set_yearly_dates(date_params)
-    @datafile.start_date = Date.new(date_params[:year].to_i)
-    @datafile.end_date = Date.new(date_params[:year].to_i, 12).end_of_month
-  end
-
-  def set_financial_yearly_dates(date_params)
-    @datafile.start_date = Date.new(date_params[:year].to_i, 4, 1)
-    @datafile.end_date = Date.new(date_params[:year].to_i + 1, 3).end_of_month
-  end
-
-  # TODO: MOVE THESE TO THE CONTROLLER
-  def start_date(date_params)
-    if @dataset.monthly?
-      date_params[:start_day] = "1"
-    end
-
-    Date.new(date_params[:start_year].to_i,
-             date_params[:start_month].to_i,
-             date_params[:start_day].to_i)
-  end
-
-  def end_date(date_params)
-    Date.new(date_params[:end_year].to_i,
-             date_params[:end_month].to_i,
-             date_params[:end_day].to_i)
-  end
-
-  def quarter(date_params)
-    year_start = Date.new(date_params[:year].to_i, 1, 1)
-    quarter_offset = 4 + (date_params[:quarter].to_i - 1) * 3 # Q1: 4, Q2: 7, Q3: 10, Q4: 13
-    year_start + (quarter_offset - 1).months
-  end
 
   def files?
     url_contains('/file')
