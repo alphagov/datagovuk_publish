@@ -96,9 +96,11 @@
   </tbody>
 </table>
 
-<% unless @dataset.published? %>
-  <%= form_for @dataset, url: publish_dataset_path(@dataset), method: 'post' do |f| %>
-    <p><%= f.submit 'Publish', class: 'button' %></p>
+<%= form_for @dataset, url: publish_dataset_path(@dataset), method: 'post' do |f| %>
+  <% if @dataset.published? %>
+      <p><%= f.submit 'Republish', class: 'button' %></p>
+  <% else %>
+      <p><%= f.submit 'Publish', class: 'button' %></p>
   <% end %>
 <% end %>
 
