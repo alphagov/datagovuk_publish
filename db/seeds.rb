@@ -58,7 +58,7 @@ Task.create!(
 
 # Price paid dataset
 Dataset.create!(
-  name: 'price paid data',
+  name: 'price_paid_data',
   title: 'Price Paid data for all London Boroughs',
   summary: 'Price Paid Data tracks the residential property sales in England and Wales that are lodged with HM Land Registry for registration. ',
   organisation: land_registry
@@ -66,7 +66,7 @@ Dataset.create!(
 
 # HMRC Spending dataset
 Dataset.create!(
-  name: 'HMRC spending',
+  name: 'hmrc_spending',
   title: 'HMRC spending over £25000',
   summary: 'Monthly details of HMRC’s spending with suppliers covering transactions over £25,000',
   organisation: land_registry
@@ -74,7 +74,7 @@ Dataset.create!(
 
 # Council tax bands
 Dataset.create!(
-  name: 'Council Tax',
+  name: 'council_tax',
   title: 'Council Tax bands for London',
   summary: 'Council tax bands for the current year',
   organisation: land_registry
@@ -82,14 +82,14 @@ Dataset.create!(
 
 (1..5).each do |i|
   Dataset.create!(
-    name: "LR_Dataset_#{i} name",
+    name: "lr_dataset_#{i}_name",
     title: "LR_Dataset_#{i} title",
     summary: "LR_Dataset_#{i} summary",
     organisation: land_registry
   )
 
   Dataset.create!(
-  name: "HMRC_Dataset_#{i} name",
+  name: "hmrc_dataset_#{i}_name",
   title: "HMRC_Dataset_#{i} title",
   summary: "HMRC_Dataset_#{i} summary",
   organisation: hmrc
