@@ -8,6 +8,11 @@ This repository contains the beta-stage data publishing component of data.gov.uk
 
 # Usage
 
+You will need postgres and elasticsearch installed for this to work.
+By default elastic is expected to be running on 127.0.0.1:9200 but if it isn't
+you can override the value by exporting ES_HOST=http://.... but make sure the URL
+does not end with a slash.
+
 ## First time setup
 ```
 $ export SECRET_KEY_BASE=...
