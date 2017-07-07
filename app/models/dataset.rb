@@ -39,7 +39,7 @@ class Dataset < ApplicationRecord
 
   # What we actually want to index in Elastic, rather than the whole
   # dataset.
-  def as_indexed_json(options={})
+  def as_indexed_json(_options={})
     as_json(
       only: [:name, :title]
     )
