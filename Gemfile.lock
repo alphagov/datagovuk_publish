@@ -118,6 +118,11 @@ GEM
       elasticsearch-transport (= 5.0.4)
     elasticsearch-api (5.0.4)
       multi_json
+    elasticsearch-model (5.0.1)
+      activesupport (> 3)
+      elasticsearch (~> 5)
+      hashie
+    elasticsearch-rails (5.0.1)
     elasticsearch-transport (5.0.4)
       faraday
       multi_json
@@ -156,6 +161,7 @@ GEM
     has_scope (0.7.1)
       actionpack (>= 4.1, < 5.2)
       activesupport (>= 4.1, < 5.2)
+    hashie (3.5.5)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.8.4)
@@ -360,6 +366,8 @@ DEPENDENCIES
   devise_invitable (~> 1.7.2)
   dotenv (~> 2.2)
   elasticsearch (~> 5.0.4)
+  elasticsearch-model (~> 5.0.1)
+  elasticsearch-rails (~> 5.0.1)
   friendly_id (~> 5.2.1)
   govuk_elements_rails!
   govuk_frontend_toolkit
