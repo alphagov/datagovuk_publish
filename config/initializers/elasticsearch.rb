@@ -10,3 +10,9 @@ if File.exists?("config/elasticsearch.yml")
 end
 
 Elasticsearch::Model.client = Elasticsearch::Client.new(config)
+
+# Reset the search index before testing
+if Rails.env == "test"
+  client = ::Dataset.__elasticsearch__.client
+  client.indices.delete index: ::Dataset.__elasticsearch__.index_name
+end
