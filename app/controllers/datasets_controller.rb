@@ -97,6 +97,8 @@ class DatasetsController < ApplicationController
       if @dataset.save
         redirect_to manage_path
       else
+        @dataset.published = false
+        flash[:error] = @dataset.errors
         render 'show'
       end
     end
