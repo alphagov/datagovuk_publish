@@ -71,10 +71,22 @@ class Datafile < ApplicationRecord
     }.with_indifferent_access
   end
 
+  def document?
+    documentation == true
+  end
+
+  def file?
+    !document?
+  end
+
   private
   def set_dates
+<<<<<<< HEAD
     return if self.documentation
 
+=======
+    return if document?
+>>>>>>> Fix frequency crash and documentation validation
     set_weekly_dates           if dataset.weekly?
     set_monthly_dates          if dataset.monthly?
     set_quarterly_dates        if dataset.quarterly?
