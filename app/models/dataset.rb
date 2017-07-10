@@ -9,6 +9,8 @@ class Dataset < ApplicationRecord
 
   belongs_to :organisation
   has_many :datafiles
+  has_one :inspire_dataset
+
   friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
 
   validates :frequency, inclusion: %w(daily weekly monthly quarterly annually financial-year never),
@@ -45,7 +47,12 @@ class Dataset < ApplicationRecord
              :location1, :location2, :location3,
              :licence, :licence_other, :frequency,
              :published_date, :updated_at, :created_at,
-             :harvested, :uuid]
+             :harvested, :uuid],
+      include: {
+        organisation: {},
+        datafiles: {},
+        inspire_dataset: {}
+      }
     )
   end
 
