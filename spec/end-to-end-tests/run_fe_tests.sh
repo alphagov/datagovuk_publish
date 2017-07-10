@@ -26,6 +26,12 @@ export TEST_TITLE_PREFIX='TEST-'
 export DB_NAME=publish_beta_e2e_tests
 
 
+# make sure we're in the right directory before we do anything
+if [[ ! "$PWD" =~ spec/end-to-end-tests$ ]]; then
+    echo "You must run this script in the spec/end-to-end-tests directory."
+    exit
+fi
+
 trap kill_server SIGINT
 
 function kill_server() {
@@ -46,7 +52,7 @@ rake db:seed > /dev/null 2>&1
 rake import:locations\['lib/seeds/locations.csv'\]
 
 echo Starting test server
-rm -f tmp/pids/e2e-server.pid
+rm -f ../../tmp/pids/e2e-server.pid
 rails s -p ${TEST_APP_PORT} -P tmp/pids/e2e-server.pid >/dev/null 2>&1 &
 PID=$!
 
