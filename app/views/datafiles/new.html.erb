@@ -62,7 +62,7 @@
         <% if creating? %>
           <%= link_to 'Skip this step', new_document_path(@dataset) %>
         <% else %>
-          <%= link_to 'Skip this step', dataset_path(@dataset) %>
+          <%= link_to 'Skip this step', files_path(@dataset, new: true) %>
         <% end %>
       </p>
     </div>
