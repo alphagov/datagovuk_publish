@@ -9,7 +9,8 @@ module LinkChecker
   # link as necessary with success, size, mimetype, last-modified etc.
   def check_dataset(dataset)
     puts "Checking dataset #{dataset.title} (#{dataset.name})"
-    Datafile.where(:dataset_id => dataset.id).each do |datafile|
+    datafiles = Datafile.includes(:dataset_id => dataset.id)
+    datafiles.each do |datafile|
       puts "Processing datafile"
       check_link(datafile)
     end
@@ -26,6 +27,7 @@ module LinkChecker
     rescue RestClient::ExceptionWithResponse
       datafile.broken = true
       datafile.save()
+      create_broken_link_task(datafile)
     end
   end
 
@@ -58,6 +60,29 @@ module LinkChecker
     mimetype.preferred_extension.upcase()
   end
 
+  def broken_link_count
+    dataset.joins(:datafiles).merge(Datafile.where(broken:true)).count
+  end
+
+  # Creates a new task for dataset with broken datafile links
+  def create_broken_link_task(datafile)
+    dataset = datafile.dataset
+    org = Organisation.find_by(id: dataset.organisation_id)
+
+    t = Task.where(related_object_id: dataset.uuid, category: "broken") ? Task.new
+
+    t.organisation_id = org.id
+    t.owning_organisation = org.name
+    t.required_permission_name = ""
+    t.category = "broken"
+    t.quantity = broken_link_count(dataset)
+    t.related_object_id = dataset.uuid
+    t.created_at = t.updated_at = DateTime.now
+    t.description = "'#{dataset.title}' contains broken links"
+    t.save()
+
+  end
+
   module_function :check_organisation, :check_dataset, :check_link,
-    :save_result, :parse_content_type
+    :save_result, :parse_content_type, :create_broken_link_task, :broken_link_count
 end
