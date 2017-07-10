@@ -15,6 +15,5 @@ Elasticsearch::Model.client = Elasticsearch::Client.new(config)
 if Rails.env == "test"
   client = ::Dataset.__elasticsearch__.client
   client.indices.delete index: ::Dataset.__elasticsearch__.index_name
-  Dataset.__elasticsearch__.create_index! force: true
-  Dataset.__elasticsearch__.refresh_index!
+  client.indices.create index: ::Dataset.__elasticsearch__.index_name
 end
