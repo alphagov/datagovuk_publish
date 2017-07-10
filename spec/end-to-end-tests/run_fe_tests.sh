@@ -46,7 +46,8 @@ rake db:seed > /dev/null 2>&1
 rake import:locations\['lib/seeds/locations.csv'\]
 
 echo Starting test server
-rails s -p ${TEST_APP_PORT} >/dev/null 2>&1 &
+rm -f tmp/pids/e2e-server.pid
+rails s -p ${TEST_APP_PORT} -P tmp/pids/e2e-server.pid >/dev/null 2>&1 &
 PID=$!
 
 sleep 5
