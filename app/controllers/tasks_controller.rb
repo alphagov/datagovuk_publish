@@ -17,7 +17,6 @@ class TasksController < ApplicationController
   def organisation
     @organisation = current_user.primary_organisation
     @datasets = Dataset.where(organisation: @organisation.id)
-    # @broken_dataset_tasks = @datasets.joins(:datafiles).merge(Datafile.where(broken:true))
     @broken_dataset_tasks = get_tasks(@organisation, 'broken')
     @update_dataset_tasks = get_tasks(@organisation, 'overdue')
     manage_sort
