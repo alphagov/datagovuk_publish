@@ -33,7 +33,8 @@ class DatafilesController < ApplicationController
       redirect_to files_path(@dataset, new: true) if files?
       redirect_to documents_path(@dataset) if documents?
     else
-      render 'new'
+      render 'new' if files?
+      render 'new_doc' if documents?
     end
   end
 
