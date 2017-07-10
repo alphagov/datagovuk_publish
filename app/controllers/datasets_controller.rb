@@ -90,7 +90,7 @@ class DatasetsController < ApplicationController
 
     if request.post?
       @dataset.published = true
-      @dataset. __elasticsearch__.index_document
+      @dataset.__elasticsearch__.index_document
 
       flash[:success] = I18n.t 'dataset_published'
       flash[:extra] = @dataset
