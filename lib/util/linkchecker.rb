@@ -69,7 +69,11 @@ module LinkChecker
     dataset = datafile.dataset
     org = Organisation.find_by(id: dataset.organisation_id)
 
-    t = Task.where(related_object_id: dataset.uuid, category: "broken") ? Task.new
+    if Task.where(related_object_id: dataset.uuid, category: "broken").exists?
+      t = Task.new
+    else
+      t = Task.where(related_object_id: dataset.uuid, category: "broken")
+    end
 
     t.organisation_id = org.id
     t.owning_organisation = org.name
