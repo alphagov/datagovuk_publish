@@ -2,6 +2,8 @@ require 'uri'
 
 class DateConstructionValidator < ActiveModel::Validator
   def validate(record)
+    return if record.documentation
+
     if record.dataset.monthly? || record.dataset.weekly?
       begin
         Date.new(record.start_year.to_i, record.start_month.to_i, (record.start_day || 1).to_i)
@@ -31,20 +33,20 @@ class Datafile < ApplicationRecord
   validates :name, presence: true
 
   # Weekly & Monthly
-  validates :start_month, presence: true, if: -> { self.dataset.weekly? || self.dataset.monthly? }
-  validates :start_year,  presence: true, if: -> { self.dataset.weekly? || self.dataset.monthly? }
+  validates :start_month, presence: true, if: -> { !self.documentation && (self.dataset.weekly? || self.dataset.monthly?) }
+  validates :start_year,  presence: true, if: -> { !self.documentation && (self.dataset.weekly? || self.dataset.monthly?) }
 
   # Weekly
-  validates :start_day,  presence: true, if: -> { self.dataset.weekly? }
-  validates :end_day,   presence: true, if: -> { self.dataset.weekly? }
-  validates :end_month, presence: true, if: -> { self.dataset.weekly? }
-  validates :end_year,  presence: true, if: -> { self.dataset.weekly? }
+  validates :start_day,  presence: true, if: -> { !self.documentation && self.dataset.weekly? }
+  validates :end_day,   presence: true, if: -> { !self.documentation && self.dataset.weekly? }
+  validates :end_month, presence: true, if: -> { !self.documentation && self.dataset.weekly? }
+  validates :end_year,  presence: true, if: -> { !self.documentation && self.dataset.weekly? }
 
   # Quarterly
-  validates :quarter, presence: true, inclusion: { in: 1..4 }, if: -> { self.dataset.quarterly? }
+  validates :quarter, presence: true, inclusion: { in: 1..4 }, if: -> { !self.documentation && self.dataset.quarterly? }
 
   # Yearly & Quarterly
-  validates :year, presence: true, if: -> { self.dataset.annually? || self.dataset.quarterly? || self.dataset.financial_yearly? }
+  validates :year, presence: true, if: -> { !self.documentation && (self.dataset.annually? || self.dataset.quarterly? || self.dataset.financial_yearly?) }
 
   scope :published, -> { where(published: true) }
   scope :draft,     -> { where(published: false) }
@@ -71,6 +73,8 @@ class Datafile < ApplicationRecord
 
   private
   def set_dates
+    return if self.documentation
+
     set_weekly_dates           if dataset.weekly?
     set_monthly_dates          if dataset.monthly?
     set_quarterly_dates        if dataset.quarterly?
