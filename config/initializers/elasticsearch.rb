@@ -14,6 +14,10 @@ Elasticsearch::Model.client = Elasticsearch::Client.new(config)
 # Reset the search index before testing
 if Rails.env == "test"
   client = ::Dataset.__elasticsearch__.client
-  client.indices.delete index: ::Dataset.__elasticsearch__.index_name
+  begin
+    client.indices.delete index: ::Dataset.__elasticsearch__.index_name
+  rescue
+    puts "No test search index to delete"
+  end
   client.indices.create index: ::Dataset.__elasticsearch__.index_name
 end
