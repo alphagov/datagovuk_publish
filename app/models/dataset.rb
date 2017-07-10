@@ -41,7 +41,11 @@ class Dataset < ApplicationRecord
   # dataset.
   def as_indexed_json(_options={})
     as_json(
-      only: [:name, :title]
+      only: [:name, :title, :summary, :description,
+             :location1, :location2, :location3,
+             :licence, :licence_other, :frequency,
+             :published_date, :updated_at, :created_at,
+             :harvested, :uuid]
     )
   end
 
