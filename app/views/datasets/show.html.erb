@@ -9,9 +9,9 @@
     </h1>
 
     <ul class="error-summary-list">
-			<% @dataset.errors.each do |attr, error| %>
+      <% @dataset.errors.each do |attr, error| %>
         <li><a href="#<%= attr.to_s %>_form_group"><%= error %></a></li>
-			<% end %>
+      <% end %>
     </ul>
   </div>
 <% end %>
@@ -85,9 +85,9 @@
         <% @dataset.datafiles.datalinks.each do |link| %>
           <%= link_to link.name, link.url %>
         <% end %>
-				<% if @dataset.errors[:files].any? %>
-					<span class="error-message error"><%= @dataset.errors[:files].first %></span>
-				<% end %>
+        <% if @dataset.errors[:files].any? %>
+          <span class="error-message error"><%= @dataset.errors[:files].first %></span>
+        <% end %>
       </td>
       <td class="dgu-checklist__actions">
         <% if @dataset.datafiles.datalinks.any? %>
