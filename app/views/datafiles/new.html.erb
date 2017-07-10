@@ -22,7 +22,7 @@
     </div>
   <% end %>
 
-  <%= form_for @datafile, url: files_path(@dataset, file: @datafile), method: 'port' do |f| %>
+  <%= form_for @datafile, url: files_path(@dataset, file: @datafile), method: 'post' do |f| %>
     <%= dataset_field f, @datafile,
     name: 'url',
     label: 'URL',
