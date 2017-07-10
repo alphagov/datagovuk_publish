@@ -50,7 +50,8 @@ class DatafilesController < ApplicationController
       redirect_to files_path(@dataset) if files?
       redirect_to documents_path(@dataset) if documents?
     else
-      render 'edit'
+      render 'edit' if files?
+      render 'edit_doc' if documents?
     end
   end
 
