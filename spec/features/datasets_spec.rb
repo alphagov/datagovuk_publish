@@ -326,6 +326,12 @@ describe "creating and editing datasets" do
 
       expect(page).to have_content("Your dataset has been published")
       expect(Dataset.last.published).to be(true)
+
+      # Ensure the dataset is indexed in Elastic
+      client = Dataset.__elasticsearch__.client
+      document = client.get({ index: Dataset.index_name, id: Dataset.last.id })
+      expect(document["_source"]["name"]).to eq("my-test-dataset")
+
     end
 
     describe "should set file dates correctly based on which frequency is set" do
