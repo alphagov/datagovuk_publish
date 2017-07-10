@@ -36,8 +36,7 @@ class Dataset < ApplicationRecord
     allow_blank: false,
     if: lambda { licence == 'other' }
 
-  validate :dataset_must_have_datafiles_validation,
-    if: lambda{ published }
+  validate :published_dataset_must_have_datafiles_validation
 
   # What we actually want to index in Elastic, rather than the whole
   # dataset.
@@ -94,9 +93,9 @@ class Dataset < ApplicationRecord
     end
   end
 
-  def dataset_must_have_datafiles_validation
-    if self.datafiles.count() == 0
-      errors.add(:base, "You must add at least one link")
+  def published_dataset_must_have_datafiles_validation
+    if self.published && self.datafiles.datalinks.empty?
+      errors.add(:files, "You must add at least one link")
     end
   end
 

@@ -2,7 +2,21 @@
   Check your dataset -
 <% end %>
 
-<h1 class="heading-large">Publish ‘<%= @dataset.title %>’</h1>
+<% if @dataset.errors.any? %>
+<div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+    <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+      There was a problem
+    </h1>
+
+    <ul class="error-summary-list">
+      <% @dataset.errors.each do |attr, error| %>
+        <li><a href="#<%= attr.to_s %>_form_group"><%= error %></a></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h1 class="heading-large"><%= @dataset.published ? "Edit" : "Publish" %>  ‘<%= @dataset.title %>’</h1>
 
 <ul>
   <li>Status: <%= @dataset.status %></li>
@@ -67,9 +81,12 @@
     </tr>
     <tr>
       <th class="dgu-checklist__heading">Data</th>
-      <td>
+      <td id="files_form_group">
         <% @dataset.datafiles.datalinks.each do |link| %>
           <%= link_to link.name, link.url %>
+        <% end %>
+        <% if @dataset.errors[:files].any? %>
+          <span class="error-message error"><%= @dataset.errors[:files].first %></span>
         <% end %>
       </td>
       <td class="dgu-checklist__actions">
