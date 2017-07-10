@@ -8,10 +8,11 @@ export ADMIN_USER_EMAIL=admin@example.com
 export USER_PASSWORD=password
 
 # Various executables needed to run tests
-export SELENIUM=${HOME}/bin/selenium-server-standalone.jar
-export GECKO_DRIVER=${HOME}/bin/geckodriver
-export PHANTOM_JS=${HOME}/bin/phantomjs
-export CHROME_DRIVER=${HOME}/bin/chromedriver
+BIN=./bin/`uname`
+export SELENIUM=./bin/selenium-server-standalone.jar
+export GECKO_DRIVER=${BIN}/geckodriver
+export PHANTOM_JS=${BIN}/phantomjs
+export CHROME_DRIVER=${BIN}/chromedriver
 export SECRET_KEY_BASE=test_key
 export DEVISE_SECRET_KEY=test_key
 
