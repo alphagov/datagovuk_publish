@@ -95,7 +95,7 @@ class Dataset < ApplicationRecord
   end
 
   def dataset_must_have_datafiles_validation
-    if self.datafiles.count() == 0
+    if self.datafiles.datalinks.count() == 0
       errors.add(:base, "You must add at least one link")
     end
   end
