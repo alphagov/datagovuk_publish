@@ -94,7 +94,11 @@ class DatasetsController < ApplicationController
       flash[:success] = I18n.t 'dataset_published'
       flash[:extra] = @dataset
 
-      redirect_to manage_path if @dataset.save
+      if @dataset.save
+        redirect_to manage_path
+      else
+        render 'show'
+      end
     end
   end
 
