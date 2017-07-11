@@ -15,12 +15,14 @@ describe "viewing tasks" do
 
     fix_task = Task.create!(
       organisation: o,
-      description: 'fix this task'
+      description: 'fix this task',
+      category: 'broken'
     )
 
     update_task = Task.create!(
       organisation: o,
-      description: 'update this task'
+      description: 'update this task',
+      category: 'overdue'
     )
 
     price_paid_dataset = Dataset.create!(
@@ -41,7 +43,7 @@ describe "viewing tasks" do
 
     click_link 'Land Registry tasks'
     expect(page).to have_selector(%(table), count: 2)
-    expect(page).to have_selector 'h2', :text => '2 datasets need to be updated'
+    expect(page).to have_selector 'h2', :text => '1 datasets need to be updated'
     expect(page).to have_selector 'h2', :text => '1 datasets have broken data links'
 
   end

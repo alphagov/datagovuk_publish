@@ -8,8 +8,8 @@ class TasksController < ApplicationController
   def my
     @organisation = current_user.primary_organisation
     @datasets = Dataset.where(organisation: @organisation.id)
-    @broken_datasets = Dataset.where(organisation: @organisation.id)
-    @tasks = get_tasks_for_user(current_user)
+    @broken_dataset_tasks = get_tasks(@organisation, 'broken')
+    @update_dataset_tasks = get_tasks(@organisation, 'overdue')
     manage_sort
   end
 
@@ -17,20 +17,15 @@ class TasksController < ApplicationController
   def organisation
     @organisation = current_user.primary_organisation
     @datasets = Dataset.where(organisation: @organisation.id)
-    @broken_datasets = Dataset.where(organisation: @organisation.id)
-    @tasks = get_tasks_for_organisation(@organisation.name)
+    @broken_dataset_tasks = get_tasks(@organisation, 'broken')
+    @update_dataset_tasks = get_tasks(@organisation, 'overdue')
     manage_sort
   end
 
 private
 
-  def get_tasks_for_user(_user)
-    Task.all
-  end
-
-  # For the given organisation name, find the tasks that they have in each category
-  def get_tasks_for_organisation(_organisation)
-    Task.all
+  def get_tasks(organisation, category)
+    Task.where(organisation: organisation.id, category: category)
   end
 
 end

@@ -1,7 +1,7 @@
 <div class="dgu-tabs__content">
   <section class="dgu-show-all">
     <h2 class="heading-medium dgu-tasklist__title" id="update-datasets">
-      <%= @tasks.count =%> datasets need to be updated
+      <%= @update_dataset_tasks.count =%> datasets need to be updated
     </h2>
     <table class="dgu-tasklist__table">
       <thead>
@@ -72,12 +72,12 @@
         </tr>
       </thead>
       <tbody>
-        <% sorted_fix_tasks.each do |dataset| %>
+        <% sorted_broken_tasks.each do |task| %>
           <tr class="dgu-show-all__item">
             <th>
-              <a href=""><%=dataset.title=%></a>
+              <a href=""><%=task.description=%></a>
             </th>
-            <td class="dgu-tasklist__broken-links-column">3</td>
+            <td class="dgu-tasklist__broken-links-column"><%=task.quantity=%></td>
             <td class="dgu-tasklist__actions-column">
               <a href="">Fix</a>
             </td>

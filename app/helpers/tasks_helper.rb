@@ -5,10 +5,10 @@ module TasksHelper
     "-name" => {description: :desc},
     "name" => {description: :asc},
     "descending" => {created_at: :desc},
-    "-broken-name" => {title: :desc},
+    "-broken-name" => {description: :desc},
     "decreasing" => {created_at: :desc},
     "increasing" => {created_at: :asc},
-    "broken-name" => {title: :asc}
+    "broken-name" => {description: :asc}
   }
 
   def manage_sort
@@ -21,15 +21,16 @@ module TasksHelper
 
   def sorted_update_tasks
     sort = params["update_sort_by"] || @date_sort
-    @tasks.order(SORT_UPDATES[sort])
+    @update_dataset_tasks.order(SORT_UPDATES[sort])
   end
 
-  def sorted_fix_tasks
+  def sorted_broken_tasks
     sort = params["fix_sort_by"] || @fix_name_sort
-    @broken_datasets.order(SORT_UPDATES[sort])
+    @broken_dataset_tasks.order(SORT_UPDATES[sort])
   end
 
   def broken_dataset_count
-    @broken_datasets.count
+    @broken_dataset_tasks.count
   end
+
 end
