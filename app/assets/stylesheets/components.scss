@@ -1,4 +1,4 @@
-// =============================================================================
+  // =============================================================================
 // mixins for components
 
 @mixin actions {
@@ -316,5 +316,15 @@ a.danger, a.danger:visited {
     display: inline-block;
     font-weight: bold;
     width: 8em;
+  }
+}
+
+// =============================================================================
+// confirm-delete-box
+
+#confirm-delete-box {
+  .confirm-delete-box__button {
+    background-color: #b10e1e;
+    margin-right: 20px;
   }
 }

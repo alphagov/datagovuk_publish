@@ -7,6 +7,11 @@
 </div>
 <% end %>
 
+<% if flash[:deleted] %>
+<div class="error-summary" role="group" aria-labelledby="confirm-heading" tabindex="-1">
+  <h1 class="heading-medium error-summary-heading"><%= flash[:deleted] %></h1>
+</div>
+<% end %>
 
 <h1 class="heading-large">Manage your datasets</h1>
 
