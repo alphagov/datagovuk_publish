@@ -1,8 +1,7 @@
 <% content_for :page_title do %>
-    Add a link to your data -
+  Add a link to your data -
 <% end %>
 
-<h1 class="heading-large">Add a link to your data</h1>
 <div class="datasets">
   <% if @datafile.errors.any? %>
     <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
@@ -21,6 +20,7 @@
       </ul>
     </div>
   <% end %>
+  <h1 class="heading-large">Add a link to your data</h1>
 
   <%= form_for @datafile, url: addfile_dataset_path(@dataset), method: update_method do |f| %>
     <%= dataset_field f, @datafile,
