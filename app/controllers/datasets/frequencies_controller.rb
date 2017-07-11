@@ -11,7 +11,14 @@ class Datasets::FrequenciesController < ApplicationController
 
   def create
     @dataset = current_dataset
-    @dataset.frequency = params.require(:dataset).permit(:frequency)[:frequency]
+
+    begin
+      @dataset.frequency = params.require(:dataset).permit(:frequency)[:frequency]
+    rescue ActionController::ParameterMissing
+      @dataset.errors.add(:frequency, 'No frequency selected')
+      render 'new'
+      return
+    end
 
     if @dataset.save
       redirect_to new_file_path(@dataset)
