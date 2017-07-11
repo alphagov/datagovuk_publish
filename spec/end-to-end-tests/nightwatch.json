@@ -19,6 +19,7 @@
 
   "test_settings" : {
     "default" : {
+      "skip_testcases_on_fail": false,
       "launch_url" : "http://localhost",
       "selenium_port"  : 4444,
       "selenium_host"  : "localhost",
