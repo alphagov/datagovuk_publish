@@ -105,6 +105,18 @@ class DatasetsController < ApplicationController
     end
   end
 
+  def confirm_delete
+    @dataset = current_dataset
+    flash[:confirm_delete] = 'Are you sure you want to delete this dataset?'
+    render 'show'
+  end
+
+  def destroy
+    flash[:deleted] = "The dataset '#{current_dataset.title}' has been deleted"
+    current_dataset.destroy
+    redirect_to manage_path
+  end
+
   private
   def current_dataset
     Dataset.find_by(:name => params.require(:id))
