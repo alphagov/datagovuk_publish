@@ -71,14 +71,6 @@ class Datafile < ApplicationRecord
     }.with_indifferent_access
   end
 
-  def document?
-    documentation == true
-  end
-
-  def file?
-    !document?
-  end
-
   private
   def set_dates
     return if self.documentation
