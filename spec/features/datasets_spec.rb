@@ -448,14 +448,9 @@ describe "creating and editing datasets" do
           click_button "Save and continue"
 
           expect(page).to have_content("There was a problem")
-          expect(page).to have_content("Start day can't be blank")
-          expect(page).to have_content("Start month can't be blank")
-          expect(page).to have_content("Start year can't be blank")
-          expect(page).to have_content("Invalid start date")
-          expect(page).to have_content("End day can't be blank")
-          expect(page).to have_content("End month can't be blank")
-          expect(page).to have_content("End year can't be blank")
-          expect(page).to have_content("Invalid end date")
+          expect(page).to have_content("Please enter a valid day")
+          expect(page).to have_content("Please enter a valid month")
+          expect(page).to have_content("Please enter a valid year")
         end
 
         it "monthly" do
@@ -473,9 +468,39 @@ describe "creating and editing datasets" do
           click_button "Save and continue"
 
           expect(page).to have_content("There was a problem")
-          expect(page).to have_content("Start month can't be blank")
-          expect(page).to have_content("Start year can't be blank")
-          expect(page).to have_content("Invalid start date")
+          expect(page).to have_content("Please enter a valid month")
+          expect(page).to have_content("Please enter a valid year")
+        end
+      end
+
+      context "should show an error if a date is invalid, but individual fields are" do
+        it "weekly" do
+          choose option: 'weekly'
+          click_button "Save and continue"
+
+          expect(page).to     have_content('Start Date')
+          expect(page).to     have_content('End Date')
+          expect(page).to_not have_content('Year')
+
+          fill_in 'datafile[url]', with: 'https://localhost/doc'
+          fill_in 'datafile[name]', with: 'my test doc'
+
+          fill_in 'datafile[start_day]', with: '30'
+          fill_in 'datafile[start_month]', with: '02'
+          fill_in 'datafile[start_year]',  with: '2020'
+
+          fill_in 'datafile[end_day]', with: '30'
+          fill_in 'datafile[end_month]', with: '03'
+          fill_in 'datafile[end_year]',  with: '2020'
+
+
+          click_button "Save and continue"
+
+          expect(page).to have_content("There was a problem")
+          expect(page).to_not have_content("Please enter a valid day")
+          expect(page).to_not have_content("Please enter a valid month")
+          expect(page).to_not have_content("Please enter a valid year")
+          expect(page).to have_content("Please enter a valid start date")
         end
       end
 

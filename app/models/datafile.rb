@@ -4,11 +4,40 @@ class DateConstructionValidator < ActiveModel::Validator
   def validate(record)
     return if record.documentation
 
+    start_year = record.start_year.to_i
+    if record.start_year && (start_year < 1000 || start_year > 5000)
+      record.errors[:start_year] << "Please enter a valid year"
+    end
+    start_month = record.start_month.to_i
+    if record.start_month && (start_month < 1 || start_month > 12)
+      record.errors[:start_month] << "Please enter a valid month"
+    end
+    start_day = record.start_day.to_i
+    if record.start_day && (start_day < 1 || start_day > 31)
+      record.errors[:start_day] << "Please enter a valid day"
+    end
+    end_year = record.end_year.to_i
+    if record.end_year && (end_year < 1000 || end_year > 5000)
+      record.errors[:end_year] << "Please enter a valid year"
+    end
+    end_month = record.end_month.to_i
+    if record.end_month &&  (end_month < 1 || end_month > 12)
+      record.errors[:end_month] << "Please enter a valid month"
+    end
+    end_day = record.end_day.to_i
+    if record.end_day && (end_day < 1 || end_day > 31)
+      record.errors[:end_day] << "Please enter a valid day"
+    end
+    year = record.year.to_i
+    if record.year && (year < 1000 || year > 5000)
+      record.errors[:year] << "Please enter a valid year"
+    end
+
     if record.dataset.monthly? || record.dataset.weekly?
       begin
         Date.new(record.start_year.to_i, record.start_month.to_i, (record.start_day || 1).to_i)
       rescue ArgumentError
-        record.errors[:start_date] << "Invalid start date"
+        record.errors[:start_date] << "Please enter a valid start date"
       end
     end
 
@@ -16,7 +45,7 @@ class DateConstructionValidator < ActiveModel::Validator
       begin
         Date.new(record.end_year.to_i, record.end_month.to_i, record.end_day.to_i)
       rescue ArgumentError
-        record.errors[:end_date] << "Invalid end date"
+        record.errors[:end_date] << "Please enter a valid end date"
       end
     end
   end

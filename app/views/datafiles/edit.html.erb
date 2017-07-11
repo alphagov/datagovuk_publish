@@ -12,7 +12,7 @@
         <% @datafile.errors.each do |attr, message| %>
           <li>
             <a href="#<%= attr.to_s %>_form_group">
-              <%= "#{attr.to_s.humanize} #{message}" %>
+              <%= message %>
             </a>
             <span class="visuallyhidden">.</span>
           </li>
