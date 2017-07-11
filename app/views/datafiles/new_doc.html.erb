@@ -1,8 +1,7 @@
 <% content_for :page_title do %>
-    Add a link supporting documents -
+  Add a link supporting documents -
 <% end %>
 
-<h1 class="heading-large">Add a link to supporting documents</h1>
 <div class="datasets">
   <% if @datafile.errors.any? %>
 		<div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
@@ -21,6 +20,7 @@
 			</ul>
 		</div>
   <% end %>
+  <h1 class="heading-large">Add a link to supporting documents</h1>
 
   <%= form_for @datafile, url: documents_path(@dataset), method: 'post' do |f| %>
     <%= dataset_field f, @datafile,

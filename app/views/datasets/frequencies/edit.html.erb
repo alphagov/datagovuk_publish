@@ -1,8 +1,7 @@
 <% content_for :page_title do %>
-    Select frequency -
+  Select frequency -
 <% end %>
 
-<h1 class="heading-large">How frequently is this dataset updated?</h1>
 <div class="datasets">
   <% if @dataset.errors.any? %>
 		<div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
@@ -21,6 +20,7 @@
 			</ul>
 		</div>
   <% end %>
+  <h1 class="heading-large">How frequently is this dataset updated?</h1>
 
   <%= form_for @dataset, url: frequency_path(@dataset), method: :put do |f| %>
     <div class="form-group">
