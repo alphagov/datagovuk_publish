@@ -240,7 +240,7 @@ var test_create_monthly_bad_month = function (browser) {
     .checkError('Please enter a valid month')
     .clearSetValue('#start_month', '13')
     .submitFormAndCheckNextTitle('There was a problem')
-    .checkError('Please enter a valid date')
+    .checkError('Please enter a valid month')
     .end();
 };
 
@@ -253,7 +253,7 @@ var test_create_monthly_bad_year = function (browser) {
     .clearSetValue('#start_month', '11')
     .clearSetValue('#start_year', '123203')
     .submitFormAndCheckNextTitle('There was a problem')
-    .checkError('Please enter a valid date')
+    .checkError('Please enter a valid year')
     .end();
 };
 
@@ -264,7 +264,7 @@ var test_create_yearly_bad_year = function (browser) {
     .clearSetValue('#id_url', common.validDataUrl)
     .clearSetValue('#start_year', '123203')
     .submitFormAndCheckNextTitle('There was a problem')
-    .checkError('Please enter a valid date')
+    .checkError('Please enter a valid year')
     .end();
 };
 
@@ -460,7 +460,7 @@ module.exports = {
   'Create a dataset, monthly, bad month': test_create_monthly_bad_month,
   'Create a dataset, monthly, bad year': test_create_monthly_bad_year,
   'Create a dataset, yearly, bad year': test_create_yearly_bad_year,
-  'Create a dataset, frequency quarterly': test_create_quarterly,
+  'create a dataset, frequency quarterly': test_create_quarterly,
   'Create a dataset, frequency never': test_create_never,
   'Create a dataset, frequency yearly': test_create_yearly,
   'Create a dataset, frequency financial yearly': test_create_financial_yearly,
