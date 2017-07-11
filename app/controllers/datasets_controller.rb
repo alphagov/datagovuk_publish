@@ -107,14 +107,25 @@ class DatasetsController < ApplicationController
 
   def confirm_delete
     @dataset = current_dataset
-    flash[:confirm_delete] = 'Are you sure you want to delete this dataset?'
+    if @dataset.published?
+      @dataset.errors.add(:delete_prevent, 'Published datasets cannot be deleted')
+    else
+      flash[:confirm_delete] = 'Are you sure you want to delete this dataset?'
+    end
     render 'show'
   end
 
   def destroy
-    flash[:deleted] = "The dataset '#{current_dataset.title}' has been deleted"
-    current_dataset.destroy
-    redirect_to manage_path
+    @dataset = current_dataset
+    if @dataset.published?
+      @dataset.errors.add(:delete_prevent, 'Published datasets cannot be deleted')
+      render 'show'
+    else
+      flash[:deleted] = "The dataset '#{current_dataset.title}' has been deleted"
+      current_dataset.destroy
+      redirect_to manage_path
+    end
+
   end
 
   private
