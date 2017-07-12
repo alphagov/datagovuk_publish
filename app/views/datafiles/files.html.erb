@@ -10,7 +10,7 @@
       <% if flash[:alert] %>
         <h1 class="heading-medium error-summary-heading"><%= flash[:alert] %></h1>
           <%= link_to "Yes, delete this link",
-              file_path,
+              file_path(file_id: params[:file_id]),
               method: :delete,
               class: 'button confirm-delete-box__button'
           %>

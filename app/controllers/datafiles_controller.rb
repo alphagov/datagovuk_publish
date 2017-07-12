@@ -55,8 +55,19 @@ class DatafilesController < ApplicationController
     end
   end
 
+  def confirm_delete
+    @datafile = current_datafile
+    @datafiles = @dataset.datafiles.datalinks
+    flash[:alert] = "Are you sure you want to delete ‘#{@datafile.name}’?"
+
+    redirect_to files_path(file_id: @datafile.id) if files?
+    redirect_to documents_path(file_id: @datafile.id) if documents?
+  end
+
   def destroy
     @datafile = current_datafile
+    @datafiles = @dataset.datafiles.datalinks
+    flash[:deleted] = "Your link ‘#{@datafile.name}’ has been deleted"
     @datafile.destroy
 
     redirect_to files_path(@dataset) if files?
