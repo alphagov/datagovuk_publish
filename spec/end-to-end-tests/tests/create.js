@@ -444,7 +444,7 @@ var test_create_add_file_twice = function (browser) {
 module.exports = {
   'Create a dataset, happy path': test_create_happy_path,
   'Create a dataset, missing title': test_create_missing_title,
-//  'Create a dataset, invalid title': test_create_invalid_title,
+  'Create a dataset, invalid title': test_create_invalid_title,
   'Create a dataset, missing description': test_create_missing_description,
   'Create a dataset, missing summary': test_create_missing_summary,
   'Create a dataset, skip licence': test_create_skip_licence,
