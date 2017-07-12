@@ -110,7 +110,7 @@ class DatasetsController < ApplicationController
     if @dataset.published?
       @dataset.errors.add(:delete_prevent, 'Published datasets cannot be deleted')
     else
-      flash[:confirm_delete] = 'Are you sure you want to delete this dataset?'
+      flash[:alert] = 'Are you sure you want to delete this dataset?'
     end
     render 'show'
   end

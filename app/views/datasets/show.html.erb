@@ -2,7 +2,7 @@
   Check your dataset -
 <% end %>
 
-<% if @dataset.errors.any? || flash[:confirm_delete] %>
+<% if @dataset.errors.any? || flash[:alert] %>
   <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
     <% if @dataset.errors.any? %>
       <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
@@ -16,7 +16,7 @@
       </ul>
     <% else %>
     <div id="confirm-delete-box">
-      <h1 class="heading-medium error-summary-heading"><%= flash[:confirm_delete] %></h1>
+      <h1 class="heading-medium error-summary-heading"><%= flash[:alert] %></h1>
         <%= link_to "Yes, delete this dataset", @dataset, method: :delete, class: 'button confirm-delete-box__button' %>
         <%= link_to "Cancel", edit_dataset_path(@dataset), class: 'secondary-button' %>
     </div>
