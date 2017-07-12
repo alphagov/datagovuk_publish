@@ -472,9 +472,12 @@ describe "creating and editing datasets" do
           click_button "Save and continue"
 
           expect(page).to have_content("There was a problem")
-          expect(page).to have_content("Please enter a valid day")
-          expect(page).to have_content("Please enter a valid month")
-          expect(page).to have_content("Please enter a valid year")
+          expect(page).to have_content("Please enter a valid start day")
+          expect(page).to have_content("Please enter a valid start month")
+          expect(page).to have_content("Please enter a valid start year")
+          expect(page).to have_content("Please enter a valid end day")
+          expect(page).to have_content("Please enter a valid end month")
+          expect(page).to have_content("Please enter a valid end year")
         end
 
         it "monthly" do
@@ -545,7 +548,7 @@ describe "creating and editing datasets" do
           fill_in 'datafile[name]', with: 'my test doc'
 
           choose option: quarter.to_s
-          fill_in "datafile[year]", with: Date.today.year
+          fill_in "datafile[start_year]", with: Date.today.year
           click_button "Save and continue"
         end
 
@@ -587,7 +590,7 @@ describe "creating and editing datasets" do
         fill_in 'datafile[name]', with: 'my test doc'
 
         # Start Date
-        fill_in 'datafile[year]',  with: '2015'
+        fill_in 'datafile[start_year]',  with: '2015'
 
         click_button "Save and continue"
       end
