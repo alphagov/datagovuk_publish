@@ -89,7 +89,6 @@ class Dataset < ApplicationRecord
   def prevent_if_published
     if published?
       raise 'published datasets cannot be deleted'
-      return false
     end
   end
 
