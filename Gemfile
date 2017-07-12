@@ -11,7 +11,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise', '~> 4.3'
 gem 'devise_invitable', '~> 1.7.2'
 gem 'activeadmin', '~> 1'
-gem 'govuk_elements_rails', :git => 'https://github.com/alphagov/govuk_elements_rails', :branch => 'bump-govuk-elements-to-v3.1.0', :submodules => true
+gem 'govuk_elements_rails', :git => 'https://github.com/alphagov/govuk_elements_rails', :submodules => true
 gem 'govuk_frontend_toolkit'
 gem 'govuk_template'
 gem 'audited', '~> 4.5'
