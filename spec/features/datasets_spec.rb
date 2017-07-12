@@ -177,6 +177,9 @@ describe "creating and editing datasets" do
         click_change(:datalinks)
         expect(page).to have_content("my published test file")
         click_link 'Delete'
+        expect(page).to have_content "Are you sure you want to delete ‘my published test file’?"
+        click_link 'Yes, delete this link'
+        expect(page).to have_content "Your link ‘my published test file’ has been deleted"
         expect(last_updated_dataset.datafiles.datalinks).to be_empty
       end
 
