@@ -1,4 +1,5 @@
 require "rails_helper"
+require_relative "datasets_spec_helper"
 
 describe "creating and editing datasets" do
   # let! used here to force it to eager evaluate before each test
@@ -83,17 +84,16 @@ describe "creating and editing datasets" do
       click_link 'Manage datasets'
       expect(page).to have_content(unpublished_dataset.title)
       expect(page).to have_content(published_dataset.title)
-      first(:link, 'Edit').click
     end
 
-    context 'editing from show page' do
+    context 'editing published datasets from show page' do
       before(:each) do
         click_link 'Manage datasets'
-        first(:link, 'Edit').click
+        edit_dataset(:published_dataset)
       end
 
       it "should be able to update title" do
-        all(:link, "Change").first.click
+        click_change(:title)
         fill_in 'dataset[title]', with: 'a new title'
         click_button 'Save and continue'
 
@@ -102,7 +102,7 @@ describe "creating and editing datasets" do
       end
 
       it "should be able to update summary" do
-        all(:link, "Change")[1].click
+        click_change(:summary)
         fill_in 'dataset[summary]', with: 'a new summary'
         click_button 'Save and continue'
 
@@ -111,7 +111,7 @@ describe "creating and editing datasets" do
       end
 
       it "should be able to update additional info" do
-        all(:link, "Change")[2].click
+        click_change(:additional_info)
         fill_in 'dataset[description]', with: 'a new description'
         click_button 'Save and continue'
 
@@ -120,7 +120,7 @@ describe "creating and editing datasets" do
       end
 
       it "should be able to update licence" do
-        all(:link, "Change")[3].click
+        click_change(:licence)
         choose(option: 'other')
         fill_in 'dataset[licence_other]', with: 'MIT'
         click_button 'Save and continue'
@@ -131,7 +131,7 @@ describe "creating and editing datasets" do
       end
 
       it "should be able to update location" do
-        all(:link, "Change")[4].click
+        click_change(:location)
         fill_in 'dataset[location1]', with: 'there'
         click_button 'Save and continue'
 
@@ -140,7 +140,7 @@ describe "creating and editing datasets" do
       end
 
       it "should be able to update frequency" do
-        all(:link, "Change")[5].click
+        click_change(:frequency)
         choose option: 'daily'
         click_button 'Save and continue'
 
@@ -149,7 +149,7 @@ describe "creating and editing datasets" do
       end
 
       it "should be able to add a new file" do
-        all(:link, "Change")[6].click
+        click_change(:datalinks)
         expect(page).to have_content("my published test file")
         click_link 'Add another link'
 
@@ -162,7 +162,7 @@ describe "creating and editing datasets" do
       end
 
       it "should be able to edit an existing file" do
-        all(:link, "Change")[6].click
+        click_change(:datalinks)
         expect(page).to have_content("my published test file")
         click_link 'Edit'
 
@@ -174,14 +174,14 @@ describe "creating and editing datasets" do
       end
 
       it "should be able to remove a file" do
-        all(:link, "Change")[6].click
+        click_change(:datalinks)
         expect(page).to have_content("my published test file")
         click_link 'Delete'
         expect(last_updated_dataset.datafiles.datalinks).to be_empty
       end
 
       it "should be able to add a new doc" do
-        all(:link, "Change")[7].click
+        click_change(:documentation)
         expect(page).to have_content("my published test doc")
         click_link 'Add another link'
 
@@ -194,7 +194,7 @@ describe "creating and editing datasets" do
       end
 
       it "should be able to edit an existing doc" do
-        all(:link, "Change")[7].click
+        click_change(:documentation)
         expect(page).to have_content("my published test doc")
         click_link 'Edit'
 
@@ -206,7 +206,7 @@ describe "creating and editing datasets" do
       end
 
       it "should be able to remove a doc" do
-        all(:link, "Change")[7].click
+        click_change(:documentation)
         expect(page).to have_content("my published test doc")
         click_link 'Delete'
         expect(last_updated_dataset.datafiles.documentation).to be_empty
@@ -217,6 +217,13 @@ describe "creating and editing datasets" do
         expect(page).to_not have_selector("input[type=submit][value='Publish']")
       end
 
+      it "should not be possible to delete a published dataset" do
+        expect(page).to_not have_selector(:css, 'a[href="/datasets/test-title-published/confirm_delete"]')
+        expect(page).to_not have_content('Delete this dataset')
+        visit '/datasets/test-title-published/confirm_delete'
+        expect(page).to have_content "Published datasets cannot be deleted"
+      end
+
       it "should be able to publish an unpublished dataset" do
         visit dataset_url(unpublished_dataset)
         expect(unpublished_dataset.published).to be false
@@ -225,6 +232,23 @@ describe "creating and editing datasets" do
         expect(last_updated_dataset.published).to be true
         expect(page).to have_content("Your dataset has been published")
       end
+    end
+
+    context "editing draft datasets from the show page" do
+      before(:each) do
+        click_link 'Manage datasets'
+        edit_dataset(:unpublished_dataset)
+      end
+
+      it "is possible to delete a draft dataset" do
+        click_link 'Delete this dataset'
+        expect(current_path).to eq "/datasets/test-title-unpublished/confirm_delete"
+        click_link "Yes, delete this dataset"
+        expect(current_path).to eq '/manage'
+        expect(page).to have_content "The dataset 'test title unpublished' has been deleted"
+        expect(page).to_not have_selector(:css, 'a[href="/datasets/test-title-unpublished/edit"]')
+      end
+
     end
   end
 
