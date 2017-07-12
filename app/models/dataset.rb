@@ -19,6 +19,11 @@ class Dataset < ApplicationRecord
   validates :title,
     presence: { message: "Please enter a valid title" }
 
+  validates_format_of :title, {
+    with: /([a-z]){3}.*/i,
+    message: "Please enter a valid title"
+  }
+
   validates :summary,
     presence: { message: "Please provide a summary" }
 

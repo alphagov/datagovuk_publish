@@ -14,6 +14,21 @@ describe Dataset do
     expect(d.name).to eq("this-is-a-dataset")
   end
 
+  it "requires a valid title" do
+    d = Dataset.new
+    d.title = "[][]"
+    d.summary = "Summary"
+    d.frequency = "daily"
+    d.organisation_id = @org.id
+    expect(d.save).to eq(false)
+
+    d.title = ""
+    expect(d.save).to eq(false)
+
+    d.title = "AB"
+    expect(d.save).to eq(false)
+  end
+
   it "can generate unique slugs" do
     d1 = Dataset.new
     d1.title = "dataset"
