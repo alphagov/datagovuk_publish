@@ -57,4 +57,26 @@ describe Dataset do
 
     expect(d.save).to eq(true)
   end
+
+  it "is not possible to delete a published dataset" do
+    d = Dataset.new
+    d.title = "dataset"
+    d.summary = "Summary"
+    d.organisation_id = @org.id
+    d.frequency = "daily"
+    d.licence = "uk-ogl"
+    d.save()
+
+    Datafile.create(url: "http://127.0.0.1", name: "Test link", dataset: d)
+
+    d.published = true
+
+    expect{d.destroy}.to raise_exception 'published datasets cannot be deleted'
+    expect(Dataset.count).to eq 1
+
+    d.published = false
+    d.destroy
+
+    expect(Dataset.count).to eq 0
+  end
 end
