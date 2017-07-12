@@ -97,12 +97,12 @@ var test_cant_delete_published = function (browser) {
     .end();
 };
 
-var test_admin_can_delete_published = function (browser) {
+/* var test_admin_can_delete_published = function (browser) {
   createDataset(browser, true)
     .clickAndCheckNextTitle('Edit', 'Edit ‘' + common.datasetTitle + '’')
     .assert.containsText('a.danger', 'Delete')
     .end();
-};
+}; */
 
 module.exports = {
   'Edit a dataset title ': test_edit_title,
