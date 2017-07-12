@@ -391,7 +391,7 @@ var test_create_modify_licence = function (browser) {
     .waitForElementVisible('h1', common.waitTimeout)
     .assert.containsText('h1', 'Choose a licence')
     .selectRadioButton('Other')
-    .clearSetValue('#id_licence_other', 'my licence')
+    .clearSetValue('input[name="dataset[licence_other]"]', 'my licence')
     .submitFormAndCheckNextTitle('Publish ‘' + common.datasetTitle  + '’')
     .waitForElementVisible('body', common.waitTimeout)
     .assert.containsText('body', 'my licence')
