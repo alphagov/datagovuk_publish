@@ -1,7 +1,6 @@
 GIT
   remote: https://github.com/alphagov/govuk_elements_rails
-  revision: e55bdd91f585fca7db4401d1fc31888266c1a6e0
-  branch: bump-govuk-elements-to-v3.1.0
+  revision: bff3a667f2737d822e6e73913f813a9180e987fe
   submodules: true
   specs:
     govuk_elements_rails (3.1.0)
