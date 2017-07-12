@@ -58,8 +58,8 @@ class Datafile < ApplicationRecord
   belongs_to :dataset
   before_save :set_dates
 
-  validates :url, presence: true
-  validates :name, presence: true
+  validates :url, presence: { message: 'Please enter a valid URL' }
+  validates :name, presence: { message: 'Please enter a valid name' }
 
   # Weekly & Monthly
   validates :start_month, presence: true, if: -> { !self.documentation && (self.dataset.weekly? || self.dataset.monthly?) }
