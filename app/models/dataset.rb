@@ -10,6 +10,7 @@ class Dataset < ApplicationRecord
   belongs_to :organisation
   has_many :datafiles
   has_one :inspire_dataset
+  before_destroy :prevent_if_published
 
   friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
 
@@ -88,6 +89,12 @@ class Dataset < ApplicationRecord
 
   def published?
     published
+  end
+
+  def prevent_if_published
+    if published?
+      raise 'published datasets cannot be deleted'
+    end
   end
 
   def status

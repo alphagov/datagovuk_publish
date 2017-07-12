@@ -2,18 +2,27 @@
   Check your dataset -
 <% end %>
 
-<% if @dataset.errors.any? %>
-<div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
-    <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
-      There was a problem
-    </h1>
+<% if @dataset.errors.any? || flash[:alert] %>
+  <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+    <% if @dataset.errors.any? %>
+      <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+        There was a problem
+      </h1>
 
-    <ul class="error-summary-list">
-      <% @dataset.errors.each do |attr, error| %>
-        <li><a href="#<%= attr.to_s %>_form_group"><%= error %></a></li>
-      <% end %>
-    </ul>
+      <ul class="error-summary-list">
+        <% @dataset.errors.each do |attr, error| %>
+          <li><a href="#<%= attr.to_s %>_form_group"><%= error %></a></li>
+        <% end %>
+      </ul>
+    <% else %>
+    <div id="confirm-delete-box">
+      <h1 class="heading-medium error-summary-heading"><%= flash[:alert] %></h1>
+        <%= link_to "Yes, delete this dataset", @dataset, method: :delete, class: 'button confirm-delete-box__button' %>
+        <%= link_to "Cancel", edit_dataset_path(@dataset), class: 'secondary-button' %>
+    </div>
+    <% end %>
   </div>
+
 <% end %>
 
 <h1 class="heading-large"><%= @dataset.published ? "Edit" : "Publish" %>  ‘<%= @dataset.title %>’</h1>
@@ -117,7 +126,7 @@
   <%= form_for @dataset, url: publish_dataset_path(@dataset), method: 'post' do |f| %>
     <p><%= f.submit 'Publish', class: 'button' %></p>
   <% end %>
+  <p><%= link_to 'Delete this dataset', confirm_delete_dataset_path, class: 'secondary-button danger' %></p>
 <% end %>
 
-<p><%= link_to 'Delete this dataset', confirm_delete_dataset_path, class: 'secondary-button danger' %></p>
 <p><%= link_to 'Back to manage your dataset', manage_path, class: 'secondary-button' %></p>
