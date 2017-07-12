@@ -108,6 +108,6 @@ module.exports = {
   'Edit a dataset title ': test_edit_title,
   'Edit a dataset location': test_edit_location,
   'Cancel editing a dataset location': test_edit_location_cancel,
-  'User cannot delete a published dataset': test_cant_delete_published,
-  'Admin can delete a published dataset': test_admin_can_delete_published
+  'User cannot delete a published dataset': test_cant_delete_published
+  //'Admin can delete a published dataset': test_admin_can_delete_published
 };
