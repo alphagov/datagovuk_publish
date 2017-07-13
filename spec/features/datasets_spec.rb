@@ -229,13 +229,22 @@ describe "creating and editing datasets" do
         expect(page).to have_content "Published datasets cannot be deleted"
       end
 
-      it "should be able to publish an unpublished dataset" do
+      it "should be able to publish an complete dataset" do
         visit dataset_url(unpublished_dataset)
         expect(unpublished_dataset.published).to be false
         click_button 'Publish'
         expect(last_updated_dataset.id).to eq(unpublished_dataset.id)
         expect(last_updated_dataset.published).to be true
         expect(page).to have_content("Your dataset has been published")
+      end
+
+      it "should not be possible to publish an incomplete dataset" do
+        visit dataset_url(unfinished_dataset)
+        expect(unfinished_dataset.published).to be false
+        click_button 'Publish'
+        expect(page).to have_content 'There was a problem'
+        expect(page).not_to have_content 'Your dataset has been published'
+        expect(current_path).to eq '/datasets/test-title-unfinished/publish'
       end
     end
 

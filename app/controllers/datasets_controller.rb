@@ -38,6 +38,7 @@ class DatasetsController < ApplicationController
 
   def publish
     @dataset = current_dataset
+
     @dataset.published = true
     @dataset.__elasticsearch__.index_document
 
@@ -47,8 +48,6 @@ class DatasetsController < ApplicationController
     if @dataset.save
       redirect_to manage_path
     else
-      @dataset = current_dataset
-      flash[:error] = @dataset.errors
       render 'show'
     end
   end
