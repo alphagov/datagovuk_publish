@@ -123,7 +123,7 @@
 </table>
 
 <%= form_for @dataset, url: publish_dataset_path(@dataset), method: :post do |f| %>
-  <p><%= f.submit 'Publish', class: 'button' %></p>
+  <p><%= f.submit @dataset.published ? "Publish changes" : "Publish", class: 'button' %></p>
 <% end %>
 
 <% unless @dataset.published? %>
