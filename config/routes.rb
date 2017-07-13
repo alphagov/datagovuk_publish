@@ -34,7 +34,7 @@ Rails.application.routes.draw do
         resource :frequency
       end
 
-      match 'publish',      to: 'datasets#publish',   via: [:get, :post]
+      post 'publish',       to: 'datasets#publish'
       get 'confirm_delete', to: 'datasets#confirm_delete'
     end
   end
