@@ -1,5 +1,4 @@
 require 'json'
-require 'pp'
 require 'csv'
 
 namespace :import do
