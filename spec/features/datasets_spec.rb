@@ -216,11 +216,10 @@ describe "creating and editing datasets" do
         click_link 'Yes, delete this link'
         expect(page).to have_content "Your link ‘my published test doc’ has been deleted"
         expect(last_updated_dataset.datafiles.documentation).to be_empty
-
       end
 
-      it "should not be able to publish a published dataset" do
-        expect(page).to_not have_selector("input[type=submit][value='Publish']")
+      it "should be able to publish a published dataset" do
+        expect(page).to have_selector("input[type=submit][value='Publish']")
       end
 
       it "should not be possible to delete a published dataset" do

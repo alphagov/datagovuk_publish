@@ -122,10 +122,11 @@
   </tbody>
 </table>
 
+<%= form_for @dataset, url: publish_dataset_path(@dataset), method: :post do |f| %>
+  <p><%= f.submit 'Publish', class: 'button' %></p>
+<% end %>
+
 <% unless @dataset.published? %>
-  <%= form_for @dataset, url: publish_dataset_path(@dataset), method: 'post' do |f| %>
-    <p><%= f.submit 'Publish', class: 'button' %></p>
-  <% end %>
   <p><%= link_to 'Delete this dataset', confirm_delete_dataset_path, class: 'secondary-button danger' %></p>
 <% end %>
 
