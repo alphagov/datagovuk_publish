@@ -39,13 +39,16 @@ class DatasetsController < ApplicationController
   def publish
     @dataset = current_dataset
 
-    @dataset.published = true
-    @dataset.__elasticsearch__.index_document
-
-    flash[:success] = I18n.t 'dataset_published'
-    flash[:extra] = @dataset
-
-    if @dataset.save
+    if @dataset.publishable?
+      @dataset.__elasticsearch__.index_document
+      if @dataset.published
+         flash[:success] = I18n.t 'dataset_updated'
+       else
+         @dataset.published = true
+         flash[:success] = I18n.t 'dataset_published'
+       end
+       @dataset.save
+      flash[:extra] = @dataset
       redirect_to manage_path
     else
       render 'show'

@@ -91,6 +91,17 @@ class Dataset < ApplicationRecord
     published
   end
 
+  def publishable?
+    if self.published
+      return self.valid?
+    else
+      self.published = true
+      result = self.valid?
+      self.published = false
+      return result
+    end
+  end
+
   def prevent_if_published
     if published?
       raise 'published datasets cannot be deleted'
