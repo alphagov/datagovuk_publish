@@ -36,55 +36,6 @@ class DatasetsController < ApplicationController
     end
   end
 
-  def files
-    @dataset = current_dataset
-    @datafiles = @dataset.datafiles.datalinks
-
-    if request.post?
-      redirect_to new_document_path(@dataset)
-    end
-  end
-
-  def documents
-    @dataset = current_dataset
-    @datafiles = @dataset.datafiles.documentation
-
-    if request.post?
-      redirect_to publish_dataset(@dataset)
-    end
-  end
-
-  def addfile
-    @dataset = current_dataset
-    @datafile = Datafile.new
-
-    unless request.get?
-      file_params = params.require(:datafile).permit(:url, :name)
-      @datafile = Datafile.new(file_params)
-      @datafile.dataset = @dataset
-      set_dates(params.require(:datafile).permit(DATE_PARAMS))
-
-      if @datafile.save
-        redirect_to files_path(@dataset) if request.post?
-        redirect_to edit_dataset_path(@dataset) if request.put?
-      end
-    end
-  end
-
-  def adddoc
-    @dataset = current_dataset
-    @doc = Datafile.new
-
-    if request.post?
-      doc_params = params.require(:datafile).permit(:url, :name)
-      @doc = Datafile.new(doc_params)
-      @doc.documentation = true
-      @doc.dataset = @dataset
-
-      redirect_to new_document_path(@dataset) if @doc.save
-    end
-  end
-
   def publish
     @dataset = current_dataset
 
