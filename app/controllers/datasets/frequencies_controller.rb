@@ -15,7 +15,7 @@ class Datasets::FrequenciesController < ApplicationController
     begin
       @dataset.frequency = params.require(:dataset).permit(:frequency)[:frequency]
     rescue ActionController::ParameterMissing
-      @dataset.errors.add(:frequency, 'No frequency selected')
+      @dataset.errors.add(:frequency, 'Please indicate how often this dataset is updated')
       render 'new'
       return
     end

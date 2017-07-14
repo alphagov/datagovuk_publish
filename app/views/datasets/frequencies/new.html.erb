@@ -11,7 +11,7 @@
       <ul class="error-summary-list">
         <% @dataset.errors.each do |attr, message| %>
           <li>
-            <a href="#<%= attr.to_s %>_form_group">
+            <a href="#id_<%= attr.to_s %>">
               <%= message %>
             </a>
             <span class="visuallyhidden">.</span>
@@ -23,9 +23,18 @@
   <h1 class="heading-large">How frequently is this dataset updated?</h1>
 
   <%= form_for @dataset, url: frequency_path(@dataset), method: :post do |f| %>
-    <div class="form-group">
+    <div class="form-group <% if @dataset.errors.key? "frequency" %>form-group-error<%end%>">
       <fieldset>
-        <legend class="visually-hidden">How frequently is this dataset updated?</legend>
+        <legend id="#id_frequency">
+          <span class="visually-hidden">
+            How frequently is this dataset updated?
+          </span>
+          <% if @dataset.errors.key? "frequency" %>
+            <span class="error-message">
+              Please indicate how often this dataset is updated
+            </span>
+          <% end %>
+        </legend>
         <%= dataset_field f, @dataset,
         name: 'frequency',
         input_type: :radio_button,

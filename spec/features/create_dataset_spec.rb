@@ -421,7 +421,7 @@ describe "creating datasets" do
         expect(page).to have_content("Choose a licence")
       end
 
-      describe "should be able to pass the licence screen" do
+      describe "should pass the licence screen" do
         before(:each) do
           fill_in "dataset[title]", with: "my test dataset"
           fill_in "dataset[summary]", with: "my test dataset summary"
@@ -453,6 +453,45 @@ describe "creating datasets" do
           fill_in "dataset[licence_other]", with: "MIT"
           click_button "Save and continue"
           expect(page).to have_content("Choose a geographical area")
+        end
+
+        describe "should pass the geographical area page" do
+          before(:each) do
+            choose option: "uk-ogl"
+            click_button "Save and continue"
+          end
+
+          it "allow entering a geographical area" do
+            fill_in "dataset[location1]", with: "High Wycombe"
+            click_button "Save and continue"
+            expect(page).to have_content("How frequently is this dataset updated?")
+          end
+
+          it "allow not entering a geographical area" do
+            click_button "Save and continue"
+            expect(page).to have_content("How frequently is this dataset updated?")
+          end
+
+          describe "should pass the frequency page" do
+            before(:each) do
+              fill_in "dataset[location1]", with: "High Wycombe"
+              click_button "Save and continue"
+            end
+
+            it "should continue once user specifies a frequency" do
+              choose option: "never"
+              click_button "Save and continue"
+              expect(page).to have_content("Add a link to your data")
+            end
+
+            it "should mandate entering a frequency" do
+              click_button "Save and continue"
+              expect(page).to have_content("Please indicate how often this dataset is updated", count: 2)
+              choose option: "never"
+              click_button "Save and continue"
+              expect(page).to have_content("Add a link to your data")
+            end
+          end
         end
       end
     end
