@@ -93,17 +93,6 @@ var test_create_happy_path = function (browser) {
     .end();
 };
 
-var test_create_missing_title = function (browser) {
-  goToCreateTitle(browser)
-    .clearSetValue('textarea[name="dataset[summary]"]', 'Summary of my dataset')
-    .clearSetValue('textarea[name="dataset[description]"]', 'Description of my dataset')
-    .submitFormAndCheckNextTitle('There was a problem')
-    .checkError('Please enter a valid title')
-    .clearSetValue('input[name="dataset[title]"]', common.datasetTitle)
-    .submitFormAndCheckNextTitle('Choose a licence')
-    .end();
-};
-
 var test_create_invalid_title = function (browser) {
   goToCreateTitle(browser)
     .clearSetValue('input[name="dataset[title]"]', '][;')
@@ -111,14 +100,6 @@ var test_create_invalid_title = function (browser) {
     .clearSetValue('textarea[name="dataset[description]"]', 'Description of my dataset')
     .submitFormAndCheckNextTitle('There was a problem')
     .checkError('Please enter a valid title')
-    .clearSetValue('input[name="dataset[title]"]', common.datasetTitle)
-    .submitFormAndCheckNextTitle('Choose a licence')
-    .end();
-};
-
-var test_create_missing_description = function (browser) {
-  goToCreateTitle(browser)
-    .clearSetValue('textarea[name="dataset[summary]"]', 'Summary of my dataset')
     .clearSetValue('input[name="dataset[title]"]', common.datasetTitle)
     .submitFormAndCheckNextTitle('Choose a licence')
     .end();
@@ -132,28 +113,6 @@ var test_create_missing_summary = function (browser) {
     .checkError('Please provide a summary')
     .clearSetValue('textarea[name="dataset[summary]"]', 'Summary of my dataset')
     .submitFormAndCheckNextTitle('Choose a licence')
-    .end();
-};
-
-var test_create_skip_licence = function (browser) {
-  goToCreateLicence(browser)
-    .clickAndCheckNextTitle('Skip this step', 'Choose a geographical area')
-    .end();
-};
-
-var test_create_omit_licence = function (browser) {
-  goToCreateLicence(browser)
-    .submitFormAndCheckNextTitle('Choose a geographical area')
-    .end();
-};
-
-var test_create_blank_other_licence = function (browser) {
-  goToCreateLicence(browser)
-    .selectRadioButton('Other')
-    .submitFormAndCheckNextTitle('There was a problem')
-    .checkError('Please type the name of your licence')
-    .clearSetValue('input[name="dataset[licence_other]"]', 'other licence')
-    .submitFormAndCheckNextTitle('Choose a geographical area')
     .end();
 };
 
