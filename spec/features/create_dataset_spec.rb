@@ -592,22 +592,36 @@ describe "creating datasets" do
               expect(page).to have_content("Links to your data")
             end
 
-            it "should route to the yearly datafiles page" do
+            it "should route to the yearly datafiles page and check for errors" do
               choose option: "annually"
               click_button "Save and continue"
               expect(page).to have_content("Add a link to your data")
               expect(page).to have_content("Time period for this link")
               expect(page).to_not have_content("Month")
               expect(page).to have_content("Year")
+              fill_in "datafile[url]", with: "http://www.example.com/test.csv"
+              fill_in "datafile[name]", with: "Test datafile"
+              click_button "Save and continue"
+              expect(page).to have_content("Please enter a valid year", count: 2)
+              fill_in "datafile[start_year]", with: "2019"
+              click_button "Save and continue"
+              expect(page).to have_content("Links to your data")
             end
 
-            it "should route to the yearly (financial) datafiles page" do
+            it "should route to the yearly (financial) datafiles page and check for errors" do
               choose option: "financial-year"
               click_button "Save and continue"
               expect(page).to have_content("Add a link to your data")
               expect(page).to have_content("Time period for this link")
               expect(page).to_not have_content("Month")
               expect(page).to have_content("Year")
+              fill_in "datafile[url]", with: "http://www.example.com/test.csv"
+              fill_in "datafile[name]", with: "Test datafile"
+              click_button "Save and continue"
+              expect(page).to have_content("Please enter a valid year", count: 2)
+              fill_in "datafile[start_year]", with: "2019"
+              click_button "Save and continue"
+              expect(page).to have_content("Links to your data")
             end
           end
         end
