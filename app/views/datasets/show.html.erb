@@ -57,14 +57,21 @@
     </tr>
     <tr>
       <th class="dgu-checklist__heading">Licence</th>
-      <td><%= @dataset.licence == 'uk-ogl' ? 'Open Government Licence' : @dataset.licence_other %>
-        <td class="dgu-checklist__actions">
-          <% if @dataset.licence %>
-            <%= link_to 'Change', edit_licence_path(@dataset) %>
-          <% else %>
-            <%= link_to 'Select', edit_licence_path(@dataset) %>
-          <% end %>
-        </td>
+      <td>
+        <% if @dataset.errors[:licence].any? %>
+          <div class="form-group-error" id="licence_form_group">
+            <span class="error-message error">You must choose a licence</span>
+          </div>
+        <% end %>
+        <%= @dataset.licence == 'uk-ogl' ? 'Open Government Licence' : @dataset.licence_other %>
+      </td>
+      <td class="dgu-checklist__actions">
+        <% if @dataset.licence %>
+          <%= link_to 'Change', edit_licence_path(@dataset) %>
+        <% else %>
+          <%= link_to 'Select', edit_licence_path(@dataset) %>
+        <% end %>
+      </td>
     </tr>
     <tr>
       <th class="dgu-checklist__heading">Geographical location</th>
@@ -97,7 +104,7 @@
           <%= link_to link.name, link.url %>
         <% end %>
         <% if @dataset.errors[:files].any? %>
-          <div class="form-group-error">
+          <div class="form-group-error" id="files_form_group">
             <span class="error-message error"><%= @dataset.errors[:files].first %></span>
           </div>
         <% end %>
