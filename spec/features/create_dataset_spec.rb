@@ -381,23 +381,32 @@ describe "creating datasets" do
         fill_in "dataset[summary]", with: "my test dataset summary"
         click_button "Save and continue"
         expect(page).to have_content("There was a problem")
-        expect(page).to have_content("Please enter a valid title")
+        expect(page).to have_content("Please enter a valid title", count: 2)
+        page.should have_selector("div", :class => "form-group-error")
         expect(Dataset.where(title: "my test dataset").length).to eq(0)
+
+        # recover
+        fill_in "dataset[title]", with: "my test dataset"
+        fill_in "dataset[summary]", with: "my test dataset summary"
+        fill_in "dataset[description]", with: "my test dataset description"
+        click_button "Save and continue"
+        expect(Dataset.where(title: "my test dataset").length).to eq(1)
+        expect(Dataset.find_by(title: "my test dataset").creator_id).to eq(user.id)
       end
 
       it "missing summary" do
         fill_in "dataset[title]", with: "my test dataset"
         click_button "Save and continue"
         expect(page).to have_content("There was a problem")
-        expect(page).to have_content("Please provide a summary")
+        expect(page).to have_content("Please provide a summary", count: 2)
         expect(Dataset.where(title: "my test dataset").length).to eq(0)
       end
 
       it "missing both" do
         click_button "Save and continue"
         expect(page).to have_content("There was a problem")
-        expect(page).to have_content("Please enter a valid title")
-        expect(page).to have_content("Please provide a summary")
+        expect(page).to have_content("Please enter a valid title", count: 2)
+        expect(page).to have_content("Please provide a summary", count: 2)
         expect(Dataset.where(title: "my test dataset").length).to eq(0)
       end
     end

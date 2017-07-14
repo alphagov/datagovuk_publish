@@ -12,7 +12,7 @@
         for: field[:id] || "id_#{field[:name]}_#{field[:value]}" %>
     </div>
   <% else %>
-    <div class="form-group<%= " error" if dataset.errors.include?(field[:name])%>" id="<%= field[:name] %>-form-group">
+    <div class="form-group<%= " form-group-error" if dataset.errors.include?(field[:name])%>" id="<%= field[:name] %>-form-group">
 
       <%= f.label field[:name].to_sym,
       "#{field.fetch(:label, field[:name].humanize)}#{field[:optional] ? ' (optional)' : ''}",
