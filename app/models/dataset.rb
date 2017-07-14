@@ -34,7 +34,6 @@ class Dataset < ApplicationRecord
 
   validates :licence,
     presence: { message: "Please select a licence for your dataset" },
-    inclusion: %w(uk-ogl other),
     if: lambda{ published }
 
   validates :licence_other,
