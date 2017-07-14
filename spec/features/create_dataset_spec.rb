@@ -384,14 +384,12 @@ describe "creating datasets" do
         expect(page).to have_content("Please enter a valid title", count: 2)
         page.should have_selector("div", :class => "form-group-error")
         expect(Dataset.where(title: "my test dataset").length).to eq(0)
-
         # recover
         fill_in "dataset[title]", with: "my test dataset"
         fill_in "dataset[summary]", with: "my test dataset summary"
         fill_in "dataset[description]", with: "my test dataset description"
         click_button "Save and continue"
-        expect(Dataset.where(title: "my test dataset").length).to eq(1)
-        expect(Dataset.find_by(title: "my test dataset").creator_id).to eq(user.id)
+        expect(page).to have_content("Choose a licence")
       end
 
       it "missing summary" do
@@ -399,15 +397,63 @@ describe "creating datasets" do
         click_button "Save and continue"
         expect(page).to have_content("There was a problem")
         expect(page).to have_content("Please provide a summary", count: 2)
+        page.should have_selector("div", :class => "form-group-error")
         expect(Dataset.where(title: "my test dataset").length).to eq(0)
+        # recover
+        fill_in "dataset[title]", with: "my test dataset"
+        fill_in "dataset[summary]", with: "my test dataset summary"
+        fill_in "dataset[description]", with: "my test dataset description"
+        click_button "Save and continue"
+        expect(page).to have_content("Choose a licence")
       end
 
-      it "missing both" do
+      it "missing both title and summary" do
         click_button "Save and continue"
         expect(page).to have_content("There was a problem")
         expect(page).to have_content("Please enter a valid title", count: 2)
         expect(page).to have_content("Please provide a summary", count: 2)
         expect(Dataset.where(title: "my test dataset").length).to eq(0)
+        # recover
+        fill_in "dataset[title]", with: "my test dataset"
+        fill_in "dataset[summary]", with: "my test dataset summary"
+        fill_in "dataset[description]", with: "my test dataset description"
+        click_button "Save and continue"
+        expect(page).to have_content("Choose a licence")
+      end
+
+      describe "should be able to pass the licence screen" do
+        before(:each) do
+          fill_in "dataset[title]", with: "my test dataset"
+          fill_in "dataset[summary]", with: "my test dataset summary"
+          fill_in "dataset[description]", with: "my test dataset description"
+          click_button "Save and continue"
+          expect(page).to have_content("Choose a licence")
+        end
+
+        it "works when selecting OGL" do
+          choose option: "uk-ogl"
+          click_button "Save and continue"
+          expect(page).to have_content("Choose a geographical area")
+        end
+
+        it "missing a licence, continue anyway" do
+          click_button "Save and continue"
+          expect(page).to have_content("Choose a geographical area")
+        end
+
+        it "skips licence" do
+          click_link "Skip this step"
+          expect(page).to have_content("Choose a geographical area")
+        end
+
+        it "selected other licence but didn't specify" do
+          choose option: "other"
+          click_button "Save and continue"
+          expect(page).to have_content("Please type the name of your licence", count: 2)
+          fill_in "dataset[licence_other]", with: "MIT"
+          click_button "Save and continue"
+          expect(page).to have_content("Choose a geographical area")
+        end
       end
     end
   end
