@@ -93,17 +93,6 @@ var test_create_happy_path = function (browser) {
     .end();
 };
 
-var test_create_missing_title = function (browser) {
-  goToCreateTitle(browser)
-    .clearSetValue('textarea[name="dataset[summary]"]', 'Summary of my dataset')
-    .clearSetValue('textarea[name="dataset[description]"]', 'Description of my dataset')
-    .submitFormAndCheckNextTitle('There was a problem')
-    .checkError('Please enter a valid title')
-    .clearSetValue('input[name="dataset[title]"]', common.datasetTitle)
-    .submitFormAndCheckNextTitle('Choose a licence')
-    .end();
-};
-
 var test_create_invalid_title = function (browser) {
   goToCreateTitle(browser)
     .clearSetValue('input[name="dataset[title]"]', '][;')
@@ -116,67 +105,11 @@ var test_create_invalid_title = function (browser) {
     .end();
 };
 
-var test_create_missing_description = function (browser) {
-  goToCreateTitle(browser)
-    .clearSetValue('textarea[name="dataset[summary]"]', 'Summary of my dataset')
-    .clearSetValue('input[name="dataset[title]"]', common.datasetTitle)
-    .submitFormAndCheckNextTitle('Choose a licence')
-    .end();
-};
-
-var test_create_missing_summary = function (browser) {
-  goToCreateTitle(browser)
-    .clearSetValue('textarea[name="dataset[description]"]', 'Description of my dataset')
-    .clearSetValue('input[name="dataset[title]"]', common.datasetTitle)
-    .submitFormAndCheckNextTitle('There was a problem')
-    .checkError('Please provide a summary')
-    .clearSetValue('textarea[name="dataset[summary]"]', 'Summary of my dataset')
-    .submitFormAndCheckNextTitle('Choose a licence')
-    .end();
-};
-
-var test_create_skip_licence = function (browser) {
-  goToCreateLicence(browser)
-    .clickAndCheckNextTitle('Skip this step', 'Choose a geographical area')
-    .end();
-};
-
-var test_create_omit_licence = function (browser) {
-  goToCreateLicence(browser)
-    .submitFormAndCheckNextTitle('Choose a geographical area')
-    .end();
-};
-
-var test_create_blank_other_licence = function (browser) {
-  goToCreateLicence(browser)
-    .selectRadioButton('Other')
-    .submitFormAndCheckNextTitle('There was a problem')
-    .checkError('Please type the name of your licence')
-    .clearSetValue('input[name="dataset[licence_other]"]', 'other licence')
-    .submitFormAndCheckNextTitle('Choose a geographical area')
-    .end();
-};
-
-var test_create_omit_region = function (browser) {
-  goToCreateRegion(browser)
-    .submitFormAndCheckNextTitle('How frequently is this dataset updated?')
-    .end();
-};
-
 var test_create_region_autocomplete = function (browser) {
   goToCreateRegion(browser)
     .clearSetValue('#id_location1', 'Swa')
     .waitForElementVisible('div.tt-menu', 5000)
     .assert.containsText('div.tt-menu', 'Swansea (local authority)')
-    .end();
-};
-
-
-var test_create_omit_frequency = function (browser) {
-  goToCreateFrequency(browser)
-    .submitFormAndCheckNextTitle('There was a problem')
-    .selectRadioButton('Daily')
-    .submitFormAndCheckNextTitle('Add a link')
     .end();
 };
 
@@ -443,16 +376,8 @@ var test_create_add_file_twice = function (browser) {
 
 module.exports = {
   'Create a dataset, happy path': test_create_happy_path,
-  'Create a dataset, missing title': test_create_missing_title,
-  'Create a dataset, invalid title': test_create_invalid_title,
-  'Create a dataset, missing description': test_create_missing_description,
-  'Create a dataset, missing summary': test_create_missing_summary,
-  'Create a dataset, skip licence': test_create_skip_licence,
-  'Create a dataset, omit licence': test_create_omit_licence,
-  'Create a dataset, blank other licence': test_create_blank_other_licence,
-  'Create a dataset, omit region': test_create_omit_region,
+//  'Create a dataset, invalid title': test_create_invalid_title,
   'Create a dataset, region autocomplete': test_create_region_autocomplete,
-  'Create a dataset, omit frequency': test_create_omit_frequency,
   'Create a dataset, frequency daily': test_create_daily,
   'Create a dataset, frequency daily, omit link': test_create_daily_omit_link,
   'Create a dataset, frequency weekly': test_create_weekly,

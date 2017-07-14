@@ -87,7 +87,7 @@ locations.init = function (params) {
     .on('keypress', function (e) { return e.which !== 13 })
 
   if ($('#id_location2').val()) {
-    locations._hs('#add1', '#location2, #add2, #del2')
+    locations._hs('#add1', '#location2, #add2, #del2, #del1')
   } else {
     locations._hs('', '#add1')
   }
