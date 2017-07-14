@@ -491,6 +491,115 @@ describe "creating datasets" do
               click_button "Save and continue"
               expect(page).to have_content("Add a link to your data")
             end
+
+            it "should route to the daily datafiles page and check for errors" do
+              choose option: "daily"
+              click_button "Save and continue"
+              expect(page).to have_content("Add a link to your data")
+              expect(page).to_not have_content("Year")
+              click_button "Save and continue"
+              expect(page).to have_content("Please enter a valid URL", count: 2)
+              expect(page).to have_content("Please enter a valid name", count: 2)
+              fill_in "datafile[url]", with: "http://www.example.com/test.csv"
+              fill_in "datafile[name]", with: "Test datafile"
+              click_button "Save and continue"
+              expect(page).to have_content("Links to your data")
+            end
+
+            it "should route to the one-off datafiles page" do
+              choose option: "never"
+              click_button "Save and continue"
+              expect(page).to have_content("Add a link to your data")
+              expect(page).to_not have_content("Year")
+            end
+
+            it "should route to the weekly datafiles page and check for errors" do
+              choose option: "weekly"
+              click_button "Save and continue"
+              expect(page).to have_content("Add a link to your data")
+              expect(page).to have_content("Start Date")
+              expect(page).to have_content("End Date")
+              fill_in "datafile[url]", with: "http://www.example.com/test.csv"
+              fill_in "datafile[name]", with: "Test datafile"
+              click_button "Save and continue"
+              expect(page).to have_content("Please enter a valid start day", count: 2)
+              expect(page).to have_content("Please enter a valid start month", count: 2)
+              expect(page).to have_content("Please enter a valid start year", count: 2)
+              expect(page).to have_content("Please enter a valid end day", count: 2)
+              expect(page).to have_content("Please enter a valid end month", count: 2)
+              expect(page).to have_content("Please enter a valid end year", count: 2)
+              fill_in "datafile[start_day]", with: "234"
+              fill_in "datafile[start_month]", with: "June"
+              fill_in "datafile[start_year]", with: "234"
+              fill_in "datafile[end_day]", with: "234"
+              fill_in "datafile[end_month]", with: "234"
+              fill_in "datafile[end_year]", with: "234"
+              click_button "Save and continue"
+              expect(page).to have_content("Please enter a valid start day", count: 2)
+              expect(page).to have_content("Please enter a valid start month", count: 2)
+              expect(page).to have_content("Please enter a valid start year", count: 2)
+              expect(page).to have_content("Please enter a valid end day", count: 2)
+              expect(page).to have_content("Please enter a valid end month", count: 2)
+              expect(page).to have_content("Please enter a valid end year", count: 2)
+              fill_in "datafile[start_day]", with: "31"
+              fill_in "datafile[start_month]", with: "02"
+              fill_in "datafile[start_year]", with: "2019"
+              fill_in "datafile[end_day]", with: "31"
+              fill_in "datafile[end_month]", with: "05"
+              fill_in "datafile[end_year]", with: "2019"
+              click_button "Save and continue"
+              expect(page).to_not have_content("Please enter a valid start day")
+              expect(page).to_not have_content("Please enter a valid start month", count: 2)
+              expect(page).to_not have_content("Please enter a valid start year", count: 2)
+              expect(page).to_not have_content("Please enter a valid end day", count: 2)
+              expect(page).to_not have_content("Please enter a valid end month", count: 2)
+              expect(page).to_not have_content("Please enter a valid end year", count: 2)
+              expect(page).to have_content("Please enter a valid start date", count: 2)
+              fill_in "datafile[start_month]", with: "01"
+              click_button "Save and continue"
+              expect(page).to have_content("Links to your data")
+            end
+
+            it "should route to the monthly datafiles page and check for errors" do
+              choose option: "monthly"
+              click_button "Save and continue"
+              expect(page).to have_content("Add a link to your data")
+              expect(page).to have_content("Time period for this link")
+              fill_in "datafile[url]", with: "http://www.example.com/test.csv"
+              fill_in "datafile[name]", with: "Test datafile"
+              click_button "Save and continue"
+              expect(page).to have_content("Please enter a valid month", count: 2)
+              expect(page).to have_content("Please enter a valid year", count: 2)
+              fill_in "datafile[start_month]", with: "01"
+              fill_in "datafile[start_year]", with: "2019"
+              click_button "Save and continue"
+              expect(page).to have_content("Links to your data")
+            end
+
+            it "should route to the quarterly datafiles page" do
+              choose option: "quarterly"
+              click_button "Save and continue"
+              expect(page).to have_content("Add a link to your data")
+              expect(page).to have_content("Quarter")
+            end
+
+            it "should route to the yearly datafiles page" do
+              choose option: "annually"
+              click_button "Save and continue"
+              expect(page).to have_content("Add a link to your data")
+              expect(page).to have_content("Time period for this link")
+              expect(page).to_not have_content("Month")
+              expect(page).to have_content("Year")
+            end
+
+            it "should route to the yearly (financial) datafiles page" do
+              choose option: "financial-year"
+              click_button "Save and continue"
+              expect(page).to have_content("Add a link to your data")
+              expect(page).to have_content("Time period for this link")
+              expect(page).to_not have_content("Month")
+              expect(page).to have_content("Year")
+            end
           end
         end
       end
