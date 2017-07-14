@@ -68,7 +68,9 @@
     </tr>
     <tr>
       <th class="dgu-checklist__heading">Geographical location</th>
-      <td><%= @dataset.location1 %>
+      <td>
+        <% if @dataset.location1.present? %><%=@dataset.location1 %><% end %><% if @dataset.location2.present? %>, <%=@dataset.location2 %><% end %><% if @dataset.location3.present? %>, <%=@dataset.location3%><% end %>
+
         <td class="dgu-checklist__actions">
           <% if @dataset.location1 %>
             <%= link_to 'Change', edit_location_path(@dataset) %>
