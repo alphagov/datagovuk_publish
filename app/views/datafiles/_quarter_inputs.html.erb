@@ -1,7 +1,13 @@
-<div class="form-group">
-  <h2 class="form-label-bold">Time period for this link</h2>
+<h2 class="form-label-bold">Time period for this link</h2>
+<div class="form-group <% if @datafile.errors.key? "quarter" %>form-group-error<%end%>">
   <fieldset>
     <legend>Quarter</legend>
+
+    <% if @datafile.errors.key? "quarter" %>
+      <span class="error-message">
+        Please select a quarter
+      </span>
+    <% end %>
 
     <div class="multiple-choice">
       <%= radio_button_tag 'datafile[quarter]', '1', @datafile.quarter == 1, id: 'q1' %>
@@ -25,12 +31,15 @@
   </fieldset>
 </div>
 
-<div class="form-group">
+<div class="form-group<% if @datafile.errors[:start_year].present? %> form-group-error<% end %>">
   <fieldset>
     <legend class="visuallyhidden">Year</legend>
     <div class="form-date">
       <div id="year_form_group" class="form-group form-group-year ">
         <label class="form-label-bold" for="period_year">Year</label>
+        <% if @datafile.errors[:start_year].present? %>
+          <span class="error-message">Please enter a valid year</span>
+        <% end %>
         <%= text_field_tag 'datafile[start_year]', @datafile.start_year, id: "period_year", class: "form-control" %>
       </div>
     </div>

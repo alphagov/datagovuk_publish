@@ -24,6 +24,8 @@ class DateConstructionValidator < ActiveModel::Validator
       validate_start_year(record)
     elsif record.dataset.financial_yearly? || record.dataset.annually?
       validate_start_year(record)
+    elsif record.dataset.quarterly?
+      validate_start_year(record)
     end
   end
 
@@ -110,7 +112,9 @@ class Datafile < ApplicationRecord
   validates :name, presence: { message: 'Please enter a valid name' }
 
   # Quarterly
-  validates :quarter, presence: true, inclusion: { in: 1..4 }, if: -> { !self.documentation && self.dataset.quarterly? }
+  validates :quarter,
+    presence: { message: "Please select a quarter" },
+    if: -> { !self.documentation && self.dataset.quarterly? }
 
   scope :published, -> { where(published: true) }
   scope :draft,     -> { where(published: false) }
