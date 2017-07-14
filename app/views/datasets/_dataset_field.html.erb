@@ -14,26 +14,27 @@
   <% else %>
     <div class="form-group<%= " form-group-error" if dataset.errors.include?(field[:name])%>" id="<%= field[:name] %>-form-group">
 
-      <%= f.label field[:name].to_sym,
-      "#{field.fetch(:label, field[:name].humanize)}#{field[:optional] ? ' (optional)' : ''}",
-      class: field[:label_class] || 'form-label-bold'
-      %>
 
-      <% if field[:remove] %>
-        <input
-          type="button"
-          id="<%= field[:remove] %>"
-          class="dgu-location__button-del"
-          style="display: none"
-          aria-hidden="true"
-          value="Remove"/>
-    <% end %>
+      <label class="form-label" for='<%= field[:id] || "id_#{field[:name]}" %>'>
+        <span class="form-label-bold"><%= field[:label] || field[:name].humanize %></span>
 
-    <% if dataset.errors.key? field[:name] %>
-      <span class="error-message"><%= dataset.errors[field[:name]].first %></span>
-    <% end %>
+        <% if field[:remove] %>
+          <input
+            type="button"
+            id="<%= field[:remove] %>"
+            class="dgu-location__button-del"
+            style="display: none"
+            aria-hidden="true"
+            value="Remove"/>
+        <% end %>
 
-    <span class="form-hint"><%= field.fetch(:hint, '') %></span>
+        <span class="form-hint"><%= field.fetch(:hint, '') %></span>
+
+        <% if dataset.errors.key? field[:name] %>
+          <span class="error-message"><%= dataset.errors[field[:name]].first %></span>
+        <% end %>
+
+      </label>
 
     <%= f.send(field[:input_type],
                field[:name],
