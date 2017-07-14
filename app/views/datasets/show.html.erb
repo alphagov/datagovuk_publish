@@ -97,7 +97,9 @@
           <%= link_to link.name, link.url %>
         <% end %>
         <% if @dataset.errors[:files].any? %>
-          <span class="error-message error"><%= @dataset.errors[:files].first %></span>
+          <div class="form-group-error">
+            <span class="error-message error"><%= @dataset.errors[:files].first %></span>
+          </div>
         <% end %>
       </td>
       <td class="dgu-checklist__actions">
