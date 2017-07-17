@@ -1,0 +1,2 @@
+class Doc < Datafile
+end
