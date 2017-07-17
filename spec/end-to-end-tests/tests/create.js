@@ -93,18 +93,6 @@ var test_create_happy_path = function (browser) {
     .end();
 };
 
-var test_create_invalid_title = function (browser) {
-  goToCreateTitle(browser)
-    .clearSetValue('input[name="dataset[title]"]', '][;')
-    .clearSetValue('textarea[name="dataset[summary]"]', 'Summary of my dataset')
-    .clearSetValue('textarea[name="dataset[description]"]', 'Description of my dataset')
-    .submitFormAndCheckNextTitle('There was a problem')
-    .checkError('Please enter a valid title')
-    .clearSetValue('input[name="dataset[title]"]', common.datasetTitle)
-    .submitFormAndCheckNextTitle('Choose a licence')
-    .end();
-};
-
 var test_create_region_autocomplete = function (browser) {
   goToCreateRegion(browser)
     .clearSetValue('#id_location1', 'Swa')
@@ -181,7 +169,6 @@ var test_create_add_file_twice = function (browser) {
 
 module.exports = {
   'Create a dataset, happy path': test_create_happy_path,
-//  'Create a dataset, invalid title': test_create_invalid_title,
   'Create a dataset, modify title': test_create_modify_title,
   'Create a dataset, modify licence': test_create_modify_licence,
   'Create a dataset, remove link after check': test_create_remove_link,
