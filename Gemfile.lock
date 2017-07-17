@@ -127,6 +127,11 @@ GEM
       multi_json
     erubi (1.6.0)
     execjs (2.7.0)
+    factory_girl (4.8.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.8.0)
+      factory_girl (~> 4.8.0)
+      railties (>= 3.0.0)
     faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
@@ -367,6 +372,7 @@ DEPENDENCIES
   elasticsearch (~> 5.0.4)
   elasticsearch-model (~> 5.0.1)
   elasticsearch-rails (~> 5.0.1)
+  factory_girl_rails (~> 4.0)
   friendly_id (~> 5.2.1)
   govuk_elements_rails!
   govuk_frontend_toolkit
