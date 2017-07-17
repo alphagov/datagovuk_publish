@@ -93,18 +93,6 @@ var test_create_happy_path = function (browser) {
     .end();
 };
 
-var test_create_invalid_title = function (browser) {
-  goToCreateTitle(browser)
-    .clearSetValue('input[name="dataset[title]"]', '][;')
-    .clearSetValue('textarea[name="dataset[summary]"]', 'Summary of my dataset')
-    .clearSetValue('textarea[name="dataset[description]"]', 'Description of my dataset')
-    .submitFormAndCheckNextTitle('There was a problem')
-    .checkError('Please enter a valid title')
-    .clearSetValue('input[name="dataset[title]"]', common.datasetTitle)
-    .submitFormAndCheckNextTitle('Choose a licence')
-    .end();
-};
-
 var test_create_region_autocomplete = function (browser) {
   goToCreateRegion(browser)
     .clearSetValue('#id_location1', 'Swa')
@@ -181,20 +169,7 @@ var test_create_add_file_twice = function (browser) {
 
 module.exports = {
   'Create a dataset, happy path': test_create_happy_path,
-//  'Create a dataset, invalid title': test_create_invalid_title,
   'Create a dataset, region autocomplete': test_create_region_autocomplete,
-  'Create a dataset, frequency daily': test_create_daily,
-  'Create a dataset, frequency daily, omit link': test_create_daily_omit_link,
-  'Create a dataset, frequency weekly': test_create_weekly,
-  'Create a dataset, frequency monthly': test_create_monthly,
-  'Create a dataset, monthly, bad month': test_create_monthly_bad_month,
-  'Create a dataset, monthly, bad year': test_create_monthly_bad_year,
-  'Create a dataset, yearly, bad year': test_create_yearly_bad_year,
-  'create a dataset, frequency quarterly': test_create_quarterly,
-  'Create a dataset, frequency never': test_create_never,
-  'Create a dataset, frequency yearly': test_create_yearly,
-  'Create a dataset, frequency financial yearly': test_create_financial_yearly,
-  'Create a dataset, omit url': test_create_omit_url,
   'Create a dataset, modify title': test_create_modify_title,
   'Create a dataset, modify licence': test_create_modify_licence,
   'Create a dataset, remove link after check': test_create_remove_link,
