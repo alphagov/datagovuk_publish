@@ -74,9 +74,9 @@ describe "creating datasets" do
       fill_in 'datafile[name]', with: 'my test datafile'
       click_button "Save and continue"
 
-      expect(Dataset.last.datafiles.length).to eq(1)
-      expect(Dataset.last.datafiles.last.url).to eq('https://localhost')
-      expect(Dataset.last.datafiles.last.name).to eq('my test datafile')
+      expect(Dataset.last.links.length).to eq(1)
+      expect(Dataset.last.links.last.url).to eq('https://localhost')
+      expect(Dataset.last.links.last.name).to eq('my test datafile')
 
       # Files page
       expect(page).to have_content("Links to your data")
@@ -88,9 +88,9 @@ describe "creating datasets" do
       fill_in 'datafile[name]', with: 'my test doc'
       click_button "Save and continue"
 
-      expect(Dataset.last.datafiles.length).to eq(2)
-      expect(Dataset.last.datafiles.last.url).to eq('https://localhost/doc')
-      expect(Dataset.last.datafiles.last.name).to eq('my test doc')
+      expect(Dataset.last.docs.length).to eq(1)
+      expect(Dataset.last.docs.last.url).to eq('https://localhost/doc')
+      expect(Dataset.last.docs.last.name).to eq('my test doc')
 
       # Documents page
       expect(page).to have_content("Links to supporting documents")
@@ -107,8 +107,8 @@ describe "creating datasets" do
       expect(page).to have_content("Open Government Licence")
       expect(page).to have_content(Dataset.last.location1)
       expect(page).to have_content("One-off")
-      expect(page).to have_content(Dataset.last.datafiles.first.name)
-      expect(page).to have_content(Dataset.last.datafiles.last.name)
+      expect(page).to have_content(Dataset.last.links.first.name)
+      expect(page).to have_content(Dataset.last.links.last.name)
 
       click_button "Publish"
 
@@ -152,8 +152,8 @@ describe "creating datasets" do
         fill_in 'datafile[name]', with: 'my test doc'
         click_button "Save and continue"
 
-        expect(Dataset.last.datafiles.last.start_date).to be_nil
-        expect(Dataset.last.datafiles.last.end_date).to be_nil
+        expect(Dataset.last.links.last.start_date).to be_nil
+        expect(Dataset.last.links.last.end_date).to be_nil
       end
 
       it "should fail with an error when no date is set" do
@@ -168,8 +168,8 @@ describe "creating datasets" do
         fill_in 'datafile[name]', with: 'my test doc'
         click_button "Save and continue"
 
-        expect(Dataset.last.datafiles.last.start_date).to be_nil
-        expect(Dataset.last.datafiles.last.end_date).to be_nil
+        expect(Dataset.last.links.last.start_date).to be_nil
+        expect(Dataset.last.links.last.end_date).to be_nil
       end
 
       it "should show start and end date fields for weekly and set dates" do
@@ -195,8 +195,8 @@ describe "creating datasets" do
 
         click_button "Save and continue"
 
-        expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(2020, 1, 1))
-        expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(2020, 1, 8))
+        expect(Dataset.last.links.last.start_date).to eq(Date.new(2020, 1, 1))
+        expect(Dataset.last.links.last.end_date).to eq(Date.new(2020, 1, 8))
       end
 
       it "should show start date field for monthly and set dates" do
@@ -217,8 +217,8 @@ describe "creating datasets" do
 
         click_button "Save and continue"
 
-        expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(2020, 1, 1))
-        expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(2020, 1).end_of_month)
+        expect(Dataset.last.links.last.start_date).to eq(Date.new(2020, 1, 1))
+        expect(Dataset.last.links.last.end_date).to eq(Date.new(2020, 1).end_of_month)
       end
 
       context "should show an error if no date is entered" do
@@ -318,26 +318,26 @@ describe "creating datasets" do
 
         it "should calculate correct dates for Q1" do
           pick_quarter(1)
-          expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(Date.today.year, 4, 1))
-          expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Date.today.year, 6).end_of_month)
+          expect(Dataset.last.links.last.start_date).to eq(Date.new(Date.today.year, 4, 1))
+          expect(Dataset.last.links.last.end_date).to eq(Date.new(Date.today.year, 6).end_of_month)
         end
 
         it "should calculate correct dates for Q2" do
           pick_quarter(2)
-          expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(Date.today.year, 7, 1))
-          expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Date.today.year, 9).end_of_month)
+          expect(Dataset.last.links.last.start_date).to eq(Date.new(Date.today.year, 7, 1))
+          expect(Dataset.last.links.last.end_date).to eq(Date.new(Date.today.year, 9).end_of_month)
         end
 
         it "should calculate correct dates for Q3" do
           pick_quarter(3)
-          expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(Date.today.year, 10, 1))
-          expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Date.today.year, 12).end_of_month)
+          expect(Dataset.last.links.last.start_date).to eq(Date.new(Date.today.year, 10, 1))
+          expect(Dataset.last.links.last.end_date).to eq(Date.new(Date.today.year, 12).end_of_month)
         end
 
         it "should calculate correct dates for Q4" do
           pick_quarter(4)
-          expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(Date.today.year, 1, 1) + 1.year)
-          expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Date.today.year, 3).end_of_month + 1.year)
+          expect(Dataset.last.links.last.start_date).to eq(Date.new(Date.today.year, 1, 1) + 1.year)
+          expect(Dataset.last.links.last.end_date).to eq(Date.new(Date.today.year, 3).end_of_month + 1.year)
         end
       end
 
@@ -361,14 +361,14 @@ describe "creating datasets" do
 
       it "should show year field for yearly and set dates" do
         pick_year('annually')
-        expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(2015, 1, 1))
-        expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(2015, 12).end_of_month)
+        expect(Dataset.last.links.last.start_date).to eq(Date.new(2015, 1, 1))
+        expect(Dataset.last.links.last.end_date).to eq(Date.new(2015, 12).end_of_month)
       end
 
       it "should show year field for financial year and set dates" do
         pick_year('financial-year')
-        expect(Dataset.last.datafiles.last.start_date).to eq(Date.new(2015, 4, 1))
-        expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(2016, 3).end_of_month)
+        expect(Dataset.last.links.last.start_date).to eq(Date.new(2015, 4, 1))
+        expect(Dataset.last.links.last.end_date).to eq(Date.new(2016, 3).end_of_month)
       end
     end
 
@@ -492,7 +492,7 @@ describe "creating datasets" do
               expect(page).to have_content("Add a link to your data")
             end
 
-            it "should route to the daily datafiles page and check for errors" do
+            it "should route to the daily links page and check for errors" do
               choose option: "daily"
               click_button "Save and continue"
               expect(page).to have_content("Add a link to your data")
@@ -506,14 +506,14 @@ describe "creating datasets" do
               expect(page).to have_content("Links to your data")
             end
 
-            it "should route to the one-off datafiles page" do
+            it "should route to the one-off links page" do
               choose option: "never"
               click_button "Save and continue"
               expect(page).to have_content("Add a link to your data")
               expect(page).to_not have_content("Year")
             end
 
-            it "should route to the weekly datafiles page and check for errors" do
+            it "should route to the weekly links page and check for errors" do
               choose option: "weekly"
               click_button "Save and continue"
               expect(page).to have_content("Add a link to your data")
@@ -560,7 +560,7 @@ describe "creating datasets" do
               expect(page).to have_content("Links to your data")
             end
 
-            it "should route to the monthly datafiles page and check for errors" do
+            it "should route to the monthly links page and check for errors" do
               choose option: "monthly"
               click_button "Save and continue"
               expect(page).to have_content("Add a link to your data")
@@ -576,7 +576,7 @@ describe "creating datasets" do
               expect(page).to have_content("Links to your data")
             end
 
-            it "should route to the quarterly datafiles page and check for errors" do
+            it "should route to the quarterly links page and check for errors" do
               choose option: "quarterly"
               click_button "Save and continue"
               expect(page).to have_content("Add a link to your data")
@@ -592,7 +592,7 @@ describe "creating datasets" do
               expect(page).to have_content("Links to your data")
             end
 
-            it "should route to the yearly datafiles page and check for errors" do
+            it "should route to the yearly links page and check for errors" do
               choose option: "annually"
               click_button "Save and continue"
               expect(page).to have_content("Add a link to your data")
@@ -608,7 +608,7 @@ describe "creating datasets" do
               expect(page).to have_content("Links to your data")
             end
 
-            it "should route to the yearly (financial) datafiles page and check for errors" do
+            it "should route to the yearly (financial) links page and check for errors" do
               choose option: "financial-year"
               click_button "Save and continue"
               expect(page).to have_content("Add a link to your data")

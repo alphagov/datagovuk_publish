@@ -2,9 +2,10 @@ class DatafilesController < ApplicationController
   before_action :set_current_dataset
 
   def new
-    @datafile = Datafile.new
+    @datafile = Link.new
 
     if documents?
+      @datafile = Doc.new
       render 'new_doc'
     end
   end
@@ -22,7 +23,8 @@ class DatafilesController < ApplicationController
                                                    :start_day, :start_month, :start_year,
                                                    :end_day, :end_month, :end_year,
                                                    :year, :quarter)
-    @datafile = Datafile.new(file_params)
+    @datafile = Link.new(file_params)
+    @datafile = Doc.new(file_params) if documents?
     @datafile.dataset = @dataset
 
     if documents?
@@ -57,7 +59,7 @@ class DatafilesController < ApplicationController
 
   def confirm_delete
     @datafile = current_datafile
-    @datafiles = @dataset.datafiles.datalinks
+    @datafiles = @dataset.links
     flash[:alert] = "Are you sure you want to delete ‘#{@datafile.name}’?"
 
     redirect_to files_path(file_id: @datafile.id) if files?
@@ -66,7 +68,7 @@ class DatafilesController < ApplicationController
 
   def destroy
     @datafile = current_datafile
-    @datafiles = @dataset.datafiles.datalinks
+    @datafiles = @dataset.links
     flash[:deleted] = "Your link ‘#{@datafile.name}’ has been deleted"
     @datafile.destroy
 
@@ -85,13 +87,13 @@ class DatafilesController < ApplicationController
   end
 
   def files
-    @datafiles = @dataset.datafiles.datalinks
+    @datafiles = @dataset.links
     @initialising = params[:new]
     render 'files'
   end
 
   def documents
-    @datafiles = @dataset.datafiles.documentation
+    @datafiles = @dataset.docs
     render 'documents'
   end
 

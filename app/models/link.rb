@@ -4,16 +4,11 @@ class Link < Datafile
   attr_accessor :start_day, :start_month, :start_year,
     :end_day, :end_month, :end_year
 
+  before_save :set_dates
+
   validates :quarter,
     presence: { message: "Please select a quarter" },
     if: -> { !self.documentation && self.dataset.quarterly? }
-
-  scope :published, -> { where(published: true) }
-  scope :draft,     -> { where(published: false) }
-
-  scope :datalinks,     -> { where(documentation: [false, nil]) }
-  scope :documentation, -> { where(documentation: true) }
-
   validates_with DateValidator
 
   def dates
