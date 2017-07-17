@@ -65,7 +65,7 @@ describe Dataset do
     d.frequency = "daily"
     d.save()
 
-    Datafile.create(url: "http://127.0.0.1", name: "Test link", dataset: d)
+    Link.create(url: "http://127.0.0.1", name: "Test link", dataset: d)
 
     d.licence = "uk-ogl"
     d.published = true

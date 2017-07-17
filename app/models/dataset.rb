@@ -3,14 +3,17 @@ require 'elasticsearch/model'
 class Dataset < ApplicationRecord
   include Elasticsearch::Model
   extend FriendlyId
+  before_destroy :prevent_if_published
 
   index_name    "datasets-#{Rails.env}"
   document_type "dataset"
 
   belongs_to :organisation
-  has_many :datafiles
+
+  has_many :links
+  has_many :docs
   has_one :inspire_dataset
-  before_destroy :prevent_if_published
+
 
   friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
 
@@ -42,6 +45,11 @@ class Dataset < ApplicationRecord
     if: lambda { licence == 'other' }
 
   validate :published_dataset_must_have_datafiles_validation
+
+
+  def datafiles
+    links + docs
+  end
 
   # What we actually want to index in Elastic, rather than the whole
   # dataset.
@@ -116,8 +124,8 @@ class Dataset < ApplicationRecord
   end
 
   def published_dataset_must_have_datafiles_validation
-    if self.published && self.datafiles.datalinks.empty?
-      errors.add(:files, "You must add at least one link")
+    if self.published && self.links.empty?
+      errors.add(:links, "You must add at least one link")
     end
   end
 

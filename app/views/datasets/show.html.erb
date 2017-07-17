@@ -105,7 +105,7 @@
     <tr>
       <th class="dgu-checklist__heading">Data</th>
       <td id="files_form_group">
-        <% @dataset.datafiles.datalinks.each do |link| %>
+        <% @dataset.links.each do |link| %>
           <%= link_to link.name, link.url %>
         <% end %>
         <% if @dataset.errors[:files].any? %>
@@ -115,7 +115,7 @@
         <% end %>
       </td>
       <td class="dgu-checklist__actions">
-        <% if @dataset.datafiles.datalinks.any? %>
+        <% if @dataset.links.any? %>
           <%= link_to 'Change', files_path(@dataset) %>
         <% else %>
           <%= link_to 'Add', new_file_path(@dataset) %>
@@ -124,11 +124,11 @@
     </tr>
     <tr>
       <th class="dgu-checklist__heading">Documentation</th>
-      <td><% @dataset.datafiles.documentation.each do |doc| %>
+      <td><% @dataset.docs.each do |doc| %>
         <%= link_to doc.name, doc.url %>
       <% end %>
       <td class="dgu-checklist__actions">
-        <% if @dataset.datafiles.documentation.any? %>
+        <% if @dataset.docs.any? %>
           <%= link_to 'Change', documents_path(@dataset) %>
         <% else %>
           <%= link_to 'Add', new_document_path(@dataset) %>
