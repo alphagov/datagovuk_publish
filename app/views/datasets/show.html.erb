@@ -25,8 +25,13 @@
 
 <% end %>
 
-<h1 class="heading-large"><%= @dataset.published ? "Edit" : "Publish" %>  ‘<%= @dataset.title %>’</h1>
-
+<h1 class="heading-large">
+  <% if current_page?(confirm_delete_dataset_path) %>
+    ‘<%= @dataset.title %>’
+  <% else %>
+    <%= @dataset.published ? "Edit" : "Publish" %>  ‘<%= @dataset.title %>’
+  <% end %>
+</h1>
 <ul>
   <li>Status: <%= @dataset.status %></li>
   <li>Published by: <%= @dataset.organisation.title %></li>
