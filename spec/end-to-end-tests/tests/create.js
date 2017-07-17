@@ -169,6 +169,7 @@ var test_create_add_file_twice = function (browser) {
 
 module.exports = {
   'Create a dataset, happy path': test_create_happy_path,
+  'Create a dataset, region autocomplete': test_create_region_autocomplete,
   'Create a dataset, modify title': test_create_modify_title,
   'Create a dataset, modify licence': test_create_modify_licence,
   'Create a dataset, remove link after check': test_create_remove_link,
