@@ -9,16 +9,16 @@
     <div id="confirm-delete-box">
       <% if flash[:alert] %>
         <h1 class="heading-medium error-summary-heading"><%= flash[:alert] %></h1>
-          <%= link_to "Yes, delete this link",
-              file_path(file_id: params[:file_id]),
-              method: :delete,
-              class: 'button confirm-delete-box__button'
-          %>
-          <%= link_to "Cancel", files_path(@dataset), class: 'secondary-button' %>
-        <% end %>
-        <% if flash[:deleted] %>
-          <h1 class="heading-medium error-summary-heading"><%= flash[:deleted] %></h1>
-        <% end %>
+        <%= link_to "Yes, delete this link",
+            file_path(file_id: params[:file_id]),
+            method: :delete,
+            class: 'button confirm-delete-box__button'
+        %>
+        <%= link_to "Cancel", files_path(@dataset), class: 'secondary-button' %>
+      <% end %>
+      <% if flash[:deleted] %>
+        <h1 class="heading-medium error-summary-heading"><%= flash[:deleted] %></h1>
+      <% end %>
     </div>
   </div>
   <% end %>
@@ -33,18 +33,18 @@
         <th><span class="visuallyhidden">Actions</span></th>
       </tr>
     </thead>
-  <tbody>
-    <% @datafiles.each do |link| %>
-      <tr id="file_1">
-        <th><a href="<%= link.url %>"><%= link.name %></a></th>
-        <td>✔</td>
-        <td class="actions">
-          <%= link_to 'Edit', edit_file_path(@dataset, link.id) %>
-          <%= link_to 'Delete', confirm_delete_file_path(@dataset, link.id) %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
+    <tbody>
+      <% @datafiles.each do |link| %>
+        <tr id="file_1">
+          <th><a href="<%= link.url %>"><%= link.name %></a></th>
+          <td>✔</td>
+          <td class="actions">
+            <%= link_to 'Edit', edit_file_path(@dataset, link.id) %>
+            <%= link_to 'Delete', confirm_delete_file_path(@dataset, link.id) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 
   <p>
