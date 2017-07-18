@@ -44,24 +44,24 @@ module MetadataTools
 
   def add_resource(resource, dataset)
     if get_doc_type(resource['format'])
-        datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
-      else
-        datafile = Link.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
-      end
-      datafile.uuid = resource["id"]
-      datafile.format = resource["format"]
-      datafile.name = resource["description"]
-      datafile.name = "No name specified" if datafile.name == ""
-      datafile.created_at = dataset.created_at
-      datafile.updated_at = dataset.updated_at
+      datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
+    else
+      datafile = Link.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
+    end
+    datafile.uuid = resource["id"]
+    datafile.format = resource["format"]
+    datafile.name = resource["description"]
+    datafile.name = "No name specified" if datafile.name == ""
+    datafile.created_at = dataset.created_at
+    datafile.updated_at = dataset.updated_at
 
-      if resource["date"]
-        dates = get_start_end_date(resource["date"])
-        datafile.start_date = dates[0]
-        datafile.end_date   = dates[1]
-      end
+    if resource["date"]
+      dates = get_start_end_date(resource["date"])
+      datafile.start_date = dates[0]
+      datafile.end_date   = dates[1]
+    end
 
-      datafile.save!()
+    datafile.save!()
   end
 
   def add_inspire_metadata(dataset_id, dataset)
