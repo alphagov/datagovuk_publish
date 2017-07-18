@@ -1,6 +1,6 @@
 <h2 class="form-label-bold">Time period for this link</h2>
 <div class="form-group <% if @datafile.errors.key? "quarter" %>form-group-error<%end%>">
-  <fieldset>
+  <fieldset id="id_quarter">
     <legend>Quarter</legend>
 
     <% if @datafile.errors.key? "quarter" %>
@@ -40,7 +40,7 @@
         <% if @datafile.errors[:start_year].present? %>
           <span class="error-message">Please enter a valid year</span>
         <% end %>
-        <%= text_field_tag 'datafile[start_year]', @datafile.start_year, id: "period_year", class: "form-control" %>
+        <%= text_field_tag 'datafile[start_year]', @datafile.start_year, id: "id_start_year", class: "form-control" %>
       </div>
     </div>
   </fieldset>

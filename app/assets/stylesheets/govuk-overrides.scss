@@ -63,17 +63,17 @@ div#global-header-bar {
   color: $white;
 }
 
-.form-date .form-group.form-group-day.error {
+.form-date .form-group.form-group-day.form-group-error {
   width: 130px;
   input { width: 50px; }
 }
 
-.form-date .form-group.form-group-month.error {
+.form-date .form-group.form-group-month.form-group-error {
   width: 130px;
   input { width: 50px; }
 }
 
-.form-date .form-group.form-group-year.error {
+.form-date .form-group.form-group-year.form-group-error {
   width: 130px;
   input { width: 70px; }
 }
