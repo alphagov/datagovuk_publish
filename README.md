@@ -40,6 +40,14 @@ rake import:datasets[datasets.jsonl]
 
 Note that organisations need to be imported before datasets.
 
+If you wish to only import datasets that were modified in the last
+24 hours, you can run:
+
+```
+rake sync:daily
+```
+
+
 ## Generating 'tasks'.
 
 ### Checking for broken links
