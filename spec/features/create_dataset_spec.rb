@@ -1,5 +1,4 @@
 require "rails_helper"
-require_relative "datasets_spec_helper"
 
 describe "creating datasets" do
   set_up
