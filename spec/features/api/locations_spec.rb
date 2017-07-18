@@ -12,6 +12,7 @@ describe "Location API" do
                  primary_organisation: org,
                  password: 'password',
                  password_confirmation: 'password')
+    Location.create!( name: 'England', location_type: '')
     Location.create!( name: 'Melton', location_type: 'local authority')
     Location.create!( name: 'Medway', location_type: 'NHS Clinical Commissioning Group area')
     Location.create!( name: 'Highland', location_type: 'local authority' )
@@ -44,4 +45,14 @@ describe "Location API" do
     expect(page.status_code).to be 200
     expect(json.length).to eq(0)
   end
+
+  it 'does not show empty brackets when no location type is specified' do
+    visit '/api/locations?q=engl'
+    expect(page.status_code).to be 200
+    responseObj = JSON.parse(page.body)
+    expect(responseObj.length).to eq(1)
+    expect(responseObj[0]).to eq("England")
+  end
+
+
 end

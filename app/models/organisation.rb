@@ -1,5 +1,6 @@
 class Organisation < ApplicationRecord
   extend FriendlyId
+  has_ancestry
 
   audited
   has_and_belongs_to_many :users

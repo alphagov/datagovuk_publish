@@ -22,7 +22,7 @@
   <% end %>
   <h1 class="heading-large">Add a link to supporting documents</h1>
 
-  <%= form_for @datafile, url: document_path(@dataset, @datafile), method: 'put' do |f| %>
+  <%= form_for @datafile, as: :datafile, url: document_path(@dataset, @datafile), method: 'put' do |f| %>
     <%= dataset_field f, @datafile,
     name: 'url',
     label: 'URL',

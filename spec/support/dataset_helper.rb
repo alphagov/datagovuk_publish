@@ -31,8 +31,8 @@ def set_up
       owner: user
     )
 
-    d.datafiles << Datafile.create!(url: 'http://localhost', name: 'my test file', dataset: d)
-    d.datafiles << Datafile.create!(url: 'http://localhost/doc', name: 'my test doc', dataset: d, documentation: true)
+    d.links << Link.create!(url: 'http://localhost', name: 'my test file', dataset: d)
+    d.docs << Doc.create!(url: 'http://localhost/doc', name: 'my test doc', dataset: d, documentation: true)
     d.save
 
     d
@@ -51,8 +51,8 @@ def set_up
       owner: user
     )
 
-    d.datafiles << Datafile.create!(url: 'http://localhost', name: 'my published test file', dataset: d)
-    d.datafiles << Datafile.create!(url: 'http://localhost/doc', name: 'my published test doc', dataset: d, documentation: true)
+    d.links << Link.create!(url: 'http://localhost', name: 'my published test file', dataset: d)
+    d.docs << Doc.create!(url: 'http://localhost/doc', name: 'my published test doc', dataset: d, documentation: true)
     d.published = true
     d.save
 

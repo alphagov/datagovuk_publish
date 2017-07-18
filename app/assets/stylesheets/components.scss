@@ -63,6 +63,10 @@
   width: 66%;
   label {
     float: left;
+    width: 100%;
+    span.form-label-bold {
+      display: inline;
+    }
   }
   &__button-add, &__button-del {
     background: $page-colour;
