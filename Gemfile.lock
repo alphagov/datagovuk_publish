@@ -97,6 +97,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    database_cleaner (1.6.1)
     debug_inspector (0.0.3)
     devise (4.3.0)
       bcrypt (~> 3.0)
@@ -366,6 +367,7 @@ DEPENDENCIES
   cancancan (~> 1.10)
   capybara
   codeclimate-test-reporter (~> 1.0.0)
+  database_cleaner
   devise (~> 4.3)
   devise_invitable (~> 1.7.2)
   dotenv (~> 2.2)
