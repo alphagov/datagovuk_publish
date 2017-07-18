@@ -64,6 +64,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
+    ancestry (3.0.1)
+      activerecord (>= 3.2.0)
     arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (8.0.0)
@@ -356,6 +358,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin (~> 1)
+  ancestry (~> 3.0.1)
   audited (~> 4.5)
   byebug (~> 9)
   cancancan (~> 1.10)
