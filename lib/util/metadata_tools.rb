@@ -34,17 +34,26 @@ module MetadataTools
     # Iterate over the resources list and add a new datafile for each
     # item.
     obj["resources"].each do |resource|
-      if get_doc_type(resource['format'])
-        datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: d.id)
+      add_resource(resource, d)
+    end
+
+    d.published = true
+    d.save!()
+
+  end
+
+  def add_resource(resource, dataset)
+    if get_doc_type(resource['format'])
+        datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
       else
-        datafile = Link.find_or_create_by(url: resource["url"], dataset_id: d.id)
+        datafile = Link.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
       end
       datafile.uuid = resource["id"]
       datafile.format = resource["format"]
       datafile.name = resource["description"]
       datafile.name = "No name specified" if datafile.name == ""
-      datafile.created_at = d.created_at
-      datafile.updated_at = d.updated_at
+      datafile.created_at = dataset.created_at
+      datafile.updated_at = dataset.updated_at
 
       if resource["date"]
         dates = get_start_end_date(resource["date"])
@@ -53,13 +62,7 @@ module MetadataTools
       end
 
       datafile.save!()
-    end
-
-    d.published = true
-    d.save!()
-
   end
-
 
   def add_inspire_metadata(dataset_id, dataset)
     extras = dataset["extras"]
@@ -179,6 +182,6 @@ module MetadataTools
 
   module_function :add_dataset_metadata, :generate_summary, :convert_frequency, :add_inspire_metadata,
     :dataset_type, :get_extra, :harvested?, :calculate_dates_for_month, :calculate_dates_for_year,
-    :get_doc_type, :get_start_end_date
+    :get_doc_type, :get_start_end_date, :add_resource
 end
 

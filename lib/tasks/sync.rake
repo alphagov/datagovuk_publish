@@ -11,7 +11,7 @@ namespace :sync do
 
     get_packages "https://data.gov.uk" do |package|
       MetadataTools.add_dataset_metadata(package, orgs_cache)
-      puts "Imported #{count+=1} datasets...\r"
+      print "Imported #{count+=1} datasets...\r"
     end
 
   end
