@@ -36,7 +36,7 @@ def generate_string()
     count = 0
 
     Dataset.where(published: true).all.each do |dataset|
-      enum.yield "," if count == 0
+      enum.yield "," if count != 0
       enum.yield dataset_record(dataset)
 
       print "Encoded #{count+=1} datasets...\r"
@@ -53,8 +53,8 @@ def dataset_record(dataset)
     "title"      => dataset.title,
     "description"=> dataset.summary,
     "keyword"    => [],
-    "issued"     => "2016-05-04T10:56:04.000Z",
-    "modified"   => "2016-08-12T19:25:20.565Z",
+    "issued"     => dataset.created_at.iso8601,
+    "modified"   => dataset.published_date.iso8601,
     "publisher"  => {
       "@type" => "org:Organization",
       'name'  => dataset.organisation.title
