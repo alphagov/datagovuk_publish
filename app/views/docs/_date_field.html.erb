@@ -1,0 +1,41 @@
+<div class="form-group" id="<%= period %>_date_form_group">
+  <fieldset>
+    <legend>
+      <span class="form-label-bold">
+          <%= period.humanize %> Date
+        <span class="form-hint">For example, 31 3 2016</span>
+      </span>
+    </legend>
+
+    <div class="form-group form-date<% if @doc.errors.key? (period+"_date").to_sym %> form-group-error<% end %>">
+      <% if @doc.errors.key? (period+"_date").to_sym %>
+        <span class="error-message">Please enter a valid <%= period %> date</span>
+      <% end %>
+      <div class="form-group form-group-day<% if @doc.errors.key? (period+"_day").to_sym %> form-group-error<% end %>">
+        <label for="#<%= period %>_day">
+          <span class="form-label">Day</span>
+          <% if @doc.errors.key? (period+"_day").to_sym %>
+            <span class="error-message">Please enter a valid <%= period %> day</span>
+          <% end %>
+        </label>
+        <%= text_field_tag "doc[#{period}_day]", @doc.dates[period][:day], id: "#{period}_day", class: "form-control" %>
+      </div>
+
+      <div class="form-group form-group-month<% if @doc.errors.key? (period+"_day").to_sym %> form-group-error<% end %>">
+        <label for="<%= period %>_month">Month</label>
+        <% if @doc.errors.key? (period+"_month").to_sym %>
+          <span class="error-message">Please enter a valid <%= period %> month</span>
+        <% end %>
+        <%= text_field_tag "doc[#{period}_month]", @doc.dates[period][:month], id: "#{period}_month", class: "form-control" %>
+      </div>
+
+      <div class="form-group form-group-year<% if @doc.errors.key? (period+"_day").to_sym %> form-group-error<% end %>">
+        <label for="<%= period %>_year">year</label>
+        <% if @doc.errors.key? (period+"_year").to_sym %>
+          <span class="error-message">Please enter a valid <%= period %> year</span>
+        <% end %>
+        <%= text_field_tag "doc[#{period}_year]", @doc.dates[period][:year], id: "#{period}_year", class: "form-control" %>
+      </div>
+    </div>
+  </fieldset>
+</div>

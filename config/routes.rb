@@ -16,15 +16,15 @@ Rails.application.routes.draw do
     get 'show/:id', to: 'datasets#show'
 
     member do
-      resources :files,     controller: 'datafiles', param: :file_id do
+      resources :links, param: :file_id do
         member do
-          get 'confirm_delete', to: 'datafiles#confirm_delete'
+          get 'confirm_delete', to: 'links#confirm_delete'
         end
       end
 
-      resources :documents, controller: 'datafiles', param: :file_id do
+      resources :docs, param: :file_id do
         member do
-          get 'confirm_delete', to: 'datafiles#confirm_delete'
+          get 'confirm_delete', to: 'docs#confirm_delete'
         end
       end
 
