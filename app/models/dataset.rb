@@ -1,6 +1,7 @@
 require 'elasticsearch/model'
 
 class Dataset < ApplicationRecord
+  TITLE_FORMAT = /([a-z]){3}.*/i
   include Elasticsearch::Model
   extend FriendlyId
   before_destroy :prevent_if_published
@@ -17,35 +18,15 @@ class Dataset < ApplicationRecord
 
   friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
 
-  validates :frequency, inclusion: %w(daily weekly monthly quarterly annually financial-year never),
+  validates_inclusion_of :frequency, :in => %w(daily weekly monthly quarterly annually financial-year never),
                         allow_nil: true # To allow creation before setting this value
-
-  validates :title,
-    presence: { message: "Please enter a valid title" }
-
-  validates_format_of :title, {
-    with: /([a-z]){3}.*/i,
-    message: "Please enter a valid title"
-  }
-
-  validates :summary,
-    presence: { message: "Please provide a summary" }
-
-  validates :frequency,
-    presence: { message: "Please indicate how often this dataset is updated" },
-    if: lambda { published }
-
-  validates :licence,
-    presence: { message: "Please select a licence for your dataset" },
-    if: lambda{ published }
-
-  validates :licence_other,
-    presence: { message: "Please type the name of your licence" },
-    allow_blank: false,
-    if: lambda { licence == 'other' }
-
+  validates_presence_of :title
+  validates_format_of :title, :with => TITLE_FORMAT
+  validates_presence_of :summary
+  validates_presence_of :frequency, if: lambda { published }
+  validates_presence_of :licence, if: lambda{ published }
+  validates_presence_of :licence_other, if: lambda { licence == 'other' }
   validate :published_dataset_must_have_datafiles_validation
-
 
   def datafiles
     links + docs

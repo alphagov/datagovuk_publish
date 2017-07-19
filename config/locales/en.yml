@@ -16,3 +16,20 @@
 en:
   dataset_published: "Your dataset has been published"
   dataset_updated: "Your dataset has been edited"
+  activerecord:
+    errors:
+      models:
+        dataset:
+          attributes:
+            title:
+              invalid: "Please enter a valid title"
+              blank: "Please enter a valid title"
+            summary:
+              blank: "Please provide a summary"
+            frequency:
+              blank: "Please indicate how often this dataset is updated"
+              inclusion: ['daily', 'weekly', 'monthly', 'quarterly', 'annually', 'financial-year', 'never']
+            licence:
+              blank: "Please select a licence for your dataset"
+            licence_other:
+              blank: "Please type the name of your licence"
