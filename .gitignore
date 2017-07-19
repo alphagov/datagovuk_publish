@@ -21,3 +21,5 @@ db/schema.rb
 spec/end-to-end-tests/reports
 spec/end-to-end-tests/screenshots
 spec/end-to-end-tests/selenium-debug.log
+
+.idea/
