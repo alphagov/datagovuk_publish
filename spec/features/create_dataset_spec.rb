@@ -178,7 +178,6 @@ describe "creating datasets" do
 
         expect(page).to     have_content('Start Date')
         expect(page).to     have_content('End Date')
-        expect(page).to_not have_content('Year')
 
         fill_in 'datafile[url]', with: 'https://localhost/doc'
         fill_in 'datafile[name]', with: 'my test doc'
@@ -228,7 +227,6 @@ describe "creating datasets" do
 
           expect(page).to     have_content('Start Date')
           expect(page).to     have_content('End Date')
-          expect(page).to_not have_content('Year')
 
           fill_in 'datafile[url]', with: 'https://localhost/doc'
           fill_in 'datafile[name]', with: 'my test doc'
@@ -271,7 +269,6 @@ describe "creating datasets" do
 
           expect(page).to     have_content('Start Date')
           expect(page).to     have_content('End Date')
-          expect(page).to_not have_content('Year')
 
           fill_in 'datafile[url]', with: 'https://localhost/doc'
           fill_in 'datafile[name]', with: 'my test doc'
