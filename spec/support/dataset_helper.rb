@@ -1,79 +1,8 @@
-def set_up
-  # let! used here to force it to eager evaluate before each test
-  let! (:org)  { Organisation.create!(name: "land-registry", title: "Land Registry") }
-  let! (:user) do
-     User.create!(email: "test@localhost",
-                  name: "Test User",
-                  primary_organisation: org,
-                  password: "password",
-                  password_confirmation: "password")
-  end
-  let! (:unfinished_dataset) do
-    Dataset.create!(
-      organisation: org,
-      title: 'test title unfinished',
-      summary: 'test summary',
-      creator: user,
-      owner: user
-    )
-  end
-
-  let! (:unpublished_dataset) do
-    d = Dataset.create!(
-      organisation: org,
-      title: 'test title unpublished',
-      summary: 'test summary',
-      frequency: 'never',
-      licence: 'uk-ogl',
-      location1: 'somewhere',
-      published: false,
-      creator: user,
-      owner: user
-    )
-
-    d.links << Link.create!(url: 'http://localhost', name: 'my test file', dataset: d)
-    d.docs << Doc.create!(url: 'http://localhost/doc', name: 'my test doc', dataset: d, documentation: true)
-    d.save
-
-    d
-  end
-
-  let! (:published_dataset) do
-    d = Dataset.create!(
-      organisation: org,
-      title: 'test title published',
-      summary: 'test summary',
-      frequency: 'never',
-      licence: 'uk-ogl',
-      location1: 'here',
-      published: false,
-      creator: user,
-      owner: user
-    )
-
-    d.links << Link.create!(url: 'http://localhost', name: 'my published test file', dataset: d)
-    d.docs << Doc.create!(url: 'http://localhost/doc', name: 'my published test doc', dataset: d, documentation: true)
-    d.published = true
-    d.save
-
-    d
-  end
-end
-
-def sign_in
-  visit "/"
-  click_link "Sign in"
-  fill_in("user_email", with: "test@localhost")
-  fill_in("Password", with: "password")
-  click_button "Sign in"
-end
-
-
 def edit_dataset(dataset)
   datasets = {
-    :published_dataset => 0,
+    :unfinished_dataset => 0,
     :unpublished_dataset => 1,
-    :unfinished_dataset => 2
+    :published_dataset => 2
   }
   index = datasets[dataset]
   all(:link, "Edit")[index].click
@@ -92,4 +21,50 @@ def click_change(property)
   }
   index = properties[property]
   all(:link, "Change")[index].click
+end
+
+def set_up_models
+
+    let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
+    let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
+    let(:published_dataset) { FactoryGirl.create(:dataset,
+                                                  title: 'test title published',
+                                                  summary: 'test summary',
+                                                  organisation: land,
+                                                  location1: 'somewhere',
+                                                  frequency: 'never',
+                                                  licence: 'uk-ogl',
+                                                  published: true,
+                                                  links: [FactoryGirl.create(:link, name: "my published test file")],
+                                                  docs: [FactoryGirl.create(:doc, name: "my published test doc")],
+                                                  creator: user,
+                                                  owner: user) }
+
+    let(:unpublished_dataset) { FactoryGirl.create(:dataset,
+                                                    title: 'test title unpublished',
+                                                    summary: 'test summary',
+                                                    organisation: land,
+                                                    frequency: 'never',
+                                                    licence: 'uk-ogl',
+                                                    location1: 'somewhere',
+                                                    published: false,
+                                                    links: [FactoryGirl.create(:link, name: "my published test file")],
+                                                    docs: [FactoryGirl.create(:doc, name: "my published test doc")],
+                                                    creator: user,
+                                                    owner: user ) }
+
+
+    let(:unfinished_dataset) { FactoryGirl.create(:dataset,
+                                                   organisation: land,
+                                                   creator: user,
+                                                   owner: user,
+                                                   title: 'test title unfinished',
+                                                   summary: 'test summary') }
+
+end
+
+def build_datasets
+  published_dataset
+  unpublished_dataset
+  unfinished_dataset
 end

@@ -1,10 +1,14 @@
 require "rails_helper"
 
 describe 'editing datasets' do
-  set_up
+
+  set_up_models
 
   before(:each) do
-    sign_in
+    user
+    sign_in_user
+    build_datasets
+    click_link 'Manage datasets'
   end
 
   it "should be able to go to datasets's page" do
