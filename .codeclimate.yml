@@ -13,6 +13,16 @@ engines:
           mass_threshold: 20
         javascript:
           mass_threshold: 50
+  flog:
+    enabled: true
+  brakeman:
+    enabled: true
+  markdownlint:
+    enabled: true
+  bundler-audit:
+    enabled: true
+  reek:
+    enabled: true
       
 ratings:
   paths:
