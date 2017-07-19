@@ -16,6 +16,8 @@ namespace :import do
   task :organisations, [:filename] => :environment do |_, args|
     count = 1
 
+    relationships = {}
+
     json_from_lines(args.filename) do |obj|
       o = Organisation.find_by(name: obj["name"]) || Organisation.new
 
@@ -34,11 +36,28 @@ namespace :import do
       o.category = obj["category"]
       o.uuid = obj["id"]
 
+      groups = obj["groups"] || []
+      if groups.size != 0
+        parent = groups[0]["name"]
+        relationships[o.name] = parent
+      end
+
       o.save()
 
       print "Imported #{count} organisations...\r"
       count += 1
     end
+
+    puts "Processing #{relationships.size} child organisations"
+
+    count = 0
+    relationships.each do |child, parent|
+      o = Organisation.find_by(name: child)
+      o.parent = Organisation.find_by(name: parent)
+      o.save!()
+      print "Assigned #{count+=1} organisations...\r"
+    end
+
     puts "\nDone"
   end
 
