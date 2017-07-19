@@ -312,7 +312,6 @@ describe "dataset frequency options" do
     it "shows start and end date fields and sets dates" do
       expect(page).to     have_content('Start Date')
       expect(page).to     have_content('End Date')
-      expect(page).to_not have_content('Year')
 
       # Start Date
       fill_in 'datafile[start_day]',   with: '1'
