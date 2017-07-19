@@ -1,6 +1,7 @@
 db/schema.rb
 
 .DS_Store
+public/data.json
 
 /.bundle
 
