@@ -6,7 +6,7 @@ class Link < Datafile
 
   before_save :set_dates
 
-  validates_presence_of :quarter,
+  validates :quarter, presence: true,
     if: -> { !self.documentation && self.dataset.quarterly? }
   validates_with DateValidator
 

@@ -18,14 +18,13 @@ class Dataset < ApplicationRecord
 
   friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
 
-  validates_inclusion_of :frequency, :in => %w(daily weekly monthly quarterly annually financial-year never),
+  validates :frequency, inclusion: {in: %w(daily weekly monthly quarterly annually financial-year never)},
                         allow_nil: true # To allow creation before setting this value
-  validates_presence_of :title
-  validates_format_of :title, :with => TITLE_FORMAT
-  validates_presence_of :summary
-  validates_presence_of :frequency, if: lambda { published }
-  validates_presence_of :licence, if: lambda{ published }
-  validates_presence_of :licence_other, if: lambda { licence == 'other' }
+  validates :title, presence: true, format: { with: TITLE_FORMAT }
+  validates :summary, presence: true
+  validates :frequency, presence: true, if: lambda { published }
+  validates :licence, presence: true, if: lambda{ published }
+  validates :licence_other, presence: true, if: lambda { licence == 'other' }
   validate :published_dataset_must_have_datafiles_validation
 
   def datafiles

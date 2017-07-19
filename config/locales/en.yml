@@ -38,7 +38,6 @@ en:
               blank: "Please provide a summary"
             frequency:
               blank: "Please indicate how often this dataset is updated"
-              inclusion: ['daily', 'weekly', 'monthly', 'quarterly', 'annually', 'financial-year', 'never']
             licence:
               blank: "Please select a licence for your dataset"
             licence_other:
