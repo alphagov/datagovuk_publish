@@ -21,8 +21,6 @@ engines:
     enabled: true
   bundler-audit:
     enabled: true
-  reek:
-    enabled: true
       
 ratings:
   paths:
