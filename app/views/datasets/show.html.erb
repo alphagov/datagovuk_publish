@@ -17,8 +17,8 @@
     <% else %>
     <div id="confirm-delete-box">
       <h1 class="heading-medium error-summary-heading"><%= flash[:alert] %></h1>
-        <%= link_to "Yes, delete this dataset", @dataset, method: :delete, class: 'button confirm-delete-box__button' %>
-        <%= link_to "Cancel", edit_dataset_path(@dataset), class: 'secondary-button' %>
+      <%= link_to "Yes, delete this dataset", @dataset, method: :delete, class: 'button confirm-delete-box__button' %>
+      <%= link_to "Cancel", edit_dataset_path(@dataset), class: 'secondary-button' %>
     </div>
     <% end %>
   </div>

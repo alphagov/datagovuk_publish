@@ -11,7 +11,7 @@
       <ul class="error-summary-list">
         <% @datafile.errors.each do |attr, message| %>
           <li>
-            <a href="#<%= attr.to_s %>_form_group">
+            <a href="#id_<%= attr.to_s %>">
               <%= message %>
             </a>
             <span class="visuallyhidden">.</span>

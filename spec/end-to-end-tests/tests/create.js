@@ -35,7 +35,7 @@ var goToDocumentation = function(browser) {
     .submitFormAndCheckNextTitle('Add a link')
     .clearSetValue('#id_url', common.validDataUrl)
     .clearSetValue('#id_name', common.datafileTitle)
-    .clearSetValue('#period_year', '2013')
+    .clearSetValue('#id_start_year', '2013')
     .submitFormAndCheckNextTitle('Links to your data')
     .clickAndCheckNextTitle(
       'Save and continue',

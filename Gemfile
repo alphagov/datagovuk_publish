@@ -11,8 +11,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise', '~> 4.3'
 gem 'devise_invitable', '~> 1.7.2'
 gem 'activeadmin', '~> 1'
-gem 'govuk_elements_rails', :git => 'https://github.com/alphagov/govuk_elements_rails', :submodules => true
-gem 'govuk_frontend_toolkit'
+gem 'govuk_elements_rails'
 gem 'govuk_template'
 gem 'audited', '~> 4.5'
 gem 'kaminari', '~> 1.0.1'
@@ -24,6 +23,7 @@ gem "elasticsearch", "~> 5.0.4"
 gem "elasticsearch-model", "~> 5.0.1"
 gem "elasticsearch-rails", "~> 5.0.1"
 gem "ancestry", "~> 3.0.1"
+gem "govuk-lint", "~> 2.1.0"
 
 group :development, :test do
   gem 'byebug', '~> 9'
