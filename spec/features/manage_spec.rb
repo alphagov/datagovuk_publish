@@ -1,37 +1,16 @@
 require 'rails_helper'
 
 describe "managing datasets" do
+  let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
+  let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
+  let(:price_paid_dataset) { FactoryGirl.create(:dataset, organisation: land, owner: user, name: 'price paid data', title: 'Price Paid data for all London Boroughs', summary: 'Price Paid Data tracks the residential property sales in England and Wales that are lodged with HM Land Registry for registration. ')}
+  let(:searchable) { FactoryGirl.create(:dataset, organisation: land, owner: user, name: 'searchable', title: 'Find data here',summary: 'A fake dataset for search ')}
+
   before(:each) do
-    o = Organisation.new
-    o.name = 'land-registry'
-    o.title = 'Land Registry'
-    o.save!()
-
-    User.create!(email: 'test@localhost',
-                 name: 'Test User',
-                 primary_organisation: o,
-                 password: 'password',
-                 password_confirmation: 'password')
-
-    price_paid_dataset = Dataset.create!(
-      name: 'price paid data',
-      title: 'Price Paid data for all London Boroughs',
-      summary: 'Price Paid Data tracks the residential property sales in England and Wales that are lodged with HM Land Registry for registration. ',
-      organisation: o
-    )
-
-    searchable = Dataset.create!(
-      name: 'searchable',
-      title: 'Find data here',
-      summary: 'A fake dataset for search ',
-      organisation: o
-    )
-
-    visit '/'
-    click_link 'Sign in'
-    fill_in('user_email', with: 'test@localhost')
-    fill_in('Password', with: 'password')
-    click_button 'Sign in'
+    user
+    sign_in_user
+    price_paid_dataset
+    searchable
   end
 
   it "after login" do
@@ -39,6 +18,7 @@ describe "managing datasets" do
 
     # Don't expect any tables as creator_id not set on dataset
     click_link 'Manage datasets'
+    save_and_open_page
     expect(page).to have_content('No results found')
     expect(page).to have_selector(%(table), count: 0)
 

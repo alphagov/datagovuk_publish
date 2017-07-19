@@ -33,6 +33,7 @@ group :development, :test do
   gem 'dotenv', '~> 2.2'
   gem 'rspec-rails', '~> 3.6'
   gem 'rspec', '~> 3.6'
+  gem 'factory_girl_rails', '~> 4.0'
 end
 
 group :development do
@@ -49,6 +50,7 @@ group :test do
   gem "simplecov"
   gem "codeclimate-test-reporter", "~> 1.0.0"
   gem "capybara"
+  gem "database_cleaner"
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
