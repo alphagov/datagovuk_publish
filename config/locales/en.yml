@@ -19,6 +19,12 @@ en:
   activerecord:
     errors:
       models:
+        datafile:
+          attributes:
+            url:
+              blank: "Please enter a valid URL"
+            name:
+              blank: "Please enter a valid name"
         dataset:
           attributes:
             title:
