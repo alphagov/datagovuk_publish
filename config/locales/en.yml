@@ -19,6 +19,10 @@ en:
   activerecord:
     errors:
       models:
+        link:
+          attributes:
+            quarter:
+              blank: "Please select a quarter"
         datafile:
           attributes:
             url:
