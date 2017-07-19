@@ -80,7 +80,7 @@ var test_edit_location_cancel = function (browser) {
   createDataset(browser)
     .clickAndCheckNextTitle('Edit', 'Edit ‘' + common.datasetTitle + '’')
     .click('a[href*="location"]')
-    .assert.visible('#add1')
+    .assert.visible('#add2')
     .clickAndCheckNextTitle('Cancel', 'Edit ‘' + common.datasetTitle + '’')
     .end();
 };
