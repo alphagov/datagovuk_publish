@@ -23,6 +23,7 @@ gem "elasticsearch", "~> 5.0.4"
 gem "elasticsearch-model", "~> 5.0.1"
 gem "elasticsearch-rails", "~> 5.0.1"
 gem "ancestry", "~> 3.0.1"
+gem "govuk-lint", "~> 2.1.0"
 
 group :development, :test do
   gem 'byebug', '~> 9'
