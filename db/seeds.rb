@@ -1,3 +1,4 @@
+# coding: utf-8
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -5,6 +6,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require 'csv'
 
 # We can create land-registry now, and if we import organisations
 # then they will just update it.
@@ -94,4 +97,11 @@ Dataset.create!(
   summary: "HMRC_Dataset_#{i} summary",
   organisation: hmrc
   )
+end
+
+# Locations
+location_csv_text = File.read('lib/seeds/locations.csv')
+location_csv = CSV.parse(location_csv_text, :headers => true)
+location_csv.each do |row|
+  Location.create!(row.to_hash)
 end
