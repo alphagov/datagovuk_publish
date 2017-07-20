@@ -52,7 +52,7 @@
   </p>
 
   <p>
-    <% if @initialising %>
+    <% if @dataset.initialised? %>
       <%= link_to 'Save and continue', new_doc_path(@dataset), class: "button" %>
     <% else %>
       <%= link_to 'Save and continue', dataset_path(@dataset), class: "button" %>
