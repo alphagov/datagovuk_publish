@@ -3,6 +3,7 @@ class DatasetsController < ApplicationController
 
   def show
     @dataset = current_dataset
+    @dataset.stage = 'completed'
   end
 
   def new
