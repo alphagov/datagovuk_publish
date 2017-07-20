@@ -1,19 +1,28 @@
-## Publish Data
-
+# Publish Data
 [![Build Status](https://travis-ci.org/datagovuk/publish_data_beta.svg?branch=master)](https://travis-ci.org/datagovuk/publish_data_beta)
 [![Code Climate](https://codeclimate.com/github/datagovuk/publish_data_beta/badges/gpa.svg)](https://codeclimate.com/github/datagovuk/publish_data_beta)
 [![Stories in Ready](https://badge.waffle.io/datagovuk/publish_data_beta.svg?label=ready&title=Ready)](http://waffle.io/datagovuk/publish_data_beta)
 
 This repository contains the beta-stage data publishing component of data.gov.uk.
 
-# Usage
+## Usage
 
-You will need postgres and elasticsearch installed for this to work.
+### Ruby version
+This application currently uses ruby v2.4.0. Use [RVM](https://rvm.io/)) or similar to manage your ruby environment and sets of dependencies.
+
+### Installing ruby gems
+To install gems (dependencies) you will need to first install [Bundler](http://bundler.io/)
+
+### Databases
+You will need Postgres and Elasticsearch installed for this to work. 
+
+On macOS both Postgres and Elasticsearch can be installed using [Homebrew](https://brew.sh/)
+
 By default elastic is expected to be running on 127.0.0.1:9200 but if it isn't
 you can override the value by exporting ES_HOST=http://.... but make sure the URL
 does not end with a slash.
 
-## First time setup
+## Running the application
 ```
 $ export SECRET_KEY_BASE=...
 $ bundle install
@@ -28,8 +37,10 @@ $ rails s
 $ rake db:seed
 ```
 
-## Importing data
+## Fake user accounts
+To log in as a fake user, use the credentials in 'seeds.rb' in the 'db' folder. 
 
+## Importing data
 You can import data from source files using the following commands:
 
 ```
