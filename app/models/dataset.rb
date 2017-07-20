@@ -11,7 +11,7 @@ class Dataset < ApplicationRecord
   index_name    "datasets-#{Rails.env}"
   document_type "dataset"
 
-  before_create :set_initial_stage
+  after_initialize :set_initial_stage
   before_destroy :prevent_if_published
 
   belongs_to :organisation
@@ -152,7 +152,7 @@ class Dataset < ApplicationRecord
   end
 
   private
-  def set_intial_stage
+  def set_initial_stage
     self.stage = 'initialised'
   end
 end
