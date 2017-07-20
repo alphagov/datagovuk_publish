@@ -69,19 +69,18 @@ describe "dataset creation" do
       click_link "Save and continue"
 
       # Page 6: Add Documents
-      # TODO: fix new flow
-      #fill_in 'doc[url]', with: 'https://localhost/doc'
-      #fill_in 'doc[name]', with: 'my test doc'
-      #click_button "Save and continue"
+      fill_in 'doc[url]', with: 'https://localhost/doc'
+      fill_in 'doc[name]', with: 'my test doc'
+      click_button "Save and continue"
 
-      #expect(Dataset.last.docs.length).to eq(1)
-      #expect(Dataset.last.docs.last.url).to eq('https://localhost/doc')
-      #expect(Dataset.last.docs.last.name).to eq('my test doc')
+      expect(Dataset.last.docs.length).to eq(1)
+      expect(Dataset.last.docs.last.url).to eq('https://localhost/doc')
+      expect(Dataset.last.docs.last.name).to eq('my test doc')
 
       # Documents page
-      #expect(page).to have_content("Links to supporting documents")
-      #expect(page).to have_content("my test doc")
-      #click_link "Save and continue"
+      expect(page).to have_content("Links to supporting documents")
+      expect(page).to have_content("my test doc")
+      click_link "Save and continue"
 
       # Page 9: Publish Page
       expect(Dataset.last.published).to be(false)
