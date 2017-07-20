@@ -143,6 +143,10 @@ class Dataset < ApplicationRecord
     never?
   end
 
+  def initialised?
+    self.stage = 'initialised'
+  end
+
   def completed?
     self.stage = 'completed'
   end
