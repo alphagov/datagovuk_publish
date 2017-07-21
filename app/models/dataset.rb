@@ -33,6 +33,11 @@ class Dataset < ApplicationRecord
     links + docs
   end
 
+  def publish
+    # Ask sidekiq to publish this dataset to elastic
+    PublishingWorker.perform_async(self.id)
+  end
+
   # What we actually want to index in Elastic, rather than the whole
   # dataset.
   def as_indexed_json(_options={})

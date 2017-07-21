@@ -42,7 +42,8 @@ class DatasetsController < ApplicationController
     @dataset.complete!
 
     if @dataset.publishable?
-      @dataset.__elasticsearch__.index_document
+      @dataset.publish
+
       if @dataset.published
         flash[:success] = I18n.t 'dataset_updated'
       else
