@@ -27,6 +27,8 @@ en:
           attributes:
             url:
               blank: "Please enter a valid URL"
+            valid_url:
+              invalid: "Your link appears to be broken"
             name:
               blank: "Please enter a valid name"
         dataset:
