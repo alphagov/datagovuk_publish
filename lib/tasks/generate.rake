@@ -17,12 +17,14 @@ namespace :generate do
 
     file.close()
     File.rename "data.json", "public/data.json"
-
   end
 
 end
 
-# Generates a string to write to the output file
+# Generates a string to write to the output file. After the first
+# call which will return the prelude, each successive call will
+# return either a punctuation string, or a string representation
+# of a dataset (as a json object).
 def generate_string()
   Enumerator.new do |enum|
     enum.yield '{
@@ -48,28 +50,28 @@ end
 
 def dataset_record(dataset)
   record = {
-    "@type"      => "dcat:Dataset",
-    "identifier" => "https://data.gov.uk/dataset/#{dataset.name}",
-    "title"      => dataset.title,
-    "description"=> dataset.summary,
-    "keyword"    => [],
-    "issued"     => dataset.created_at.iso8601,
-    "modified"   => dataset.published_date.iso8601,
-    "publisher"  => {
-      "@type" => "org:Organization",
-      'name'  => dataset.organisation.title
-     },
-    "accessLevel"=> "public",
-    "license"    => licence_for_id(dataset.licence)
+    "@type":       "dcat:Dataset",
+    identifier:  "https://data.gov.uk/dataset/#{dataset.name}",
+    title:       dataset.title,
+    description: dataset.summary,
+    keyword:     [],
+    issued:      dataset.created_at.iso8601,
+    modified:    dataset.published_date.iso8601,
+    accessLevel: "public",
+    license:     licence_for_id(dataset.licence),
+    publisher: {
+      "@type": "org:Organization",
+      name:  dataset.organisation.title
+     }
   }
 
   resources = []
   dataset.datafiles.each do |file|
     resource = {
-      "@type"    => "dcat:Distribution",
-      "name"      => file.name,
-      "accessURL" => file.url,
-      "format"    => file.format,
+      "@type":     "dcat:Distribution",
+      name:      file.name,
+      accessURL: file.url,
+      format:    file.format,
     }
     resources << resource
   end
@@ -80,6 +82,5 @@ def dataset_record(dataset)
 end
 
 def licence_for_id(id)
-  return "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" if id == "uk-ogl"
-  ""
+  id == "uk-ogl" ? "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" : ""
 end
