@@ -1,7 +1,9 @@
 require "simplecov"
 require "factory_girl_rails"
-require 'database_cleaner'
+require "database_cleaner"
+require "sidekiq/testing"
 
+Sidekiq::Testing.inline!
 
 SimpleCov.start do
   add_filter "/app/admin/"
