@@ -422,7 +422,7 @@ DEPENDENCIES
   rspec (~> 3.6)
   rspec-rails (~> 3.6)
   sass-rails (~> 5.0)
-  sidekiq
+  sidekiq (~> 5.0.4)
   simplecov
   spring (~> 2.0)
   spring-watcher-listen (~> 2.0.0)
