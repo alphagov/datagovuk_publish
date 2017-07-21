@@ -5,6 +5,8 @@ describe 'editing datasets' do
   set_up_models
 
   before(:each) do
+    allow_any_instance_of(UrlValidator).to receive(:validDomain?).and_return(true)
+    allow_any_instance_of(UrlValidator).to receive(:validPath?).and_return(true)
     user
     sign_in_user
     build_datasets

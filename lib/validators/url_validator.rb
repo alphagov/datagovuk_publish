@@ -6,11 +6,9 @@ require 'logger'
 class UrlValidator < ActiveModel::Validator
   def validate(record)
     urlPresent?(record) &&
-        urlStartsWithProtocol?(record)
-        # Uncommenting the below breaks LOTS of tests
-
-        # validDomain?(record) &&
-        # validPath?(record)
+        urlStartsWithProtocol?(record) &&
+        validDomain?(record) &&
+        validPath?(record)
   end
 
   def urlPresent?(record)
