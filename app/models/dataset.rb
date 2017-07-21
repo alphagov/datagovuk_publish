@@ -144,15 +144,20 @@ class Dataset < ApplicationRecord
   end
 
   def initialised?
-    self.stage = 'initialised'
+    self.stage == 'initialised'
   end
 
   def completed?
+    self.stage == 'completed'
+  end
+
+  def complete!
     self.stage = 'completed'
+    self.save!
   end
 
   private
   def set_initial_stage
-    self.stage = 'initialised'
+    self.stage ||= 'initialised'
   end
 end
