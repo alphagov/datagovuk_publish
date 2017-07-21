@@ -71,9 +71,7 @@ namespace :import do
 
     json_from_lines(args.filename) do |obj|
       counter += 1
-      if counter % 500 == 0
-        puts "Completed #{counter}"
-      end
+      print "Completed #{counter}\r"
 
       MetadataTools.add_dataset_metadata(obj, orgs_cache)
     end
