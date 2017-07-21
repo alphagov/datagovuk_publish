@@ -31,6 +31,7 @@ describe "dataset creation" do
       click_button "Save and continue"
 
       expect(Dataset.where(title: "my test dataset").length).to eq(1)
+      expect(Dataset.last.stage).to eq("initialised")
 
       # PAGE 2: Licence
       choose option: "uk-ogl"
@@ -76,6 +77,7 @@ describe "dataset creation" do
       expect(Dataset.last.docs.length).to eq(1)
       expect(Dataset.last.docs.last.url).to eq('https://localhost/doc')
       expect(Dataset.last.docs.last.name).to eq('my test doc')
+      expect(Dataset.last.stage).to eq("initialised")
 
       # Documents page
       expect(page).to have_content("Links to supporting documents")
@@ -84,6 +86,8 @@ describe "dataset creation" do
 
       # Page 9: Publish Page
       expect(Dataset.last.published).to be(false)
+      expect(Dataset.last.stage).to eq("completed")
+
       expect(page).to have_content(Dataset.last.status)
       expect(page).to have_content(Dataset.last.organisation.title)
       expect(page).to have_content(Dataset.last.title)
