@@ -1,11 +1,14 @@
 require "rails_helper"
-require_relative "datasets_spec_helper"
 
 describe 'editing datasets' do
-  set_up
+
+  set_up_models
 
   before(:each) do
-    sign_in
+    user
+    sign_in_user
+    build_datasets
+    click_link 'Manage datasets'
   end
 
   it "should be able to go to datasets's page" do
@@ -81,8 +84,8 @@ describe 'editing datasets' do
       expect(page).to have_content("my published test file")
       click_link 'Add another link'
 
-      fill_in 'datafile[url]', with: 'http://localhost'
-      fill_in 'datafile[name]', with: 'my other test file'
+      fill_in 'link[url]', with: 'http://localhost'
+      fill_in 'link[name]', with: 'my other test file'
 
       click_button 'Save and continue'
 
@@ -94,7 +97,7 @@ describe 'editing datasets' do
       expect(page).to have_content("my published test file")
       click_link 'Edit'
 
-      fill_in 'datafile[name]', with: 'my published test file extreme edition'
+      fill_in 'link[name]', with: 'my published test file extreme edition'
 
       click_button 'Save and continue'
 
@@ -116,8 +119,8 @@ describe 'editing datasets' do
       expect(page).to have_content("my published test doc")
       click_link 'Add another link'
 
-      fill_in 'datafile[url]', with: 'http://localhost/doc'
-      fill_in 'datafile[name]', with: 'my other test doc'
+      fill_in 'doc[url]', with: 'http://localhost/doc'
+      fill_in 'doc[name]', with: 'my other test doc'
 
       click_button 'Save and continue'
 
@@ -129,7 +132,7 @@ describe 'editing datasets' do
       expect(page).to have_content("my published test doc")
       click_link 'Edit'
 
-      fill_in 'datafile[name]', with: 'my published test doc extreme edition'
+      fill_in 'doc[name]', with: 'my published test doc extreme edition'
 
       click_button 'Save and continue'
 

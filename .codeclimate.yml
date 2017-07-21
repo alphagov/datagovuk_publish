@@ -13,6 +13,14 @@ engines:
           mass_threshold: 20
         javascript:
           mass_threshold: 50
+  flog:
+    enabled: true
+  brakeman:
+    enabled: true
+  markdownlint:
+    enabled: true
+  bundler-audit:
+    enabled: true
       
 ratings:
   paths:
@@ -26,3 +34,4 @@ exclude_paths:
   - config/environments/*.rb
   - lib/tasks/*.rake
   - db/seeds.rb
+  - db/migrate/*.rb

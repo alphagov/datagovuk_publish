@@ -3,6 +3,7 @@ class DatasetsController < ApplicationController
 
   def show
     @dataset = current_dataset
+    @dataset.complete!
   end
 
   def new
@@ -38,6 +39,7 @@ class DatasetsController < ApplicationController
 
   def publish
     @dataset = current_dataset
+    @dataset.complete!
 
     if @dataset.publishable?
       @dataset.__elasticsearch__.index_document

@@ -1,6 +1,8 @@
 {
   "name": "publish_data_beta",
-  "scripts": {},
+  "scripts": {
+    "postdeploy": "rake db:migrate ; rake db:seed"
+  },
   "env": {
     "DEVISE_SECRET_KEY": {
       "required": true
