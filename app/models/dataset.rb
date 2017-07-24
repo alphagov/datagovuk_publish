@@ -1,4 +1,5 @@
 require 'elasticsearch/model'
+require 'securerandom'
 
 class Dataset < ApplicationRecord
   TITLE_FORMAT = /([a-z]){3}.*/i
@@ -13,6 +14,7 @@ class Dataset < ApplicationRecord
 
   after_initialize :set_initial_stage
   before_destroy :prevent_if_published
+  before_save :set_uuid
 
   belongs_to :organisation
   has_many :links
@@ -93,6 +95,12 @@ class Dataset < ApplicationRecord
       result = self.valid?
       self.published = false
       return result
+    end
+  end
+
+  def set_uuid
+    if self.uuid.blank?
+      self.uuid = SecureRandom.uuid
     end
   end
 

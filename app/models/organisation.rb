@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class Organisation < ApplicationRecord
   extend FriendlyId
   has_ancestry
@@ -9,6 +11,7 @@ class Organisation < ApplicationRecord
   friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
 
   before_destroy :deregister_users
+  before_save :set_uuid
 
   def active?
     active
@@ -19,6 +22,13 @@ class Organisation < ApplicationRecord
   end
 
   private
+
+  def set_uuid
+    if self.uuid.blank?
+      self.uuid = SecureRandom.uuid
+    end
+  end
+
   def deregister_users
     users.where(primary_organisation: self).each do |p|
       p.primary_organisation = nil
