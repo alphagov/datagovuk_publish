@@ -26,7 +26,7 @@ module MetadataTools
       d.licence_other = obj["license_id"]
     end
 
-    d.save!()
+    d.save!(validate: false)
 
     # Add the inspire metadata if we have determined this is a ULKP
     # dataset.
@@ -43,15 +43,18 @@ module MetadataTools
 
     d.published = true
     d.save!(validate: false)
-
   end
 
   def add_resource(resource, dataset)
-    if documentation?(resource['format'])
-      datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
-    else
-      datafile = Link.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
+    file_class = documentation?(resource['format']) ? Doc : Link
+
+    datafile = file_class.find_by(url: resource["url"], dataset_id: dataset.id)
+
+    if datafile.nil?
+      datafile = file_class.new(url: resource["url"], dataset_id: dataset.id)
+      datafile.save!(validate: false)
     end
+
     datafile.uuid = resource["id"]
     datafile.format = resource["format"]
     datafile.name = resource["description"]
@@ -65,7 +68,7 @@ module MetadataTools
       datafile.end_date   = dates[1]
     end
 
-    datafile.save!()
+    datafile.save!(validate: false)
   end
 
   def add_inspire_metadata(dataset_id, dataset)
