@@ -35,6 +35,11 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
+    allow_any_instance_of(UrlValidator).to receive(:validDomain?).and_return(true)
+    allow_any_instance_of(UrlValidator).to receive(:validPath?).and_return(true)
+  end
+
+  config.before(:each) do
     DatabaseCleaner.strategy = :transaction
   end
 
