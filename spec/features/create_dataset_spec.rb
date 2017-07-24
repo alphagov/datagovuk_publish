@@ -507,7 +507,7 @@ describe "passing the frequency page" do
     expect(page).to have_content("Add a link to your data")
     expect(page).to_not have_content("Year")
     click_button "Save and continue"
-    expect(page).to have_content("Please enter a valid URL", count: 2)
+    expect(page).to have_content("Please enter a valid url", count: 2)
     expect(page).to have_content("Please enter a valid name", count: 2)
     fill_in "link[url]", with: "http://www.example.com/test.csv"
     fill_in "link[name]", with: "Test datafile"
