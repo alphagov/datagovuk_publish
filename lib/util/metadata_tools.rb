@@ -7,9 +7,6 @@ module MetadataTools
     d.summary = generate_summary(obj["notes"])
     d.description = obj["notes"]
     d.organisation_id = orgs_cache[obj["owner_org"]]
-    d.licence = obj["license_id"]
-    d.licence = 'no-licence' if d.licence == ""
-    d.licence_other = ""
     #d.frequency = convert_frequency(obj["update_frequency"])
     d.frequency = "never"
     d.published = false
@@ -22,6 +19,13 @@ module MetadataTools
     d.location2 = ""
     d.location3 = ""
     d.legacy_metadata = ""
+    d.licence = obj["license_id"]
+    d.licence = 'no-licence' if d.licence == ""
+    if !d.licence == "uk-ogl"
+      d.licence = "other"
+      d.licence_other = obj["license_id"]
+    end
+
     d.save!()
 
     # Add the inspire metadata if we have determined this is a ULKP
@@ -38,12 +42,12 @@ module MetadataTools
     end
 
     d.published = true
-    d.save!()
+    d.save!(validate: false)
 
   end
 
   def add_resource(resource, dataset)
-    if get_doc_type(resource['format'])
+    if documentation?(resource['format'])
       datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
     else
       datafile = Link.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
@@ -51,7 +55,7 @@ module MetadataTools
     datafile.uuid = resource["id"]
     datafile.format = resource["format"]
     datafile.name = resource["description"]
-    datafile.name = "No name specified" if datafile.name == ""
+    datafile.name = "No name specified" if datafile.name.strip() == ""
     datafile.created_at = dataset.created_at
     datafile.updated_at = dataset.updated_at
 
@@ -124,7 +128,7 @@ module MetadataTools
   end
 
   # Determine whether datafile is documentation or not
-  def get_doc_type(fmt)
+  def documentation?(fmt)
     ['pdf', 'doc', 'docx'].include? fmt.downcase
   end
 
@@ -182,6 +186,6 @@ module MetadataTools
 
   module_function :add_dataset_metadata, :generate_summary, :convert_frequency, :add_inspire_metadata,
     :dataset_type, :get_extra, :harvested?, :calculate_dates_for_month, :calculate_dates_for_year,
-    :get_doc_type, :get_start_end_date, :add_resource
+    :documentation?, :get_start_end_date, :add_resource
 end
 

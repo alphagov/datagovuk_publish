@@ -2,33 +2,40 @@ require 'elasticsearch/model'
 
 class Dataset < ApplicationRecord
   TITLE_FORMAT = /([a-z]){3}.*/i
+  STAGES = %w(initialised completed)
+
   include Elasticsearch::Model
   extend FriendlyId
-  before_destroy :prevent_if_published
 
+  friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
   index_name    "datasets-#{Rails.env}"
   document_type "dataset"
 
-  belongs_to :organisation
+  after_initialize :set_initial_stage
+  before_destroy :prevent_if_published
 
+  belongs_to :organisation
   has_many :links
   has_many :docs
   has_one :inspire_dataset
 
-
-  friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
-
-  validates :frequency, inclusion: {in: %w(daily weekly monthly quarterly annually financial-year never)},
+  validates :frequency, inclusion: { in: %w(daily weekly monthly quarterly annually financial-year never) },
                         allow_nil: true # To allow creation before setting this value
   validates :title, presence: true, format: { with: TITLE_FORMAT }
   validates :summary, presence: true
   validates :frequency, presence: true, if: lambda { published }
   validates :licence, presence: true, if: lambda{ published }
   validates :licence_other, presence: true, if: lambda { licence == 'other' }
+  validates :stage, inclusion: { in: STAGES }
   validate :published_dataset_must_have_datafiles_validation
 
   def datafiles
     links + docs
+  end
+
+  def publish
+    # Ask sidekiq to publish this dataset to elastic
+    PublishingWorker.perform_async(self.id)
   end
 
   # What we actually want to index in Elastic, rather than the whole
@@ -141,4 +148,21 @@ class Dataset < ApplicationRecord
     never?
   end
 
+  def initialised?
+    self.stage == 'initialised'
+  end
+
+  def completed?
+    self.stage == 'completed'
+  end
+
+  def complete!
+    self.stage = 'completed'
+    self.save!
+  end
+
+  private
+  def set_initial_stage
+    self.stage ||= 'initialised'
+  end
 end

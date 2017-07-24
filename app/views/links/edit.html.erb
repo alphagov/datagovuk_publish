@@ -3,15 +3,15 @@
 <% end %>
 
 <div class="datasets">
-  <% if @datafile.errors.any? %>
+  <% if @link.errors.any? %>
     <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
       <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
         There was a problem
       </h1>
       <ul class="error-summary-list">
-        <% @datafile.errors.each do |attr, message| %>
+        <% @link.errors.each do |attr, message| %>
           <li>
-            <a href="#id_<%= attr.to_s %>">
+            <a href="#<%= attr.to_s %>_form_group">
               <%= message %>
             </a>
             <span class="visuallyhidden">.</span>
@@ -22,22 +22,22 @@
   <% end %>
   <h1 class="heading-large">Add a link to your data</h1>
 
-  <%= form_for @datafile, as: :datafile, url: file_path(@dataset, file: @datafile), method: :put do |f| %>
-    <%= dataset_field f, @datafile,
+  <%= form_for @link, url: link_path(@dataset, file: @link), method: :put do |f| %>
+    <%= dataset_field f, @link,
     name: 'url',
     label: 'URL',
     input_type: :text_field,
     input_class: 'form-control-2-3',
     hint: 'Enter a link (beginning with http:// or https://) to point directly to your data file. The file will usually be uploaded to either your organisation’s website or another website, like GOV.UK or Amazon Web Services (AWS).',
-    value: @datafile.url %>
+    value: @link.url %>
 
-    <%= dataset_field f, @datafile,
+    <%= dataset_field f, @link,
     name: 'name',
     label: 'Link name',
     input_type: :text_field,
     input_class: 'form-control-2-3',
     hint: 'The link name mustn’t be the same as the URL. It should clearly describe the data so users can find it easily.',
-    value: @datafile.name %>
+    value: @link.name %>
 
     <% if @dataset.weekly? %>
       <%= render 'date_field', period: 'start' %>

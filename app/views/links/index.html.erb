@@ -1,0 +1,62 @@
+
+<% content_for :page_title do %>
+    Links to your data -
+<% end %>
+
+<main role="main" id="content">
+  <% if flash.any? %>
+  <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+    <div id="confirm-delete-box">
+      <% if flash[:alert] %>
+        <h1 class="heading-medium error-summary-heading"><%= flash[:alert] %></h1>
+          <%= link_to "Yes, delete this link",
+              link_path(file_id: params[:file_id]),
+              method: :delete,
+              class: 'button confirm-delete-box__button'
+          %>
+          <%= link_to "Cancel", links_path(@dataset), class: 'secondary-button' %>
+        <% end %>
+        <% if flash[:deleted] %>
+          <h1 class="heading-medium error-summary-heading"><%= flash[:deleted] %></h1>
+        <% end %>
+    </div>
+  </div>
+  <% end %>
+
+  <h1 class="heading-large">Links to your data</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Link name</th>
+        <th>Valid</th>
+        <th><span class="visuallyhidden">Actions</span></th>
+      </tr>
+    </thead>
+  <tbody>
+    <% @links.each do |link| %>
+      <tr id="file_1">
+        <th><a href="<%= link.url %>"><%= link.name %></a></th>
+        <td>✔</td>
+        <td class="actions">
+          <%= link_to 'Edit', edit_link_path(@dataset, link.id) %>
+          <%= link_to 'Delete', confirm_delete_link_path(@dataset, link.id) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+  </table>
+
+  <p>
+    <%= link_to 'Add another link', new_link_path(@dataset, new: true), class: "secondary-button" %>
+  </p>
+
+  <p>
+    <% if @dataset.initialised? %>
+      <%= link_to 'Save and continue', new_doc_path(@dataset), class: "button" %>
+    <% else %>
+      <%= link_to 'Save and continue', dataset_path(@dataset), class: "button" %>
+    <% end %>
+  </p>
+
+</main>

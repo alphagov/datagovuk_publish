@@ -8,20 +8,20 @@
     </legend>
 
     <div class="form-date">
-      <div class="form-group form-group-month<% if @datafile.errors[:start_month].present? %> form-group-error<% end %>">
+      <div class="form-group form-group-month<% if @link.errors[:start_month].present? %> form-group-error<% end %>">
         <label for="start_month">Month</label>
-        <% if @datafile.errors[:start_month].present? %>
+        <% if @link.errors[:start_month].present? %>
           <span class="error-message">Please enter a valid month</span>
         <% end %>
-        <%= text_field_tag "datafile[start_month]", @datafile.start_month, id: "start_month", class: "form-control" %>
+        <%= text_field_tag "link[start_month]", @link.start_month, id: "start_month", class: "form-control" %>
       </div>
 
-      <div class="form-group form-group-year<% if @datafile.errors[:start_year].present? %> form-group-error<% end %>">
+      <div class="form-group form-group-year<% if @link.errors[:start_year].present? %> form-group-error<% end %>">
         <label for="start_year">Year</label>
-        <% if @datafile.errors[:start_year].present? %>
+        <% if @link.errors[:start_year].present? %>
           <span class="error-message">Please enter a valid year</span>
         <% end %>
-        <%= text_field_tag "datafile[start_year]", @datafile.start_year, id: "start_year", class: "form-control" %>
+        <%= text_field_tag "link[start_year]", @link.start_year, id: "start_year", class: "form-control" %>
       </div>
     </div>
   </fieldset>
