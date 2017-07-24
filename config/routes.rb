@@ -36,8 +36,10 @@ Rails.application.routes.draw do
 
       post 'publish',       to: 'datasets#publish'
       get 'confirm_delete', to: 'datasets#confirm_delete'
+      get 'quality',        to: 'datasets#quality'
     end
   end
+
 
   get 'manage', to: 'manage#manage_own'
   get 'manage/organisation', to: 'manage#manage_organisation'
