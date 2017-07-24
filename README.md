@@ -36,6 +36,10 @@ $ rails s
 ```
 $ rake db:seed
 ```
+## Running tests
+```
+rails spec
+```
 
 ## Fake user accounts
 To log in as a fake user, use the credentials in 'seeds.rb' in the 'db' folder. 
