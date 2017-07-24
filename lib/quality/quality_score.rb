@@ -42,11 +42,11 @@ class QualityScore
 
     # Are there any links at all?
     current = if links.size() == 0
-      @reasons << "There are no data links in this dataset"
-      10
-    else
-      0
-    end
+                @reasons << "There are no data links in this dataset"
+                10
+              else
+                0
+              end
 
     # Are any links broken?
     broken = links.select {|link| link.broken }
