@@ -37,6 +37,14 @@ namespace :import do
       o.category = obj["category"]
       o.uuid = obj["id"]
 
+      if ["ministerial-department", "non-ministerial-department"].include? obj["category"]
+        o.org_type = "central-government"
+      elsif obj["category"] == "local-council"
+        o.org_type = "local-authority"
+      else
+        o.org_type = "other-government-body"
+      end
+
       groups = obj["groups"] || []
       if groups.size != 0
         parent = groups[0]["name"]
