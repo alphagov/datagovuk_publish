@@ -37,7 +37,10 @@ namespace :import do
       o.category = obj["category"]
       o.uuid = obj["id"]
 
-      if ["ministerial-department", "non-ministerial-department"].include? obj["category"]
+      if ["ministerial-department", "non-ministerial-department",
+          "devolved", "executive-ndpb", "advisory-ndpb",
+          "tribunal-ndpb", "executive-agency",
+          "executive-office", "gov-corporation"].include? obj["category"]
         o.org_type = "central-government"
       elsif obj["category"] == "local-council"
         o.org_type = "local-authority"
