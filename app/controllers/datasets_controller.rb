@@ -81,6 +81,17 @@ class DatasetsController < ApplicationController
 
   end
 
+  def quality
+    # A temporary page to show why some datasets are low quality
+    @dataset = current_dataset
+
+    require 'quality/quality_score'
+    q = QualityScore.new(current_dataset)
+
+    @score = q.score
+    @reasons = q.reasons
+  end
+
   private
   def current_dataset
     Dataset.find_by(:name => params.require(:id))

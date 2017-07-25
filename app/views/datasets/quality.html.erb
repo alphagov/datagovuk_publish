@@ -1,0 +1,29 @@
+<% content_for :page_title do %>
+    Dataset quality -
+<% end %>
+
+<div class="grid-row">
+    <h1 class="heading-large">
+        Metadata quality for '<%= @dataset.title %>'
+    </h1>
+
+    <div class="data">
+        <span class="data-item bold-xlarge"><%= @score %>/100</span>
+    </div>
+
+    <% if @score != 100 %>
+      <h1 class="heading-medium">
+        Reasons
+      </h1>
+
+      <ul class="list list-bullet">
+        <% @reasons.each do |reason| %>
+          <li>
+            <%= reason %>
+          </li>
+        <% end %>
+      </ul>
+
+    <% end %>
+
+</div>
