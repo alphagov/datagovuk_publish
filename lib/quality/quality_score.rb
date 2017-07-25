@@ -29,7 +29,7 @@ class QualityScore
   end
 
   def documentation_score
-    if @dataset.docs.count() == 0
+    if @dataset.docs.count == 0
       @reasons << "There is no documentation for this data"
       5
     else
@@ -38,10 +38,10 @@ class QualityScore
   end
 
   def resource_score
-    links = @dataset.links.all()
+    links = @dataset.links.all
 
     # Are there any links at all?
-    current = if links.size() == 0
+    current = if links.size == 0
                 @reasons << "There are no data links in this dataset"
                 10
               else
@@ -50,7 +50,7 @@ class QualityScore
 
     # Are any links broken?
     broken = links.select {|link| link.broken }
-    if broken.size() > 0
+    if broken.size > 0
       @reasons << "There are broken links in this dataset"
       current += 10
     end
@@ -59,7 +59,7 @@ class QualityScore
   end
 
   def summary_score
-    if @dataset.summary.strip() == ""
+    if @dataset.summary.strip == ""
       @reasons << "This dataset has no summary"
       10
     else
