@@ -166,7 +166,7 @@ class Dataset < ApplicationRecord
 
   def complete!
     self.stage = 'completed'
-    self.save!
+    self.save!(validate: false)
   end
 
   private
