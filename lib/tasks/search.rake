@@ -6,7 +6,7 @@ namespace :search do
 
     puts "Indexing #{Dataset.where(published: true).count()} datasets"
 
-    Dataset.where(published: true).find_in_batches do |datasets|
+    Dataset.where(published: true).find_in_batches(batch_size: 100) do |datasets|
       puts " Batching #{datasets.length} datasets"
       bulk_index(datasets)
     end
