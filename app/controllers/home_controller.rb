@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
-  before_action :home_path_for_user
 
   def index
+    home_path_for_user
   end
 
   # FIX: Temporary controller, remove me when no longer required
