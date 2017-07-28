@@ -1,4 +1,4 @@
-class QualityScore
+class QualityScoreCalculator
   attr_reader :reasons
 
   def initialize(dataset)
@@ -11,7 +11,7 @@ class QualityScore
   def score
     value = 100
 
-    methods = QualityScore.instance_methods.grep(/.*_score/)
+    methods = QualityScoreCalculator.instance_methods.grep(/.*_score/)
     methods.each do | f |
       value -= self.send(f)
     end
@@ -22,7 +22,7 @@ class QualityScore
   def frequency_score
     if @dataset.frequency.blank?
       @reasons << "This dataset has no update frequency set"
-      10
+      20
     else
       0
     end
@@ -43,7 +43,7 @@ class QualityScore
     # Are there any links at all?
     current = if links.size == 0
                 @reasons << "There are no data links in this dataset"
-                10
+                20
               else
                 0
               end
@@ -52,7 +52,7 @@ class QualityScore
     broken = links.select {|link| link.broken }
     if broken.size > 0
       @reasons << "There are broken links in this dataset"
-      current += 10
+      current += 15
     end
 
     current
@@ -61,7 +61,7 @@ class QualityScore
   def summary_score
     if @dataset.summary.strip == ""
       @reasons << "This dataset has no summary"
-      10
+      15
     else
       0
     end
@@ -84,7 +84,7 @@ class QualityScore
     org = @dataset.organisation
     if org.contact_email.blank? && org.contact_phone.blank? && org.contact_name.blank?
       @reasons << "The organisation has no contact details"
-      10
+      15
     else
       0
     end
@@ -93,7 +93,7 @@ class QualityScore
   def licence_score
     if @dataset.licence.blank?
       @reasons << "This dataset has no licence"
-      10
+      15
     else
       0
     end

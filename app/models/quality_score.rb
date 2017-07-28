@@ -1,0 +1,2 @@
+class QualityScore < ApplicationRecord
+end
