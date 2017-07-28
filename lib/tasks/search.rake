@@ -6,7 +6,7 @@ namespace :search do
 
     puts "Indexing #{Dataset.where(published: true).count()} datasets"
 
-    Dataset.where(published: true).find_in_batches(batch_size: 100) do |datasets|
+    Dataset.where(published: true).find_in_batches(batch_size: 50) do |datasets|
       puts " Batching #{datasets.length} datasets"
       bulk_index(datasets)
     end
@@ -14,11 +14,15 @@ namespace :search do
   end
 
   def bulk_index(datasets)
-    Dataset.__elasticsearch__.client.bulk({
-      index: ::Dataset.__elasticsearch__.index_name,
-      type: ::Dataset.__elasticsearch__.document_type,
-      body: prepare_records(datasets)
-    })
+    begin
+      Dataset.__elasticsearch__.client.bulk({
+        index: ::Dataset.__elasticsearch__.index_name,
+        type: ::Dataset.__elasticsearch__.document_type,
+        body: prepare_records(datasets)
+      })
+    rescue
+      puts "This batch of datasets was too large"
+    end
   end
 
   def prepare_records(datasets)
