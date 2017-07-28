@@ -1,0 +1,21 @@
+<!-- Temporary template, remove when no longer necessary -->
+
+<% content_for :page_title do %>
+    Organisation quality -
+<% end %>
+
+<div class="grid-row">
+    <h1 class="heading-large">
+        Metadata quality for '<%= @organisation.title %>'
+    </h1>
+
+    <p><%= @organisation.title %> has <%= @total %> datasets</p>
+
+    <ul class="list list-bullet">
+        <li>The highest score is <%= @highest %> out of 100</li>
+        <li>The lowest score is <%= @lowest %>  out of 100</li>
+        <li>The average score is <%= @average %>  out of 100</li>
+        <li>The median score is <%= @median %>  out of 100</li>
+    </ul>
+
+</div>
