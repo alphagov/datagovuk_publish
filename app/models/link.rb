@@ -4,6 +4,8 @@ class Link < Datafile
   attr_accessor :start_day, :start_month, :start_year,
     :end_day, :end_month, :end_year
 
+  has_one :preview
+
   before_save :set_dates
 
   validates :quarter, presence: true,

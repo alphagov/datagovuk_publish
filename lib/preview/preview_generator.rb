@@ -1,0 +1,93 @@
+require 'csv'
+require 'open-uri'
+require 'tempfile'
+
+class PreviewGenerator
+
+  def initialize(link)
+    @link = link
+  end
+
+  def generate
+    payload = {}
+    payload[:type] = @link.format
+
+    if @link.format == "CSV"
+      payload[:body] = CSVPreviewGenerator.create @link
+    end
+
+    preview = Preview.new(link: @link, content: payload)
+    preview.save!
+  end
+
+end
+
+class CSVPreviewGenerator
+
+  def self.create(link)
+    puts "\n#{link.url}"
+
+    begin
+      csv_text = open(link.url)
+    rescue Exception => e
+      puts e.message
+      return []
+    end
+
+    # Write it to a file so that we can check what
+    # the OS thinks the file is
+    file = Tempfile.new(["preview", ".csv"])
+    file.binmode
+    begin
+      csv_text.each do |s|
+        file.write(s)
+      end
+    ensure
+      file.close
+    end
+
+    local = get_magic_encoding(file.path)
+
+    # Delete the temporary file
+    file.unlink
+
+    count = 0
+    rows = []
+
+    begin
+      c = CSV.new(local, headers: true)
+      c.each do |row|
+        count += 1
+        rows << row.to_hash.values
+        break if count == 6
+      end
+    rescue StandardError => e
+      puts e.message
+      puts "\n#{link.url} is not a CSV so empty preview generated"
+    end
+
+    rows
+  end
+
+end
+
+def get_magic_encoding(filename)
+  encoding = `file -b --mime-encoding #{filename}`.strip
+  return "" if encoding == "binary"
+
+  if ["UTF-8", "US-ASCII", "ASCII-8BIT"].include? encoding.upcase
+    File.read(filename)
+  else
+    convert(encoding, "utf-8", filename)
+  end
+end
+
+def convert(source, target, data)
+  begin
+    Iconv.conv(target, source, IO.binread(data))
+  rescue
+    ""
+  end
+end
+
+
