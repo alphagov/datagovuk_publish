@@ -83,7 +83,6 @@ namespace :import do
     json_from_lines(args.filename) do |obj|
       counter += 1
       print "Completed #{counter}\r"
-
       MetadataTools.add_dataset_metadata(obj, orgs_cache)
     end
   end
