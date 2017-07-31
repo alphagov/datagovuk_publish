@@ -7,7 +7,8 @@ module MetadataTools
     d.summary = generate_summary(obj["notes"])
     d.description = obj["notes"]
     d.organisation_id = orgs_cache[obj["owner_org"]]
-    d.frequency = convert_frequency(obj)
+    #d.frequency = convert_frequency(obj["update_frequency"])
+    d.frequency = "never"
     d.published = false
     d.published_date = obj["metadata_created"]
     d.created_at = obj["metadata_created"]
@@ -48,6 +49,7 @@ module MetadataTools
     file_class = documentation?(resource['format']) ? Doc : Link
 
     datafile = file_class.find_by(url: resource["url"], dataset_id: dataset.id)
+
     if datafile.nil?
       datafile = file_class.new(url: resource["url"], dataset_id: dataset.id)
       datafile.save!(validate: false)
@@ -99,7 +101,6 @@ module MetadataTools
     inspire.spatial = get_extra(extras, 'spatial')
     inspire.spatial_data_service_type = get_extra(extras, 'spatial-data-service-type')
     inspire.spatial_reference_system = get_extra(extras, 'spatial-reference-system')
-    inspire.guid = get_extra(extras, 'guid')
     inspire
   end
 
@@ -111,29 +112,14 @@ module MetadataTools
   end
 
   # Converts a legacy frequency into a new-style frequency
-  def convert_frequency(dataset)
-    freq = dataset["update_frequency"]
+  def convert_frequency(freq)
     return 'never' if !freq
 
-    new_frequency = {
+    {
       "annual"=> "annually",
       "quarterly"=> "quarterly",
       "monthly"=> "monthly"
     }[freq] || "never"
-
-    if new_frequency != "never"
-      # Make sure all data resources have dates... if any don't we will
-      # set frequency to never
-      r = dataset["resources"].select { |res|
-        !documentation?(res["format"]) && res.fetch("date","").blank?
-      }
-
-      if r.size > 0
-        new_frequency = "never"
-      end
-    end
-
-    new_frequency
   end
 
   # Determine the type of dataset based on the presence of
