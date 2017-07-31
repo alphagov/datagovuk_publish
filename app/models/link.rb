@@ -28,6 +28,11 @@ class Link < Datafile
   private
   def set_dates
     return if self.documentation
+
+    if self.start_year.blank?
+      return
+    end
+
     set_weekly_dates           if dataset.weekly?
     set_monthly_dates          if dataset.monthly?
     set_quarterly_dates        if dataset.quarterly?
@@ -64,7 +69,6 @@ class Link < Datafile
     if self.dataset.monthly?
       self.start_day = 1
     end
-
     Date.new(self.start_year.to_i,
              self.start_month.to_i,
              self.start_day.to_i)
