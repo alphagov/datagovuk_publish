@@ -62,10 +62,18 @@ module MetadataTools
     datafile.created_at = dataset.created_at
     datafile.updated_at = dataset.updated_at
 
-    if resource["date"]
+    if !resource["date"].blank? && !documentation?(resource['format'])
       dates = get_start_end_date(resource["date"])
-      datafile.start_date = dates[0]
-      datafile.end_date   = dates[1]
+
+      sd = dates[0].split("/")
+      datafile.start_day   = sd[0]
+      datafile.start_month = sd[1]
+      datafile.start_year  = sd[2]
+
+      ed = dates[1].split("/")
+      datafile.end_day   = ed[0]
+      datafile.end_month = ed[1]
+      datafile.end_year  = ed[2]
     end
 
     datafile.save!(validate: false)
