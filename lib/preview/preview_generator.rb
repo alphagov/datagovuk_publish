@@ -38,7 +38,6 @@ class CSVPreviewGenerator
     content = get_magic_encoding(file.path)
     file.unlink
 
-    count = 0
     CSVPreviewGenerator.get_rows(content, link.url)
   end
 
