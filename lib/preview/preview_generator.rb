@@ -39,7 +39,13 @@ class CSVPreviewGenerator
     file.unlink
 
     count = 0
+    CSVPreviewGenerator.get_rows(content, link.url)
+  end
+
+
+  def self.get_rows(content, from_url)
     rows = []
+    count = 0
 
     begin
       c = CSV.new(content, headers: true)
@@ -50,7 +56,7 @@ class CSVPreviewGenerator
       end
     rescue StandardError => e
       puts e.message
-      puts "\n#{link.url} is not a CSV so empty preview generated"
+      puts "\n#{from_url} is not a CSV so empty preview generated"
     end
 
     rows
