@@ -29,33 +29,20 @@ class CSVPreviewGenerator
 
     begin
       csv_text = open(link.url)
-    rescue Exception => e
+    rescue StandardError => e
       puts e.message
       return []
     end
 
-    # Write it to a file so that we can check what
-    # the OS thinks the file is
-    file = Tempfile.new(["preview", ".csv"])
-    file.binmode
-    begin
-      csv_text.each do |s|
-        file.write(s)
-      end
-    ensure
-      file.close
-    end
-
-    local = get_magic_encoding(file.path)
-
-    # Delete the temporary file
+    file = CSVPreviewGenerator.write_temp_file(csv_text)
+    content = get_magic_encoding(file.path)
     file.unlink
 
     count = 0
     rows = []
 
     begin
-      c = CSV.new(local, headers: true)
+      c = CSV.new(content, headers: true)
       c.each do |row|
         count += 1
         rows << row.to_hash.values
@@ -69,7 +56,21 @@ class CSVPreviewGenerator
     rows
   end
 
+  def self.write_temp_file(data)
+    file = Tempfile.new(["preview", ".csv"])
+    file.binmode
+    begin
+      data.each do |s|
+        file.write(s)
+      end
+    ensure
+      file.close
+    end
+    file
+  end
+
 end
+
 
 def get_magic_encoding(filename)
   encoding = `file -b --mime-encoding #{filename}`.strip
