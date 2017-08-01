@@ -30,7 +30,6 @@ class Link < Datafile
   private
   def set_dates
     return if self.documentation
-    return if self.start_date.blank?
 
     set_weekly_dates           if dataset.weekly?
     set_monthly_dates          if dataset.monthly?
