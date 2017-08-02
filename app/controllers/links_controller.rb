@@ -1,5 +1,6 @@
 class LinksController < ApplicationController
   before_action :set_current_dataset
+  skip_before_action :set_current_dataset, only: [:preview]
 
   def new
     @link = Link.new
@@ -58,6 +59,12 @@ class LinksController < ApplicationController
     @links = @dataset.links
   end
 
+  def preview
+    link = Link.find(params.require(:file_id))
+    render json: link.preview || {}
+  end
+
+
   private
   def set_current_dataset
     @dataset = current_dataset
@@ -70,4 +77,5 @@ class LinksController < ApplicationController
   def current_link
     Link.find(params.require(:file_id))
   end
+
 end
