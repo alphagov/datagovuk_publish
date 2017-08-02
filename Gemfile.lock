@@ -245,6 +245,7 @@ GEM
     public_suffix (2.0.5)
     puma (3.9.1)
     rack (2.0.3)
+    rack-cors (1.0.1)
     rack-protection (2.0.0)
       rack
     rack-test (0.6.3)
@@ -421,6 +422,7 @@ DEPENDENCIES
   pry-byebug (~> 3.4)
   pry-stack_explorer (~> 0.4.9)
   puma (~> 3.7)
+  rack-cors
   rails (~> 5.1.1)
   rest-client (~> 2.0.2)
   rspec (~> 3.6)
@@ -437,4 +439,4 @@ DEPENDENCIES
   whois-parser
 
 BUNDLED WITH
-   1.15.2
+   1.15.3
