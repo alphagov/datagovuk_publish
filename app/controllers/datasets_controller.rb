@@ -85,8 +85,8 @@ class DatasetsController < ApplicationController
     # A temporary page to show why some datasets are low quality
     @dataset = current_dataset
 
-    require 'quality/quality_score'
-    q = QualityScore.new(current_dataset)
+    require 'quality/quality_score_calculator'
+    q = QualityScoreCalculator.new(current_dataset)
 
     @score = q.score
     @reasons = q.reasons
