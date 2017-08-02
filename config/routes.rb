@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   get 'manage/organisation', to: 'manage#manage_organisation'
 
   get 'api/locations', to: 'locations#lookup'
+  get 'api/organisations', to: 'organisations#lookup'
 
   get 'account/:id', to: 'account#show', as: 'account_show'
 end
