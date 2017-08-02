@@ -8,7 +8,7 @@ namespace :quality do
     q = QualityScoreCalculator.new(dataset)
   end
 
-  desc "Calculate scores for an organisation"
+  desc "Calculate scores for an organisation, argument is an organisation short-name e.g. cabinet-office"
   task :calculate, [:organisation] => :environment do |_, args|
     organisation = Organisation.find_by(name: args.organisation)
     calculate_organisation_score(organisation)
