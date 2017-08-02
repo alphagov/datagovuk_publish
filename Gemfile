@@ -27,6 +27,7 @@ gem "govuk-lint", "~> 2.1.0"
 gem 'whois-parser'
 gem "sidekiq", "~> 5.0.4"
 gem 'rack-cors', :require => 'rack/cors'
+gem 'iconv', "~> 1.0.4"
 
 group :development, :test do
   gem 'byebug', '~> 9'

@@ -40,11 +40,14 @@ Rails.application.routes.draw do
     end
   end
 
+  # FIX: Temporary route, remove me when no longer required
+  get 'quality', to: 'home#quality'
 
   get 'manage', to: 'manage#manage_own'
   get 'manage/organisation', to: 'manage#manage_organisation'
 
   get 'api/locations', to: 'locations#lookup'
+  get 'api/organisations', to: 'organisations#lookup'
 
   get 'account/:id', to: 'account#show', as: 'account_show'
 end
