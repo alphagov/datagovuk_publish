@@ -33,5 +33,14 @@ module PublishDataBeta
       html_tag
     }
 
+    # TODO: replace the origins wildcard to accept requets from find only?
+    # https://github.com/cyu/rack-cors#origin
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get]
+      end
+    end
+
   end
 end
