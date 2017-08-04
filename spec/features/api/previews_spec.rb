@@ -31,7 +31,6 @@ describe "Previews API" do
     @prev.link = @link
     @prev.content = {type: "csv", body: '[["test"]]'}
     @prev.save!()
-
   end
 
   it 'sends a preview' do
