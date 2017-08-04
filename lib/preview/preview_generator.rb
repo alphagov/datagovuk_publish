@@ -11,6 +11,7 @@ class PreviewGenerator
   def generate
     payload = {}
     payload[:type] = @link.format
+    payload[:size] = @link.size
 
     if @link.format == "CSV"
       payload[:body] = CSVPreviewGenerator.create @link
