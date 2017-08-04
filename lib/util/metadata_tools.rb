@@ -1,6 +1,6 @@
 module MetadataTools
 
-  def add_dataset_metadata(obj, orgs_cache)
+  def add_dataset_metadata(obj, orgs_cache, theme_cache)
     d = Dataset.find_or_create_by(uuid: obj["id"])
     d.name = obj["name"]
     d.title = obj["title"]
@@ -24,7 +24,8 @@ module MetadataTools
       d.licence = "other"
       d.licence_other = obj["license_id"]
     end
-
+    old_theme  = obj["theme-primary"]
+    d.theme_id = theme_cache.fetch(old_theme, nil)
     d.save!(validate: false)
 
     # Add the inspire metadata if we have determined this is a ULKP

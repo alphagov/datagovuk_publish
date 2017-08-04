@@ -9,6 +9,27 @@
 
 require 'csv'
 
+# Add default themes.  This is required before you can import the legacy metadata
+# so that we don't lose data in the migration
+
+Theme.create(
+  [
+    {name: "business-and-economy", title: "Business and economy"},
+    {name: "environment", title: "Environment"},
+    {name: "mapping", title: "Mapping"},
+    {name: "crime-and-justice", title: "Crime and justice"},
+    {name: "government", title: "Government"},
+    {name: "society", title: "Society"},
+    {name: "defence", title: "Defence"},
+    {name: "government-spending", title: "Government spending"},
+    {name: "towns-and-cities", title: "Towns and cities"},
+    {name: "education", title: "Education"},
+    {name: "health", title: "Health"},
+    {name: "transport", title: "Transport"},
+  ]
+)
+
+
 # We can create land-registry now, and if we import organisations
 # then they will just update it.
 land_registry = Organisation.new
@@ -46,58 +67,6 @@ User.create!(
   password_confirmation: 'password',
   primary_organisation: hmrc
 )
-
-# Fix task
-Task.create!(
-  organisation: land_registry,
-  description: 'fix this task'
-)
-
-# Update Task
-Task.create!(
-  organisation: land_registry,
-  description: 'update this task'
-)
-
-# Price paid dataset
-Dataset.create!(
-  name: 'price_paid_data',
-  title: 'Price Paid data for all London Boroughs',
-  summary: 'Price Paid Data tracks the residential property sales in England and Wales that are lodged with HM Land Registry for registration. ',
-  organisation: land_registry
-)
-
-# HMRC Spending dataset
-Dataset.create!(
-  name: 'hmrc_spending',
-  title: 'HMRC spending over £25000',
-  summary: 'Monthly details of HMRC’s spending with suppliers covering transactions over £25,000',
-  organisation: land_registry
-)
-
-# Council tax bands
-Dataset.create!(
-  name: 'council_tax',
-  title: 'Council Tax bands for London',
-  summary: 'Council tax bands for the current year',
-  organisation: land_registry
-)
-
-(1..5).each do |i|
-  Dataset.create!(
-    name: "lr_dataset_#{i}_name",
-    title: "LR_Dataset_#{i} title",
-    summary: "LR_Dataset_#{i} summary",
-    organisation: land_registry
-  )
-
-  Dataset.create!(
-  name: "hmrc_dataset_#{i}_name",
-  title: "HMRC_Dataset_#{i} title",
-  summary: "HMRC_Dataset_#{i} summary",
-  organisation: hmrc
-  )
-end
 
 # Locations
 location_csv_text = File.read('lib/seeds/locations.csv')
