@@ -39,6 +39,7 @@ describe "Previews API" do
     json = JSON.parse(page.body)
     expect(page.status_code).to be 200
     expect(json["content"]["type"]).to eq("csv")
+    p json["content"]["size"]
   end
 
   it 'sends no preview if does not exist' do
