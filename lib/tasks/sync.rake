@@ -7,10 +7,11 @@ namespace :sync do
   task :daily => :environment do |_, args|
 
     orgs_cache =  Organisation.all.pluck(:uuid, :id).to_h
+    theme_cache = Theme.all.pluck(:title, :id).to_h
     count = 0
 
     get_packages "https://data.gov.uk" do |package|
-      MetadataTools.add_dataset_metadata(package, orgs_cache)
+      MetadataTools.add_dataset_metadata(package, orgs_cache, theme_cache)
       print "Imported #{count+=1} datasets...\r"
     end
 

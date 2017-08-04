@@ -78,13 +78,14 @@ namespace :import do
 
     # Maps the organisation UUIDs to the organisation IDs
     orgs_cache =  Organisation.all.pluck(:uuid, :id).to_h
+    theme_cache = Theme.all.pluck(:title, :id).to_h
     counter = 0
 
     json_from_lines(args.filename) do |obj|
       counter += 1
       print "Completed #{counter}\r"
 
-      MetadataTools.add_dataset_metadata(obj, orgs_cache)
+      MetadataTools.add_dataset_metadata(obj, orgs_cache, theme_cache)
     end
   end
 
