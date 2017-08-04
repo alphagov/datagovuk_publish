@@ -28,9 +28,9 @@ describe "Previews API" do
     @noprev.save!()
 
     @prev = Preview.new
-    @prev.link = @link
+    @prev.datafile_id = @link.id
     @prev.content = {type: "csv", body: '[["test"]]'}
-    @prev.save()
+    @prev.save!()
 
   end
 
