@@ -3,4 +3,3 @@ class AddThemeFieldToDataset < ActiveRecord::Migration[5.1]
     add_column :datasets, :theme_id, :integer
   end
 end
-
