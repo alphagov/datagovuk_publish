@@ -52,5 +52,4 @@ describe "Previews API" do
     expect(page.status_code).to be 404
   end
 
-
 end
