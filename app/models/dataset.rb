@@ -18,6 +18,8 @@ class Dataset < ApplicationRecord
 
   belongs_to :organisation
   belongs_to :theme, optional: true
+  belongs_to :secondary_theme, optional: true
+
   has_many :links
   has_many :docs
   has_one :inspire_dataset
