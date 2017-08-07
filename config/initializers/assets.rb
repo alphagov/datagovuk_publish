@@ -20,5 +20,4 @@ Rails.application.config.assets.precompile += %w(
   application.js
   add_to_homescreen.js
   add_to_homescreen.css
-  *.png *.jpg *.jpeg *.gif
 )
