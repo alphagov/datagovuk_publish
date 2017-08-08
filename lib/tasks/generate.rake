@@ -3,7 +3,6 @@ require 'csv'
 require 'util/metadata_tools'
 
 namespace :generate do
-
   desc "Generate a data.json file"
   task :datajson, [:filename] => :environment do |_, args|
 
@@ -19,6 +18,17 @@ namespace :generate do
     File.rename "data.json", "public/data.json"
   end
 
+  desc "Generate previews for files that don't have them"
+  task previews: :environment do
+    Link.all.each do |f|
+      puts f.preview
+    end
+  end
+
+  desc "Drop all previews"
+  task purge_previews: :environment do
+    Preview.destroy_all
+  end
 end
 
 # Generates a string to write to the output file. After the first
@@ -34,7 +44,6 @@ def generate_string()
       "describedBy": "https://project-open-data.cio.gov/v1.1/schema/catalog.json",
       "dataset"    : ['
 
-    first = true
     count = 0
 
     Dataset.where(published: true).all.each do |dataset|
