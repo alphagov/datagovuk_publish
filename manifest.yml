@@ -1,0 +1,5 @@
+---
+applications:
+- name: publish-data-beta
+  memory: 512M
+  buildpack: ruby_buildpack

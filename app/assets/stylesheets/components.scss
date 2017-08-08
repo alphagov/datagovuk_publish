@@ -230,18 +230,18 @@ a.danger, a.danger:visited {
     @include bold-24;
     color: $alpine-fresh!important;
     background-color: $page-colour!important;
-    background-image: file-url("icon-pointer-green.png");
+    background-image: url(asset-path("icon-pointer-green.png"));
     background-repeat: no-repeat;
     background-position: 95% 50%;
     padding: em(5) em(41) em(6) em(16);
 
     @include device-pixel-ratio {
-      background-image: file-url("icon-pointer-green-2x.png");
+      background-image: url(asset-path("icon-pointer-green-2x.png"));
       background-size: 30px 19px;
     }
 
     @include ie(6) {
-      background-image: file-url("icon-pointer-green-2x.png");
+      background-image: url(asset-path("icon-pointer-green-2x.png"));
     }
   }
 
