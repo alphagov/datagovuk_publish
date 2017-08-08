@@ -34,7 +34,7 @@ module MetadataTools
     # dataset.
     if d.dataset_type == 'inspire'
       inspire = add_inspire_metadata(d.id, obj)
-      inspire.save!()
+      inspire.save!(validate: false)
     end
 
     # Iterate over the resources list and add a new datafile for each

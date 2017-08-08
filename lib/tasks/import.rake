@@ -54,7 +54,7 @@ namespace :import do
         relationships[o.name] = parent
       end
 
-      o.save()
+      o.save(validate: false)
 
       print "Imported #{count} organisations...\r"
       count += 1
@@ -66,7 +66,7 @@ namespace :import do
     relationships.each do |child, parent|
       o = Organisation.find_by(name: child)
       o.parent = Organisation.find_by(name: parent)
-      o.save!()
+      o.save!(validate: false)
       print "Assigned #{count+=1} organisations...\r"
     end
 
@@ -75,6 +75,7 @@ namespace :import do
 
   desc "Import datasets from a data.gov.uk dump"
   task :datasets, [:filename] => :environment do |_, args|
+    Link.skip_callback(:save, :before, :set_dates)
 
     # Maps the organisation UUIDs to the organisation IDs
     orgs_cache =  Organisation.all.pluck(:uuid, :id).to_h
