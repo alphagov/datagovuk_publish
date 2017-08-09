@@ -1,4 +1,5 @@
 require 'validators/date_validator'
+require 'preview/preview_generator'
 
 class Link < Datafile
   attr_accessor :start_day, :start_month, :start_year,
@@ -25,6 +26,11 @@ class Link < Datafile
         year: end_year
       }
     }.with_indifferent_access
+  end
+
+  def generate_preview
+    pg = PreviewGenerator.new(self)
+    pg.generate
   end
 
   private

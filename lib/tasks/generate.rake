@@ -20,8 +20,8 @@ namespace :generate do
 
   desc "Generate previews for files that don't have them"
   task previews: :environment do
-    Link.all.each do |f|
-      puts f.preview
+    Link.all.each do |l|
+      PreviewGenerationWorker.perform_async(l.id)
     end
   end
 
