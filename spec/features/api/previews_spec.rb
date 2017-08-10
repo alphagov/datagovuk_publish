@@ -26,6 +26,7 @@ describe "Previews API" do
     @noprev.format = "csv"
     @noprev.dataset = ds
     @noprev.save!()
+    @noprev.preview.destroy # Previews are auto generated
 
     @prev = Preview.new
     @prev.link = @link
@@ -44,6 +45,7 @@ describe "Previews API" do
     visit "/api/previews/#{@noprev.id}"
     json = JSON.parse(page.body)
     expect(page.status_code).to be 200
+
     expect(json.size).to eq(0)
   end
 
@@ -51,5 +53,4 @@ describe "Previews API" do
     visit '/api/previews/10101010101010101'
     expect(page.status_code).to be 404
   end
-
 end
