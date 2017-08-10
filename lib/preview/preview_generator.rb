@@ -16,7 +16,8 @@ class PreviewGenerator
       payload[:body] = CSVPreviewGenerator.create @link
     end
 
-    preview = Preview.new(datafiles_id: @link.id, content: payload)
+    preview = Preview.find_or_initialize_by(datafiles_id: @link.id)
+    preview.content = payload
     preview.save!
   end
 end

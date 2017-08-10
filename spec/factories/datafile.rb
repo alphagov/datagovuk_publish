@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :datafile do
     dataset
-    url 'localhost:3000/datafile'
+    url 'http://google.com'
     name 'My Datafile'
   end
 end

@@ -77,5 +77,4 @@ class LinksController < ApplicationController
   def current_link
     Link.find(params.require(:file_id))
   end
-
 end
