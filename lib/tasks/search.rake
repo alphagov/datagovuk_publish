@@ -11,6 +11,15 @@ namespace :search do
           name: {
             type: "string",
             index: "not_analyzed"
+          },
+          organisation: {
+            type: "nested",
+            properties: {
+              name: {
+                type: "string",
+                index: "not_analyzed"
+              }
+            }
           }
         }
       }
