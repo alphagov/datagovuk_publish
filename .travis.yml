@@ -8,11 +8,10 @@ services:
   - elasticsearch
   - redis-server
 before_script:
-  - bundle exec sidekiq -L /tmp/sidekiq.log
   - sleep 10
 script:
   - bundle exec rails db:create
-  - bundle exec rails db:migrate
+  - bundle exec rails db:schema:load
   - bundle exec rails spec
   - bundle exec codeclimate-test-reporter
 env:
