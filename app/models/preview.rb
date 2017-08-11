@@ -1,3 +1,3 @@
 class Preview < ApplicationRecord
-  belongs_to :link, foreign_key: "datafile_id"
+  belongs_to :link, foreign_key: "datafiles_id"
 end

@@ -3,7 +3,6 @@ require 'open-uri'
 require 'tempfile'
 
 class PreviewGenerator
-
   def initialize(link)
     @link = link
   end
@@ -17,14 +16,14 @@ class PreviewGenerator
       payload[:body] = CSVPreviewGenerator.create @link
     end
 
-    preview = Preview.new(link: @link, content: payload)
+    preview = Preview.find_or_initialize_by(datafiles_id: @link.id)
+    preview.content = payload
     preview.save!
   end
-
 end
 
-class CSVPreviewGenerator
 
+class CSVPreviewGenerator
   def self.create(link)
     puts "\n#{link.url}"
 
@@ -74,7 +73,6 @@ class CSVPreviewGenerator
     end
     file
   end
-
 end
 
 
@@ -89,6 +87,7 @@ def get_magic_encoding(filename)
   end
 end
 
+
 def convert(source, target, data)
   begin
     Iconv.conv(target, source, IO.binread(data))
@@ -96,5 +95,3 @@ def convert(source, target, data)
     ""
   end
 end
-
-
