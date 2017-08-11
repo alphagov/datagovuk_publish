@@ -22,3 +22,5 @@ spec/end-to-end-tests/screenshots
 spec/end-to-end-tests/selenium-debug.log
 
 .idea/
+
+dump.rdb
