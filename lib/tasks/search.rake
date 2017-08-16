@@ -3,7 +3,9 @@ namespace :search do
   desc "Reindex all datasets"
   task :reindex => :environment do |_, args|
 
-    puts "Indexing #{Dataset.where(published: true).count()} datasets"
+    nb_datasets_to_index = Dataset.where(published: true).count()
+
+    puts "Indexing #{nb_datasets_to_index} datasets"
 
     datasetMappings = {
       dataset: {
@@ -28,9 +30,11 @@ namespace :search do
     Dataset.__elasticsearch__.client.indices.delete index: Dataset.__elasticsearch__.index_name rescue nil
     Dataset.__elasticsearch__.client.indices.create index: Dataset.__elasticsearch__.index_name, body: {mappings: datasetMappings}
 
+    nb_dataset_processed = 0
     Dataset.where(published: true).find_in_batches(batch_size: 50) do |datasets|
-      puts " Batching #{datasets.length} datasets"
+      puts " Batching #{datasets.length} datasets (done #{nb_dataset_processed} / #{nb_datasets_to_index})"
       bulk_index(datasets)
+      nb_dataset_processed = nb_dataset_processed + 50
     end
   end
 
