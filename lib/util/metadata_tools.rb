@@ -147,7 +147,7 @@ module MetadataTools
       ""
     end
   end
-  
+
   # Determine the type of dataset based on the presence of
   # a known INSPIRE key.
   def dataset_type(obj)
@@ -223,5 +223,5 @@ module MetadataTools
 
   module_function :add_dataset_metadata, :generate_summary, :convert_frequency, :add_inspire_metadata,
     :dataset_type, :get_extra, :harvested?, :calculate_dates_for_month, :calculate_dates_for_year,
-    :documentation?, :get_start_end_date, :add_resource
+    :documentation?, :get_start_end_date, :add_resource, :convert_location
 end
