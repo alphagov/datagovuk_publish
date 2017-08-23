@@ -11,10 +11,10 @@ module MetadataTools
     d.published = false
     d.published_date = obj["metadata_created"]
     d.created_at = obj["metadata_created"]
-    d.updated_at = obj["metadata_modified"]
+    d.last_updated_at = obj["metadata_modified"]
     d.dataset_type = dataset_type(obj)
     d.harvested = harvested?(obj)
-    d.location1 = ""
+    d.location1 = convert_location(obj)
     d.location2 = ""
     d.location3 = ""
     d.legacy_metadata = ""
@@ -139,6 +139,15 @@ module MetadataTools
     new_frequency
   end
 
+  def convert_location(obj)
+    loc = obj.fetch("geographic_coverage", [])
+    if loc.is_a? Array
+      loc.map(&:titleize).join(', ')
+    else
+      ""
+    end
+  end
+  
   # Determine the type of dataset based on the presence of
   # a known INSPIRE key.
   def dataset_type(obj)
