@@ -61,7 +61,7 @@ module MetadataTools
     datafile.name = resource["description"]
     datafile.name = "No name specified" if datafile.name.strip() == ""
     datafile.created_at = dataset.created_at
-    datafile.updated_at = dataset.updated_at
+    datafile.updated_at = dataset.last_updated_at
 
     if !resource["date"].blank? && !documentation?(resource['format'])
       dates = get_start_end_date(resource["date"])
