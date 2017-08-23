@@ -59,5 +59,5 @@ RSpec.configure do |config|
 end
 
 def last_updated_dataset
-  Dataset.order(:last_updated_at).last
+  Dataset.order(:updated_at).last
 end
