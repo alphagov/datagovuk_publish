@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2017071231151258) do
-
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -111,6 +110,7 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.string "stage"
     t.integer "theme_id"
     t.integer "secondary_theme_id"
+    t.datetime "last_updated_at"
     t.index ["uuid"], name: "index_datasets_on_uuid"
   end
 

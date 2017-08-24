@@ -11,10 +11,10 @@ module MetadataTools
     d.published = false
     d.published_date = obj["metadata_created"]
     d.created_at = obj["metadata_created"]
-    d.updated_at = obj["metadata_modified"]
+    d.last_updated_at = obj["metadata_modified"]
     d.dataset_type = dataset_type(obj)
     d.harvested = harvested?(obj)
-    d.location1 = ""
+    d.location1 = convert_location(obj)
     d.location2 = ""
     d.location3 = ""
     d.legacy_metadata = ""
@@ -61,7 +61,7 @@ module MetadataTools
     datafile.name = resource["description"]
     datafile.name = "No name specified" if datafile.name.strip() == ""
     datafile.created_at = dataset.created_at
-    datafile.updated_at = dataset.updated_at
+    datafile.updated_at = dataset.last_updated_at
 
     if !resource["date"].blank? && !documentation?(resource['format'])
       dates = get_start_end_date(resource["date"])
@@ -139,6 +139,15 @@ module MetadataTools
     new_frequency
   end
 
+  def convert_location(obj)
+    loc = obj.fetch("geographic_coverage", [])
+    if loc.is_a? Array
+      loc.map(&:titleize).join(', ')
+    else
+      ""
+    end
+  end
+
   # Determine the type of dataset based on the presence of
   # a known INSPIRE key.
   def dataset_type(obj)
@@ -214,5 +223,5 @@ module MetadataTools
 
   module_function :add_dataset_metadata, :generate_summary, :convert_frequency, :add_inspire_metadata,
     :dataset_type, :get_extra, :harvested?, :calculate_dates_for_month, :calculate_dates_for_year,
-    :documentation?, :get_start_end_date, :add_resource
+    :documentation?, :get_start_end_date, :add_resource, :convert_location
 end

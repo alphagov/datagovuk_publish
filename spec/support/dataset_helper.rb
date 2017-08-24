@@ -35,6 +35,7 @@ def set_up_models
                                                   frequency: 'never',
                                                   licence: 'uk-ogl',
                                                   published: true,
+                                                  last_updated_at: Time.now,
                                                   links: [FactoryGirl.create(:link, name: "my published test file")],
                                                   docs: [FactoryGirl.create(:doc, name: "my published test doc")],
                                                   creator: user,
@@ -48,6 +49,7 @@ def set_up_models
                                                     licence: 'uk-ogl',
                                                     location1: 'somewhere',
                                                     published: false,
+                                                    last_updated_at: Time.now,
                                                     links: [FactoryGirl.create(:link, name: "my published test file")],
                                                     docs: [FactoryGirl.create(:doc, name: "my published test doc")],
                                                     creator: user,
@@ -58,6 +60,7 @@ def set_up_models
                                                    organisation: land,
                                                    creator: user,
                                                    owner: user,
+                                                   last_updated_at: Time.now,
                                                    title: 'test title unfinished',
                                                    summary: 'test summary') }
 
