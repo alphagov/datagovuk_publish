@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2017071231151258) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -191,11 +194,11 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
   end
 
   create_table "previews", force: :cascade do |t|
-    t.bigint "datafile_id"
+    t.bigint "datafiles_id"
     t.json "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["datafile_id"], name: "index_previews_on_datafile_id"
+    t.index ["datafiles_id"], name: "index_previews_on_datafiles_id"
   end
 
   create_table "quality_scores", force: :cascade do |t|
@@ -266,7 +269,7 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
   end
 
   add_foreign_key "inspire_datasets", "datasets"
-  add_foreign_key "previews", "datafiles"
+  add_foreign_key "previews", "datafiles", column: "datafiles_id"
   add_foreign_key "quality_scores", "organisations"
   add_foreign_key "tasks", "organisations"
 end
