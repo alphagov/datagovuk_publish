@@ -78,7 +78,6 @@ class DatasetsController < ApplicationController
       current_dataset.destroy
       redirect_to manage_path
     end
-
   end
 
   def quality
