@@ -39,14 +39,15 @@ describe "Previews API" do
     json = JSON.parse(page.body)
     expect(page.status_code).to be 200
     expect(json["content"]["type"]).to eq("csv")
+    expect(json.keys).to include('meta')
   end
 
   it 'sends no preview if does not exist' do
     visit "/api/previews/#{@noprev.id}"
     json = JSON.parse(page.body)
     expect(page.status_code).to be 200
-
-    expect(json.size).to eq(0)
+    expect(json.keys).to include('meta')
+    expect(json.keys).to eq(['meta'])
   end
 
   it 'sends nothing if file id not found' do

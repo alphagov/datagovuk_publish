@@ -61,7 +61,17 @@ class LinksController < ApplicationController
 
   def preview
     link = Link.find(params.require(:file_id))
-    render json: link.preview || {}
+
+    preview_content = (link.preview.as_json || {})
+    preview_content[:meta] = {
+      dataset_id: link.dataset.id,
+      dataset_title: link.dataset.title,
+      datafile_id: link.id,
+      datafile_name: link.name,
+      datafile_link: link.url
+    }
+
+    render json: preview_content
   end
 
 
