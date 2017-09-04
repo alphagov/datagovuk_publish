@@ -66,6 +66,7 @@ class LinksController < ApplicationController
     preview_content[:meta] = {
       dataset_id: link.dataset.id,
       dataset_title: link.dataset.title,
+      dataset_name: link.dataset.name,
       datafile_id: link.id,
       datafile_name: link.name,
       datafile_link: link.url
