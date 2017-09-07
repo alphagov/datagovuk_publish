@@ -14,12 +14,26 @@ namespace :search do
             type: "string",
             index: "not_analyzed"
           },
+          location1: {
+            type: 'string',
+            fields: {
+              raw: {
+                type: 'string',
+                index: 'not_analyzed'
+              }
+            }
+          },
           organisation: {
             type: "nested",
             properties: {
-              name: {
+              title: {
                 type: "string",
-                index: "not_analyzed"
+                fields: {
+                  raw: {
+                    type: "string",
+                    index: "not_analyzed"
+                  }
+                }
               }
             }
           }
