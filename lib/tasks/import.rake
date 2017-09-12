@@ -96,7 +96,7 @@ end
 # of the jsonl file, after the line has been decoded
 # into as hashmap.
 def json_from_lines(filename)
-  File.open(filename).each do |line|
+  File.foreach(filename).each do |line|
     yield JSON.parse(line)
   end
 end
