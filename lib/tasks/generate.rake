@@ -17,18 +17,6 @@ namespace :generate do
     file.close()
     File.rename "data.json", "public/data.json"
   end
-
-  desc "Generate previews for files that don't have them"
-  task previews: :environment do
-    Link.all.each do |l|
-      PreviewGenerationWorker.perform_async(l.id)
-    end
-  end
-
-  desc "Drop all previews"
-  task purge_previews: :environment do
-    Preview.destroy_all
-  end
 end
 
 # Generates a string to write to the output file. After the first

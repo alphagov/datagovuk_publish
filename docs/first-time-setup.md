@@ -44,11 +44,3 @@ Make sure you're pointed at your local index
 ```
 $ rails search:reindex
 ```
-
-### Previews
-```
-$ rails generate:purge_previews
-$ rails generate:previews
-```
-
-This one adds a lot of sidekiq jobs, so make sure it's running or they won't regen.
