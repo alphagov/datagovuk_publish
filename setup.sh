@@ -32,6 +32,6 @@ print "Adding datasets"
 rails import:datasets["data.gov.uk-ckan-meta-data-latest.v2.jsonl"]
 
 print "Cleaning up"
-rm data.gov.uk-ckan-meta-data-latest.organizations.jsonl data.gov.uk-ckan-meta-data-latest.v2.jsonl.gz
+rm data.gov.uk-ckan-meta-data-latest.organizations.jsonl data.gov.uk-ckan-meta-data-latest.v2.jsonl
 
 print "All done."
