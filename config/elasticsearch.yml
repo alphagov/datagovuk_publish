@@ -3,7 +3,6 @@ default: &default
 
 test:
   <<: *default
-  vcap_services: <%= ENV['VCAP_SERVICES'] %>
 
 development:
   <<: *default
