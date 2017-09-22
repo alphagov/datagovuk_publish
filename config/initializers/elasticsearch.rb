@@ -16,9 +16,8 @@ def create_es_cert_file(cert)
     es_cert_file.write(cert)
   ensure
     es_cert_file.close
-    es_cert_file.unlink
-    return es_cert_file
   end
+  es_cert_file
 end
 
 
