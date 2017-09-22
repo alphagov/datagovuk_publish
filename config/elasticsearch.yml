@@ -1,0 +1,15 @@
+default: &default
+  host: http://localhost:9200
+
+test:
+  <<: *default
+  vcap_services: <%= ENV['VCAP_SERVICES'] %>
+
+development:
+  <<: *default
+
+staging: 
+  host: <%= ENV['ES_HOST'] %>
+
+production: &default
+  vcap_services: <%= ENV['VCAP_SERVICES'] %>

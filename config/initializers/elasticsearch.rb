@@ -1,51 +1,32 @@
 require 'base64'
 
-vcap_services = ENV.fetch("VCAP_SERVICES", nil)
+CONFIG_PATH = "#{Rails.root}/config/elasticsearch.yml".freeze
+TEMPLATE = ERB.new File.new(CONFIG_PATH).read
+ELASTIC_CONFIG = YAML.load(TEMPLATE.result(binding))[ENV['RAILS_ENV']]
 
-if vcap_services
-  # we are running on PaaS
-  vcap = JSON.parse(vcap_services)
+config = {
+  host: ELASTIC_CONFIG['host'],
+  transport_options: {
+    request: { timeout: 5 }
+  }
+}
 
-  es_server = vcap['elasticsearch'][0]['credentials']['uri'].chomp("/")
+if ELASTIC_CONFIG['vcap_services'].present?
+  vcap = JSON.parse(ELASTIC_CONFIG['vcap_services'])
 
+  es_server = vcap['elasticsearch'][0]['credentials']['uri'].chomp('/')
   es_cert = Base64.decode64(vcap['elasticsearch'][0]['credentials']['ca_certificate_base64'])
-  es_cert_file = File.new("/tmp/out.pem", "w")
+  es_cert_file = File.new('/tmp/out.pem', 'w')
   es_cert_file.puts(es_cert)
   es_cert_file.close
 
-  puts es_server
-  puts es_cert_file.path
+  Rails.logger.info "Configuring Elasticsearch on PAAS.\n
+  Elasticsearch host: #{es_server}\n
+  Elasticsearch cert file path: #{es_cert_file.path}"
 
-  config = {
-    host: es_server,
-    transport_options: {
-      request: { timeout: 5 },
-      ssl: { ca_file: es_cert_file.path }
-    }
-  }
-else
-  es_server = ENV.fetch("ES_HOST", "http://127.0.0.1:9200")
-  config = {
-    host: es_server,
-    transport_options: {
-      request: { timeout: 5 }
-    }
-  }
+  config[:host] = es_server
+  config[:transport_options][:ssl][:ca_file] = es_cert_file.path
 end
 
-if File.exist?("config/elasticsearch.yml")
-  config.merge!(YAML.load_file("config/elasticsearch.yml")[Rails.env].symbolize_keys)
-end
-
-Elasticsearch::Model.client = Elasticsearch::Client.new(config)
-
-# Reset the search index before testing
-if Rails.env == "test"
-  client = ::Dataset.__elasticsearch__.client
-  begin
-    client.indices.delete index: ::Dataset.__elasticsearch__.index_name
-  rescue
-    puts "No test search index to delete"
-  end
-  client.indices.create index: ::Dataset.__elasticsearch__.index_name
-end
+ELASTIC = Elasticsearch::Client.new(config)
+Elasticsearch::Model.client = ELASTIC
