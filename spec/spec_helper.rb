@@ -11,15 +11,6 @@ SimpleCov.start do
 end
 
 RSpec.configure do |config|
-  config.before(:each) do
-    delete_index
-    create_index
-  end
-
-  config.after(:each) do
-    delete_index
-  end
-
   config.include FactoryGirl::Syntax::Methods
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
@@ -60,67 +51,4 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-end
-
-def mappings
-  {
-    dataset: {
-      properties: {
-        name: {
-          type: "string",
-          index: "not_analyzed"
-        },
-        location1: {
-          type: 'string',
-          fields: {
-            raw: {
-              type: 'string',
-              index: 'not_analyzed'
-            }
-          }
-        },
-        organisation: {
-          type: "nested",
-          properties: {
-            title: {
-              type: "string",
-              fields: {
-                raw: {
-                  type: "string",
-                  index: "not_analyzed"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-end
-
-def delete_index
-  if Rails.env == "test"
-    begin
-      ELASTIC.indices.delete index: "datasets-test"
-    rescue
-      Rails.logger.debug("No test search index to delete")
-    end
-  end
-end
-
-def create_index
-  if Rails.env == "test"
-    begin
-      Rails.logger.info("Creating datasets-test index")
-
-      ELASTIC.indices.create(
-        index: "datasets-test",
-        body: {
-          mappings: mappings
-        }
-      )
-    rescue
-      Rails.logger.debug("Could not create datasets-test index")
-    end
-  end
 end
