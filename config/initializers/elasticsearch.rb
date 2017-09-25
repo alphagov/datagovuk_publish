@@ -2,7 +2,8 @@ require 'base64'
 require 'tempfile'
 
 CONFIG_PATH = Rails.root.join('config', 'elasticsearch.yml')
-ELASTIC_CONFIG = YAML.load(File.read(CONFIG_PATH))[ENV['RAILS_ENV']]
+TEMPLATE = ERB.new File.new(CONFIG_PATH).read
+ELASTIC_CONFIG = YAML.load(TEMPLATE.result(binding))[ENV['RAILS_ENV']]
 
 def log(server, filepath)
   Rails.logger.info "Configuring Elasticsearch on PAAS.\n
@@ -22,7 +23,7 @@ end
 
 
 def es_config_production
-  vcap = JSON.parse(ELASTIC_CONFIG['vcap_services'])
+  vcap = ELASTIC_CONFIG['vcap_services']
 
   es_server = vcap['elasticsearch'][0]['credentials']['uri'].chomp('/')
   es_cert = Base64.decode64(vcap['elasticsearch'][0]['credentials']['ca_certificate_base64'])
