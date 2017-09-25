@@ -7,7 +7,6 @@ class UrlValidator < ActiveModel::Validator
   def validate(record)
     urlPresent?(record) &&
         urlStartsWithProtocol?(record) &&
-        validDomain?(record) &&
         validPath?(record)
   end
 
@@ -23,17 +22,6 @@ class UrlValidator < ActiveModel::Validator
     error = 'Url does not start with http or https'
 
     record.url !~ /^https?/ ?
-        createValidationError(record, error) :
-        true
-  end
-
-  def validDomain?(record)
-    host = URI.parse(record.url).host
-    domainQuery = Whois.whois(host)
-    parser = domainQuery.parser
-    error = 'Url does not contain a valid domain'
-
-    !parser.registered? ?
         createValidationError(record, error) :
         true
   end
