@@ -29,8 +29,7 @@ class UrlValidator < ActiveModel::Validator
   def validPath?(record)
     begin
       RestClient.head record.url
-      true
-    rescue RestClient::ExceptionWithResponse
+    rescue 
       error = 'Url path is not valid'
       createValidationError(record, error)
     end
