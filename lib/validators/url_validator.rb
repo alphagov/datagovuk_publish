@@ -7,7 +7,6 @@ class UrlValidator < ActiveModel::Validator
   def validate(record)
     urlPresent?(record) &&
         urlStartsWithProtocol?(record) &&
-        validDomain?(record) &&
         validPath?(record)
   end
 
@@ -27,22 +26,10 @@ class UrlValidator < ActiveModel::Validator
         true
   end
 
-  def validDomain?(record)
-    host = URI.parse(record.url).host
-    domainQuery = Whois.whois(host)
-    parser = domainQuery.parser
-    error = 'Url does not contain a valid domain'
-
-    !parser.registered? ?
-        createValidationError(record, error) :
-        true
-  end
-
   def validPath?(record)
     begin
       RestClient.head record.url
-      true
-    rescue RestClient::ExceptionWithResponse
+    rescue 
       error = 'Url path is not valid'
       createValidationError(record, error)
     end
