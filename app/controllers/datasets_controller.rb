@@ -1,7 +1,7 @@
 class DatasetsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_dataset, only: [:show, :edit, :update, :destroy,
-                                     :publish, :confirm_delete, :destroy, :quality]
+                                     :publish, :confirm_delete, :quality]
 
   def show
     @dataset.complete!
@@ -15,24 +15,22 @@ class DatasetsController < ApplicationController
   end
 
   def create
-    @dataset = Dataset.new(params.require(:dataset).permit(:id, :title, :summary, :description))
+    @dataset = Dataset.new(dataset_params)
     @dataset.creator_id = current_user.id
     @dataset.organisation = current_user.primary_organisation
 
     if @dataset.save
       redirect_to new_licence_path(@dataset)
     else
-      render 'new'
+      render :new
     end
   end
 
   def update
-    @dataset.update_attributes(params.require(:dataset).permit(:title, :summary, :description))
-
-    if @dataset.save
-      redirect_to dataset_path(@dataset)
+    if @dataset.update(dataset_params)
+      redirect_to @dataset
     else
-      render 'edit'
+      render :edit
     end
   end
 
@@ -52,7 +50,7 @@ class DatasetsController < ApplicationController
       flash[:extra] = @dataset
       redirect_to manage_path
     else
-      render 'show'
+      render :show
     end
   end
 
@@ -62,13 +60,13 @@ class DatasetsController < ApplicationController
     else
       flash[:alert] = 'Are you sure you want to delete this dataset?'
     end
-    render 'show'
+    render :show
   end
 
   def destroy
     if @dataset.published?
       @dataset.errors.add(:delete_prevent, 'Published datasets cannot be deleted')
-      render 'show'
+      render :show
     else
       flash[:deleted] = "The dataset '#{@dataset.title}' has been deleted"
       @dataset.destroy
@@ -88,6 +86,10 @@ class DatasetsController < ApplicationController
   private
 
   def set_dataset
-    @dataset = Dataset.find_by(:name => params.require(:id))
+    @dataset = Dataset.find(name: params[:id])
+  end
+
+  def dataset_params
+    params.require(:dataset).permit(:title, :summary, :description)
   end
 end
