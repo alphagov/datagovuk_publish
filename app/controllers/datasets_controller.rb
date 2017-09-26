@@ -1,8 +1,9 @@
 class DatasetsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_dataset, only: [:show, :edit, :update, :destroy,
+                                     :publish, :confirm_delete, :destroy, :quality]
 
   def show
-    @dataset = current_dataset
     @dataset.complete!
   end
 
@@ -11,7 +12,6 @@ class DatasetsController < ApplicationController
   end
 
   def edit
-    @dataset = current_dataset
   end
 
   def create
@@ -27,7 +27,6 @@ class DatasetsController < ApplicationController
   end
 
   def update
-    @dataset = current_dataset
     @dataset.update_attributes(params.require(:dataset).permit(:title, :summary, :description))
 
     if @dataset.save
@@ -38,10 +37,9 @@ class DatasetsController < ApplicationController
   end
 
   def publish
-    @dataset = current_dataset
     @dataset.complete!
 
-    if @dataset.publishable?
+    if @dataset.publishable? # todo move check to Dataset#publish
       @dataset.publish
 
       if @dataset.published
@@ -59,7 +57,6 @@ class DatasetsController < ApplicationController
   end
 
   def confirm_delete
-    @dataset = current_dataset
     if @dataset.published?
       @dataset.errors.add(:delete_prevent, 'Published datasets cannot be deleted')
     else
@@ -69,31 +66,29 @@ class DatasetsController < ApplicationController
   end
 
   def destroy
-    @dataset = current_dataset
     if @dataset.published?
       @dataset.errors.add(:delete_prevent, 'Published datasets cannot be deleted')
       render 'show'
     else
-      flash[:deleted] = "The dataset '#{current_dataset.title}' has been deleted"
-      current_dataset.destroy
+      flash[:deleted] = "The dataset '#{@dataset.title}' has been deleted"
+      @dataset.destroy
       redirect_to manage_path
     end
   end
 
   def quality
     # A temporary page to show why some datasets are low quality
-    @dataset = current_dataset
-
     require 'quality/quality_score_calculator'
-    q = QualityScoreCalculator.new(current_dataset)
+    q = QualityScoreCalculator.new(@dataset)
 
     @score = q.score
     @reasons = q.reasons
   end
 
   private
-  def current_dataset
-    Dataset.find_by(:name => params.require(:id))
+
+  def set_dataset
+    @dataset = Dataset.find_by(:name => params.require(:id))
   end
 
   def current_file
