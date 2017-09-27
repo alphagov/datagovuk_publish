@@ -1,5 +1,6 @@
 class DocsController < ApplicationController
-  before_action :set_current_dataset
+  before_action :set_current_dataset, only: [:index, :create, :update, :destroy]
+  before_action :set_current_doc,     only: [:edit, :update, :confirm_delete, :destroy]
 
   def index
     @datafiles = @dataset.docs
@@ -22,11 +23,9 @@ class DocsController < ApplicationController
   end
 
   def edit
-    @doc = current_doc
   end
 
   def update
-    @doc = current_doc
     doc_params = params.require(:doc).permit(:url, :name)
     @doc.update_attributes(doc_params)
 
@@ -38,14 +37,12 @@ class DocsController < ApplicationController
   end
 
   def confirm_delete
-    @doc = current_doc
     flash[:alert] = "Are you sure you want to delete ‘#{@doc.name}’?"
 
     redirect_to docs_path(file_id: @doc.id)
   end
 
   def destroy
-    @doc = current_doc
     flash[:deleted] = "Your link ‘#{@doc.name}’ has been deleted"
     @doc.destroy
 
@@ -53,15 +50,12 @@ class DocsController < ApplicationController
   end
 
   private
+
   def set_current_dataset
-    @dataset = current_dataset
+    @dataset = Dataset.find_by(name: params.require(:id)) || Dataset.find(params.require(:id))
   end
 
-  def current_dataset
-    Dataset.find_by(name: params.require(:id)) || Dataset.find(params.require(:id))
-  end
-
-  def current_doc
-    Doc.find(params.require(:file_id))
+  def set_current_doc
+    Doc.find(params[:file_id])
   end
 end
