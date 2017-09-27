@@ -11,9 +11,7 @@ class DocsController < ApplicationController
   end
 
   def create
-    file_params = params.require(:doc).permit(:url, :name)
-    @doc = Doc.new(file_params)
-    @doc.dataset = @dataset
+    @doc = @dataset.docs.build(doc_params)
 
     if @doc.save
       redirect_to docs_path(@dataset)
@@ -26,10 +24,7 @@ class DocsController < ApplicationController
   end
 
   def update
-    doc_params = params.require(:doc).permit(:url, :name)
-    @doc.update_attributes(doc_params)
-
-    if @doc.save
+    if @doc.update(doc_params)
       redirect_to docs_path(@dataset)
     else
       render 'edit'
@@ -52,10 +47,14 @@ class DocsController < ApplicationController
   private
 
   def set_current_dataset
-    @dataset = Dataset.find_by(name: params.require(:id)) || Dataset.find(params.require(:id))
+    @dataset = Dataset.find_by(name: params[:id]) || Dataset.find(params[:id])
   end
 
   def set_current_doc
-    Doc.find(params[:file_id])
+    @doc = Doc.find(params[:id])
+  end
+
+  def doc_params
+    params.require(:doc).permit(:url, :name)
   end
 end
