@@ -4,11 +4,11 @@
 
 <div class="datasets">
   <% if @doc.errors.any? %>
-		<div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
-			<h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
-				There was a problem
-			</h1>
-			<ul class="error-summary-list">
+    <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+      <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+        There was a problem
+      </h1>
+      <ul class="error-summary-list">
         <% @doc.errors.each do |attr, message| %>
           <li>
             <a href="#<%= attr.to_s %>_form_group">
@@ -16,9 +16,9 @@
             </a>
             <span class="visuallyhidden">.</span>
           </li>
-				<% end %>
-			</ul>
-		</div>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
   <h1 class="heading-large">Add a link to supporting documents</h1>
 
