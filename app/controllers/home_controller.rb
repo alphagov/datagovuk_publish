@@ -9,7 +9,8 @@ class HomeController < ApplicationController
     @scores = QualityScore.all.order(median: :desc, highest: :desc)
   end
 
-private
+  private
+
   def home_path_for_user
     if user_signed_in?
       redirect_to tasks_path
