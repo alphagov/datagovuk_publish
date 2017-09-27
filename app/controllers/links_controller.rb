@@ -1,72 +1,61 @@
 class LinksController < ApplicationController
-  before_action :set_current_dataset
-  skip_before_action :set_current_dataset, only: [:preview]
+  before_action :set_dataset
+  skip_before_action :set_dataset, only: [:preview]
+
+  before_action :set_link, only: [:edit, :update, :destroy]
+
+  def index
+    @links = @dataset.links
+  end
 
   def new
     @link = Link.new
   end
 
   def edit
-    @link = current_link
   end
 
   def create
-    file_params = params.require(:link).permit(:url, :name,
-                                               :start_day, :start_month, :start_year,
-                                               :end_day, :end_month, :end_year,
-                                               :year, :quarter)
-    @link = Link.new(file_params)
-    @link.dataset = @dataset
+    @link = @dataset.links.build(link_params)
 
     if @link.save
       redirect_to links_path(@dataset)
     else
-      render 'new'
+      render :new
     end
   end
 
   def update
-    @link = current_link
-    file_params = params.require(:link).permit(:url, :name,
-                                               :start_day, :start_month, :start_year,
-                                               :end_day, :end_month, :end_year,
-                                               :year, :quarter)
-    @link.update_attributes(file_params)
-
-    if @link.save
+    if @link.update(link_params)
       redirect_to links_path(@dataset)
     else
-      render 'edit'
+      render :edit
     end
   end
 
   def confirm_delete
-    @link = current_link
+    @link = Link.find(params[:file_id])
     flash[:alert] = "Are you sure you want to delete ‘#{@link.name}’?"
 
     redirect_to links_path(file_id: @link.id)
   end
 
   def destroy
-    @link = current_link
     flash[:deleted] = "Your link ‘#{@link.name}’ has been deleted"
     @link.destroy
 
     redirect_to links_path(@dataset)
   end
 
-  def index
-    @links = @dataset.links
-  end
-
   def preview
-    link = Link.find(params.require(:file_id))
+    link = Link.find(params[:file_id])
+    dataset = link.dataset
 
     preview_content = (link.preview.as_json || {})
     preview_content[:meta] = {
-      dataset_id: link.dataset.id,
-      dataset_title: link.dataset.title,
-      dataset_name: link.dataset.name,
+      dataset_id: dataset.id,
+      dataset_title: dataset.title,
+      dataset_name: dataset.name,
       datafile_id: link.id,
       datafile_name: link.name,
       datafile_link: link.url
@@ -75,17 +64,23 @@ class LinksController < ApplicationController
     render json: preview_content
   end
 
-
   private
-  def set_current_dataset
-    @dataset = current_dataset
+
+  def set_dataset
+    @dataset = Dataset.find_by(:name => params.require(:id)) || Dataset.find(params.require(:id))
   end
 
-  def current_dataset
-    Dataset.find_by(:name => params.require(:id)) || Dataset.find(params.require(:id))
+  def set_link
+    @link = Link.find(params[:file_id])
   end
 
-  def current_link
-    Link.find(params.require(:file_id))
+  def link_params
+    params.require(:link).permit(
+      :url,
+      :name,
+      :start_day, :start_month, :start_year,
+      :end_day, :end_month, :end_year,
+      :year, :quarter
+    )
   end
 end
