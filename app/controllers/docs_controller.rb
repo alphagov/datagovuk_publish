@@ -1,6 +1,6 @@
 class DocsController < ApplicationController
-  before_action :set_current_dataset, only: [:index, :new, :create, :update, :destroy]
-  before_action :set_current_doc,     only: [:edit, :update, :confirm_delete, :destroy]
+  before_action :set_dataset, only: [:index, :new, :create, :edit, :update, :destroy]
+  before_action :set_doc,     only: [:edit, :update, :confirm_delete, :destroy]
 
   def index
     @datafiles = @dataset.docs
@@ -46,12 +46,12 @@ class DocsController < ApplicationController
 
   private
 
-  def set_current_dataset
+  def set_dataset
     @dataset = Dataset.find_by(name: params[:id]) || Dataset.find(params[:id])
   end
 
-  def set_current_doc
-    @doc = Doc.find(params[:id])
+  def set_doc
+    @doc = Doc.find(params[:file_id])
   end
 
   def doc_params
