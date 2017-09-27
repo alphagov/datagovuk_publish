@@ -1,5 +1,5 @@
 class DocsController < ApplicationController
-  before_action :set_current_dataset, only: [:index, :create, :update, :destroy]
+  before_action :set_current_dataset, only: [:index, :new, :create, :update, :destroy]
   before_action :set_current_doc,     only: [:edit, :update, :confirm_delete, :destroy]
 
   def index
@@ -7,7 +7,7 @@ class DocsController < ApplicationController
   end
 
   def new
-    @doc = Doc.new
+    @doc = @dataset.docs.build
   end
 
   def create
