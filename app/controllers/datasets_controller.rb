@@ -86,7 +86,7 @@ class DatasetsController < ApplicationController
   private
 
   def set_dataset
-    @dataset = Dataset.find(name: params[:id])
+    @dataset = Dataset.find_by(name: params[:id])
   end
 
   def dataset_params
