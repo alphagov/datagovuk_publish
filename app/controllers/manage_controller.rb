@@ -4,44 +4,36 @@ class ManageController < ApplicationController
   include ManageHelper
 
   def manage_own
-    set_common_args
-    @datasets = get_query(true)
+    @organisation = current_user.primary_organisation
+    @datasets = @organisation.datasets.owned_by(current_user.id)
+    @q = params[:q]
+
+    if @q.present?
+      @datasets = @datasets.where(sql_query, query: @q.downcase).page(params[:page])
+    else
+      @datasets.page(params[:page])
+    end
+
     manage_sort
   end
 
   def manage_organisation
-    set_common_args
-    @datasets = get_query(false)
+    @organisation = current_user.primary_organisation
+    @datasets = @organisation.datasets
+    @q = params[:q]
+
+    if @q.present?
+      @datasets = @datasets.where(sql_query, query: @q.downcase).page(params[:page])
+    else
+      @datasets.page(params[:page])
+    end
+
     manage_sort
   end
 
-  def get_query(with_owned)
-    search_term = params[:q] != "" && params[:q] != nil
+  private
 
-    args = {}
-
-    if with_owned
-      args[:creator_id] = current_user.id
-    end
-
-    perform_query(args, search_term).page params[:page]
+  def sql_query
+    "name ILIKE CONCAT('%',:query,'%') OR title ILIKE CONCAT('%',:query,'%')"
   end
-
-  def perform_query(args, terms)
-    if terms
-      args[:search] = params[:q].downcase
-      q_org = "name ILIKE CONCAT('%',:search,'%') OR title ILIKE CONCAT('%',:search,'%')"
-      q_own = "AND creator_id =(:creator_id)"
-      args[:creator_id] ? @organisation.datasets.where(q_org + q_own, args) : @organisation.datasets.where(q_org, args)
-    else
-      @organisation.datasets.where(args)
-    end
-  end
-
-  def set_common_args
-    @organisation = current_user.primary_organisation
-    @q = params[:q]
-  end
-
-  private :set_common_args, :get_query, :perform_query
 end

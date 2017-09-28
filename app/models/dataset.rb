@@ -34,6 +34,8 @@ class Dataset < ApplicationRecord
   validates :stage, inclusion: { in: STAGES }
   validate :published_dataset_must_have_datafiles_validation
 
+  scope :owned_by, ->(creator_id) { where(creator_id: creator_id) }
+
   def datafiles
     links + docs
   end
