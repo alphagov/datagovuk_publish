@@ -10,8 +10,8 @@ development:
 
 staging:
   <<: *default
-  host: <%= ENV['ES_HOST'] %>
+  host: '<%= ENV["ES_HOST"] %>'
 
 production:
   <<: *default
-  vcap_services: <%= ENV['VCAP_SERVICES'] %>
+  vcap_services: '<%= ENV["VCAP_SERVICES"] %>'

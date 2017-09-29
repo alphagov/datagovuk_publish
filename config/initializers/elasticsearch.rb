@@ -3,7 +3,13 @@ require 'tempfile'
 
 CONFIG_PATH = Rails.root.join('config', 'elasticsearch.yml')
 TEMPLATE = ERB.new File.new(CONFIG_PATH).read
-ELASTIC_CONFIG = YAML.load(TEMPLATE.result(binding))[ENV['RAILS_ENV']]
+
+begin
+  ELASTIC_CONFIG = YAML.load(TEMPLATE.result(binding))[ENV['RAILS_ENV']]
+rescue
+  Rails.logger.fatal "Failed to parse elasticsearch yaml configuration. Exiting"
+  exit
+end
 
 def log(server, filepath)
   Rails.logger.info "Configuring Elasticsearch on PAAS.\n
@@ -12,22 +18,36 @@ def log(server, filepath)
 end
 
 def create_es_cert_file(cert)
-  begin
-    es_cert_file = Tempfile.new(%w(out .pem))
-    es_cert_file.write(cert)
-  ensure
-    es_cert_file.close
-  end
+  es_cert_file = Tempfile.new('es')
+  es_cert_file.write(cert)
+  es_cert_file.close
   es_cert_file
 end
 
 
 def es_config_production
-  vcap = ELASTIC_CONFIG['vcap_services']
+  begin
+    vcap = JSON.parse(ELASTIC_CONFIG['vcap_services'])
+  rescue
+    Rails.logger.fatal "Terminating as VCAP_SERVICES isn't valid JSON:"
+    Rails.logger.fatal ELASTIC_CONFIG['vcap_services']
+    exit
+  end
 
-  es_server = vcap['elasticsearch'][0]['credentials']['uri'].chomp('/')
-  es_cert = Base64.decode64(vcap['elasticsearch'][0]['credentials']['ca_certificate_base64'])
-  es_cert_file = create_es_cert_file(es_cert)
+  begin
+    es_server = vcap['elasticsearch'][0]['credentials']['uri'].chomp('/')
+    es_cert = Base64.decode64(vcap['elasticsearch'][0]['credentials']['ca_certificate_base64'])
+  rescue
+    Rails.logger.fatal "Failed to find elasticsearch information in VCAP_SERVICES"
+    exit
+  end
+
+  begin
+    es_cert_file = create_es_cert_file(es_cert)
+  rescue
+    Rails.logger.fatal "Failed to write elasticsearch certificate. Exiting"
+    exit
+  end
 
   log(es_server, es_cert_file.path)
 
