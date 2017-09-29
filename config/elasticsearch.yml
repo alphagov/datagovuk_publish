@@ -1,5 +1,6 @@
 default: &default
-  host: http://localhost:9200
+  host: <%= ENV["ES_HOST"] || "http://localhost:9200" %>
+  vcap_services: '<%= ENV["VCAP_SERVICES"] %>'
   elastic_timeout: 5
 
 test:
@@ -10,8 +11,6 @@ development:
 
 staging:
   <<: *default
-  host: '<%= ENV["ES_HOST"] %>'
 
 production:
   <<: *default
-  vcap_services: '<%= ENV["VCAP_SERVICES"] %>'
