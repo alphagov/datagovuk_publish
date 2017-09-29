@@ -18,40 +18,31 @@ def log(server, filepath)
 end
 
 def create_es_cert_file(cert)
-  es_cert_file = File.new('elasticsearch_cert.pem', 'w')
-  es_cert_file.write(cert)
-  es_cert_file.close
-  es_cert_file
-end
-
-
-def es_config_from_vcap
   begin
-    vcap = JSON.parse(ELASTIC_CONFIG['vcap_services'])
-  rescue => e
-    Rails.logger.fatal "Terminating as VCAP_SERVICES isn't valid JSON:"
-    Rails.logger.fatal ELASTIC_CONFIG['vcap_services']
-    Rails.logger.fatal e
-    exit
-  end
-
-  begin
-    es_server = vcap['elasticsearch'][0]['credentials']['uri'].chomp('/')
-    es_cert = Base64.decode64(vcap['elasticsearch'][0]['credentials']['ca_certificate_base64'])
-  rescue => e
-    Rails.logger.fatal "Failed to find elasticsearch information in VCAP_SERVICES"
-    Rails.logger.fatal e
-    exit
-  end
-
-  begin
-    es_cert_file = create_es_cert_file(es_cert)
+    es_cert_file = File.new('elasticsearch_cert.pem', 'w')
+    es_cert_file.write(cert)
+    es_cert_file.close
   rescue => e
     Rails.logger.fatal "Failed to write elasticsearch certificate. Exiting"
     Rails.logger.fatal e
     exit
   end
+  es_cert_file
+end
 
+def es_config_from_vcap
+  begin
+    vcap = JSON.parse(ELASTIC_CONFIG['vcap_services'])
+    es_server = vcap['elasticsearch'][0]['credentials']['uri'].chomp('/')
+    es_cert = Base64.decode64(vcap['elasticsearch'][0]['credentials']['ca_certificate_base64'])
+  rescue => e
+    Rails.logger.fatal "Failed to extract ES creds from VCAP_SERVICES. Exiting"
+    Rails.logger.fatal ELASTIC_CONFIG['vcap_services']
+    Rails.logger.fatal e
+    exit
+  end
+
+  es_cert_file = create_es_cert_file(es_cert)
   log(es_server, es_cert_file.path)
 
   {
