@@ -59,8 +59,9 @@ namespace :search do
                                               type: ::Dataset.__elasticsearch__.document_type,
                                               body: prepare_records(datasets)
                                             })
-    rescue
-      puts "This batch of datasets was too large"
+    rescue => e
+      puts "There was an error uploading datasets:"
+      puts e
     end
   end
 
