@@ -25,7 +25,7 @@ def create_es_cert_file(cert)
 end
 
 
-def es_config_production
+def es_config_from_vcap
   begin
     vcap = JSON.parse(ELASTIC_CONFIG['vcap_services'])
   rescue => e
@@ -67,7 +67,7 @@ def es_config_production
   }
 end
 
-def es_config_non_production
+def es_config_from_host
   {
     host: ELASTIC_CONFIG['host'],
     transport_options: {
@@ -79,8 +79,8 @@ def es_config_non_production
 end
 
 config = ELASTIC_CONFIG['vcap_services'].present? ?
-            es_config_production :
-            es_config_non_production
+            es_config_from_vcap :
+            es_config_from_host
 
 ELASTIC = Elasticsearch::Client.new(config)
 Elasticsearch::Model.client = ELASTIC
