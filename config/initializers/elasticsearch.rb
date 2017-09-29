@@ -41,7 +41,6 @@ def es_config_from_vcap
     Rails.logger.fatal e
     exit
   end
-
   es_cert_file = create_es_cert_file(es_cert)
   log(es_server, es_cert_file.path)
 
