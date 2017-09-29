@@ -136,18 +136,18 @@
       color: $link-colour;
     }
 
-    &__ascending, &__descending {
+    &__asc, &__desc {
       font-weight: bold;
     }
 
-    &__ascending::after {
+    &__asc::after {
       content: "\00a0\00a0\25BC";
       position: absolute;
       font-size: 12px;
       top: 1.6em;
     }
 
-    &__descending::after {
+    &__desc::after {
       content: "\00a0\00a0\25B2";
       position: absolute;
       font-size: 12px;
