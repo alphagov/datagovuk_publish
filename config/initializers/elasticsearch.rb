@@ -1,5 +1,4 @@
 require 'base64'
-require 'tempfile'
 
 CONFIG_PATH = Rails.root.join('config', 'elasticsearch.yml')
 TEMPLATE = ERB.new File.new(CONFIG_PATH).read
@@ -18,7 +17,7 @@ def log(server, filepath)
 end
 
 def create_es_cert_file(cert)
-  es_cert_file = Tempfile.new('es')
+  es_cert_file = File.new('elasticsearch_cert.pem', 'w')
   es_cert_file.write(cert)
   es_cert_file.close
   es_cert_file
