@@ -5,8 +5,9 @@ TEMPLATE = ERB.new File.new(CONFIG_PATH).read
 
 begin
   ELASTIC_CONFIG = YAML.load(TEMPLATE.result(binding))[ENV['RAILS_ENV']]
-rescue
+rescue => e
   Rails.logger.fatal "Failed to parse elasticsearch yaml configuration. Exiting"
+  Rails.logger.fatal e
   exit
 end
 
@@ -27,24 +28,27 @@ end
 def es_config_production
   begin
     vcap = JSON.parse(ELASTIC_CONFIG['vcap_services'])
-  rescue
+  rescue => e
     Rails.logger.fatal "Terminating as VCAP_SERVICES isn't valid JSON:"
     Rails.logger.fatal ELASTIC_CONFIG['vcap_services']
+    Rails.logger.fatal e
     exit
   end
 
   begin
     es_server = vcap['elasticsearch'][0]['credentials']['uri'].chomp('/')
     es_cert = Base64.decode64(vcap['elasticsearch'][0]['credentials']['ca_certificate_base64'])
-  rescue
+  rescue => e
     Rails.logger.fatal "Failed to find elasticsearch information in VCAP_SERVICES"
+    Rails.logger.fatal e
     exit
   end
 
   begin
     es_cert_file = create_es_cert_file(es_cert)
-  rescue
+  rescue => e
     Rails.logger.fatal "Failed to write elasticsearch certificate. Exiting"
+    Rails.logger.fatal e
     exit
   end
 
