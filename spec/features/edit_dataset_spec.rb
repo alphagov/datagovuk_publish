@@ -153,10 +153,12 @@ describe 'editing datasets' do
     end
 
     it "should be able to publish a published dataset" do
+      visit dataset_url(published_dataset)
       expect(page).to have_selector("input[type=submit][value='Publish changes']")
     end
 
     it "should not be possible to delete a published dataset" do
+      visit dataset_url(published_dataset)
       expect(page).to_not have_selector(:css, 'a[href="/datasets/test-title-published/confirm_delete"]')
       expect(page).to_not have_content('Delete this dataset')
       visit '/datasets/test-title-published/confirm_delete'
@@ -165,16 +167,16 @@ describe 'editing datasets' do
 
     it "should be able to publish an complete dataset" do
       visit dataset_url(unpublished_dataset)
-      expect(unpublished_dataset.published).to be false
+      expect(unpublished_dataset.published?).to be false
       click_button 'Publish'
       expect(last_updated_dataset.id).to eq(unpublished_dataset.id)
-      expect(last_updated_dataset.published).to be true
+      expect(last_updated_dataset.published?).to be true
       expect(page).to have_content("Your dataset has been published")
     end
 
     it "should not be possible to publish an incomplete dataset" do
       visit dataset_url(unfinished_dataset)
-      expect(unfinished_dataset.published).to be false
+      expect(unfinished_dataset.published?).to be false
       click_button 'Publish'
       expect(page).to have_content 'There was a problem'
       expect(page).not_to have_content 'Your dataset has been published'
@@ -183,12 +185,8 @@ describe 'editing datasets' do
   end
 
   context "editing draft datasets from the show page" do
-    before(:each) do
-      click_link 'Manage datasets'
-      edit_dataset(:unpublished_dataset)
-    end
-
     it "is possible to delete a draft dataset" do
+      visit dataset_url(unpublished_dataset)
       click_link 'Delete this dataset'
       expect(current_path).to eq "/datasets/test-title-unpublished/confirm_delete"
       click_link "Yes, delete this dataset"

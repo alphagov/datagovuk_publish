@@ -48,48 +48,49 @@ describe Dataset do
   end
 
   it "validates more strictly when publishing" do
-    d = Dataset.new
-    d.title = "dataset"
-    d.summary = "Summary"
-    d.organisation_id = @org.id
-    d.frequency = "daily"
-    d.published = true
+    d = Dataset.new(
+      title: "dataset",
+      summary: "Summary",
+      organisation_id: @org.id,
+      frequency: "daily",
+      status: "published")
+
     expect(d.save).to eq(false)
   end
 
   it "can pass strict validation when publishing" do
-    d = Dataset.new
-    d.title = "dataset"
-    d.summary = "Summary"
-    d.organisation_id = @org.id
-    d.frequency = "daily"
-    d.save()
+    d = Dataset.new(
+      title: "dataset",
+      summary: "Summary",
+      organisation_id: @org.id,
+      frequency: "daily",
+      licence: "uk-ogl")
 
-    Link.create(url: "http://127.0.0.1", name: "Test link", dataset: d)
+    d.save
 
-    d.licence = "uk-ogl"
-    d.published = true
+    d.links.create(url: "http://127.0.0.1", name: "Test link")
 
-    expect(d.save).to eq(true)
+    expect(d.published!).to eq(true)
   end
 
   it "is not possible to delete a published dataset" do
-    d = Dataset.new
-    d.title = "dataset"
-    d.summary = "Summary"
-    d.organisation_id = @org.id
-    d.frequency = "daily"
-    d.licence = "uk-ogl"
-    d.save()
+    d = Dataset.new(
+      title: "dataset",
+      summary: "Summary",
+      organisation_id: @org.id,
+      frequency: "daily",
+      licence: "uk-ogl")
 
-    Datafile.create(url: "http://127.0.0.1", name: "Test link", dataset: d)
+    d.save
 
-    d.published = true
+    d.links.create(url: "http://127.0.0.1", name: "Test link")
 
-    expect{d.destroy}.to raise_exception 'published datasets cannot be deleted'
+    d.published!
+
+    expect{ d.destroy }.to raise_exception 'published datasets cannot be deleted'
     expect(Dataset.count).to eq 1
 
-    d.published = false
+    d.draft!
     d.destroy
 
     expect(Dataset.count).to eq 0

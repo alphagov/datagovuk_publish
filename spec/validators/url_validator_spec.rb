@@ -39,7 +39,6 @@ RSpec.describe UrlValidator do
       end
 
       it 'the host does not exist' do
-
         subject.url = 'http://thisHostDoesNotExist.com/data'
         subject.validate
         expect(subject.errors[:url]).to include EXPECTED_ERROR_MESSAGE
