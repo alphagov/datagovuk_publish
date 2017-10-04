@@ -2,6 +2,8 @@ require 'elasticsearch/model'
 require 'securerandom'
 
 class Dataset < ApplicationRecord
+  enum status: { draft: 0, published: 1 }
+
   TITLE_FORMAT = /([a-z]){3}.*/i
   STAGES = %w(initialised completed)
 
@@ -175,6 +177,7 @@ class Dataset < ApplicationRecord
   end
 
   private
+
   def set_initial_stage
     self.stage ||= 'initialised'
   end

@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.integer "theme_id"
     t.integer "secondary_theme_id"
     t.datetime "last_updated_at"
+    t.integer "status", default: 0
     t.index ["uuid"], name: "index_datasets_on_uuid"
   end
 
