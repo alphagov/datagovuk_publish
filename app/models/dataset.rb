@@ -51,7 +51,8 @@ class Dataset < ApplicationRecord
   def publish!
     if self.publishable?
       transaction do
-        self.published!
+        # Writing to both old and new fields until data has been migrated from :published field to new :status field
+        self.update(published: true, status: "published")
         PublishingWorker.perform_async(self.id)
       end
     end
