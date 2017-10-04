@@ -103,7 +103,6 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.text "frequency"
     t.integer "creator_id"
     t.integer "owner_id"
-    t.boolean "published", default: false, null: false
     t.datetime "published_date"
     t.boolean "harvested"
     t.text "legacy_metadata"
@@ -183,8 +182,8 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.datetime "updated_at", null: false
     t.string "uuid"
     t.boolean "active", default: true
-    t.string "ancestry"
     t.string "org_type"
+    t.string "ancestry"
     t.index ["ancestry"], name: "index_organisations_on_ancestry"
     t.index ["uuid"], name: "index_organisations_on_uuid"
   end

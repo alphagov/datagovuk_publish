@@ -4,6 +4,12 @@ require 'securerandom'
 class Dataset < ApplicationRecord
   enum status: { draft: 0, published: 1 }
 
+  # Tell ActiveRecord to ignore a column from its cache.
+  # Remove self.columns when the published column has been removed
+  def self.columns
+    super.reject { |c| c.name == "published" }
+  end
+
   TITLE_FORMAT = /([a-z]){3}.*/i
   STAGES = %w(initialised completed)
 
@@ -30,8 +36,8 @@ class Dataset < ApplicationRecord
                         allow_nil: true # To allow creation before setting this value
   validates :title, presence: true, format: { with: TITLE_FORMAT }
   validates :summary, presence: true
-  validates :frequency, presence: true, if: lambda { published }
-  validates :licence, presence: true, if: lambda{ published }
+  validates :frequency, presence: true, if: :published?
+  validates :licence, presence: true, if: :published?
   validates :licence_other, presence: true, if: lambda { licence == 'other' }
   validates :stage, inclusion: { in: STAGES }
   validate :published_dataset_must_have_datafiles_validation
@@ -42,9 +48,13 @@ class Dataset < ApplicationRecord
     links + docs
   end
 
-  def publish
-    # Ask sidekiq to publish this dataset to elastic
-    PublishingWorker.perform_async(self.id)
+  def publish!
+    if self.publishable?
+      transaction do
+        self.published!
+        PublishingWorker.perform_async(self.id)
+      end
+    end
   end
 
   # What we actually want to index in Elastic, rather than the whole
@@ -90,17 +100,13 @@ class Dataset < ApplicationRecord
     "#{slug}-#{sequence}"
   end
 
-  def published?
-    published
-  end
-
   def publishable?
-    if self.published
+    if self.published?
       return self.valid?
     else
-      self.published = true
+      self.status = "published"
       result = self.valid?
-      self.published = false
+      self.status = "draft"
       return result
     end
   end
@@ -112,21 +118,11 @@ class Dataset < ApplicationRecord
   end
 
   def prevent_if_published
-    if published?
-      raise 'published datasets cannot be deleted'
-    end
-  end
-
-  def status
-    if published?
-      "Published"
-    else
-      "Draft"
-    end
+    raise 'published datasets cannot be deleted' if published?
   end
 
   def published_dataset_must_have_datafiles_validation
-    if self.published && self.links.empty?
+    if self.published? && self.links.empty?
       errors.add(:links, "You must add at least one link")
     end
   end

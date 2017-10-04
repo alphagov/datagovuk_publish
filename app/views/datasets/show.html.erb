@@ -29,7 +29,7 @@
   <% if current_page?(confirm_delete_dataset_path) %>
     ‘<%= @dataset.title %>’
   <% else %>
-    <%= @dataset.published ? "Edit" : "Publish" %>  ‘<%= @dataset.title %>’
+    <%= @dataset.published? ? "Edit" : "Publish" %>  ‘<%= @dataset.title %>’
   <% end %>
 </h1>
 <ul>
@@ -139,7 +139,7 @@
 </table>
 
 <%= form_for @dataset, url: publish_dataset_path(@dataset), method: :post do |f| %>
-  <p><%= f.submit @dataset.published ? "Publish changes" : "Publish", class: 'button' %></p>
+  <p><%= f.submit @dataset.published? ? "Publish changes" : "Publish", class: 'button' %></p>
 <% end %>
 
 <% unless @dataset.published? %>

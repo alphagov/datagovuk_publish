@@ -13,7 +13,7 @@
         </th>
 
         <th class="dgu-sortable-column__heading">
-          Status
+          <%= sortable "status" %>
         </th>
 
         <th><span class="visuallyhidden">Actions</span></th>
@@ -24,18 +24,14 @@
       <% @datasets.each do |dataset| %>
         <tr>
           <th>
-            <% if dataset.published %>
+            <% if dataset.published? %>
               <a href="<%= find_url(dataset.name) %>"><%= dataset.title %></a>
             <% else %>
               <%= dataset.title %>
             <% end %>
           </th>
           <td>
-            <% if dataset.published %>
-              Published
-            <% else %>
-              Draft
-            <% end %>
+            <%= dataset.status.titleize %>
           </td>
           <td class="dgu-datasets-table__actions">
             <% if dataset.name %>
