@@ -9,7 +9,7 @@ class Dataset < ApplicationRecord
   extend FriendlyId
 
   friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
-  index_name    "datasets-#{Rails.env}"
+  index_name ENV['ES_INDEX'] || "datasets-#{Rails.env}"
   document_type "dataset"
 
   after_initialize :set_initial_stage
