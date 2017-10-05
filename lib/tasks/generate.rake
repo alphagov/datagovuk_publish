@@ -46,7 +46,7 @@ def generate_string()
 
     count = 0
 
-    Dataset.where(published: true).all.each do |dataset|
+    Dataset.published.each do |dataset|
       enum.yield "," if count != 0
       enum.yield dataset_record(dataset)
 
