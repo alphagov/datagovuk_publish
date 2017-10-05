@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2017071231151258) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20171004100641) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -103,6 +101,7 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.text "frequency"
     t.integer "creator_id"
     t.integer "owner_id"
+    t.boolean "published", default: false, null: false
     t.datetime "published_date"
     t.boolean "harvested"
     t.text "legacy_metadata"
