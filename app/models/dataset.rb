@@ -34,10 +34,18 @@ class Dataset < ApplicationRecord
   validates :licence, presence: true, if: :published?
   validates :licence_other, presence: true, if: lambda { licence == 'other' }
   validates :stage, inclusion: { in: STAGES }
-  validate :published_dataset_must_have_datafiles_validation
+
+  validate  :published_dataset_must_have_datafiles_validation
+  validate  :is_readonly?, on: :update
 
   scope :owned_by, ->(creator_id) { where(creator_id: creator_id) }
   scope :published, ->{ where(status: "published") }
+
+  def is_readonly?
+    if persisted? && self.harvested?
+      errors[:base] << 'Harvested datasets cannot be modified.'
+    end
+  end
 
   def datafiles
     links + docs
