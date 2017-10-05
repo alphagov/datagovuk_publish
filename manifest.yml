@@ -1,5 +1,5 @@
 ---
 applications:
-- name: publish-data-beta
+- name: publish-data-beta-staging
   memory: 512M
   buildpack: ruby_buildpack
