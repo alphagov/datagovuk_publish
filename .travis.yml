@@ -2,19 +2,30 @@ sudo: false
 language: ruby
 cache: bundler
 rvm:
-  - 2.4
+- 2.4
 services:
-  - postgresql
-  - elasticsearch
-  - redis-server
+- postgresql
+- elasticsearch
+- redis-server
 before_script:
-  - sleep 10
+- sleep 10
 script:
-  - bundle exec rails db:create
-  - bundle exec rails db:schema:load
-  - bundle exec rails spec
-  - bundle exec codeclimate-test-reporter
+- bundle exec rails db:create
+- bundle exec rails db:schema:load
+- bundle exec rails spec
+- bundle exec codeclimate-test-reporter
 env:
   global:
-    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-    - RAILS_ENV=test
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+  - RAILS_ENV=test
+deploy:
+  provider: cloudfoundry
+  api: https://api.cloud.service.gov.uk
+  username: dgu-staging-deployer@digital.cabinet-office.gov.uk
+  password:
+    secure: QIES2vVrMl4UuZq3XvlVCLKEx3UTRDargCr39+m1qsz7p7XnP8fdBT5MF4vVhlyTrKcfDD1DcdyrOiywpDpC1uUT0QqZGIT0K2KGe0a6MwCVJtM/1Eaon3XJ5TDYnQXbA0tXptcvBVp+0zAOoSfdr1oiMNnmqHjbN1OEbe02+JOZY7yicZ3XjHNBUTiY9fBxWviaZxlXTzNHiUSKM/niFYbh5u2Ei7S2miyQ44FpRvWKg91pJqrAcmzofNx0YCwad3SM52zB7YmgUBG9HfnQHjs6l+yMYPB3lLQ9X6uK8sj/u0Zxx0D9lthe7C5Wy6qf2xdVxdIhBDEyr0KDpVdFG8hgbq2EHSOVJMBxflnwyfd5tkgt0ljeYimtFYXoG3DtTsAFM0OqL3fhnLbJj14N9kXWA9kamff3HtIZ3cvg2o8d4U8VY6KrCYTARCMo4R+9d+Oe7wjr42r+BKikIDMhgbTYbl2T8S6bnflLjpZELBxIxzpzW0Ot3rGePU3cfBu573hczTlTaoXw+fhBM4hdR+YSmzDNYv9RHTlfKxTuiia3VkC6WiRL5sYrMcqNruZhPciTYoKeMsUch7wf0vgmpwR5USxT1TDghQtN4j1dmCrkd9Bq9knGsa4Y09tfKWcOMhLSVzXkldiL1CEiNxfWx/2snNguR4rFplh+EQOuuho=
+  organization: gds-data-discovery
+  space: data-gov-uk
+  on:
+    branch: master
+    repo: datagovuk/publish_data_beta
