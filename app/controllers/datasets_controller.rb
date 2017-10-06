@@ -38,15 +38,14 @@ class DatasetsController < ApplicationController
     @dataset.complete!
 
     if @dataset.publishable? # todo move check to Dataset#publish
-      @dataset.publish
-
-      if @dataset.published
+      if @dataset.published?
         flash[:success] = I18n.t 'dataset_updated'
       else
-        @dataset.published = true
         flash[:success] = I18n.t 'dataset_published'
       end
-      @dataset.save
+
+      @dataset.publish!
+
       flash[:extra] = @dataset
       redirect_to manage_path
     else

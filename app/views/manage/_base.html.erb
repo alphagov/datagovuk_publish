@@ -5,34 +5,33 @@
 
   <table
       class="dgu-datasets-table"
-      <%  if @datasets.count == 0 %>style="display:none"<% end %>>
+      <% if @datasets.none? %>style="display:none"<% end %>>
     <thead>
       <tr>
         <th class="dgu-sortable-column__heading">
-          <%= link_to "Dataset Name", set_path(sort_by: @name_sort, q: @q), class:"dgu-sortable-column__heading__ascending" %>
+          <%= sortable "name", "Dataset Name" %>
         </th>
+
         <th class="dgu-sortable-column__heading">
-          <%= link_to "Status", set_path(sort_by: @publish_sort, q: @q), class:"dgu-sortable-column__heading__ascending" %>
+          <%= sortable "status" %>
         </th>
+
         <th><span class="visuallyhidden">Actions</span></th>
       </tr>
     </thead>
+
     <tbody id="dataset-list">
-      <% sorted_datasets.each do |dataset| %>
+      <% @datasets.each do |dataset| %>
         <tr>
           <th>
-            <% if dataset.published %>
+            <% if dataset.published? %>
               <a href="<%= find_url(dataset.name) %>"><%= dataset.title %></a>
             <% else %>
               <%= dataset.title %>
             <% end %>
           </th>
           <td>
-            <% if dataset.published %>
-              Published
-            <% else %>
-              Draft
-            <% end %>
+            <%= dataset.status.titleize %>
           </td>
           <td class="dgu-datasets-table__actions">
             <% if dataset.name %>

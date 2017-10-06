@@ -8,7 +8,7 @@ module MetadataTools
     d.description = obj["notes"]
     d.organisation_id = orgs_cache[obj["owner_org"]]
     d.frequency = convert_frequency(obj)
-    d.published = false
+    d.status = "draft"
     d.published_date = obj["metadata_created"]
     d.created_at = obj["metadata_created"]
     d.last_updated_at = obj["metadata_modified"]
@@ -43,7 +43,7 @@ module MetadataTools
       add_resource(resource, d)
     end
 
-    d.published = true
+    d.status = "published"
     d.save!(validate: false)
   end
 

@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.integer "theme_id"
     t.integer "secondary_theme_id"
     t.datetime "last_updated_at"
+    t.integer "status", default: 0
     t.index ["uuid"], name: "index_datasets_on_uuid"
   end
 
@@ -180,8 +181,8 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.datetime "updated_at", null: false
     t.string "uuid"
     t.boolean "active", default: true
-    t.string "ancestry"
     t.string "org_type"
+    t.string "ancestry"
     t.index ["ancestry"], name: "index_organisations_on_ancestry"
     t.index ["uuid"], name: "index_organisations_on_uuid"
   end

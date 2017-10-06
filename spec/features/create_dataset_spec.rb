@@ -85,7 +85,7 @@ describe "dataset creation" do
       click_link "Save and continue"
 
       # Page 9: Publish Page
-      expect(Dataset.last.published).to be(false)
+      expect(Dataset.last.published?).to be(false)
       expect(Dataset.last.stage).to eq("completed")
 
       expect(page).to have_content(Dataset.last.status)
@@ -102,7 +102,7 @@ describe "dataset creation" do
       click_button "Publish"
 
       expect(page).to have_content("Your dataset has been published")
-      expect(Dataset.last.published).to be(true)
+      expect(Dataset.last.published?).to be(true)
 
       # Ensure the dataset is indexed in Elastic
       client = Dataset.__elasticsearch__.client
