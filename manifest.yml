@@ -3,3 +3,8 @@ applications:
 - name: publish-data-beta-staging
   memory: 512M
   buildpack: ruby_buildpack
+- name: data-sync-scheduler
+  memory: 512M
+  buildpack: ruby_buildpack
+  no-route: true
+  command: ruby lib/scheduler/sync_legacy

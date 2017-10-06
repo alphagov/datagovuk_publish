@@ -48,6 +48,7 @@ group :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'launchy'
+  gem 'rufus-scheduler'
 end
 
 group :test do
