@@ -8,7 +8,7 @@ class Link < Datafile
   has_one :preview, foreign_key: "datafiles_id", dependent: :destroy
 
   before_save :set_dates
-  after_commit :generate_preview_async
+  after_save :generate_preview_async
 
   validates :quarter, presence: true,
     if: -> { !self.documentation && self.dataset.quarterly? }
@@ -35,6 +35,7 @@ class Link < Datafile
   end
 
   private
+
   def generate_preview_async
     PreviewGenerationWorker.perform_async(self.id)
   end

@@ -1,15 +1,13 @@
 class LinksController < ApplicationController
-  before_action :set_dataset
-  skip_before_action :set_dataset, only: [:preview]
-
-  before_action :set_link, only: [:edit, :update, :destroy]
+  before_action :set_dataset, only: [:index, :new, :create, :edit, :update, :destroy]
+  before_action :set_link,    only: [:edit, :update, :confirm_delete, :destroy]
 
   def index
     @links = @dataset.links
   end
 
   def new
-    @link = Link.new
+    @link = @dataset.links.build
   end
 
   def edit
@@ -34,7 +32,6 @@ class LinksController < ApplicationController
   end
 
   def confirm_delete
-    @link = Link.find(params[:file_id])
     flash[:alert] = "Are you sure you want to delete ‘#{@link.name}’?"
 
     redirect_to links_path(file_id: @link.id)
@@ -67,7 +64,7 @@ class LinksController < ApplicationController
   private
 
   def set_dataset
-    @dataset = Dataset.find_by(:name => params.require(:id)) || Dataset.find(params.require(:id))
+    @dataset = Dataset.find_by(name: params[:id]) || Dataset.find(params[:id])
   end
 
   def set_link
@@ -80,7 +77,8 @@ class LinksController < ApplicationController
       :name,
       :start_day, :start_month, :start_year,
       :end_day, :end_month, :end_year,
-      :year, :quarter
+      :year,
+      :quarter
     )
   end
 end
