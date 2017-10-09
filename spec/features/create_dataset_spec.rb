@@ -22,7 +22,7 @@ describe "dataset creation" do
     end
 
     it "publishes a dataset" do
-      visit "/datasets/new"
+      visit new_dataset_path
 
       # PAGE 1: New
       fill_in "dataset[title]", with: "my test dataset"
@@ -119,7 +119,7 @@ describe "dataset creation" do
     end
 
     it "saves a draft" do
-      visit "/datasets/new"
+      visit new_dataset_path
       fill_in "dataset[title]", with: "my test dataset"
       fill_in "dataset[summary]", with: "my test dataset summary"
       fill_in "dataset[description]", with: "my test dataset description"
@@ -133,7 +133,9 @@ describe "dataset creation" do
       dataset
       click_link 'Manage datasets'
       expect(page).to have_content(dataset.title)
-      visit '/datasets/dataset-title'
+
+      visit dataset_path(dataset)
+      expect(page).to have_content(dataset.title)
     end
   end
 end
@@ -146,7 +148,7 @@ describe "starting a new draft with invalid inputs" do
   before(:each) do
     user
     sign_in_user
-    visit "/datasets/new"
+    visit new_dataset_path
   end
 
   it "missing title" do
@@ -202,7 +204,7 @@ describe "valid options for licence and area" do
   before(:each) do
     user
     sign_in_user
-    visit "/datasets/new"
+    visit new_dataset_path
     fill_in "dataset[title]", with: "my test dataset"
     fill_in "dataset[summary]", with: "my test dataset summary"
     fill_in "dataset[description]", with: "my test dataset description"
@@ -266,7 +268,7 @@ describe "dataset frequency options" do
     user
     sign_in_user
     dataset
-    visit "/datasets/dataset-title/frequency/new"
+    visit new_frequency_path(dataset)
   end
 
   context "when Never and Daily" do
@@ -484,7 +486,7 @@ describe "passing the frequency page" do
     user
     dataset
     sign_in_user
-    visit 'datasets/dataset-title/frequency/new'
+    visit new_frequency_path(dataset)
   end
 
   it "mandates entering a frequency" do

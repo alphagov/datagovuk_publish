@@ -21,7 +21,7 @@ describe 'editing datasets' do
   context 'editing published datasets from show page' do
     before(:each) do
       click_link 'Manage datasets'
-      edit_dataset(:published_dataset)
+      find(:xpath, "//a[@href='#{dataset_path(published_dataset)}']").click
     end
 
     it "should be able to update title" do
@@ -81,21 +81,23 @@ describe 'editing datasets' do
     end
 
     it "should be able to add a new file" do
-      click_change(:datalinks)
-      expect(page).to have_content("my published test file")
-      click_link 'Add another link'
+      link = published_dataset.links.first
 
+      click_change(:datalinks)
+      expect(page).to have_content(link.name)
+
+      click_link 'Add another link'
       fill_in 'link[url]', with: 'http://google.com'
       fill_in 'link[name]', with: 'my other test file'
-
       click_button 'Save and continue'
-
       expect(page).to have_content('my other test file')
     end
 
     it "should be able to edit an existing file" do
+      link = published_dataset.links.first
+
       click_change(:datalinks)
-      expect(page).to have_content("my published test file")
+      expect(page).to have_content(link.name)
       click_link 'Edit'
 
       fill_in 'link[name]', with: 'my published test file extreme edition'
@@ -105,50 +107,56 @@ describe 'editing datasets' do
       expect(page).to have_content('my published test file extreme edition')
     end
 
-    # TODO: skipping this test for now as it's broken, but functionality works locally.
-    # suspect is a problem with the factory.
-    xit "should be able to remove a file" do
+    it "should be able to remove a file" do
+      link = published_dataset.links.first
+
       click_change(:datalinks)
-      expect(page).to have_content("my published test file")
+      expect(page).to have_content(link.name)
+
       click_link 'Delete'
-      expect(page).to have_content "Are you sure you want to delete ‘my published test file’?"
+      expect(page).to have_content "Are you sure you want to delete ‘#{link.name}’?"
+
       click_link 'Yes, delete this link'
-      expect(page).to have_content "Your link ‘my published test file’ has been deleted"
+      expect(page).to have_content "Your link ‘#{link.name}’ has been deleted"
       expect(last_updated_dataset.links).to be_empty
     end
 
     it "should be able to add a new doc" do
-      click_change(:documentation)
-      expect(page).to have_content("my published test doc")
-      click_link 'Add another link'
+      doc = published_dataset.docs.first
 
+      click_change(:documentation)
+      expect(page).to have_content(doc.name)
+
+      click_link 'Add another link'
       fill_in 'doc[url]', with: 'http://google.com/doc'
       fill_in 'doc[name]', with: 'my other test doc'
-
       click_button 'Save and continue'
-
       expect(page).to have_content('my other test doc')
     end
 
     it "should be able to edit an existing doc" do
+      doc = published_dataset.docs.first
+
       click_change(:documentation)
-      expect(page).to have_content("my published test doc")
+      expect(page).to have_content(doc.name)
+
       click_link 'Edit'
-
       fill_in 'doc[name]', with: 'my published test doc extreme edition'
-
       click_button 'Save and continue'
-
       expect(page).to have_content('my published test doc extreme edition')
     end
 
     it "should be able to remove a doc" do
+      doc = published_dataset.docs.first
+
       click_change(:documentation)
-      expect(page).to have_content("my published test doc")
+      expect(page).to have_content(doc.name)
+
       click_link 'Delete'
-      expect(page).to have_content "Are you sure you want to delete ‘my published test doc’?"
+      expect(page).to have_content "Are you sure you want to delete ‘#{doc.name}’?"
+
       click_link 'Yes, delete this link'
-      expect(page).to have_content "Your link ‘my published test doc’ has been deleted"
+      expect(page).to have_content "Your link ‘#{doc.name}’ has been deleted"
       expect(last_updated_dataset.docs).to be_empty
     end
 
@@ -161,13 +169,15 @@ describe 'editing datasets' do
       visit dataset_url(published_dataset)
       expect(page).to_not have_selector(:css, 'a[href="/datasets/test-title-published/confirm_delete"]')
       expect(page).to_not have_content('Delete this dataset')
-      visit '/datasets/test-title-published/confirm_delete'
+
+      visit confirm_delete_dataset_path(published_dataset)
       expect(page).to have_content "Published datasets cannot be deleted"
     end
 
     it "should be able to publish an complete dataset" do
       visit dataset_url(unpublished_dataset)
       expect(unpublished_dataset.published?).to be false
+
       click_button 'Publish'
       expect(last_updated_dataset.id).to eq(unpublished_dataset.id)
       expect(last_updated_dataset.published?).to be true
@@ -180,7 +190,7 @@ describe 'editing datasets' do
       click_button 'Publish'
       expect(page).to have_content 'There was a problem'
       expect(page).not_to have_content 'Your dataset has been published'
-      expect(current_path).to eq '/datasets/test-title-unfinished/publish'
+      expect(current_path).to eq publish_dataset_path(unfinished_dataset)
     end
   end
 
@@ -188,10 +198,10 @@ describe 'editing datasets' do
     it "is possible to delete a draft dataset" do
       visit dataset_url(unpublished_dataset)
       click_link 'Delete this dataset'
-      expect(current_path).to eq "/datasets/test-title-unpublished/confirm_delete"
+      expect(current_path).to eq confirm_delete_dataset_path(unpublished_dataset)
       click_link "Yes, delete this dataset"
       expect(current_path).to eq '/manage'
-      expect(page).to have_content "The dataset 'test title unpublished' has been deleted"
+      expect(page).to have_content "The dataset '#{unpublished_dataset.title}' has been deleted"
       expect(page).to_not have_selector(:css, 'a[href="/datasets/test-title-unpublished/edit"]')
     end
   end

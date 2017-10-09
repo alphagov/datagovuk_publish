@@ -16,7 +16,7 @@ class DocsController < ApplicationController
     if @doc.save
       redirect_to docs_path(@dataset)
     else
-      render 'new'
+      render :new
     end
   end
 
@@ -27,7 +27,7 @@ class DocsController < ApplicationController
     if @doc.update(doc_params)
       redirect_to docs_path(@dataset)
     else
-      render 'edit'
+      render :edit
     end
   end
 
