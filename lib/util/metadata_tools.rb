@@ -115,7 +115,7 @@ module MetadataTools
 
   # Converts a legacy frequency into a new-style frequency
   def convert_frequency(dataset)
-    freq = dataset["frequency"]
+    freq = dataset["update_frequency"]
     return 'never' if !freq
 
     new_frequency = {
@@ -225,3 +225,4 @@ module MetadataTools
     :dataset_type, :get_extra, :harvested?, :calculate_dates_for_month, :calculate_dates_for_year,
     :documentation?, :get_start_end_date, :add_resource, :convert_location
 end
+
