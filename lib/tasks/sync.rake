@@ -10,11 +10,19 @@ namespace :sync do
     theme_cache = Theme.all.pluck(:title, :id).to_h
     count = 0
 
+    puts "#{Time.now} - Starting legacy data sync"
+
     get_packages "https://data.gov.uk" do |package|
-      MetadataTools.add_dataset_metadata(package, orgs_cache, theme_cache)
-      print "Imported #{count+=1} datasets...\r"
+      begin
+        MetadataTools.add_dataset_metadata(package, orgs_cache, theme_cache)
+      rescue Exception => e
+        puts e
+      end
+
+      puts "Imported #{count+=1} datasets...\r"
     end
 
+    puts "#{Time.now} - Completed legacy data sync successfully"
   end
 
 
