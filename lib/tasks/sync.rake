@@ -15,11 +15,11 @@ namespace :sync do
     get_packages "https://data.gov.uk" do |package|
       begin
         MetadataTools.add_dataset_metadata(package, orgs_cache, theme_cache)
-      rescue Exception => e
-        puts e
+      rescue => e
+        puts e.message
       end
 
-      puts "Imported #{count+=1} datasets...\r"
+      print "Imported #{count+=1} datasets...\r"
     end
 
     puts "#{Time.now} - Completed legacy data sync successfully"
@@ -43,13 +43,10 @@ namespace :sync do
 
   # Fetch JSON from a URL
   def fetch_json(url)
-    begin
-      response = RestClient.get url
-      return JSON.parse(response.body)
-    rescue RestClient::ExceptionWithResponse
-      puts "Failed to make the request to #{url}"
-      return nil
-    end
+    response = RestClient.get url
+    return JSON.parse(response.body)
+  rescue RestClient::ExceptionWithResponse
+    puts "Failed to make the request to #{url}"
+    return nil
   end
-
 end

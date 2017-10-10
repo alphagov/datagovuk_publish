@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get 'tasks', to: 'tasks#my'
   get 'tasks/organisation', to: 'tasks#organisation'
 
-  get 'api/legacy_sync', to: 'sync#legacy'
+  post 'api/start_legacy_sync', to: 'sync#legacy'
 
   resources :datasets do
     get 'show/:id', to: 'datasets#show'
