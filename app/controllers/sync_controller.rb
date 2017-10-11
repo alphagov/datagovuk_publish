@@ -1,4 +1,5 @@
 require 'rake'
+require './lib/sync/legacy_datasets'
 
 class SyncController < ApplicationController
   def legacy
