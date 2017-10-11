@@ -1,0 +1,19 @@
+development:
+  host: 'localhost'
+  port: 6379
+
+test:
+  host: 'localhost'
+  port: 6379
+
+staging:
+  host: '<%= ENV['REDIS_IP'] %>'
+  port: '<%= ENV['REDIS_PORT'] %>'
+  password: '<%= ENV['REDIS_PASSWORD'] %>'
+  network_timeout: 5
+
+production:
+  host: '<%= ENV['REDIS_IP'] %>'
+  port: '<%= ENV['REDIS_PORT'] %>'
+  password: '<%= ENV['REDIS_PASSWORD'] %>'
+  network_timeout: 5
