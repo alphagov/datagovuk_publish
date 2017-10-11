@@ -17,6 +17,7 @@ class Dataset < ApplicationRecord
   after_initialize :set_initial_stage
   before_destroy :prevent_if_published
   before_save :set_uuid
+  after_save :update_legacy
 
   belongs_to :organisation
   belongs_to :theme, optional: true
@@ -68,6 +69,51 @@ class Dataset < ApplicationRecord
         inspire_dataset: {}
       }
     )
+  end
+
+  def update_legacy
+    LegacySyncWorker.perform_async(self.id)
+  end
+
+  # map the dataset.as_json so that the keys are in a format that ckan recognises
+  def ckanify_metadata
+    publish_json = self.as_json
+    organisation = Organisation.find(publish_json["organisation_id"])
+    ckan_json = {
+      id: publish_json['uuid'],
+      name: publish_json['name'],
+      title: publish_json['title'],
+      notes: publish_json['summary'],
+      description: publish_json['summary'],
+      organization: {name: organisation.name},
+      update_frequency: convert_freq_to_legacy_format(publish_json['frequency']),
+      unpublished: !publish_json['published'],
+      metadata_created: publish_json['created_at'],
+      metadata_modified: publish_json['last_updated_at'],
+      geographic_coverage: [publish_json['location1'].downcase],
+      license_id: publish_json['licence']
+    }
+    add_custom_freq_key(ckan_json, publish_json)
+  end
+
+  def convert_freq_to_legacy_format(frequency)
+    frequencies = {
+        'annually' => 'annual' ,
+        'quarterly' => 'quarterly',
+        'monthly' => 'monthly',
+        'daily' => 'other',
+        'weekly' => 'other',
+        'never' => 'never',
+        'discontinued' => 'discontinued',
+        'one-off' => 'other'
+    }[frequency]
+  end
+
+  def add_custom_freq_key(ckan_json, publish_json)
+    if ['daily', 'weekly', 'one-off'].include? publish_json['frequency']
+      ckan_json['update_frequency-other'] = publish_json['frequency']
+    end
+    ckan_json
   end
 
   def owner
