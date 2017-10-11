@@ -2,7 +2,7 @@
 <div class="govuk-box-highlight">
   <h1 class="bold-large"><%= flash[:success] %></h1>
   <h2>
-    <a href="<%= find_url(flash[:extra]["name"]) %>">View it</a>
+    <%= link_to "View it", find_url(flash[:extra]["name"]) %>
   </h2>
 </div>
 <% end %>
