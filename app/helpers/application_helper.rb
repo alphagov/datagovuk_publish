@@ -14,6 +14,6 @@ module ApplicationHelper
   end
 
   def find_url(dataset_name)
-    "#{ENV['FIND_URL'] || ''}/dataset/#{dataset_name}"
+    "https://#{ENV['FIND_URL'] || ''}/dataset/#{dataset_name}"
   end
 end
