@@ -17,7 +17,6 @@ class Dataset < ApplicationRecord
   after_initialize :set_initial_stage
   before_destroy :prevent_if_published
   before_save :set_uuid
-  after_save :update_legacy
 
   belongs_to :organisation
   belongs_to :theme, optional: true
@@ -69,10 +68,6 @@ class Dataset < ApplicationRecord
         inspire_dataset: {}
       }
     )
-  end
-
-  def update_legacy
-    LegacySyncWorker.perform_async(self.id)
   end
 
   # map the dataset.as_json so that the keys are in a format that ckan recognises
