@@ -92,15 +92,14 @@ class Dataset < ApplicationRecord
   end
 
   def convert_freq_to_legacy_format(frequency)
-    frequencies = {
-        'annually' => 'annual' ,
-        'quarterly' => 'quarterly',
-        'monthly' => 'monthly',
-        'daily' => 'other',
-        'weekly' => 'other',
-        'never' => 'never',
-        'discontinued' => 'discontinued',
-        'one-off' => 'other'
+    { 'annually' => 'annual' ,
+      'quarterly' => 'quarterly',
+      'monthly' => 'monthly',
+      'daily' => 'other',
+      'weekly' => 'other',
+      'never' => 'never',
+      'discontinued' => 'discontinued',
+      'one-off' => 'other'
     }.fetch(frequency,"")
   end
 
