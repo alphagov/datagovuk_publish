@@ -1,14 +1,10 @@
 require 'validators/date_validator'
-require 'preview/preview_generator'
 
 class Link < Datafile
   attr_accessor :start_day, :start_month, :start_year,
     :end_day, :end_month, :end_year
 
-  has_one :preview, foreign_key: "datafiles_id", dependent: :destroy
-
   before_save :set_dates
-  after_save :generate_preview_async
 
   validates :quarter, presence: true,
     if: -> { !self.documentation && self.dataset.quarterly? }
@@ -27,17 +23,6 @@ class Link < Datafile
         year: end_year
       }
     }.with_indifferent_access
-  end
-
-  def generate_preview
-    pg = PreviewGenerator.new(self)
-    pg.generate
-  end
-
-  private
-
-  def generate_preview_async
-    PreviewGenerationWorker.perform_async(self.id)
   end
 
   def set_dates
