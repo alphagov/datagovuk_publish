@@ -1,3 +1,4 @@
+# coding: utf-8
 class LinksController < ApplicationController
   before_action :set_dataset, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :set_link,    only: [:edit, :update, :confirm_delete, :destroy]
@@ -42,23 +43,6 @@ class LinksController < ApplicationController
     @link.destroy
 
     redirect_to links_path(@dataset)
-  end
-
-  def preview
-    link = Link.find(params[:file_id])
-    dataset = link.dataset
-
-    preview_content = (link.preview.as_json || {})
-    preview_content[:meta] = {
-      dataset_id: dataset.id,
-      dataset_title: dataset.title,
-      dataset_name: dataset.name,
-      datafile_id: link.id,
-      datafile_name: link.name,
-      datafile_link: link.url
-    }
-
-    render json: preview_content
   end
 
   private
