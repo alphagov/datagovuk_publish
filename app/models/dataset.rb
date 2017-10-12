@@ -83,13 +83,6 @@ class Dataset < ApplicationRecord
     LegacySyncWorker.perform_async(self.id)
   end
 
-  def add_custom_freq_key(ckan_json, publish_json)
-    if ['daily', 'weekly', 'one-off'].include? publish_json['frequency']
-      ckan_json['update_frequency-other'] = publish_json['frequency']
-    end
-    ckan_json
-  end
-
   def owner
     User.find(id: self.owner_id)
   end
