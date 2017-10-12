@@ -95,4 +95,35 @@ describe Dataset do
 
     expect(Dataset.count).to eq 0
   end
+
+  it "can ckanify its metadata" do
+
+
+    d = Dataset.new
+    d.title = "This is a dataset"
+    d.name = "this-is-a-dataset"
+    d.summary = "Summary"
+    d.frequency = "annually"
+    d.organisation_id = @org.id
+    d.licence = "uk-ogl"
+    d.save
+
+    ckanified_metadata = {
+    :id => "#{d.uuid}",
+    :name => "this-is-a-dataset",
+    :title =>"This is a dataset",
+    :notes => "Summary",
+    :description => "Summary",
+    :organization => {:name => @org.name},
+    :update_frequency => "annual",
+    :unpublished => true,
+    :metadata_created => d.created_at,
+    :metadata_modified => nil,
+    :geographic_coverage => [""],
+    :license_id => "uk-ogl"
+    }
+
+    expect(d.ckanify_metadata).to eq ckanified_metadata
+  end
+
 end
