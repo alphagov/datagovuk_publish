@@ -4,22 +4,18 @@
 
 <div class="datasets">
   <% if @dataset.errors.any? %>
-		<div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
-			<h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
-				There was a problem
-			</h1>
-			<ul class="error-summary-list">
-        <% @dataset.errors.each do |attr, message| %>
-          <li>
-            <a href="#<%= attr.to_s %>_form_group">
-              <%= "Please enter a valid #{attr.to_s.humanize.downcase}" %>
-            </a>
-            <span class="visuallyhidden">.</span>
-          </li>
-				<% end %>
-			</ul>
-		</div>
+    <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+      <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+        There was a problem
+      </h1>
+      <ul class="error-summary-list">
+        <% @dataset.errors.each do |attr, error| %>
+          <li><a href="#<%= attr.to_s %>_form_group"><%= error %></a></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
+
   <h1 class="heading-large">Change your dataset's details</h1>
 
   <%= form_for @dataset, url: dataset_path(@dataset), method: :put do |f| %>

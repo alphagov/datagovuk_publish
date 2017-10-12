@@ -1,9 +1,9 @@
 ---
 applications:
-- name: publish-data-beta-staging
+- name: publish-data-beta
   memory: 512M
   buildpack: ruby_buildpack
-- name: publish-data-beta-staging-worker
+- name: publish-data-beta-worker
   memory: 256M
   buildpack: ruby_buildpack
   no-route: true
