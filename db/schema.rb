@@ -192,14 +192,6 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.bigint "user_id", null: false
   end
 
-  create_table "previews", force: :cascade do |t|
-    t.bigint "datafiles_id"
-    t.json "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["datafiles_id"], name: "index_previews_on_datafiles_id"
-  end
-
   create_table "quality_scores", force: :cascade do |t|
     t.bigint "organisation_id"
     t.integer "highest", default: 0
@@ -268,7 +260,6 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
   end
 
   add_foreign_key "inspire_datasets", "datasets"
-  add_foreign_key "previews", "datafiles", column: "datafiles_id"
   add_foreign_key "quality_scores", "organisations"
   add_foreign_key "tasks", "organisations"
 end
