@@ -90,7 +90,7 @@ class Dataset < ApplicationRecord
       unpublished: !publish_json['published'],
       metadata_created: publish_json['created_at'],
       metadata_modified: publish_json['last_updated_at'],
-      geographic_coverage: [publish_json['location1'].downcase],
+      geographic_coverage: [(publish_json['location1'] || "").downcase],
       license_id: publish_json['licence']
     }
     add_custom_freq_key(ckan_json, publish_json)
@@ -106,7 +106,7 @@ class Dataset < ApplicationRecord
         'never' => 'never',
         'discontinued' => 'discontinued',
         'one-off' => 'other'
-    }[frequency]
+    }.fetch(frequency,"")
   end
 
   def add_custom_freq_key(ckan_json, publish_json)
