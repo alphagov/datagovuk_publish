@@ -68,9 +68,13 @@ def es_config_from_host
   }
 end
 
-config = ELASTIC_CONFIG['vcap_services'].present? ?
-            es_config_from_vcap :
-            es_config_from_host
+
+# Re-enable 'es_config_from_vcap' when PAAS Elasticsearch is fixed
+# config = ELASTIC_CONFIG['vcap_services'].present? ?
+#             es_config_from_vcap :
+#             es_config_from_host
+
+config = es_config_from_host
 
 ELASTIC = Elasticsearch::Client.new(config)
 Elasticsearch::Model.client = ELASTIC
