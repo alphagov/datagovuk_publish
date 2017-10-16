@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get 'tasks', to: 'tasks#my'
   get 'tasks/organisation', to: 'tasks#organisation'
 
-  post 'api/start_legacy_sync', to: 'sync#legacy'
+  get 'api/start_legacy_sync', to: 'sync#legacy'
 
   resources :datasets do
     get 'show/:id', to: 'datasets#show'
@@ -54,7 +54,6 @@ Rails.application.routes.draw do
 
   get 'api/locations', to: 'locations#lookup'
   get 'api/organisations', to: 'organisations#lookup'
-  get 'api/previews/:file_id', to: 'links#preview'
 
   get 'account/:id', to: 'account#show', as: 'account_show'
 end

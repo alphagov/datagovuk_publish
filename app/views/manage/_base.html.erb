@@ -25,7 +25,7 @@
         <tr>
           <th>
             <% if dataset.published? %>
-              <a href="<%= find_url(dataset.name) %>"><%= dataset.title %></a>
+              <%= link_to dataset.title, find_url(dataset.name) %>
             <% else %>
               <%= dataset.title %>
             <% end %>
@@ -34,7 +34,7 @@
             <%= dataset.status.titleize %>
           </td>
           <td class="dgu-datasets-table__actions">
-            <% if dataset.name %>
+            <% unless dataset.is_readonly? %>
               <%= link_to 'Add Data', links_path(dataset) %>
               <%= link_to 'Edit', dataset_path(dataset) %><br/>
             <% end %>
@@ -43,7 +43,7 @@
       <% end %>
     </tbody>
   </table>
-  <% if @datasets.count == 0 %>
+  <% if @datasets.none? %>
   <p
       class="noresults"
       style="display:<% if @datasets.count %>block<% else %>none<% end %>">

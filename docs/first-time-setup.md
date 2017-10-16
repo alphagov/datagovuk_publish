@@ -35,20 +35,11 @@ $ rails import:datasets[datasets.jsonl]
 
 That second command is going to take a while...
 
-You can watch indexing happenning real-time on your elasticsearch process, and if you start the app and go to the `/sidekiq` route you'll see the preview generation jobs in the queue.
+You can watch indexing happening real-time on your elasticsearch process.
 
-## If you need to reindex or regenerate previews...
-### Indexes
+## If you need to reindex
 
 Make sure you're pointed at your local index
 ```
 $ rails search:reindex
 ```
-
-### Previews
-```
-$ rails generate:purge_previews
-$ rails generate:previews
-```
-
-This one adds a lot of sidekiq jobs, so make sure it's running or they won't regen.
