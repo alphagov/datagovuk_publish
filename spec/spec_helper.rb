@@ -2,6 +2,9 @@ require "simplecov"
 require "factory_girl_rails"
 require "database_cleaner"
 require "sidekiq/testing"
+require 'webmock/rspec'
+
+include WebMock::API
 
 Sidekiq::Testing.inline!
 
@@ -9,6 +12,8 @@ SimpleCov.start do
   add_filter "/app/admin/"
   add_filter "/spec/"
 end
+
+WebMock.allow_net_connect! allow_localhost: true
 
 RSpec.configure do |config|
   config.before(:each) do
