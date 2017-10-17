@@ -55,6 +55,7 @@ group :test do
   gem "codeclimate-test-reporter", "~> 1.0.0"
   gem "capybara"
   gem "database_cleaner"
+  gem 'webmock', '~> 3.1.0'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
