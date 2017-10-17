@@ -1,52 +1,19 @@
 require 'rest-client'
-require 'util/metadata_tools'
+require 'util/legacy_dataset_sync'
 
 namespace :sync do
-
-  desc "Synchronise datasets from Legacy DGU"
-  task :daily => :environment do |_, args|
-
+  desc 'Synchronise datasets from Legacy DGU'
+  task legacy: :environment do |_, args|
     orgs_cache =  Organisation.all.pluck(:uuid, :id).to_h
     theme_cache = Theme.all.pluck(:title, :id).to_h
-    count = 0
+    host = Rails.env.production? ? 'https://data.gov.uk' : 'https://test.data.gov.uk'
 
-    puts "#{Time.now} - Starting legacy data sync"
+    legacy_dataset_sync = LegacyDatasetSync.new(
+      orgs_cache: orgs_cache,
+      theme_cache: theme_cache,
+      host: host
+    )
 
-    get_packages "https://data.gov.uk" do |package|
-      begin
-        MetadataTools.add_dataset_metadata(package, orgs_cache, theme_cache)
-      rescue => e
-        puts e.message
-      end
-
-      print "Imported #{count+=1} datasets...\r"
-    end
-
-    puts "#{Time.now} - Completed legacy data sync successfully"
-  end
-
-
-  # Keep yielding recent packages until the metadata_modified
-  # is earlier than yesterday.
-  def get_packages(server)
-
-    url = "#{server}/api/3/action/package_search?q=metadata_modified:[NOW-1DAY%20TO%20NOW]&rows=5000"
-
-    data = fetch_json(url)
-    return if !data
-
-    data["result"]["results"].each do |pkg|
-      yield pkg
-    end
-
-  end
-
-  # Fetch JSON from a URL
-  def fetch_json(url)
-    response = RestClient.get url
-    return JSON.parse(response.body)
-  rescue RestClient::ExceptionWithResponse
-    puts "Failed to make the request to #{url}"
-    return nil
+    legacy_dataset_sync.run
   end
 end
