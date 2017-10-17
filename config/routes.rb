@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  mount Sidekiq::Web => '/sidekiq'
+  mount Sidekiq::Web => '/sidekiq' unless Rails.env.production?
 
   get 'tasks', to: 'tasks#my'
   get 'tasks/organisation', to: 'tasks#organisation'
