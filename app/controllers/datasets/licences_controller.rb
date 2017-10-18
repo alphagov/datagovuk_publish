@@ -16,7 +16,7 @@ class Datasets::LicencesController < ApplicationController
     if @dataset.save
       redirect_to new_dataset_location_path(@dataset)
     else
-      render 'new'
+      render :new
     end
   end
 
@@ -27,13 +27,13 @@ class Datasets::LicencesController < ApplicationController
     if @dataset.save
       redirect_to dataset_path(@dataset)
     else
-      render 'edit'
+      render :edit
     end
   end
 
   private
 
   def current_dataset
-    Dataset.find_by(:name => params.require(:id))
+    Dataset.find_by(name: params[:dataset_id])
   end
 end
