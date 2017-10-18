@@ -41,6 +41,8 @@ Rails.application.routes.draw do
     get 'organisations', to: 'organisations#lookup'
   end
 
+  resource :account, only: :show
+
   get 'tasks', to: 'tasks#my'
   get 'tasks/organisation', to: 'tasks#organisation'
 
@@ -49,6 +51,4 @@ Rails.application.routes.draw do
 
   get 'manage', to: 'manage#manage_own'
   get 'manage/organisation', to: 'manage#manage_organisation'
-
-  get 'account/:id', to: 'account#show', as: 'account_show'
 end
