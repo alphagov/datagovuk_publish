@@ -14,7 +14,7 @@ class Datasets::LicencesController < ApplicationController
     @dataset.update_attributes(params.require(:dataset).permit(:licence, :licence_other))
 
     if @dataset.save
-      redirect_to new_location_path(@dataset)
+      redirect_to new_dataset_location_path(@dataset)
     else
       render 'new'
     end

@@ -15,7 +15,7 @@ class Datasets::LocationsController < ApplicationController
     @dataset.update_attributes(location_params)
 
     if @dataset.save
-      redirect_to new_frequency_path(@dataset)
+      redirect_to new_dataset_frequency_path(@dataset)
     else
       render "new"
     end

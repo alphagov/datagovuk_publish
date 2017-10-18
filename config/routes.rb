@@ -13,15 +13,6 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web => '/sidekiq' unless Rails.env.production?
 
-  get 'tasks', to: 'tasks#my'
-  get 'tasks/organisation', to: 'tasks#organisation'
-
-  namespace :api do
-    get 'start_legacy_sync', to: 'sync#legacy'
-    get 'locations', to: 'locations#lookup'
-    get 'organisations', to: 'organisations#lookup'
-  end
-
   resources :datasets do
     member do
       post 'publish',       to: 'datasets#publish'
@@ -43,6 +34,15 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  namespace :api do
+    get 'start_legacy_sync', to: 'sync#legacy'
+    get 'locations', to: 'locations#lookup'
+    get 'organisations', to: 'organisations#lookup'
+  end
+
+  get 'tasks', to: 'tasks#my'
+  get 'tasks/organisation', to: 'tasks#organisation'
 
   # FIX: Temporary route, remove me when no longer required
   get 'quality', to: 'home#quality'

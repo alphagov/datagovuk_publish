@@ -268,7 +268,7 @@ describe "dataset frequency options" do
     user
     sign_in_user
     dataset
-    visit new_frequency_path(dataset)
+    visit new_dataset_frequency_path(dataset)
   end
 
   context "when Never and Daily" do
@@ -486,7 +486,7 @@ describe "passing the frequency page" do
     user
     dataset
     sign_in_user
-    visit new_frequency_path(dataset)
+    visit new_dataset_frequency_path(dataset)
   end
 
   it "mandates entering a frequency" do
