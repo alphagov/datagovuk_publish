@@ -1,4 +1,4 @@
-class OrganisationsController < ApplicationController
+class API::OrganisationsController < ApplicationController
   protect_from_forgery prepend: :true
 
   def lookup
