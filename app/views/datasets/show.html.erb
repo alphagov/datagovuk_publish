@@ -116,9 +116,9 @@
       </td>
       <td class="dgu-checklist__actions">
         <% if @dataset.links.any? %>
-          <%= link_to 'Change', links_path(@dataset) %>
+          <%= link_to 'Change', dataset_links_path(@dataset) %>
         <% else %>
-          <%= link_to 'Add', new_link_path(@dataset) %>
+          <%= link_to 'Add', new_dataset_link_path(@dataset) %>
         <% end %>
       </td>
     </tr>
@@ -129,9 +129,9 @@
       <% end %>
       <td class="dgu-checklist__actions">
         <% if @dataset.docs.any? %>
-          <%= link_to 'Change', docs_path(@dataset) %>
+          <%= link_to 'Change', dataset_docs_path(@dataset) %>
         <% else %>
-          <%= link_to 'Add', new_doc_path(@dataset) %>
+          <%= link_to 'Add', new_dataset_doc_path(@dataset) %>
         <% end %>
       </td>
     </tr>

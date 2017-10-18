@@ -21,7 +21,7 @@ class Datasets::FrequenciesController < ApplicationController
     end
 
     if @dataset.save
-      redirect_to new_link_path(@dataset)
+      redirect_to new_dataset_link_path(@dataset)
     else
       render 'new'
     end

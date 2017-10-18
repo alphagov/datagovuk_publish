@@ -32,6 +32,7 @@ class Datasets::LicencesController < ApplicationController
   end
 
   private
+
   def current_dataset
     Dataset.find_by(:name => params.require(:id))
   end

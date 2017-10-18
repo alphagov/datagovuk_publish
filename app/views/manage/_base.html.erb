@@ -35,7 +35,7 @@
           </td>
           <td class="dgu-datasets-table__actions">
             <% unless dataset.is_readonly? %>
-              <%= link_to 'Add Data', links_path(dataset) %>
+              <%= link_to 'Add Data', dataset_links_path(dataset) %>
               <%= link_to 'Edit', dataset_path(dataset) %><br/>
             <% end %>
           </td>
