@@ -5,6 +5,8 @@ describe 'editing datasets' do
   set_up_models
 
   before(:each) do
+    url = "https://test.data.gov.uk/api/3/action/package_patch"
+    stub_request(:any, url).to_return(status: 200)
     allow_any_instance_of(UrlValidator).to receive(:validPath?).and_return(true)
     user
     sign_in_user

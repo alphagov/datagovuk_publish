@@ -14,7 +14,7 @@ print_error() {
 
 export SECRET_KEY_BASE="foobar"
 bundle install
-rails db:drop db:create db:schema:load
+rails db:drop db:create db:schema:load db:seed
 
 curl -O https://data.gov.uk/data/dumps/data.gov.uk-ckan-meta-data-latest.organizations.jsonl.gz
 curl -O https://data.gov.uk/data/dumps/data.gov.uk-ckan-meta-data-latest.v2.jsonl.gz
@@ -33,8 +33,5 @@ rails import:datasets["data.gov.uk-ckan-meta-data-latest.v2.jsonl"]
 
 print "Cleaning up"
 rm data.gov.uk-ckan-meta-data-latest.organizations.jsonl data.gov.uk-ckan-meta-data-latest.v2.jsonl
-
-#to create users that belong to real organisations
-rails db:seed
 
 print "All done."

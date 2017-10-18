@@ -33,9 +33,15 @@ end
 
 # We can create land-registry now, and if we import organisations
 # then they will just update it.
-land_registry = Organisation.find_by(name: 'land-registry')
-hmrc = Organisation.find_by(name: 'hmrc')
-gds = Organisation.find_by(name: 'government-digital-service')
+land_registry = Organisation.new
+land_registry.name = "land-registry"
+land_registry.title = "Land Registry"
+land_registry.save!()
+
+hmrc = Organisation.new
+hmrc.name = "hmrc"
+hmrc.title = "hmrc"
+hmrc.save!()
 
 # Admin
 AdminUser.create!(
@@ -51,7 +57,7 @@ User.create!(
   name: 'Publisher',
   password: 'password',
   password_confirmation: 'password',
-  primary_organisation_id: land_registry.id
+  primary_organisation: land_registry
 )
 
 # HMRC User
@@ -60,16 +66,7 @@ User.create!(
   name: 'HMRC',
   password: 'password',
   password_confirmation: 'password',
-  primary_organisation_id: hmrc.id
-)
-
-#GDS User
-User.create!(
-  email: 'gds@example.com',
-  name: 'GDS',
-  password: 'password',
-  'password_confirmation': 'password',
-  primary_organisation_id: gds.id
+  primary_organisation: hmrc
 )
 
 # Locations
