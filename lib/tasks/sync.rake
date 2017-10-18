@@ -11,7 +11,8 @@ namespace :sync do
     legacy_dataset_sync = LegacyDatasetSync.new(
       orgs_cache: orgs_cache,
       theme_cache: theme_cache,
-      host: host
+      host: host,
+      logger: Logger.new(STDOUT)
     )
 
     legacy_dataset_sync.run
