@@ -19,24 +19,24 @@ Rails.application.routes.draw do
   get 'api/start_legacy_sync', to: 'sync#legacy'
 
   resources :datasets do
-    resources :links do
-      get 'confirm_delete', on: :member
-    end
-
-    resources :docs do
-      get 'confirm_delete', on: :member
-    end
-
     member do
-      scope module: :datasets do
-        resource :licence
-        resource :location
-        resource :frequency
-      end
-
       post 'publish',       to: 'datasets#publish'
       get 'confirm_delete', to: 'datasets#confirm_delete'
       get 'quality',        to: 'datasets#quality'
+    end
+
+    scope module: :datasets do
+      resource :licence
+      resource :location
+      resource :frequency
+
+      resources :links do
+        get 'confirm_delete', on: :member
+      end
+
+      resources :docs do
+        get 'confirm_delete', on: :member
+      end
     end
   end
 
