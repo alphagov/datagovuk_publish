@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     get 'organisations', to: 'organisations#lookup'
   end
 
-  resource :account, only: :show
+  resources :account, only: :show
 
   get 'tasks', to: 'tasks#my'
   get 'tasks/organisation', to: 'tasks#organisation'
