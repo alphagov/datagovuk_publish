@@ -11,5 +11,4 @@ class OrganisationsController < ApplicationController
 
     render json: @organisations.select('id, name, title, abbreviation')
   end
-
 end
