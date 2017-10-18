@@ -78,46 +78,6 @@ class Dataset < ApplicationRecord
     )
   end
 
-  # map the dataset.as_json so that the keys are in a format that ckan recognises
-  def ckanify_metadata
-    publish_json = self.as_json
-    organisation = Organisation.find(publish_json["organisation_id"])
-    ckan_json = {
-      id: publish_json['uuid'],
-      name: publish_json['name'],
-      title: publish_json['title'],
-      notes: publish_json['summary'],
-      description: publish_json['summary'],
-      organization: {name: organisation.name},
-      update_frequency: convert_freq_to_legacy_format(publish_json['frequency']),
-      unpublished: !publish_json['published'],
-      metadata_created: publish_json['created_at'],
-      metadata_modified: publish_json['last_updated_at'],
-      geographic_coverage: [(publish_json['location1'] || "").downcase],
-      license_id: publish_json['licence']
-    }
-    add_custom_freq_key(ckan_json, publish_json)
-  end
-
-  def convert_freq_to_legacy_format(frequency)
-    { 'annually' => 'annual' ,
-      'quarterly' => 'quarterly',
-      'monthly' => 'monthly',
-      'daily' => 'other',
-      'weekly' => 'other',
-      'never' => 'never',
-      'discontinued' => 'discontinued',
-      'one-off' => 'other'
-    }.fetch(frequency,"")
-  end
-
-  def add_custom_freq_key(ckan_json, publish_json)
-    if ['daily', 'weekly', 'one-off'].include? publish_json['frequency']
-      ckan_json['update_frequency-other'] = publish_json['frequency']
-    end
-    ckan_json
-  end
-
   def owner
     User.find(id: self.owner_id)
   end

@@ -1,11 +1,8 @@
 class DatasetsController < ApplicationController
+  include UpdateLegacy
   before_action :authenticate_user!
   before_action :set_dataset, only: [:show, :edit, :update, :destroy,
                                      :publish, :confirm_delete, :quality]
-
-  if Rails.env.production?
-    after_action :update_legacy, only: [:update]
-  end
 
   def show
     @dataset.complete!
@@ -32,6 +29,7 @@ class DatasetsController < ApplicationController
 
   def update
     if @dataset.update(dataset_params)
+      update_legacy
       redirect_to @dataset
     else
       render :edit
@@ -96,7 +94,4 @@ class DatasetsController < ApplicationController
     params.require(:dataset).permit(:title, :summary, :description)
   end
 
-  def update_legacy
-    LegacySyncWorker.perform_async(@dataset.id)
-  end
 end
