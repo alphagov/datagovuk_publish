@@ -8,6 +8,7 @@
       <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
         There was a problem
       </h1>
+
       <ul class="error-summary-list">
         <% @doc.errors.each do |attr, message| %>
           <li>
@@ -20,9 +21,10 @@
       </ul>
     </div>
   <% end %>
+
   <h1 class="heading-large">Add a link to supporting documents</h1>
 
-  <%= form_for @doc, url: docs_path(@dataset), method: 'post' do |f| %>
+  <%= form_for @doc, url: dataset_docs_path(@dataset), method: 'post' do |f| %>
     <%= dataset_field f, @doc,
     name: 'url',
     label: 'URL',
