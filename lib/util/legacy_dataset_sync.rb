@@ -2,27 +2,26 @@ require 'util/metadata_tools'
 
 class LegacyDatasetSync
 
-  def initialize(orgs_cache:, theme_cache:, host:)
+  def initialize(orgs_cache:, theme_cache:, host:, logger:)
     @orgs_cache = orgs_cache
     @theme_cache = theme_cache
     @host = host
+    @logger = logger
     @count = 0
   end
 
   def run
-    puts "#{Time.now} - Starting legacy data sync with #{@host}"
-
+    @logger.info "Importing legacy datasets...\r"
     get_packages @host do |package|
-      begin
-        MetadataTools.add_dataset_metadata(package, @orgs_cache, @theme_cache)
-      rescue => e
-        puts e.message
-      end
-
-      print "Imported #{@count += 1} datasets...\r"
+        begin
+          dataset_id = MetadataTools.add_dataset_metadata(package, @orgs_cache, @theme_cache)
+          PublishingWorker.perform_async(dataset_id)
+        rescue => e
+          @logger.error e.message
+        end
+        @count += 1
     end
-
-    puts "#{Time.now} - Completed legacy data sync successfully"
+    @logger.info "Imported #{@count} datasets...\r"
   end
 
   private
@@ -44,7 +43,7 @@ class LegacyDatasetSync
     response = RestClient.get url
     return JSON.parse(response.body)
   rescue RestClient::ExceptionWithResponse
-    puts "Failed to make the request to #{url}"
+    @logger.error "Failed to make the request to #{url}"
     return nil
   end
 end
