@@ -5,6 +5,6 @@ class LegacyToBetaDatasetSyncWorker
   include Sidekiq::Worker
 
   def perform
-    Rake::Task['sync:daily'].invoke
+    Rake::Task['sync:legacy'].invoke
   end
 end
