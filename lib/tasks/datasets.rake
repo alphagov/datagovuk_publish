@@ -1,25 +1,24 @@
 namespace :datasets do
   desc "Migrate dataset status from published boolean field to status enum field"
   task migrate_status: :environment do
-    published_datasets = Dataset.where(published: true)
-    draft_datasets = Dataset.where(published: false)
+    puts "Starting dataset status migration ..."
 
-    puts "Going to update #{published_datasets.count} published datasets and #{draft_datasets.count} draft datasets."
+    draft = Dataset.statuses[:draft] # 0
+    published = Dataset.statuses[:published] # 1
 
-    ActiveRecord::Base.transaction do
-      # :update_all constructs a single SQL UPDATE statement and sends it straight to the database.
-      # It does not trigger ActiveRecord callbacks or validations, and updated_at is not updated.
-      published_datasets.update_all(status: "published")
-    end
+    update_drafts_query = <<~SQL
+      UPDATE datasets SET status = #{draft} WHERE published = 'false';
+    SQL
 
-    puts "Done updating published datasets!"
+    update_published_query = <<~SQL
+      UPDATE datasets SET status = #{published} WHERE published = 'true';
+    SQL
 
-    ActiveRecord::Base.transaction do
-      draft_datasets.update_all(status: "draft")
-    end
+    connection = ActiveRecord::Base.connection
 
-    puts "Done updating draft datasets!"
+    connection.exec_query(update_drafts_query)
+    connection.exec_query(update_published_query)
 
-    puts " All done now!"
+    puts "All done now!"
   end
 end
