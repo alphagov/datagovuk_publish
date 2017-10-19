@@ -1,6 +1,6 @@
 require 'rest-client'
 
-class LegacySyncWorker
+class PublishToLegacyUpdateWorker
   include Sidekiq::Worker
 
   def perform(id)
