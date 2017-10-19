@@ -41,6 +41,6 @@ module PublishDataBeta
         resource '*', :headers => :any, :methods => [:get]
       end
     end
-
+    config.autoload_paths += %W(#{config.root}/app/workers)
   end
 end
