@@ -15,7 +15,7 @@ class Legacy::Server
   end
 
   def host
-    Rails.env.production? ? "https://data.gov.uk" : "https://test.data.gov.uk"
+    ENV['LEGACY_HOST']
   end
 
   def path
