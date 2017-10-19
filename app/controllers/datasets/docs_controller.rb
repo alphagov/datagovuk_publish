@@ -1,4 +1,4 @@
-class DocsController < ApplicationController
+class Datasets::DocsController < ApplicationController
   before_action :set_dataset, only: [:index, :new, :create, :edit, :update, :confirm_delete, :destroy]
   before_action :set_doc,     only: [:edit, :update, :confirm_delete, :destroy]
 

@@ -1,4 +1,4 @@
-class OrganisationsController < ApplicationController
+class API::OrganisationsController < ApplicationController
   protect_from_forgery prepend: :true
 
   def lookup
@@ -11,5 +11,4 @@ class OrganisationsController < ApplicationController
 
     render json: @organisations.select('id, name, title, abbreviation')
   end
-
 end

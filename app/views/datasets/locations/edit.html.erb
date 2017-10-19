@@ -22,7 +22,7 @@
 
 <h1 class="heading-large">Choose a geographical area</h1>
 
-<%= form_for @dataset, url: location_path(@dataset), method: :put do |f| %>
+<%= form_for @dataset, url: dataset_location_path(@dataset), method: :put do |f| %>
   <fieldset>
     <legend class="visually-hidden">
       Choose a geographical area

@@ -1,5 +1,5 @@
 # coding: utf-8
-class LinksController < ApplicationController
+class Datasets::LinksController < ApplicationController
   before_action :set_dataset, only: [:index, :new, :create, :edit, :update, :confirm_delete, :destroy]
   before_action :set_link,    only: [:edit, :update, :confirm_delete, :destroy]
 

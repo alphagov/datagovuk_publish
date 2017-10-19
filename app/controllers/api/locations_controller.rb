@@ -1,7 +1,6 @@
-class LocationsController < ApplicationController
+class API::LocationsController < ApplicationController
   protect_from_forgery prepend: :true
   before_action :authenticate_user!
-
 
   def lookup
     if params[:q]

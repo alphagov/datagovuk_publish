@@ -72,9 +72,9 @@
       </td>
       <td class="dgu-checklist__actions">
         <% if @dataset.licence %>
-          <%= link_to 'Change', edit_licence_path(@dataset) %>
+          <%= link_to 'Change', edit_dataset_licence_path(@dataset) %>
         <% else %>
-          <%= link_to 'Select', edit_licence_path(@dataset) %>
+          <%= link_to 'Select', edit_dataset_licence_path(@dataset) %>
         <% end %>
       </td>
     </tr>
@@ -85,9 +85,9 @@
 
         <td class="dgu-checklist__actions">
           <% if @dataset.location1 %>
-            <%= link_to 'Change', edit_location_path(@dataset) %>
+            <%= link_to 'Change', edit_dataset_location_path(@dataset) %>
           <% else %>
-            <%= link_to 'Add', edit_location_path(@dataset) %>
+            <%= link_to 'Add', edit_dataset_location_path(@dataset) %>
           <% end %>
         </td>
     </tr>
@@ -96,9 +96,9 @@
       <td><%= friendly_frequency(@dataset.frequency) if @dataset.frequency %></td>
       <td class="dgu-checklist__actions">
         <% if @dataset.frequency %>
-          <%= link_to 'Change', edit_frequency_path(@dataset) %>
+          <%= link_to 'Change', edit_dataset_frequency_path(@dataset) %>
         <% else %>
-          <%= link_to 'Select', edit_frequency_path(@dataset) %>
+          <%= link_to 'Select', edit_dataset_frequency_path(@dataset) %>
         <% end %>
       </td>
     </tr>

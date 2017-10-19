@@ -22,7 +22,7 @@
   <% end %>
   <h1 class="heading-large">Choose a licence for this dataset</h1>
 
-  <%= form_for @dataset, url: licence_path(@dataset), method: :put do |f| %>
+  <%= form_for @dataset, url: dataset_licence_path(@dataset), method: :put do |f| %>
     <div class="form-group">
       <fieldset>
         <legend class="visually-hidden">Choose a licence for this dataset</legend>
