@@ -28,6 +28,7 @@ gem 'whois-parser'
 gem "sidekiq", "~> 5.0.4"
 gem 'rack-cors', :require => 'rack/cors'
 gem 'iconv', "~> 1.0.4"
+gem 'redis-namespace', "~> 1.5.3"
 
 group :development, :test do
   gem 'byebug', '~> 9'
