@@ -3,8 +3,9 @@ class Legacy::Server
   def update(payload)
     begin
       RestClient.post(url, payload, headers)
-    rescue
+    rescue => e
       Rails.logger.debug "ERROR! => update not sent to legacy"
+      raise e
     end
   end
 
