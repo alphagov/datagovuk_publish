@@ -10,7 +10,7 @@ class Dataset < ApplicationRecord
   include Elasticsearch::Model
   extend FriendlyId
 
-  friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
+  friendly_id :uuid_and_title, :use => :slugged, :slug_column => :name
   index_name ENV['ES_INDEX'] || "datasets-#{Rails.env}"
   document_type "dataset"
 
@@ -94,14 +94,12 @@ class Dataset < ApplicationRecord
     self.creator_id = user.id
   end
 
-  def slug_candidates
-    [:title, :title_and_sequence]
+  def uuid_and_title
+    "#{uuid} #{title}"
   end
 
-  def title_and_sequence
-    slug = title.to_param
-    sequence = Dataset.where("name like ?", "#{slug}-%").count + 2
-    "#{slug}-#{sequence}"
+  def should_generate_new_friendly_id?
+    title_changed?
   end
 
   def publishable?

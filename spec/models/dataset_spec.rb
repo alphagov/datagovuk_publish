@@ -29,22 +29,22 @@ describe Dataset do
     expect(d.save).to eq(false)
   end
 
-  it "can generate unique slugs" do
-    d1 = Dataset.new
-    d1.title = "dataset"
-    d1.summary = "Summary"
-    d1.organisation_id = @org.id
-    d1.frequency = "daily"
-    expect(d1.save).to eq(true)
+  it "generates a unique slug and stores it on the name column" do
+    dataset = FactoryGirl.create(:dataset,
+                                 uuid: 1234,
+                                 title: "My awesome dataset")
 
-    d2 = Dataset.new
-    d2.title = "dataset"
-    d2.summary = "Summary"
-    d2.organisation_id = @org.id
-    d2.frequency = "daily"
-    expect(d2.save).to eq(true)
+    expect(dataset.name).to eq("1234-my-awesome-dataset")
+  end
 
-    expect(d2.name).to eq("dataset-2")
+  it "generates a new slug when the title has changed" do
+    dataset = FactoryGirl.create(:dataset,
+                                 uuid: 1234,
+                                 title: "My awesome dataset")
+
+    dataset.update(title: "My Even Better Dataset")
+
+    expect(dataset.name).to eq("1234-my-even-better-dataset")
   end
 
   it "validates more strictly when publishing" do
