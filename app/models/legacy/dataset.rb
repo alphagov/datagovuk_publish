@@ -15,7 +15,7 @@ class Legacy::Dataset < SimpleDelegator
                     "package_id" => uuid,
                     "value" => convert_freq_to_legacy_format(frequency)}
                   ],
-      "unpublished" => unpublished?(status),
+      "unpublished" => !published?,
       "metadata_created" => created_at,
       "metadata_modified" => last_updated_at,
       "geographic_coverage" => [(location1 || "").downcase],
@@ -40,10 +40,6 @@ class Legacy::Dataset < SimpleDelegator
       ckan_dataset["extras"].push(extra)
     end
     ckan_dataset
-  end
-
-  def unpublished?(string)
-    string == "draft"
   end
 
   def convert_freq_to_legacy_format(frequency)
