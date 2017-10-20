@@ -43,7 +43,7 @@ class DatasetsController < ApplicationController
   def publish
     @dataset.complete!
 
-    if @dataset.publishable? # todo move check to Dataset#publish
+    if @dataset.publishable?
       if @dataset.published?
         flash[:success] = I18n.t 'dataset_updated'
       else
