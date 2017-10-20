@@ -1,4 +1,5 @@
 class Datasets::FrequenciesController < ApplicationController
+  include UpdateLegacy
   before_action :authenticate_user!
 
   def new
@@ -32,6 +33,7 @@ class Datasets::FrequenciesController < ApplicationController
     @dataset.frequency = params.require(:dataset).permit(:frequency)[:frequency]
 
     if @dataset.save
+      update_legacy
       redirect_to dataset_path(@dataset)
     else
       render :edit

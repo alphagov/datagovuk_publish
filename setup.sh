@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# !/usr/bin/env bash
 
 print_warning() {
   echo -e "\033[1;33m"$1"\033[00m";
@@ -14,7 +14,7 @@ print_error() {
 
 export SECRET_KEY_BASE="foobar"
 bundle install
-rails db:reset db:migrate db:seed
+rails db:drop db:create db:schema:load db:seed
 
 curl -O https://data.gov.uk/data/dumps/data.gov.uk-ckan-meta-data-latest.organizations.jsonl.gz
 curl -O https://data.gov.uk/data/dumps/data.gov.uk-ckan-meta-data-latest.v2.jsonl.gz

@@ -39,15 +39,18 @@ RSpec.describe UrlValidator do
       end
 
       it 'the host does not exist' do
-        subject.url = 'http://thisHostDoesNotExist.com/data'
+        url = "http://thishostdoesnotexist.com/data"
+        stub_request(:any, url).to_return(status: 404)
+        subject.url = url
         subject.validate
         expect(subject.errors[:url]).to include EXPECTED_ERROR_MESSAGE
       end
 
       it 'the url path does not exist' do
         # allow_any_instance_of(UrlValidator).to receive(:validPath?).and_return(false)
-
-        subject.url = 'http://codurance.com/doesNotExist'
+        url = "http://thishostdoesnotexist.com/data"
+        stub_request(:any, url).to_return(status: 404)
+        subject.url = url
         subject.validate
         expect(subject.errors[:url]).to include EXPECTED_ERROR_MESSAGE
       end
@@ -55,7 +58,9 @@ RSpec.describe UrlValidator do
 
     describe 'Does not create validation error' do
       it 'if url is valid' do
-        subject.url = 'http://www.bbc.co.uk/news'
+        url = 'http://www.bbc.co.uk/news'
+        stub_request(:any, url).to_return(status: 404)
+        subject.url = url
         subject.validate
         expect(subject.errors[:url]).to be_empty
       end
