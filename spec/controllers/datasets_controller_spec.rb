@@ -17,7 +17,6 @@ describe DatasetsController, type: :controller do
   end
 
   it "updates legacy when a dataset is updated" do
-
     user =  FactoryGirl.create(:user)
     sign_in(user)
 
@@ -36,7 +35,16 @@ describe DatasetsController, type: :controller do
     expect(WebMock)
       .to have_requested(:post, url)
       .once
-
   end
 
+  it "redirects to slugged URL" do
+    user =  FactoryGirl.create(:user)
+    sign_in(user)
+
+    dataset = FactoryGirl.create(:dataset, links: [FactoryGirl.create(:link)])
+
+    get :show, params: { id: dataset.id }
+
+    expect(response).to redirect_to(dataset_url(dataset))
+  end
 end
