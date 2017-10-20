@@ -107,7 +107,7 @@ describe "dataset creation" do
       # Ensure the dataset is indexed in Elastic
       client = Dataset.__elasticsearch__.client
       document = client.get({ index: Dataset.index_name, id: Dataset.last.id })
-      expect(document["_source"]["name"]).to eq("my-test-dataset")
+      expect(document["_source"]["name"]).to eq("#{Dataset.last.uuid} #{Dataset.last.title}".parameterize)
     end
   end
 
