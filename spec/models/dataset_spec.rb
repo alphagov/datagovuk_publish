@@ -5,13 +5,15 @@ describe Dataset do
   let! (:org)  { @org = Organisation.create!(name: "land-registry", title: "Land Registry") }
 
   it "can create a new dataset" do
-    d = Dataset.new
-    d.title = "This is a dataset"
-    d.summary = "Summary"
-    d.frequency = "daily"
-    d.organisation_id = @org.id
+    d = Dataset.new(
+      title: "This is a dataset",
+      summary: "Summary",
+      frequency: "daily",
+      organisation_id: @org.id
+    )
+
     expect(d.save).to eq(true)
-    expect(d.name).to eq("this-is-a-dataset")
+    expect(d.name).to eq("#{d.uuid} #{d.title}".parameterize)
   end
 
   it "requires a valid title" do
@@ -31,10 +33,9 @@ describe Dataset do
 
   it "generates a unique slug and stores it on the name column" do
     dataset = FactoryGirl.create(:dataset,
-                                 uuid: 1234,
                                  title: "My awesome dataset")
 
-    expect(dataset.name).to eq("1234-my-awesome-dataset")
+    expect(dataset.name).to eq("#{dataset.uuid} #{dataset.title}".parameterize)
   end
 
   it "generates a new slug when the title has changed" do

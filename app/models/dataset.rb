@@ -14,9 +14,8 @@ class Dataset < ApplicationRecord
   index_name ENV['ES_INDEX'] || "datasets-#{Rails.env}"
   document_type "dataset"
 
-  after_initialize :set_initial_stage
+  after_initialize :set_initial_stage, :set_uuid
   before_destroy :prevent_if_published
-  before_save :set_uuid
 
   belongs_to :organisation
   belongs_to :theme, optional: true
