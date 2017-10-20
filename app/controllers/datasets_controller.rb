@@ -6,6 +6,10 @@ class DatasetsController < ApplicationController
 
   def show
     @dataset.complete!
+
+    if request.path != dataset_path(@dataset)
+      return redirect_to @dataset, status: :moved_permanently
+    end
   end
 
   def new
@@ -87,11 +91,10 @@ class DatasetsController < ApplicationController
   private
 
   def set_dataset
-    @dataset = Dataset.find_by(name: params[:id])
+    @dataset = Dataset.friendly.find(params[:id])
   end
 
   def dataset_params
     params.require(:dataset).permit(:title, :summary, :description)
   end
-
 end
