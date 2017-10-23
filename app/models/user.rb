@@ -12,8 +12,17 @@ class User < ApplicationRecord
 
   audited
 
-  def in_organisation(organisation)
-    self.primary_organisation == organisation ||
-      self.organisations.include?(organisation)
+  def in_organisation?(organisation)
+    user_organisations.include?(organisation)
+  end
+
+  def creator_of_dataset?(dataset)
+    id == dataset.creator_id
+  end
+
+  private
+
+  def user_organisations
+    organisations + [primary_organisation]
   end
 end

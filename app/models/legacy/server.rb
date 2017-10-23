@@ -26,5 +26,4 @@ class Legacy::Server
   def headers
     { Authorization: ENV['LEGACY_API_KEY'] }
   end
-
 end

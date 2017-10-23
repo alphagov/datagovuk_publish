@@ -4,6 +4,7 @@ class DatasetsController < ApplicationController
                                      :publish, :confirm_delete, :quality]
 
   def show
+    authorize!(:read, @dataset)
     @dataset.complete!
 
     if request.path != dataset_path(@dataset)
@@ -16,6 +17,7 @@ class DatasetsController < ApplicationController
   end
 
   def edit
+    authorize!(:update, @dataset)
   end
 
   def create
