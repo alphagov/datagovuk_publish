@@ -16,7 +16,7 @@ class Dataset < ApplicationRecord
   include Elasticsearch::Model
   extend FriendlyId
 
-  friendly_id :uuid_and_title, :use => :slugged, :slug_column => :name
+  friendly_id :uuid_and_title, use: :history, slug_column: :name
   index_name ENV['ES_INDEX'] || "datasets-#{Rails.env}"
   document_type "dataset"
 

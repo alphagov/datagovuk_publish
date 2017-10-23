@@ -41,6 +41,7 @@ describe Dataset do
   it "generates a new slug when the title has changed" do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
     stub_request(:any, url).to_return(status: 200)
+
     dataset = FactoryGirl.create(:dataset,
                                  uuid: 1234,
                                  title: "My awesome dataset")
@@ -82,7 +83,7 @@ describe Dataset do
   it "is not possible to delete a published dataset" do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
     stub_request(:any, url).to_return(status: 200)
-    
+
     d = Dataset.new(
       title: "dataset",
       summary: "Summary",
