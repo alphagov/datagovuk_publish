@@ -1,5 +1,4 @@
 class Datasets::LicencesController < ApplicationController
-  include UpdateLegacy
   before_action :authenticate_user!
 
   def new
@@ -26,7 +25,6 @@ class Datasets::LicencesController < ApplicationController
     @dataset.update_attributes(params.require(:dataset).permit(:licence, :licence_other))
 
     if @dataset.save
-      update_legacy
       redirect_to dataset_path(@dataset)
     else
       render :edit

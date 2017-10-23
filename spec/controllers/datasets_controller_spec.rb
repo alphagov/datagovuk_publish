@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 describe DatasetsController, type: :controller do
+
+  before :each do
+    url = "https://test.data.gov.uk/api/3/action/package_patch"
+    stub_request(:any, url).to_return(status: 200)
+  end
+
   it "prevents harvested datasets from being updated through the user interface" do
     user = FactoryGirl.create(:user)
     sign_in(user)
@@ -23,17 +29,13 @@ describe DatasetsController, type: :controller do
     dataset = FactoryGirl.create(:dataset,
                                   links: [FactoryGirl.create(:link)])
 
-    url = "https://test.data.gov.uk/api/3/action/package_patch"
-
-    stub_request(:any, url).to_return(status: 200)
-
     patch :update, params: { id: dataset.name, dataset: { title: "New title" } }
     dataset.reload
 
     expect(dataset.title).to eq("New title")
 
     expect(WebMock)
-      .to have_requested(:post, url)
+      .to have_requested(:post, 'https://test.data.gov.uk/api/3/action/package_patch')
       .once
   end
 

@@ -1,5 +1,4 @@
 class Datasets::LocationsController < ApplicationController
-  include UpdateLegacy
   before_action :authenticate_user!
 
   def new
@@ -28,7 +27,6 @@ class Datasets::LocationsController < ApplicationController
     @dataset.update_attributes(location_params)
 
     if @dataset.save
-      update_legacy
       redirect_to dataset_path(@dataset)
     else
       render :edit
