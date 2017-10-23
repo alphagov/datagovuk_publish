@@ -11,6 +11,8 @@ describe "dataset creation" do
     before(:each) do
       user
       sign_in_user
+      url = "https://test.data.gov.uk/api/3/action/package_patch"
+      stub_request(:any, url).to_return(status: 200)
     end
 
     it "navigates to new dataset form" do
@@ -114,6 +116,8 @@ describe "dataset creation" do
   context "when the user doesn't complete flow" do
 
     before(:each) do
+      url = "https://test.data.gov.uk/api/3/action/package_patch"
+      stub_request(:any, url).to_return(status: 200)
       user
       sign_in_user
     end
@@ -146,6 +150,8 @@ describe "starting a new draft with invalid inputs" do
   let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
 
   before(:each) do
+    url = "https://test.data.gov.uk/api/3/action/package_patch"
+    stub_request(:any, url).to_return(status: 200)
     user
     sign_in_user
     visit new_dataset_path
@@ -202,6 +208,8 @@ describe "valid options for licence and area" do
   let(:user) { FactoryGirl.create(:user, primary_organisation: land_registry) }
 
   before(:each) do
+    url = "https://test.data.gov.uk/api/3/action/package_patch"
+    stub_request(:any, url).to_return(status: 200)
     user
     sign_in_user
     visit new_dataset_path
@@ -241,6 +249,8 @@ describe "valid options for licence and area" do
 
   context "when selecting geographical area" do
     before(:each) do
+      url = "https://test.data.gov.uk/api/3/action/package_patch"
+      stub_request(:any, url).to_return(status: 200)
       choose option: "uk-ogl"
       click_button "Save and continue"
     end
@@ -265,6 +275,8 @@ describe "dataset frequency options" do
   let(:dataset) { FactoryGirl.create(:dataset, organisation: land, owner: user ) }
 
   before(:each) do
+    url = "https://test.data.gov.uk/api/3/action/package_patch"
+    stub_request(:any, url).to_return(status: 200)
     user
     sign_in_user
     dataset
@@ -308,6 +320,8 @@ describe "dataset frequency options" do
 
   context "when WEEKLY" do
     before(:each) do
+      url = "https://test.data.gov.uk/api/3/action/package_patch"
+      stub_request(:any, url).to_return(status: 200)
       choose option: 'weekly'
       click_button "Save and continue"
       fill_in 'link[url]', with: 'https://localhost/doc'
@@ -370,6 +384,8 @@ describe "dataset frequency options" do
 
   context "when MONTHLY" do
     before(:each) do
+      url = "https://test.data.gov.uk/api/3/action/package_patch"
+      stub_request(:any, url).to_return(status: 200)
       choose option: 'monthly'
       click_button "Save and continue"
       fill_in 'link[url]', with: 'https://localhost/doc'
@@ -404,6 +420,8 @@ describe "dataset frequency options" do
 
   context "when QUARTERLY" do
     before(:each) do
+      url = "https://test.data.gov.uk/api/3/action/package_patch"
+      stub_request(:any, url).to_return(status: 200)
       choose option: 'quarterly'
       click_button "Save and continue"
     end
@@ -483,6 +501,8 @@ describe "passing the frequency page" do
   let(:dataset) { FactoryGirl.create(:dataset, organisation: land, owner: user, frequency: nil ) }
 
   before(:each) do
+    url = "https://test.data.gov.uk/api/3/action/package_patch"
+    stub_request(:any, url).to_return(status: 200)
     user
     dataset
     sign_in_user

@@ -46,6 +46,8 @@ class Dataset < ApplicationRecord
   scope :owned_by, ->(creator_id) { where(creator_id: creator_id) }
   scope :published, ->{ where(status: "published") }
 
+  after_update :update_legacy
+
   def is_readonly?
     if persisted? && self.harvested?
       errors[:base] << 'Harvested datasets cannot be modified.'
@@ -179,6 +181,10 @@ class Dataset < ApplicationRecord
   end
 
   private
+
+  def update_legacy
+    PublishToLegacyUpdateWorker.perform_async(self.id)
+  end
 
   def set_initial_stage
     self.stage ||= 'initialised'

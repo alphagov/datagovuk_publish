@@ -1,5 +1,4 @@
 class DatasetsController < ApplicationController
-  include UpdateLegacy
   before_action :authenticate_user!
   before_action :set_dataset, only: [:show, :edit, :update, :destroy,
                                      :publish, :confirm_delete, :quality]
@@ -33,7 +32,6 @@ class DatasetsController < ApplicationController
 
   def update
     if @dataset.update(dataset_params)
-      update_legacy
       redirect_to @dataset
     else
       render :edit
