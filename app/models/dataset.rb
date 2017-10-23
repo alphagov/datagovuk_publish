@@ -183,7 +183,7 @@ class Dataset < ApplicationRecord
   private
 
   def update_legacy
-    PublishToLegacyUpdateWorker.perform_async(self.id)
+    PublishToLegacyUpdateMetadataWorker.perform_async(self.id)
   end
 
   def set_initial_stage

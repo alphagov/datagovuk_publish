@@ -25,7 +25,7 @@ class Legacy::Dataset < SimpleDelegator
   end
 
   def update
-    Legacy::Server.new.update(metadata_json)
+    Legacy::Server.new(object: :dataset).update(metadata_json)
   end
 
   private

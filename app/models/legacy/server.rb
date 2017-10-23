@@ -1,4 +1,9 @@
 class Legacy::Server
+  attr_reader :object
+
+  def initialize(object:)
+    @object = object
+  end
 
   def update(payload)
     begin
@@ -20,7 +25,8 @@ class Legacy::Server
   end
 
   def path
-    "/api/3/action/package_patch"
+    return "/api/3/action/package_patch" if object == :dataset
+    return "/api/3/action/resource_patch" if object == :datafile
   end
 
   def headers
