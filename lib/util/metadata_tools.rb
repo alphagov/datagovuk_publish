@@ -58,9 +58,11 @@ module MetadataTools
 
     datafile.uuid = resource["id"]
     datafile.format = resource["format"]
-    datafile.name = resource["description"]
-    datafile.name = "No name specified" if datafile.name.strip() == ""
-    datafile.created_at = dataset.created_at
+    datafile.name = resource["name"]
+    datafile.name = resource["description"] if datafile.name.strip == ""
+    datafile.name = "No name specified" if datafile.name.strip == ""
+    datafile.created_at = resource["created"]
+    datafile.created_at = dataset.created_at if datafile.created_at.blank?
     datafile.updated_at = dataset.last_updated_at
 
     if !resource["date"].blank? && !documentation?(resource['format'])
@@ -225,4 +227,3 @@ module MetadataTools
     :dataset_type, :get_extra, :harvested?, :calculate_dates_for_month, :calculate_dates_for_year,
     :documentation?, :get_start_end_date, :add_resource, :convert_location
 end
-
