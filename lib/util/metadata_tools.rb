@@ -58,8 +58,7 @@ module MetadataTools
 
     datafile.uuid = resource["id"]
     datafile.format = resource["format"]
-    datafile.name = resource["name"]
-    datafile.name = resource["description"] if datafile.name.strip == ""
+    datafile.name = resource["name"].blank? ? resource["description"] : resource["name"]
     datafile.name = "No name specified" if datafile.name.strip == ""
     datafile.created_at = resource["created"]
     datafile.created_at = dataset.created_at if datafile.created_at.blank?

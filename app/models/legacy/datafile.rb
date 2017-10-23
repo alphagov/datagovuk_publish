@@ -1,7 +1,7 @@
 class Legacy::Datafile < SimpleDelegator
 
   def datafile_json
-    ckan_datafile = {
+    {
       "id" => uuid,
       "name" => name,
       "format" => format,
@@ -15,4 +15,4 @@ class Legacy::Datafile < SimpleDelegator
     Legacy::Server.new(object: :datafile).update(datafile_json)
   end
 
-  end
+end
