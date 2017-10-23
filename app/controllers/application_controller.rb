@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-  rescue_from CanCan::AccessDenied do |exception|
+  rescue_from CanCan::AccessDenied do
     respond_to do |format|
       format.json { head :forbidden, content_type: 'text/html' }
       format.html { render plain: '403 Forbidden', status: :forbidden }
