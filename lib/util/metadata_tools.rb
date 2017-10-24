@@ -2,7 +2,7 @@ module MetadataTools
 
   def add_dataset_metadata(obj, orgs_cache, theme_cache)
     d = Dataset.find_or_create_by(uuid: obj["id"])
-    d.name = obj["name"]
+    d.legacy_name = obj["name"]
     d.title = obj["title"]
     d.summary = generate_summary(obj["notes"])
     d.description = obj["notes"]
