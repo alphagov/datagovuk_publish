@@ -1,10 +1,9 @@
 class Legacy::Dataset < SimpleDelegator
 
   def metadata_json
-    organisation = Organisation.find(organisation_id)
     ckan_dataset = {
       "id" => uuid,
-      "name" => name,
+      "name" => legacy_name,
       "title" => title,
       "notes" => summary,
       "description" => summary,
