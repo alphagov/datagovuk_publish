@@ -18,7 +18,7 @@
 
   <h1 class="heading-large">Change your dataset's details</h1>
 
-  <%= form_for @dataset, url: dataset_path(@dataset), method: :put do |f| %>
+  <%= form_for @dataset, url: update_dataset_path(@dataset.uuid, @dataset.name) do |f| %>
 
     <%= dataset_field f, @dataset,
     input_type: :text_field,

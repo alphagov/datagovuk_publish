@@ -14,13 +14,12 @@ class Dataset < ApplicationRecord
   STAGES = %w(initialised completed)
 
   include Elasticsearch::Model
-  extend FriendlyId
 
-  friendly_id :uuid_and_title, :use => :slugged, :slug_column => :name
   index_name ENV['ES_INDEX'] || "datasets-#{Rails.env}"
   document_type "dataset"
 
   after_initialize :set_initial_stage, :set_uuid
+  before_save :set_name
   before_destroy :prevent_if_published
 
   belongs_to :organisation
@@ -100,14 +99,6 @@ class Dataset < ApplicationRecord
     self.creator_id = user.id
   end
 
-  def uuid_and_title
-    "#{uuid} #{title}"
-  end
-
-  def should_generate_new_friendly_id?
-    title_changed?
-  end
-
   def publishable?
     if self.published?
       return self.valid?
@@ -123,6 +114,10 @@ class Dataset < ApplicationRecord
     if self.uuid.blank?
       self.uuid = SecureRandom.uuid
     end
+  end
+
+  def set_name
+    self.name = title.parameterize
   end
 
   def prevent_if_published

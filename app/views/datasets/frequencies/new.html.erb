@@ -22,7 +22,7 @@
   <% end %>
   <h1 class="heading-large">How frequently is this dataset updated?</h1>
 
-  <%= form_for @dataset, url: dataset_frequency_path(@dataset), method: :post do |f| %>
+  <%= form_for @dataset, url: create_dataset_frequency_path(@dataset.uuid, @dataset.name), method: :post do |f| %>
     <div class="form-group <% if @dataset.errors.key? "frequency" %>form-group-error<%end%>">
       <fieldset>
         <legend id="#id_frequency">
