@@ -1,7 +1,6 @@
 class Legacy::Dataset < SimpleDelegator
 
   def metadata_json
-    organisation = Organisation.find(organisation_id)
     ckan_dataset = {
       "id" => uuid,
       "name" => name,
@@ -19,16 +18,23 @@ class Legacy::Dataset < SimpleDelegator
       "metadata_created" => created_at,
       "metadata_modified" => last_updated_at,
       "geographic_coverage" => [(location1 || "").downcase],
-      "license_id" => licence
+      "license_id" => licence,
+      "resources" => build_resources(datafiles)
     }.compact
     extend_extras(ckan_dataset).to_json
   end
 
   def update
-    Legacy::Server.new(object: :dataset).update(metadata_json)
+    Legacy::Server.new(type: :update).update(metadata_json)
   end
 
   private
+
+  def build_resources(datafiles)
+    datafiles.each do |datafile|
+      Legacy::Datafile.new(datafile)
+    end
+  end
 
   def extend_extras(ckan_dataset)
     if ckan_dataset["update_frequency"] == 'other'
@@ -51,7 +57,7 @@ class Legacy::Dataset < SimpleDelegator
   end
 
   FREQUENCY_MAP =
-    { 'annually' => 'annual' ,
+    { 'annually' => 'annual',
       'quarterly' => 'quarterly',
       'monthly' => 'monthly',
       'daily' => 'other',
