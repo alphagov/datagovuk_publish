@@ -24,7 +24,7 @@
 
   <h1 class="heading-large">Add a link to your data</h1>
 
-  <%= form_for @link, url: update_dataset_link_path(@dataset.uuid, @dataset.name), method: :put do |f| %>
+  <%= form_for @link, url: update_dataset_link_path(@dataset.uuid, @dataset.name) do |f| %>
     <%= dataset_field f, @link,
     name: 'url',
     label: 'URL',

@@ -24,7 +24,7 @@
 
   <h1 class="heading-large">Add a link to supporting documents</h1>
 
-  <%= form_for @doc, url: update_dataset_doc_path(@dataset.uuid, @dataset.name, @doc.id), method: :put do |f| %>
+  <%= form_for @doc, url: update_dataset_doc_path(@dataset.uuid, @dataset.name, @doc.id) do |f| %>
     <%= dataset_field f, @doc,
     name: 'url',
     label: 'URL',

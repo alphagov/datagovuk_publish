@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     get    ':uuid/*name/links/:id/edit', to: 'datasets/links#edit',         as: 'edit_dataset_link'
     get    ':uuid/*name/links',          to: 'datasets/links#index',        as: 'dataset_links'
     post   ':uuid/*name/links',          to: 'datasets/links#create'
-    put    ':uuid/*name/links/:id',      to: 'datasets/links#update',       as: 'update_dataset_link'
+    patch  ':uuid/*name/links/:id',      to: 'datasets/links#update',       as: 'update_dataset_link'
     delete ':uuid/*name/links/:id',      to: 'datasets/links#destroy',      as: 'delete_dataset_link'
 
     get    ':uuid/*name/links/:id/confirm_delete', to: 'datasets/links#confirm_delete', as: 'confirm_delete_dataset_link'
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     get    ':uuid/*name/docs/:id/edit', to: 'datasets/docs#edit',       as: 'edit_dataset_doc'
     get    ':uuid/*name/docs',          to: 'datasets/docs#index',      as: 'dataset_docs'
     post   ':uuid/*name/docs',          to: 'datasets/docs#create'
-    put    ':uuid/*name/docs/:id',      to: 'datasets/docs#update',     as: 'update_dataset_doc'
+    patch  ':uuid/*name/docs/:id',      to: 'datasets/docs#update',     as: 'update_dataset_doc'
     delete ':uuid/*name/docs/:id',      to: 'datasets/docs#destroy',    as: 'delete_dataset_doc'
 
     get    ':uuid/*name/docs/:id/confirm_delete', to: 'datasets/docs#confirm_delete', as: 'confirm_delete_dataset_doc'
