@@ -65,16 +65,18 @@ module MetadataTools
 
     if !resource["date"].blank? && !documentation?(resource['format'])
       dates = get_start_end_date(resource["date"])
-
-      sd = dates[0].split("/")
-      datafile.start_day   = sd[0]
-      datafile.start_month = sd[1]
-      datafile.start_year  = sd[2]
-
-      ed = dates[1].split("/")
-      datafile.end_day   = ed[0]
-      datafile.end_month = ed[1]
-      datafile.end_year  = ed[2]
+      if dataset.frequency != 'never'
+        begin
+          datafile.start_date = Date.parse(dates[0])
+        rescue ArgumentError
+          datafile.start_date = Date.new(1,1,1)
+        end
+        begin
+          datafile.end_date = Date.parse(dates[1])
+        rescue ArgumentError
+          datafile.end_date = Date.new(1,1,1)
+        end
+      end
     end
 
     datafile.save!(validate: false)
@@ -174,15 +176,18 @@ module MetadataTools
   def get_start_end_date(date_string)
     return ["", ""] if !date_string
 
+    # eg "1983"
     if date_string.length == 4
       return calculate_dates_for_year(date_string.to_i)
     end
 
+    # eg "1983/02/12"
     parts = date_string.split("/")
     if parts.length == 3
-      parts = parts.drop(0)
+      return [date_string, date_string]
     end
 
+    # eg "1983/02"
     if parts and parts.length == 2
       return calculate_dates_for_month(parts[0].to_i, parts[1].to_i)
     end
@@ -225,4 +230,3 @@ module MetadataTools
     :dataset_type, :get_extra, :harvested?, :calculate_dates_for_month, :calculate_dates_for_year,
     :documentation?, :get_start_end_date, :add_resource, :convert_location
 end
-
