@@ -103,6 +103,6 @@ class DatasetsController < ApplicationController
   end
 
   def newest_dataset_path
-    "/datasets/#{@dataset.uuid}/#{@dataset.name}"
+    dataset_path(@dataset.uuid, @dataset.name)
   end
 end
