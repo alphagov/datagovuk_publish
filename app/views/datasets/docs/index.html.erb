@@ -48,7 +48,7 @@
   </table>
 
   <p>
-    <%= link_to 'Add another link', new_dataset_doc_path(@dataset), class: "secondary-button" %>
+    <%= link_to 'Add another link', new_dataset_doc_path(@dataset.uuid, @dataset.name), class: "secondary-button" %>
   </p>
 
   <p>
