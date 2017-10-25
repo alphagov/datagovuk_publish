@@ -3,8 +3,7 @@ require 'rails_helper'
 describe DatasetsController, type: :controller do
 
   before :each do
-    url = "https://test.data.gov.uk/api/3/action/package_patch"
-    stub_request(:any, url).to_return(status: 200)
+    stub_request(:any, /test.data.gov.uk/ ).to_return(status: 200)
   end
 
   it "prevents harvested datasets from being updated through the user interface" do
@@ -23,6 +22,7 @@ describe DatasetsController, type: :controller do
   end
 
   it "updates legacy when a dataset is updated" do
+
     user =  FactoryGirl.create(:user)
     dataset = FactoryGirl.create(:dataset, links: [FactoryGirl.create(:link)])
 
@@ -40,6 +40,7 @@ describe DatasetsController, type: :controller do
   end
 
   it "redirects to slugged URL" do
+
     user =  FactoryGirl.create(:user)
     organisation = FactoryGirl.create(:organisation, users: [user])
     dataset = FactoryGirl.create(:dataset,

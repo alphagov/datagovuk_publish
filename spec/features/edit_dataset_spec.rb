@@ -5,8 +5,7 @@ describe 'editing datasets' do
   set_up_models
 
   before(:each) do
-    url = "https://test.data.gov.uk/api/3/action/package_patch"
-    stub_request(:any, url).to_return(status: 200)
+    stub_request(:any, /test.data.gov.uk/).to_return(status: 200)
     allow_any_instance_of(UrlValidator).to receive(:validPath?).and_return(true)
     user
     sign_in_user
@@ -22,8 +21,7 @@ describe 'editing datasets' do
 
   context 'editing published datasets from show page' do
     before(:each) do
-      # url = "https://test.data.gov.uk/api/3/action/package_patch"
-      # stub_request(:any, url).to_return(status: 200)
+      stub_request(:any, /test.data.gov.uk/).to_return(status: 200)
       click_link 'Manage datasets'
       find(:xpath, "//a[@href='#{dataset_path(published_dataset)}']").click
     end
@@ -200,9 +198,6 @@ describe 'editing datasets' do
 
   context "editing draft datasets from the show page" do
     it "is possible to delete a draft dataset" do
-      # url = "https://test.data.gov.uk/api/3/action/package_patch"
-      # stub_request(:any, url).to_return(status: 200)
-
       visit dataset_url(unpublished_dataset)
       click_link 'Delete this dataset'
       expect(current_path).to eq confirm_delete_dataset_path(unpublished_dataset)

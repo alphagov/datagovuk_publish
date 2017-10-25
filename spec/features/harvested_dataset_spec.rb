@@ -5,6 +5,7 @@ describe "Harvested datasets" do
   let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
 
   it "should be readonly (no add/edit buttons appear)" do
+    stub_request(:any, /test.data.gov.uk/).to_return(status: 200)
     harvested_dataset = FactoryGirl.create(:dataset,
                                            organisation: land,
                                            harvested: true,

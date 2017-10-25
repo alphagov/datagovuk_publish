@@ -14,4 +14,7 @@ class Datafile < ApplicationRecord
       self.uuid = SecureRandom.uuid
     end
   end
+
+  private
+
 end
