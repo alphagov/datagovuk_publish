@@ -14,7 +14,7 @@ class Datasets::DocsController < ApplicationController
     @doc = @dataset.docs.build(doc_params)
 
     if @doc.save
-      redirect_to dataset_docs_path(@dataset)
+      redirect_to dataset_docs_path(@dataset.uuid, @dataset.name)
     else
       render :new
     end
@@ -25,7 +25,7 @@ class Datasets::DocsController < ApplicationController
 
   def update
     if @doc.update(doc_params)
-      redirect_to dataset_docs_path(@dataset)
+      redirect_to dataset_docs_path(@dataset.uuid, @dataset.name)
     else
       render :edit
     end
@@ -35,20 +35,20 @@ class Datasets::DocsController < ApplicationController
     flash[:alert] = "Are you sure you want to delete ‘#{@doc.name}’?"
     flash[:doc_id] = @doc.id
 
-    redirect_to dataset_docs_path(@dataset)
+    redirect_to dataset_docs_path(@dataset.uuid, @dataset.name)
   end
 
   def destroy
     flash[:deleted] = "Your link ‘#{@doc.name}’ has been deleted"
     @doc.destroy
 
-    redirect_to dataset_docs_path(@dataset)
+    redirect_to dataset_docs_path(@dataset.uuid, @dataset.name)
   end
 
   private
 
   def set_dataset
-    @dataset = Dataset.find_by(name: params[:dataset_id]) || Dataset.find(params[:dataset_id])
+    @dataset = Dataset.find_by(uuid: params[:uuid])
   end
 
   def set_doc

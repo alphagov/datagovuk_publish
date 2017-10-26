@@ -7,8 +7,8 @@ class DatasetsController < ApplicationController
     authorize!(:read, @dataset)
     @dataset.complete!
 
-    if request.path != dataset_path(@dataset)
-      return redirect_to @dataset, status: :moved_permanently
+    if request_to_outdated_url?
+      return redirect_to newest_dataset_path, status: :moved_permanently
     end
   end
 
@@ -26,7 +26,7 @@ class DatasetsController < ApplicationController
     @dataset.organisation = current_user.primary_organisation
 
     if @dataset.save
-      redirect_to new_dataset_licence_path(@dataset)
+      redirect_to new_dataset_licence_path(@dataset.uuid, @dataset.name)
     else
       render :new
     end
@@ -34,7 +34,7 @@ class DatasetsController < ApplicationController
 
   def update
     if @dataset.update(dataset_params)
-      redirect_to @dataset
+      redirect_to dataset_path(@dataset.uuid, @dataset.name)
     else
       render :edit
     end
@@ -91,10 +91,18 @@ class DatasetsController < ApplicationController
   private
 
   def set_dataset
-    @dataset = Dataset.friendly.find(params[:id])
+    @dataset = Dataset.find_by!(uuid: params[:uuid])
   end
 
   def dataset_params
     params.require(:dataset).permit(:title, :summary, :description)
+  end
+
+  def request_to_outdated_url?
+    request.path != newest_dataset_path
+  end
+
+  def newest_dataset_path
+    dataset_path(@dataset.uuid, @dataset.name)
   end
 end

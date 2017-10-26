@@ -15,7 +15,7 @@ class Datasets::LinksController < ApplicationController
     @link = @dataset.links.build(link_params)
 
     if @link.save
-      redirect_to dataset_links_path(@dataset)
+      redirect_to dataset_links_path(@dataset.uuid, @dataset.name)
     else
       render :new
     end
@@ -26,7 +26,7 @@ class Datasets::LinksController < ApplicationController
 
   def update
     if @link.update(link_params)
-      redirect_to dataset_links_path(@dataset)
+      redirect_to dataset_links_path(@dataset.uuid, @dataset.name)
     else
       render :edit
     end
@@ -36,20 +36,20 @@ class Datasets::LinksController < ApplicationController
     flash[:alert] = "Are you sure you want to delete ‘#{@link.name}’?"
     flash[:link_id] = @link.id
 
-    redirect_to dataset_links_path(@dataset)
+    redirect_to dataset_links_path(@dataset.uuid, @dataset.name)
   end
 
   def destroy
     flash[:deleted] = "Your link ‘#{@link.name}’ has been deleted"
     @link.destroy
 
-    redirect_to dataset_links_path(@dataset)
+    redirect_to dataset_links_path(@dataset.uuid, @dataset.name)
   end
 
   private
 
   def set_dataset
-    @dataset = Dataset.find_by(name: params[:dataset_id]) || Dataset.find(params[:dataset_id])
+    @dataset = Dataset.find_by(uuid: params[:uuid])
   end
 
   def set_link

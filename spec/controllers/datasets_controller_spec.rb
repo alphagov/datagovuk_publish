@@ -15,7 +15,7 @@ describe DatasetsController, type: :controller do
                                  harvested: true,
                                  links: [FactoryGirl.create(:link)])
 
-    patch :update, params: { id: dataset.name, dataset: { title: "New title" } }
+    patch :update, params: { uuid: dataset.uuid, name: dataset.name, dataset: { title: "New title" } }
 
     dataset.valid?
 
@@ -28,7 +28,7 @@ describe DatasetsController, type: :controller do
 
     sign_in(user)
 
-    patch :update, params: { id: dataset.name, dataset: { title: "New title" } }
+    patch :update, params: { uuid: dataset.uuid, name: dataset.name, dataset: { title: "New title" } }
 
     dataset.reload
 
@@ -43,14 +43,15 @@ describe DatasetsController, type: :controller do
     user =  FactoryGirl.create(:user)
     organisation = FactoryGirl.create(:organisation, users: [user])
     dataset = FactoryGirl.create(:dataset,
+                                 name: "legit-name",
                                  organisation: organisation,
                                  links: [FactoryGirl.create(:link)])
 
     sign_in(user)
 
-    get :show, params: { id: dataset.id }
+    get :show, params: { uuid: dataset.uuid, name: "absolute-nonsense-name" }
 
-    expect(response).to redirect_to(dataset_url(dataset))
+    expect(response).to redirect_to(dataset_url(dataset.uuid, dataset.name))
   end
 
   it "returns '503 forbidden' error if a user is not allowed to view the requested dataset" do
@@ -69,7 +70,7 @@ describe DatasetsController, type: :controller do
 
     sign_in(user)
 
-    get :show, params: { id: forbidden_dataset.id }
+    get :show, params: { uuid: forbidden_dataset.uuid, name: forbidden_dataset.name }
 
     expect(response).to have_http_status(403)
   end
@@ -90,7 +91,7 @@ describe DatasetsController, type: :controller do
 
     sign_in(user)
 
-    get :edit, params: { id: forbidden_dataset.id }
+    get :edit, params: { uuid: forbidden_dataset.uuid, name: forbidden_dataset.name }
 
     expect(response).to have_http_status(403)
   end

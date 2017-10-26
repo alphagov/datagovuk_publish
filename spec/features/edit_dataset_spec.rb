@@ -11,7 +11,6 @@ describe 'editing datasets' do
     user
     sign_in_user
     build_datasets
-    click_link 'Manage datasets'
   end
 
   it "should be able to go to datasets's page" do
@@ -22,10 +21,8 @@ describe 'editing datasets' do
 
   context 'editing published datasets from show page' do
     before(:each) do
-      # url = "https://test.data.gov.uk/api/3/action/package_patch"
-      # stub_request(:any, url).to_return(status: 200)
       click_link 'Manage datasets'
-      find(:xpath, "//a[@href='#{dataset_path(published_dataset)}']").click
+      find(:xpath, "//a[@href='#{dataset_path(published_dataset.uuid, published_dataset.name)}']").click
     end
 
     it "should be able to update title" do
@@ -165,21 +162,21 @@ describe 'editing datasets' do
     end
 
     it "should be able to publish a published dataset" do
-      visit dataset_url(published_dataset)
+      visit dataset_url(published_dataset.uuid, published_dataset.name)
       expect(page).to have_selector("input[type=submit][value='Publish changes']")
     end
 
     it "should not be possible to delete a published dataset" do
-      visit dataset_url(published_dataset)
+      visit dataset_url(published_dataset.uuid, published_dataset.name)
       expect(page).to_not have_selector(:css, 'a[href="/datasets/test-title-published/confirm_delete"]')
       expect(page).to_not have_content('Delete this dataset')
 
-      visit confirm_delete_dataset_path(published_dataset)
+      visit confirm_delete_dataset_path(published_dataset.uuid, published_dataset.name)
       expect(page).to have_content "Published datasets cannot be deleted"
     end
 
     it "should be able to publish an complete dataset" do
-      visit dataset_url(unpublished_dataset)
+      visit dataset_url(unpublished_dataset.uuid, unpublished_dataset.name)
       expect(unpublished_dataset.published?).to be false
 
       click_button 'Publish'
@@ -189,23 +186,20 @@ describe 'editing datasets' do
     end
 
     it "should not be possible to publish an incomplete dataset" do
-      visit dataset_url(unfinished_dataset)
+      visit dataset_url(unfinished_dataset.uuid, unfinished_dataset.name)
       expect(unfinished_dataset.published?).to be false
       click_button 'Publish'
       expect(page).to have_content 'There was a problem'
       expect(page).not_to have_content 'Your dataset has been published'
-      expect(current_path).to eq publish_dataset_path(unfinished_dataset)
+      expect(current_path).to eq publish_dataset_path(unfinished_dataset.uuid, unfinished_dataset.name)
     end
   end
 
   context "editing draft datasets from the show page" do
     it "is possible to delete a draft dataset" do
-      # url = "https://test.data.gov.uk/api/3/action/package_patch"
-      # stub_request(:any, url).to_return(status: 200)
-
-      visit dataset_url(unpublished_dataset)
+      visit dataset_url(unpublished_dataset.uuid, unpublished_dataset.name)
       click_link 'Delete this dataset'
-      expect(current_path).to eq confirm_delete_dataset_path(unpublished_dataset)
+      expect(current_path).to eq confirm_delete_dataset_path(unpublished_dataset.uuid, unpublished_dataset.name)
       click_link "Yes, delete this dataset"
       expect(current_path).to eq '/manage'
       expect(page).to have_content "The dataset '#{unpublished_dataset.title}' has been deleted"

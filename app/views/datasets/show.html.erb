@@ -17,8 +17,8 @@
     <% else %>
     <div id="confirm-delete-box">
       <h1 class="heading-medium error-summary-heading"><%= flash[:alert] %></h1>
-      <%= link_to "Yes, delete this dataset", @dataset, method: :delete, class: 'button confirm-delete-box__button' %>
-      <%= link_to "Cancel", edit_dataset_path(@dataset), class: 'secondary-button' %>
+      <%= link_to "Yes, delete this dataset", delete_dataset_path(@dataset.uuid, @dataset.name), method: :delete, class: 'button confirm-delete-box__button' %>
+      <%= link_to "Cancel", edit_dataset_path(@dataset.uuid, @dataset.name), class: 'secondary-button' %>
     </div>
     <% end %>
   </div>
@@ -43,21 +43,21 @@
       <th class="dgu-checklist__heading">Title</th>
       <td><%= @dataset.title %>
         <td class="dgu-checklist__actions">
-          <%= link_to 'Change', edit_dataset_path(@dataset) %>
+          <%= link_to 'Change', edit_dataset_path(@dataset.uuid, @dataset.name) %>
         </td>
     </tr>
     <tr>
       <th class="dgu-checklist__heading">Summary</th>
       <td><%= @dataset.summary %>
         <td class="dgu-checklist__actions">
-          <%= link_to 'Change', edit_dataset_path(@dataset) %>
+          <%= link_to 'Change', edit_dataset_path(@dataset.uuid, @dataset.name) %>
         </td>
     </tr>
     <tr>
       <th class="dgu-checklist__heading">Additional information</th>
       <td><%= @dataset.description %>
         <td class="dgu-checklist__actions">
-          <%= link_to 'Change', edit_dataset_path(@dataset) %>
+          <%= link_to 'Change', edit_dataset_path(@dataset.uuid, @dataset.name) %>
         </td>
     </tr>
     <tr>
@@ -72,9 +72,9 @@
       </td>
       <td class="dgu-checklist__actions">
         <% if @dataset.licence %>
-          <%= link_to 'Change', edit_dataset_licence_path(@dataset) %>
+          <%= link_to 'Change', edit_dataset_licence_path(@dataset.uuid, @dataset.name) %>
         <% else %>
-          <%= link_to 'Select', edit_dataset_licence_path(@dataset) %>
+          <%= link_to 'Select', edit_dataset_licence_path(@dataset.uuid, @dataset.name) %>
         <% end %>
       </td>
     </tr>
@@ -85,9 +85,9 @@
 
         <td class="dgu-checklist__actions">
           <% if @dataset.location1 %>
-            <%= link_to 'Change', edit_dataset_location_path(@dataset) %>
+            <%= link_to 'Change', edit_dataset_location_path(@dataset.uuid, @dataset.name) %>
           <% else %>
-            <%= link_to 'Add', edit_dataset_location_path(@dataset) %>
+            <%= link_to 'Add', edit_dataset_location_path(@dataset.uuid, @dataset.name) %>
           <% end %>
         </td>
     </tr>
@@ -96,9 +96,9 @@
       <td><%= friendly_frequency(@dataset.frequency) if @dataset.frequency %></td>
       <td class="dgu-checklist__actions">
         <% if @dataset.frequency %>
-          <%= link_to 'Change', edit_dataset_frequency_path(@dataset) %>
+          <%= link_to 'Change', edit_dataset_frequency_path(@dataset.uuid, @dataset.name) %>
         <% else %>
-          <%= link_to 'Select', edit_dataset_frequency_path(@dataset) %>
+          <%= link_to 'Select', edit_dataset_frequency_path(@dataset.uuid, @dataset.name) %>
         <% end %>
       </td>
     </tr>
@@ -116,9 +116,9 @@
       </td>
       <td class="dgu-checklist__actions">
         <% if @dataset.links.any? %>
-          <%= link_to 'Change', dataset_links_path(@dataset) %>
+          <%= link_to 'Change', dataset_links_path(@dataset.uuid, @dataset.name) %>
         <% else %>
-          <%= link_to 'Add', new_dataset_link_path(@dataset) %>
+          <%= link_to 'Add', new_dataset_link_path(@dataset.uuid, @dataset.name) %>
         <% end %>
       </td>
     </tr>
@@ -129,21 +129,21 @@
       <% end %>
       <td class="dgu-checklist__actions">
         <% if @dataset.docs.any? %>
-          <%= link_to 'Change', dataset_docs_path(@dataset) %>
+          <%= link_to 'Change', dataset_docs_path(@dataset.uuid, @dataset.name) %>
         <% else %>
-          <%= link_to 'Add', new_dataset_doc_path(@dataset) %>
+          <%= link_to 'Add', new_dataset_doc_path(@dataset.uuid, @dataset.name) %>
         <% end %>
       </td>
     </tr>
   </tbody>
 </table>
 
-<%= form_for @dataset, url: publish_dataset_path(@dataset), method: :post do |f| %>
+<%= form_for @dataset, url: publish_dataset_path(@dataset.uuid, @dataset.name), method: :post do |f| %>
   <p><%= f.submit @dataset.published? ? "Publish changes" : "Publish", class: 'button' %></p>
 <% end %>
 
 <% unless @dataset.published? %>
-  <p><%= link_to 'Delete this dataset', confirm_delete_dataset_path, class: 'secondary-button danger' %></p>
+  <p><%= link_to 'Delete this dataset', confirm_delete_dataset_path(@dataset.uuid, @dataset.name), class: 'secondary-button danger' %></p>
 <% end %>
 
 <p><%= link_to 'Back to manage your dataset', manage_path, class: 'secondary-button' %></p>

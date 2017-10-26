@@ -1,20 +1,7 @@
 require 'rails_helper'
 
 describe Dataset do
-
   let! (:org)  { @org = Organisation.create!(name: "land-registry", title: "Land Registry") }
-
-  it "can create a new dataset" do
-    d = Dataset.new(
-      title: "This is a dataset",
-      summary: "Summary",
-      frequency: "daily",
-      organisation_id: @org.id
-    )
-
-    expect(d.save).to eq(true)
-    expect(d.name).to eq("#{d.uuid} #{d.title}".parameterize)
-  end
 
   it "requires a valid title" do
     d = Dataset.new
@@ -35,19 +22,20 @@ describe Dataset do
     dataset = FactoryGirl.create(:dataset,
                                  title: "My awesome dataset")
 
-    expect(dataset.name).to eq("#{dataset.uuid} #{dataset.title}".parameterize)
+    expect(dataset.name).to eq("#{dataset.title}".parameterize)
   end
 
   it "generates a new slug when the title has changed" do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
     stub_request(:any, url).to_return(status: 200)
+
     dataset = FactoryGirl.create(:dataset,
                                  uuid: 1234,
                                  title: "My awesome dataset")
 
     dataset.update(title: "My Even Better Dataset")
 
-    expect(dataset.name).to eq("1234-my-even-better-dataset")
+    expect(dataset.name).to eq("my-even-better-dataset")
   end
 
   it "validates more strictly when publishing" do

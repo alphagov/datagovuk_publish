@@ -24,7 +24,7 @@
 
   <h1 class="heading-large">Add a link to supporting documents</h1>
 
-  <%= form_for @doc, url: dataset_docs_path(@dataset), method: 'post' do |f| %>
+  <%= form_for @doc, url: dataset_docs_path(@dataset.uuid, @dataset.name), method: :post do |f| %>
     <%= dataset_field f, @doc,
     name: 'url',
     label: 'URL',
@@ -43,7 +43,7 @@
     <div class="form-group">
       <p><%= f.submit 'Save and continue', class: 'button' %></p>
       <p>
-        <%= link_to 'Skip this step', dataset_path(@dataset) %>
+        <%= link_to 'Skip this step', dataset_path(@dataset.uuid, @dataset.name) %>
       </p>
     </div>
   <% end %>
