@@ -68,13 +68,13 @@ def es_config_from_host
   }
 end
 
+if ELASTIC_CONFIG.has_key?('host')
+  config = es_config_from_host
+elsif ELASTIC_CONFIG.has_key?('vcap_services')
+  config = es_config_from_vcap
+else
+  Rails.logger.fatal "No elasticsearch environment variables found"
+  config = nil
+end
 
-# Re-enable 'es_config_from_vcap' when PAAS Elasticsearch is fixed
-# config = ELASTIC_CONFIG['vcap_services'].present? ?
-#             es_config_from_vcap :
-#             es_config_from_host
-
-config = es_config_from_host
-
-ELASTIC = Elasticsearch::Client.new(config)
-Elasticsearch::Model.client = ELASTIC
+Elasticsearch::Model.client = Elasticsearch::Client.new(config)
