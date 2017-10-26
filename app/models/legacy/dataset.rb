@@ -25,15 +25,32 @@ class Legacy::Dataset < SimpleDelegator
   end
 
   def update
-    Legacy::Server.new(type: :update).update(metadata_json)
+    Legacy::Server.new.update(metadata_json)
   end
 
   private
 
   def build_resources(datafiles)
-    datafiles.each do |datafile|
-      Legacy::Datafile.new(datafile)
-    end
+    # ckan_resources =
+      datafiles.map do |datafile|
+        Legacy::Datafile.new(datafile).datafile_json
+      end
+
+    # legacy_resources = get_response("resources")
+    #
+    #   if legacy_resources
+    #     resources = ckan_resources.concat(legacy_resources)
+    #     resources.sort_by{|t| t["created"]}.uniq!{ |res| res["id"]}
+    #   end
+    # resources
+  end
+
+
+  def get_response(key)
+    dataset_response = Legacy::Server.new.show(uuid)
+    return if dataset_response == nil
+
+    JSON.parse(dataset_response.body)["result"][key]
   end
 
   def extend_extras(ckan_dataset)
@@ -45,6 +62,12 @@ class Legacy::Dataset < SimpleDelegator
       }
       ckan_dataset["extras"].push(extra)
     end
+
+    # legacy_extras = get_response("extras")
+    # if legacy_extras
+    #   legacy_extras.delete_if{ |extra| extra.has_key?('update_frequency') || extra.has_key?('update_frequency') }
+    #   ckan_dataset["extras"].concat(legacy_extras)
+    # end
     ckan_dataset
   end
 

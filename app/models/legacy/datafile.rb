@@ -9,18 +9,19 @@ class Legacy::Datafile < SimpleDelegator
       "url" => url,
       "created" => created_at
     }.compact
-    add_date(ckan_datafile).to_json
+    add_date(ckan_datafile)
   end
 
   def update
-    Legacy::Server.new(object: :datafile).update(datafile_json)
+    Legacy::Server.new.update(datafile_json)
   end
 
   private
 
   def add_date(ckan_datafile)
     if ["annually", "quarterly", "monthly"].include? dataset.frequency
-      ckan_datafile["date"] = end_date || Date.new(1,1,1)
+      ckan_datafile["date"] =
+        end_date.present? ? end_date.strftime("%d/%m/%Y") : created_at.strftime("%d/%m/%Y")
     end
     ckan_datafile
   end
@@ -34,5 +35,6 @@ class Legacy::Datafile < SimpleDelegator
       ""
     end
   end
+
 
 end
