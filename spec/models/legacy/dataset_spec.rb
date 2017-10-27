@@ -10,10 +10,10 @@ describe Legacy::Dataset do
 
     publish_beta_dataset.update(title: "Bam Boom")
 
-    expect(JSON.parse(legacy_dataset.metadata_json)["name"]).to eql(publish_beta_dataset.legacy_name)
+    expect(JSON.parse(legacy_dataset.payload)["name"]).to eql(publish_beta_dataset.legacy_name)
   end
 
-  describe "#metadata_json" do
+  describe "#payload" do
     context "when frequency format is not supported by legacy" do
       it "adds additional parameters to the json" do
          dataset = FactoryGirl.create(:dataset, frequency: 'daily')
@@ -44,7 +44,7 @@ describe Legacy::Dataset do
            'license_id' => dataset.licence
          }.to_json
 
-         expect(legacy_dataset.metadata_json).to eql legacy_dataset_json_metadata
+         expect(legacy_dataset.payload).to eql legacy_dataset_json_metadata
       end
     end
 
@@ -74,7 +74,7 @@ describe Legacy::Dataset do
           'license_id' => dataset.licence
         }.to_json
 
-        expect(legacy_dataset.metadata_json).to eql legacy_dataset_json_metadata
+        expect(legacy_dataset.payload).to eql legacy_dataset_json_metadata
       end
     end
   end

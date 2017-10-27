@@ -14,4 +14,8 @@ class Datafile < ApplicationRecord
       self.uuid = SecureRandom.uuid
     end
   end
+
+  def update_legacy
+    Legacy::Datafile.new(self).update
+  end
 end

@@ -160,6 +160,10 @@ class Dataset < ApplicationRecord
     self.save!(validate: false)
   end
 
+  def timeseries?
+    ["annually", "quarterly", "monthly"].include?(frequency)
+  end
+
   private
 
   def set_initial_stage

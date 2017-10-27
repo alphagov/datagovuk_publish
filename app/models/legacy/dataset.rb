@@ -1,6 +1,13 @@
 class Legacy::Dataset < SimpleDelegator
+  ENDPOINTS = {
+    patch: "/api/3/action/package_patch"
+  }
 
-  def metadata_json
+  def update
+    Legacy::Server.new.update(path, payload)
+  end
+
+  def payload
     ckan_dataset = {
       "id" => uuid,
       "name" => legacy_name,
@@ -23,11 +30,11 @@ class Legacy::Dataset < SimpleDelegator
     extend_extras(ckan_dataset).to_json
   end
 
-  def update
-    Legacy::Server.new.update(metadata_json)
-  end
-
   private
+
+  def path
+    ENDPOINTS[:patch]
+  end
 
   def extend_extras(ckan_dataset)
     if ckan_dataset["update_frequency"] == 'other'

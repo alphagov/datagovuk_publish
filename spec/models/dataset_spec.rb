@@ -31,9 +31,6 @@ describe Dataset do
   end
 
   it "generates a new slug when the title has changed" do
-    url = "https://test.data.gov.uk/api/3/action/package_patch"
-    stub_request(:any, url).to_return(status: 200)
-
     dataset = FactoryGirl.create(:dataset,
                                  uuid: 1234,
                                  title: "My awesome dataset")
@@ -58,9 +55,6 @@ describe Dataset do
   end
 
   it "can pass strict validation when publishing" do
-    url = "https://test.data.gov.uk/api/3/action/package_patch"
-    stub_request(:any, url).to_return(status: 200)
-
     d = Dataset.new(
       title: "dataset",
       summary: "Summary",
@@ -76,9 +70,6 @@ describe Dataset do
   end
 
   it "is not possible to delete a published dataset" do
-    url = "https://test.data.gov.uk/api/3/action/package_patch"
-    stub_request(:any, url).to_return(status: 200)
-
     d = Dataset.new(
       title: "dataset",
       summary: "Summary",
@@ -99,5 +90,20 @@ describe Dataset do
     d.destroy
 
     expect(Dataset.count).to eq 0
+  end
+
+  it "sends an update request to legacy when it is updated" do
+    url = "#{ENV['LEGACY_HOST']}#{Legacy::Dataset::ENDPOINTS[:patch]}"
+    stub_request(:post, url).to_return(status: 200)
+
+    dataset = FactoryGirl.create(:dataset)
+
+    dataset.update_legacy
+
+    legacy_dataset = Legacy::Dataset.new(dataset)
+
+    expect(WebMock)
+      .to have_requested(:post, url)
+      .with(body: legacy_dataset.payload)
   end
 end

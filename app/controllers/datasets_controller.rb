@@ -34,6 +34,7 @@ class DatasetsController < ApplicationController
 
   def update
     if @dataset.update(dataset_params)
+      @dataset.update_legacy
       redirect_to dataset_path(@dataset.uuid, @dataset.name)
     else
       render :edit
