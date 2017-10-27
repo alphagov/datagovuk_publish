@@ -13,8 +13,8 @@ def click_change(property)
   all(:link, "Change")[index].click
 end
 
-def click_dataset
-  find(:xpath, "//a[@href='#{dataset_path(published_dataset.uuid, published_dataset.name)}']").click
+def click_dataset(dataset)
+  find(:xpath, "//a[@href='#{dataset_path(dataset.uuid, dataset.name)}']").click
 end
 
 def set_up_models

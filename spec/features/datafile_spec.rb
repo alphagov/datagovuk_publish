@@ -9,7 +9,7 @@ describe 'datafiles' do
     build_datasets
 
     click_link 'Manage datasets'
-    click_dataset
+    click_dataset(published_dataset)
   end
 
   it "should be able to add a new file" do
@@ -26,8 +26,7 @@ describe 'datafiles' do
   end
 
   it "should be able to edit an existing file" do
-    url = "#{ENV['LEGACY_HOST']}#{Legacy::Datafile::ENDPOINTS[:patch]}"
-    stub_request(:post, url).to_return(status: 200)
+    stub_request(:post, legacy_datafile_update_endpoint).to_return(status: 200)
 
     link = published_dataset.links.first
 

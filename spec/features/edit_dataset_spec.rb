@@ -4,8 +4,7 @@ describe 'editing datasets' do
   set_up_models
 
   before(:each) do
-    url = "#{ENV['LEGACY_HOST']}#{Legacy::Dataset::ENDPOINTS[:patch]}"
-    stub_request(:post, url).to_return(status: 200)
+    stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
 
     allow_any_instance_of(UrlValidator).to receive(:validPath?).and_return(true)
     user
@@ -22,7 +21,7 @@ describe 'editing datasets' do
   context 'editing published datasets from show page' do
     before(:each) do
       click_link 'Manage datasets'
-      click_dataset
+      click_dataset(published_dataset)
     end
 
     it "should be able to update title" do

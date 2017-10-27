@@ -1,6 +1,6 @@
 class Legacy::Datafile < SimpleDelegator
   ENDPOINTS = {
-    patch: "/api/3/action/resource_patch"
+    update: "/api/3/action/resource_patch"
   }
 
   def update
@@ -22,7 +22,7 @@ class Legacy::Datafile < SimpleDelegator
   private
 
   def path
-    ENDPOINTS[:patch]
+    ENDPOINTS[:update]
   end
 
   def build_date

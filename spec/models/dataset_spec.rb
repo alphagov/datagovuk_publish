@@ -93,8 +93,7 @@ describe Dataset do
   end
 
   it "sends an update request to legacy when it is updated" do
-    url = "#{ENV['LEGACY_HOST']}#{Legacy::Dataset::ENDPOINTS[:patch]}"
-    stub_request(:post, url).to_return(status: 200)
+    stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
 
     dataset = FactoryGirl.create(:dataset)
 
@@ -103,7 +102,7 @@ describe Dataset do
     legacy_dataset = Legacy::Dataset.new(dataset)
 
     expect(WebMock)
-      .to have_requested(:post, url)
+      .to have_requested(:post, legacy_dataset_update_endpoint)
       .with(body: legacy_dataset.payload)
   end
 end

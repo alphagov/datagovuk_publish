@@ -1,6 +1,6 @@
 class Legacy::Dataset < SimpleDelegator
   ENDPOINTS = {
-    patch: "/api/3/action/package_patch"
+    update: "/api/3/action/package_patch"
   }
 
   def update
@@ -33,7 +33,7 @@ class Legacy::Dataset < SimpleDelegator
   private
 
   def path
-    ENDPOINTS[:patch]
+    ENDPOINTS[:update]
   end
 
   def extend_extras(ckan_dataset)

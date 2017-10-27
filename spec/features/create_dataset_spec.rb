@@ -9,8 +9,7 @@ describe "dataset creation" do
     before(:each) do
       user
       sign_in_user
-      url = "https://test.data.gov.uk/api/3/action/package_patch"
-      stub_request(:any, url).to_return(status: 200)
+      stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
     end
 
     it "navigates to new dataset form" do
