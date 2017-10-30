@@ -13,14 +13,14 @@ class Link < Datafile
   def dates
     {
       start: {
-        day: start_day,
-        month: start_month,
-        year: start_year
+        day: start_date.day,
+        month: start_date.month,
+        year: start_date.year
       },
       end: {
-        day: end_day,
-        month: end_month,
-        year: end_year
+        day: end_date.day,
+        month: end_date.month,
+        year: end_date.year
       }
     }.with_indifferent_access
   end
