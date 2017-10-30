@@ -1,13 +1,19 @@
 require "rails_helper"
 
 describe "dataset creation" do
-
   let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
   let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
-  let(:dataset) { FactoryGirl.create(:dataset, organisation: land, creator: user, owner: user ) }
+  let(:link) { FactoryGirl.create(:link) }
+
+  let(:dataset) do
+    FactoryGirl.create(:dataset,
+                       organisation: land,
+                       creator: user,
+                       owner: user,
+                       links: [link])
+  end
 
   context "when the user goes through entire flow" do
-
     before(:each) do
       user
       sign_in_user
