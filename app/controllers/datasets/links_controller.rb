@@ -14,6 +14,8 @@ class Datasets::LinksController < ApplicationController
   def create
     @link = @dataset.links.build(link_params)
 
+    @link.start_date, @link.end_date = ::DatafileDateParser.new(@link).start_and_end_dates
+
     if @link.save
       redirect_to dataset_links_path(@dataset.uuid, @dataset.name)
     else
