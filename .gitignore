@@ -24,3 +24,6 @@ spec/end-to-end-tests/selenium-debug.log
 .idea/
 
 dump.rdb
+
+.vagrant
+
