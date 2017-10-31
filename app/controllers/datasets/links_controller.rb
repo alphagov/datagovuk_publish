@@ -12,9 +12,7 @@ class Datasets::LinksController < ApplicationController
   end
 
   def create
-    @link = @dataset.links.build(link_params)
-
-    @link.start_date, @link.end_date = ::DatafileDateParser.new(@link).start_and_end_dates
+    @link = @dataset.links.build(link_params.slice(:url, :name).merge(date_fields: date_params))
 
     if @link.save
       redirect_to dataset_links_path(@dataset.uuid, @dataset.name)
@@ -27,7 +25,9 @@ class Datasets::LinksController < ApplicationController
   end
 
   def update
-    if @link.update(link_params)
+    @link = @dataset.links.build(link_params.slice(:url, :name).merge(date_fields: date_params))
+
+    if @link.save
       redirect_to dataset_links_path(@dataset.uuid, @dataset.name)
     else
       render :edit
@@ -67,5 +67,22 @@ class Datasets::LinksController < ApplicationController
       :year,
       :quarter
     )
+  end
+
+  def date_params
+    {
+      days: {
+        start: link_params[:start_day],
+        end: link_params[:end_day]
+      },
+      months: {
+        start: link_params[:start_month],
+        end: link_params[:end_month]
+      },
+      years: {
+        start: link_params[:start_year],
+        end: link_params[:end_year]
+      }
+    }
   end
 end

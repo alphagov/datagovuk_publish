@@ -40,7 +40,7 @@
         <% if @link.errors[:start_year].present? %>
           <span class="error-message">Please enter a valid year</span>
         <% end %>
-        <%= text_field_tag 'link[start_year]', @link.start_date&.year, id: "period_year", class: "form-control" %>
+        <%= text_field_tag 'link[start_year]', @link.dates[:start][:year], id: "period_year", class: "form-control" %>
       </div>
     </div>
   </fieldset>
