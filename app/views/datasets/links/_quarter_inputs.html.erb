@@ -37,8 +37,12 @@
     <div class="form-date">
       <div id="year_form_group" class="form-group form-group-year ">
         <label class="form-label-bold" for="period_year">Year</label>
-        <% if @link.errors[:start_year].present? %>
-          <span class="error-message">Please enter a valid year</span>
+        <% @link.errors[:year].each do |message| %>
+          <span class="error-message"><%= message %></span>
+        <% end %>
+
+        <% @link.errors[:start_year].each do |message| %>
+          <span class="error-message"><%= message %></span>
         <% end %>
         <%= text_field_tag 'link[start_year]', @link.dates[:start][:year], id: "period_year", class: "form-control" %>
       </div>

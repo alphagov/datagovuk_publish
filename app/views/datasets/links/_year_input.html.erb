@@ -7,8 +7,11 @@
       <div id="year_form_group" class="form-group form-group-year<% if @link.errors[:start_year].present? %> form-group-error<% end %>">
         <label class="form-label" for="period_year">Year</label>
         <span class="form-hint">For example, 2016</span>
-        <% if @link.errors[:start_year].present? %>
-          <span class="error-message">Please enter a valid year</span>
+        <% @link.errors[:start_year].each do |message| %>
+          <span class="error-message"><%= message %></span>
+        <% end %>
+        <% @link.errors[:year].each do |message| %>
+          <span class="error-message"><%= message %></span>
         <% end %>
         <%= text_field_tag 'link[start_year]', @link.dates[:start][:year], id: "period_year", class: "form-control" %>
       </div>

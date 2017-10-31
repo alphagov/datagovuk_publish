@@ -3,15 +3,7 @@ require "rails_helper"
 describe "dataset creation" do
   let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
   let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
-  let(:link) { FactoryGirl.create(:link) }
-
-  let(:dataset) do
-    FactoryGirl.create(:dataset,
-                       organisation: land,
-                       creator: user,
-                       owner: user,
-                       links: [link])
-  end
+  let(:dataset) { FactoryGirl.create(:dataset, organisation: land, creator: user, owner: user) }
 
   context "when the user goes through entire flow" do
     before(:each) do
@@ -443,7 +435,6 @@ describe "dataset frequency options" do
       choose option: quarter.to_s
       fill_in "link[start_year]", with: Date.today.year
       click_button "Save and continue"
-
     end
 
     it "calculates correct dates for Q1" do
