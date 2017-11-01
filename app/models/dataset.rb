@@ -53,10 +53,27 @@ class Dataset < ApplicationRecord
     if self.publishable?
       transaction do
         self.published!
+        self.last_published_at = Time.now
         PublishingWorker.perform_async(self.id)
       end
     end
   end
+
+def update_legacy
+  update_legacy_dataset
+  update_legacy_datafiles
+end
+
+def update_legacy_dataset
+  Legacy::Dataset.new(self).update
+end
+
+def update_legacy_datafiles
+  datafiles = Datafile.where(dataset_id: self.id)
+  datafiles.updated_after(last_published_at).each do |datafile|
+    Legacy::Datafile.new(datafile).update
+  end
+end
 
   # What we actually want to index in Elastic, rather than the whole
   # dataset.

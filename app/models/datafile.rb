@@ -7,6 +7,8 @@ class Datafile < ApplicationRecord
   validates :name, presence: true
   validates_with UrlValidator
 
+  scope :updated_after, ->(date) {where('updated_at > ?', date)}
+
   before_save :set_uuid
 
   def set_uuid
