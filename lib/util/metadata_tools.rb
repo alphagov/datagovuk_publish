@@ -45,6 +45,7 @@ module MetadataTools
 
     d.status = "published"
     d.save!(validate: false)
+    d.id
   end
 
   def add_resource(resource, dataset)

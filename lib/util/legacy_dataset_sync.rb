@@ -29,7 +29,7 @@ class LegacyDatasetSync
   # Keep yielding recent packages until the metadata_modified
   # is earlier than yesterday.
   def get_packages(server)
-    url = "#{server}/api/3/action/package_search?q=metadata_modified:[NOW-1DAY%20TO%20NOW]&rows=5000"
+    url = "#{server}/api/3/action/package_search?q=metadata_modified:[NOW-1DAY%20TO%20NOW]"
     data = fetch_json(url)
     return unless data
 
