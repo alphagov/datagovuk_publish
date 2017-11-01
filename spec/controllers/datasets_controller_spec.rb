@@ -21,11 +21,13 @@ describe DatasetsController, type: :controller do
   it "updates legacy when a dataset is updated" do
     stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
 
-    dataset = FactoryGirl.create(:dataset)
+    published_dataset = FactoryGirl.create(:dataset,
+                                            links: [FactoryGirl.create(:link)],
+                                            status: "published")
 
-    patch :update, params: { uuid: dataset.uuid, name: dataset.name, dataset: { title: "New title" } }
+    post :publish, params: { uuid: published_dataset.uuid, name: published_dataset.name }
 
-    legacy_dataset = Legacy::Dataset.new(dataset.reload)
+    legacy_dataset = Legacy::Dataset.new(published_dataset.reload)
 
     expect(WebMock)
       .to have_requested(:post, legacy_dataset_update_endpoint)

@@ -34,7 +34,6 @@ class DatasetsController < ApplicationController
 
   def update
     if @dataset.update(dataset_params)
-      @dataset.update_legacy
       redirect_to dataset_path(@dataset.uuid, @dataset.name)
     else
       render :edit
@@ -47,7 +46,7 @@ class DatasetsController < ApplicationController
     if @dataset.publishable?
       if @dataset.published?
         flash[:success] = I18n.t 'dataset_updated'
-        update_legacy
+        @dataset.update_legacy
       else
         flash[:success] = I18n.t 'dataset_published'
       end
@@ -91,11 +90,6 @@ class DatasetsController < ApplicationController
   end
 
   private
-
-  def update_legacy
-    binding.pry
-    PublishToLegacyUpdateWorker.perform_async(@dataset.id)
-  end
 
   def set_dataset
     @dataset = Dataset.find_by!(uuid: params[:uuid])
