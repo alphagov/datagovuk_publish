@@ -47,6 +47,7 @@ class DatasetsController < ApplicationController
     if @dataset.publishable?
       if @dataset.published?
         flash[:success] = I18n.t 'dataset_updated'
+        update_legacy
       else
         flash[:success] = I18n.t 'dataset_published'
       end
@@ -90,6 +91,11 @@ class DatasetsController < ApplicationController
   end
 
   private
+
+  def update_legacy
+    binding.pry
+    PublishToLegacyUpdateWorker.perform_async(@dataset.id)
+  end
 
   def set_dataset
     @dataset = Dataset.find_by!(uuid: params[:uuid])
