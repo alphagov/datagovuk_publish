@@ -54,7 +54,6 @@ class Dataset < ApplicationRecord
       transaction do
         self.published!
         PublishingWorker.perform_async(self.id)
-        PublishToLegacyUpdateWorker.perform_async(self.id)
       end
     end
   end

@@ -92,17 +92,15 @@ describe Dataset do
     expect(Dataset.count).to eq 0
   end
 
-  it "sends an update request to legacy when it is updated" do
-    stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
+  it "sets a published_date timestamp when published" do
+    time_now = Time.now
+    allow(Time).to receive(:now).and_return(time_now)
+    dataset = FactoryGirl.create(:dataset, links: [FactoryGirl.create(:link)])
 
-    dataset = FactoryGirl.create(:dataset)
+    dataset.save
 
-    dataset.update_legacy
+    dataset.publish!
+    expect(dataset.published_date).to eq time_now
 
-    legacy_dataset = Legacy::Dataset.new(dataset)
-
-    expect(WebMock)
-      .to have_requested(:post, legacy_dataset_update_endpoint)
-      .with(body: legacy_dataset.payload)
   end
 end
