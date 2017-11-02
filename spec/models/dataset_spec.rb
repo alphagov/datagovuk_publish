@@ -111,4 +111,24 @@ describe Dataset do
     expect(dataset.last_published_at).to eq second_publish
   end
 
+  it "only updates legacy with datafiles that have been updated" do
+    allow(PublishingWorker).to receive(:perform_async).and_return true
+
+    stub_request(:post, legacy_datafile_update_endpoint).to_return(status: 200)
+
+    datafile_1 = FactoryGirl.create(:link, name: 'datafile_1')
+    datafile_2 = FactoryGirl.create(:link, name: 'datafile_2')
+    dataset = FactoryGirl.create(:dataset, links: [datafile_1, datafile_2])
+    dataset.save
+    dataset.publish!
+
+    datafile_1.update(name: 'new_name')
+    dataset.update_legacy_datafiles
+
+    legacy_datafile_1 = Legacy::Datafile.new(datafile_1)
+
+    expect(WebMock)
+      .to have_requested(:post, legacy_datafile_update_endpoint)
+      .with(body: legacy_datafile_1.payload)
+  end
 end
