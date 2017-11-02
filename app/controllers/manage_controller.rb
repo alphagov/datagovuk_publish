@@ -13,7 +13,7 @@ class ManageController < ApplicationController
       @datasets = @datasets.where(sql_query, query: @q.downcase)
     end
 
-    @datasets = @datasets.order("#{sort_column} #{sort_direction}").page(params[:page])
+    @datasets = @datasets.order("#{sort_column} #{sort_direction}").page(params[:page]).per(params[:per])
   end
 
   def manage_organisation
@@ -25,7 +25,7 @@ class ManageController < ApplicationController
       @datasets = @datasets.where(sql_query, query: @q.downcase)
     end
 
-    @datasets = @datasets.order("#{sort_column} #{sort_direction}").page(params[:page])
+    @datasets = @datasets.order("#{sort_column} #{sort_direction}").page(params[:page]).per(params[:per])
   end
 
   private
