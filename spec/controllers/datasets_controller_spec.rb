@@ -18,7 +18,7 @@ describe DatasetsController, type: :controller do
     expect(dataset.errors[:base]).to include("Harvested datasets cannot be modified.")
   end
 
-  it "updates legacy when a dataset is updated" do
+  it "updates legacy when a dataset is published" do
     stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
 
     published_dataset = FactoryGirl.create(:dataset,

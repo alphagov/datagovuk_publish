@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Datafile do
   describe '#update_legacy' do
-    it "sends an update request to legacy when it is updated" do
+    it "sends an update request to legacy when it is published" do
       stub_request(:post, legacy_datafile_update_endpoint).to_return(status: 200)
 
       link = FactoryGirl.create(:link)
