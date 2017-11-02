@@ -9,19 +9,31 @@
 
     <div class="form-date">
       <div class="form-group form-group-month<% if @link.errors[:start_month].present? %> form-group-error<% end %>">
+        <%= hidden_field_tag "link[start_day]", 1 %>
+
         <label for="start_month">Month</label>
-        <% if @link.errors[:start_month].present? %>
-          <span class="error-message">Please enter a valid month</span>
+        <% @link.errors[:month].each do |message| %>
+          <span class="error-message"><%= message %></span>
         <% end %>
-        <%= text_field_tag "link[start_month]", @link.start_month, id: "start_month", class: "form-control" %>
+
+        <% @link.errors[:start_month].each do |message| %>
+          <span class="error-message"><%= message %></span>
+        <% end %>
+
+        <%= text_field_tag "link[start_month]", @link.dates[:start][:month], id: "start_month", class: "form-control" %>
       </div>
 
       <div class="form-group form-group-year<% if @link.errors[:start_year].present? %> form-group-error<% end %>">
         <label for="start_year">Year</label>
-        <% if @link.errors[:start_year].present? %>
-          <span class="error-message">Please enter a valid year</span>
+        <% @link.errors[:year].each do |message| %>
+          <span class="error-message"><%= message %></span>
         <% end %>
-        <%= text_field_tag "link[start_year]", @link.start_year, id: "start_year", class: "form-control" %>
+
+        <% @link.errors[:start_year].each do |message| %>
+          <span class="error-message"><%= message %></span>
+        <% end %>
+
+        <%= text_field_tag "link[start_year]", @link.dates[:start][:year], id: "start_year", class: "form-control" %>
       </div>
     </div>
   </fieldset>
