@@ -52,17 +52,19 @@ class Dataset < ApplicationRecord
   def publish!
     if self.publishable?
       transaction do
+        set_published_timestamps
         self.published!
-        self.last_published_at = Time.now
         PublishingWorker.perform_async(self.id)
       end
     end
   end
 
-def update_legacy
-  update_legacy_dataset
-  update_legacy_datafiles
-end
+  def set_published_timestamps
+    if self.draft?
+      self.published_date = Time.now
+    end
+    self.last_published_at = Time.now
+  end
 
   def update_legacy
     update_legacy_dataset
