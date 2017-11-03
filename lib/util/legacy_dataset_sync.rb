@@ -14,8 +14,9 @@ class LegacyDatasetSync
     @logger.info "Importing legacy datasets...\r"
     get_packages @host do |package|
         begin
-          dataset_id = MetadataTools.add_dataset_metadata(package, @orgs_cache, @theme_cache)
-          PublishingWorker.perform_async(dataset_id)
+          MetadataTools.add_dataset_metadata(package, @orgs_cache, @theme_cache)
+          dataset = Dataset.find_by!(uuid: package["id"])
+          LegacyPublishToElasticWorker.perform_async(dataset)
         rescue => e
           @logger.error e.message
         end
@@ -26,14 +27,22 @@ class LegacyDatasetSync
 
   private
 
-  # Keep yielding recent packages until the metadata_modified
+  # Keep yielding recent packages until the metadata_modified and metadata_created
   # is earlier than yesterday.
   def get_packages(server)
-    url = "#{server}/api/3/action/package_search?q=metadata_modified:[NOW-1DAY%20TO%20NOW]&rows=5000"
-    data = fetch_json(url)
-    return unless data
+    modified_url = "#{server}/api/3/action/package_search?q=metadata_modified:[NOW-1DAY%20TO%20NOW]"
+    created_url = "#{server}/api/3/action/package_search?q=metadata_created:[NOW-1DAY%20TO%20NOW]"
 
-    data['result']['results'].each do |pkg|
+    new_packages = fetch_json(created_url)
+    modified_packages = fetch_json(modified_url)
+
+    return unless new_packages || modified_packages
+
+    new_packages['result']['results'].each do |pkg|
+      yield pkg
+    end
+
+    modified_packages['result']['results'].each do |pkg|
       yield pkg
     end
   end
