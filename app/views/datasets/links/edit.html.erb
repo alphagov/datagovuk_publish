@@ -41,6 +41,10 @@
     hint: 'The link name mustn’t be the same as the URL. It should clearly describe the data so users can find it easily.',
     value: @link.name %>
 
+    <% if @dataset.daily? %>
+      <%= render 'date_field' %>
+    <% end %>
+
     <% if @dataset.monthly? %>
       <%= render 'month_input' %>
     <% end %>

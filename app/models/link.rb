@@ -3,7 +3,7 @@ class Link < Datafile
 
   before_save :set_date
 
-  validate :validate_date_input, unless: ->{ dataset.never? }
+  validate  :validate_date_input, unless: ->{ dataset.never? }
   validates :quarter, presence: true, if: ->{ dataset.quarterly? }
 
   def dates
@@ -61,13 +61,13 @@ class Link < Datafile
 
   def validate_date_input
     validate_date  if dataset.daily?
-    validate_month if dataset.monthly?
+    validate_month if dataset.daily? || dataset.monthly?
     validate_year
   end
 
   def validate_date
     if (daily_date rescue ArgumentError) == ArgumentError
-      errors.add(:date, "Please enter a valid date".squish)
+      errors.add(:date, 'Please enter a valid date')
     end
   end
 
