@@ -14,7 +14,7 @@ This application currently uses ruby v2.4.0. Use [RVM](https://rvm.io/)) or simi
 To install gems (dependencies) you will need to first install [Bundler](http://bundler.io/)
 
 ### Databases
-You will need Postgres and Elasticsearch installed for this to work. 
+You will need Postgres and Elasticsearch installed for this to work.
 
 On macOS both Postgres and Elasticsearch can be installed using [Homebrew](https://brew.sh/)
 
@@ -42,7 +42,7 @@ rails spec
 ```
 
 ## Fake user accounts
-To log in as a fake user, use the credentials in 'seeds.rb' in the 'db' folder. 
+To log in as a fake user, use the credentials in 'seeds.rb' in the 'db' folder.
 
 ## Importing data
 You can import data from source files using the following commands:
@@ -83,4 +83,14 @@ rake check:overdue:dataset[dataset-short-name]
 ```
 $ export PUBLISH_DATA_BETA_DATABASE_PASSWORD=...
 $ export DATABASE_URL=...
+```
+
+
+# Vagrant
+
+To run the app in a local VM with vagrant, install Vagrant and Virtualbox, then:
+```
+$ vagrant up
+$ vagrant ssh -c /vagrant/tools/vagrant-dev-setup.sh
+$ vagrant ssh -c "cd /vagrant && rails s"
 ```
