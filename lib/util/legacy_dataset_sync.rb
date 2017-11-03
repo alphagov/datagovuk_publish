@@ -14,8 +14,9 @@ class LegacyDatasetSync
     @logger.info "Importing legacy datasets...\r"
     get_packages @host do |package|
         begin
-          dataset_id = MetadataTools.add_dataset_metadata(package, @orgs_cache, @theme_cache)
-          PublishingWorker.perform_async(dataset_id)
+          MetadataTools.add_dataset_metadata(package, @orgs_cache, @theme_cache)
+          dataset = Dataset.find_by!(uuid: package["id"])
+          LegacyPublishToElasticWorker.perform_async(dataset)
         rescue => e
           @logger.error e.message
         end

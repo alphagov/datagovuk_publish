@@ -14,8 +14,8 @@ describe LegacyDatasetSync do
     package =  JSON.generate someDataset: { name: 'Awesome data' }
     response = JSON.generate(result: { results: [package] })
 
-    first_dataset_id = 1
-    second_dataset_id = 2
+    first_dataset = double('first dataset')
+    second_dataset = double('second dataset')
 
     legacy_dataset_sync = LegacyDatasetSync.new(
       orgs_cache: orgs_cache,
@@ -27,8 +27,9 @@ describe LegacyDatasetSync do
     stub_request(:get, modified_datasets_url).to_return(status: 200, body: response)
     stub_request(:get, new_datasets_url).to_return(status: 200, body: response)
 
-    allow(MetadataTools).to receive(:add_dataset_metadata).and_return([first_dataset_id, second_dataset_id])
-    allow(PublishingWorker).to receive(:perform_async)
+    allow(Dataset).to receive(:find_by).and_return([first_dataset, second_dataset])
+    allow(MetadataTools).to receive(:add_dataset_metadata)
+    allow(LegacyPublishToElasticWorker).to receive(:perform_async)
 
     legacy_dataset_sync.run
 
@@ -38,17 +39,16 @@ describe LegacyDatasetSync do
 
     expect(WebMock)
       .to have_requested(:get, new_datasets_url)
-            .once
+      .once
 
     expect(MetadataTools)
       .to have_received(:add_dataset_metadata)
       .exactly(2).times
       .with(package, orgs_cache, theme_cache)
 
-
-    expect(PublishingWorker)
+    expect(LegacyPublishToElasticWorker)
       .to have_received(:perform_async)
       .exactly(2).times
-      .with([first_dataset_id, second_dataset_id])
+      .with([first_dataset, second_dataset])
   end
 end
