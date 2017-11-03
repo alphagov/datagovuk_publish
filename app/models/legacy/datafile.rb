@@ -27,7 +27,7 @@ class Legacy::Datafile < SimpleDelegator
 
   def build_date
     return "" unless dataset.timeseries?
-    (end_date.presence || created_at).strftime("%d/%m/%Y")
+    end_date.presence.strftime("%d/%m/%Y")
   end
 
   def build_datafile_type
