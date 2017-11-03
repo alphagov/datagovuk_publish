@@ -60,8 +60,7 @@ class Datasets::LinksController < ApplicationController
     params.require(:link).permit(
       :url,
       :name,
-      :start_day, :start_month, :start_year,
-      :end_day, :end_month, :end_year,
+      :day, :month, :year,
       :year,
       :quarter
     )
