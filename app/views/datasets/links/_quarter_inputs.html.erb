@@ -31,7 +31,7 @@
   </fieldset>
 </div>
 
-<div class="form-group<% if @link.errors[:start_year].present? %> form-group-error<% end %>">
+<div class="form-group<% if @link.errors[:year].present? %> form-group-error<% end %>">
   <fieldset>
     <legend class="visuallyhidden">Year</legend>
     <div class="form-date">
@@ -40,11 +40,7 @@
         <% @link.errors[:year].each do |message| %>
           <span class="error-message"><%= message %></span>
         <% end %>
-
-        <% @link.errors[:start_year].each do |message| %>
-          <span class="error-message"><%= message %></span>
-        <% end %>
-        <%= text_field_tag 'link[start_year]', @link.dates[:start][:year], id: "period_year", class: "form-control" %>
+        <%= text_field_tag 'link[year]', @link.dates[:year], id: "period_year", class: "form-control" %>
       </div>
     </div>
   </fieldset>
