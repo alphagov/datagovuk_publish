@@ -15,20 +15,5 @@ gem install rails -v 5.1.4
 cd /vagrant
 gem install bundler --pre
 bundle install
-echo 'export SECRET_KEY_BASE=meh' >> ~/.profile
-echo 'export RAILS_ENV=development' >> ~/.profile
-echo 'export DEVISE_SECRET_KEY=bah' >> ~/.profile
-echo 'export ES_HOST=10.0.2.2:9200' >> ~/.profile
-echo 'export REDIS_IP=10.0.2.2' >> ~/.profile
-echo 'export REDIS_PORT=6379' >> ~/.profile
-echo 'export REDIS_PASSWORD=blah' >> ~/.profile
-
-export SECRET_KEY_BASE=meh
-export RAILS_ENV=development
-export DEVISE_SECRET_KEY=bah
-export ES_HOST=10.0.2.2:9200
-export REDIS_IP=10.0.2.2
-export REDIS_PORT=6379
-export REDIS_PASSWORD=blah
 
 rails db:drop db:create db:schema:load db:seed

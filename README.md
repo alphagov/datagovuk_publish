@@ -92,5 +92,5 @@ To run the app in a local VM with vagrant, install Vagrant and Virtualbox, then:
 ```
 $ vagrant up
 $ vagrant ssh -c /vagrant/tools/vagrant-dev-setup.sh
-$ vagrant ssh -c "cd /vagrant && bundle install && rails s"
+$ vagrant ssh -c "cd /vagrant && rails s"
 ```
