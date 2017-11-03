@@ -281,8 +281,7 @@ describe "dataset frequency options" do
     visit new_dataset_frequency_path(dataset.uuid, dataset.name)
   end
 
-  context "when Never and Daily" do
-
+  context "when Never" do
     it "selecting NEVER hides fields and dates" do
       choose option: 'never'
       click_button "Save and continue"
@@ -295,16 +294,38 @@ describe "dataset frequency options" do
 
       expect(Dataset.last.datafiles.last.end_date).to be_nil
     end
+  end
 
-    it "selecting DAILY hides fields and dates" do
+  context "when DAILY" do
+    before(:each) do
+      url = "https://test.data.gov.uk/api/3/action/package_patch"
+      stub_request(:any, url).to_return(status: 200)
       choose option: 'daily'
       click_button "Save and continue"
-
       fill_in 'link[url]', with: 'https://localhost/doc'
       fill_in 'link[name]', with: 'my test doc'
+    end
+
+    it "shows date fields and sets end date" do
+      expect(page).to     have_content('Month')
+      expect(page).to     have_content('Year')
+
+      fill_in "link[day]", with: '15'
+      fill_in 'link[month]', with: '1'
+      fill_in 'link[year]',  with: '2020'
+
       click_button "Save and continue"
 
-      expect(Dataset.last.datafiles.last.end_date).to be_nil
+      expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(2020, 1, 15))
+    end
+
+    it "displays errors when dates aren't entered" do
+      click_button "Save and continue"
+
+      expect(page).to have_content("There was a problem")
+      expect(page).to have_content("Please enter a valid date", count: 2)
+      expect(page).to have_content("Please enter a valid month", count: 2)
+      expect(page).to have_content("Please enter a valid year", count: 2)
     end
   end
 
@@ -434,7 +455,9 @@ describe "passing the frequency page" do
     choose option: "daily"
     click_button "Save and continue"
     expect(page).to have_content("Add a link to your data")
-    expect(page).to_not have_content("Year")
+    fill_in "link[day]", with: '15'
+    fill_in 'link[month]', with: '1'
+    fill_in 'link[year]',  with: '2020'
     click_button "Save and continue"
     expect(page).to have_content("Please enter a valid url", count: 2)
     expect(page).to have_content("Please enter a valid name", count: 2)

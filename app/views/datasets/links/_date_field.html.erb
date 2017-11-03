@@ -1,40 +1,45 @@
-<div class="form-group" id="<%= period %>_date_form_group">
+<div class="form-group" id="date_form_group">
   <fieldset>
     <legend>
       <span class="form-label-bold">
-          <%= period.humanize %> Date
+          Date
         <span class="form-hint">For example, 31 3 2016</span>
       </span>
     </legend>
 
-    <div class="form-group form-date<% if @link.errors.key? (period+"_date").to_sym %> form-group-error<% end %>">
-      <% if @link.errors.key? (period+"_date").to_sym %>
-        <span class="error-message">Please enter a valid <%= period %> date</span>
+    <div class="form-group form-date <% "form-group-error" if @link.errors.any? %>">
+      <% @link.errors[:date].each do |message| %>
+        <span class="error-message"><%= message %></span>
       <% end %>
-      <div class="form-group form-group-day<% if @link.errors.key? (period+"_day").to_sym %> form-group-error<% end %>">
-        <label for="#<%= period %>_day">
-          <span class="form-label">Day</span>
-          <% if @link.errors.key? (period+"_day").to_sym %>
-            <span class="error-message">Please enter a valid <%= period %> day</span>
-          <% end %>
-        </label>
-        <%= text_field_tag "link[#{period}_day]", @link.dates[period][:day], id: "#{period}_day", class: "form-control" %>
+
+      <div class="form-group form-group-day<%= "form-group-error" if @link.errors[:day].any? %>">
+        <label for="day">Day</label>
+
+        <% @link.errors[:day].each do |message| %>
+          <span class="error-message"><%= message %></span>
+        <% end %>
+
+        <%= text_field_tag "link[day]", @link.dates[:day], id: "day", class: "form-control" %>
       </div>
 
-      <div class="form-group form-group-month<% if @link.errors.key? (period+"_day").to_sym %> form-group-error<% end %>">
-        <label for="<%= period %>_month">Month</label>
-        <% if @link.errors.key? (period+"_month").to_sym %>
-          <span class="error-message">Please enter a valid <%= period %> month</span>
+      <div class="form-group form-group-month<%= "form-group-error" if @link.errors[:month].any? %>">
+        <label for="month">Month</label>
+
+        <% @link.errors[:month].each do |message| %>
+          <span class="error-message"><%= message %></span>
         <% end %>
-        <%= text_field_tag "link[#{period}_month]", @link.dates[period][:month], id: "#{period}_month", class: "form-control" %>
+
+        <%= text_field_tag "link[month]", @link.dates[:month], id: "month", class: "form-control" %>
       </div>
 
-      <div class="form-group form-group-year<% if @link.errors.key? (period+"_day").to_sym %> form-group-error<% end %>">
-        <label for="<%= period %>_year">year</label>
-        <% if @link.errors.key? (period+"_year").to_sym %>
-          <span class="error-message">Please enter a valid <%= period %> year</span>
+      <div class="form-group form-group-year<%= "form-group-error" if @link.errors[:year].any? %>">
+        <label for="year">Year</label>
+
+        <% @link.errors[:year].each do |message| %>
+          <span class="error-message"><%= message %></span>
         <% end %>
-        <%= text_field_tag "link[#{period}_year]", @link.dates[period][:year], id: "#{period}_year", class: "form-control" %>
+
+        <%= text_field_tag "link[year]", @link.dates[:year], id: "year", class: "form-control" %>
       </div>
     </div>
   </fieldset>
