@@ -46,7 +46,7 @@ class DatasetsController < ApplicationController
     if @dataset.publishable?
       if @dataset.published?
         flash[:success] = I18n.t 'dataset_updated'
-        @dataset.update_legacy
+        ::LegacySyncService.new(@dataset).send_update
       else
         flash[:success] = I18n.t 'dataset_published'
       end
