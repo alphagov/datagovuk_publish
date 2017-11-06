@@ -4,12 +4,6 @@ require 'securerandom'
 class Dataset < ApplicationRecord
   enum status: { draft: 0, published: 1 }
 
-  # Tell ActiveRecord to ignore a column from its cache.
-  # Remove self.columns when the published column has been successfully removed
-  def self.columns
-    super.reject { |c| c.name == "published" }
-  end
-
   TITLE_FORMAT = /([a-z]){3}.*/i
   STAGES = %w(initialised completed)
 
