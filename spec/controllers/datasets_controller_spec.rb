@@ -18,8 +18,10 @@ describe DatasetsController, type: :controller do
     expect(dataset.errors[:base]).to include("Harvested datasets cannot be modified.")
   end
 
-  it "updates legacy when a dataset is published" do
+  it "updates legacy when an existing dataset is published" do
     stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
+    allow(PublishingWorker).to receive(:perform_async).and_return true
+    stub_request(:post, legacy_datafile_update_endpoint).to_return(status: 200)
 
     published_dataset = FactoryGirl.create(:dataset,
                                             links: [FactoryGirl.create(:link)],
@@ -27,7 +29,7 @@ describe DatasetsController, type: :controller do
 
     post :publish, params: { uuid: published_dataset.uuid, name: published_dataset.name }
 
-    legacy_dataset = Legacy::Dataset.new(published_dataset.reload)
+    legacy_dataset = Legacy::Dataset.new(published_dataset)
 
     expect(WebMock)
       .to have_requested(:post, legacy_dataset_update_endpoint)

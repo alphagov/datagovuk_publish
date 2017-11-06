@@ -93,6 +93,7 @@ describe Dataset do
   end
 
   it "sets a published_date timestamp when published" do
+    stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
     first_publish = Time.now
     allow(Time).to receive(:now).and_return(first_publish)
     dataset = FactoryGirl.create(:dataset, links: [FactoryGirl.create(:link)])
