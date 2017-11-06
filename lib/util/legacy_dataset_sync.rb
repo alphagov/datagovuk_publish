@@ -31,17 +31,15 @@ class LegacyDatasetSync
   # Keep yielding recent packages until the metadata_modified and metadata_created
   # is earlier than yesterday.
   def get_legacy_datasets(server)
-    modified_datasets_url = "#{server}/api/3/action/package_search?q=metadata_modified:[NOW-1DAY%20TO%20NOW]"
-    new_datasets_url = "#{server}/api/3/action/package_search?q=metadata_created:[NOW-1DAY%20TO%20NOW]"
+    modified_datasets_url = URI::join(server, 'api/3/action/package_search?q=metadata_modified:[NOW-1DAY%20TO%20NOW]').to_s
+    new_datasets_url = URI::join(server, 'api/3/action/package_search?q=metadata_created:[NOW-1DAY%20TO%20NOW]').to_s
 
     new_legacy_datasets = fetch_json(new_datasets_url)
     modified_legacy_datasets = fetch_json(modified_datasets_url)
 
     [new_legacy_datasets, modified_legacy_datasets].each do |datasets|
-      if there_are? datasets
-        datasets['result']['results'].each do |pkg|
-          yield pkg
-        end
+      datasets.fetch('result', {}).fetch('results', []).each do |pkg|
+        yield pkg
       end
     end
   end
@@ -53,9 +51,5 @@ class LegacyDatasetSync
   rescue RestClient::ExceptionWithResponse
     @logger.error "Failed to make the request to #{url}"
     return nil
-  end
-
-  def there_are?(datasets)
-    datasets['result'] && datasets['result']['results']
   end
 end

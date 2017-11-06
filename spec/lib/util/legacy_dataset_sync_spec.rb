@@ -5,11 +5,11 @@ describe LegacyDatasetSync do
   before do
     @orgs_cache =  Organisation.all.pluck(:uuid, :id).to_h
     @theme_cache = Theme.all.pluck(:title, :id).to_h
-    @host = 'https://test.data.gov.uk'
-    modified_datasets_query = '/api/3/action/package_search?q=metadata_modified:[NOW-1DAY%20TO%20NOW]'
-    new_datasets_query = '/api/3/action/package_search?q=metadata_created:[NOW-1DAY%20TO%20NOW]'
-    @modified_datasets_url = URI.join(@host, modified_datasets_query)
-    @new_datasets_url = URI.join(@host, new_datasets_query)
+    @host = 'https://test.data.gov.uk/'
+    modified_datasets_query = 'api/3/action/package_search?q=metadata_modified:[NOW-1DAY%20TO%20NOW]'
+    new_datasets_query = 'api/3/action/package_search?q=metadata_created:[NOW-1DAY%20TO%20NOW]'
+    @modified_datasets_url = URI::join(@host, modified_datasets_query).to_s
+    @new_datasets_url = URI::join(@host, new_datasets_query).to_s
   end
 
   describe 'There are modified and new legacy datasets to be imported' do
