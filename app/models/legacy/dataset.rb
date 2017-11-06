@@ -16,10 +16,13 @@ class Legacy::Dataset < SimpleDelegator
       "description" => summary,
       "organization" => { "name" => organisation.name },
       "update_frequency" => convert_freq_to_legacy_format(frequency),
-      "update_frequency-other" => custom_frequency,
+      "update_frequency-other" => convert_freq_to_legacy_format(frequency),
       "extras" => [{"key" => "update_frequency",
                     "package_id" => uuid,
-                    "value" => convert_freq_to_legacy_format(frequency)}
+                    "value" => convert_freq_to_legacy_format(frequency)},
+                    {"key" => "update_frequency-other",
+                              "package_id" => uuid,
+                              "value" => convert_freq_to_legacy_format(frequency)}
                   ],
       "unpublished" => !published?,
       "metadata_created" => created_at,
@@ -52,17 +55,13 @@ class Legacy::Dataset < SimpleDelegator
     FREQUENCY_MAP.fetch(frequency, "")
   end
 
-  def custom_frequency
-    return frequency if ['daily', 'one-off'].include?(frequency)
-  end
-
   FREQUENCY_MAP =
-    { 'annually' => 'annual' ,
+    { 'annually' => 'annual',
+      'financial-year' => 'financial year',
       'quarterly' => 'quarterly',
       'monthly' => 'monthly',
-      'daily' => 'other',
+      'daily' => 'daily',
       'never' => 'never',
       'discontinued' => 'discontinued',
-      'one-off' => 'other'
     }
 end
