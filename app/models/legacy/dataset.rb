@@ -46,7 +46,7 @@ class Legacy::Dataset < SimpleDelegator
   end
 
   def custom_frequency
-    return frequency if ['daily', 'weekly', 'one-off'].include?(frequency)
+    return frequency if ['daily', 'one-off'].include?(frequency)
   end
 
   FREQUENCY_MAP =
@@ -54,7 +54,6 @@ class Legacy::Dataset < SimpleDelegator
       'quarterly' => 'quarterly',
       'monthly' => 'monthly',
       'daily' => 'other',
-      'weekly' => 'other',
       'never' => 'never',
       'discontinued' => 'discontinued',
       'one-off' => 'other'
