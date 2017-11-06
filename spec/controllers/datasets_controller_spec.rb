@@ -30,7 +30,7 @@ describe DatasetsController, type: :controller do
 
     patch :update, params: { uuid: dataset.uuid, name: dataset.name, dataset: { title: "New title" } }
 
-    dataset.reload
+    dataset.publish!
 
     expect(dataset.title).to eq("New title")
 
