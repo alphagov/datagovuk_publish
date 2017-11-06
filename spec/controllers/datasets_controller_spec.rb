@@ -22,23 +22,6 @@ describe DatasetsController, type: :controller do
     expect(dataset.errors[:base]).to include("Harvested datasets cannot be modified.")
   end
 
-  it "updates legacy when a dataset is updated" do
-    user =  FactoryGirl.create(:user)
-    dataset = FactoryGirl.create(:dataset, links: [FactoryGirl.create(:link)])
-
-    sign_in(user)
-
-    patch :update, params: { uuid: dataset.uuid, name: dataset.name, dataset: { title: "New title" } }
-
-    dataset.reload
-
-    expect(dataset.title).to eq("New title")
-
-    expect(WebMock)
-      .to have_requested(:post, 'https://test.data.gov.uk/api/3/action/package_patch')
-      .once
-  end
-
   it "redirects to slugged URL" do
     user =  FactoryGirl.create(:user)
     organisation = FactoryGirl.create(:organisation, users: [user])
