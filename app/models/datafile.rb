@@ -18,7 +18,4 @@ class Datafile < ApplicationRecord
     end
   end
 
-  def update_legacy
-    Legacy::Datafile.new(self).update
-  end
 end

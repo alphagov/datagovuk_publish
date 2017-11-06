@@ -26,7 +26,6 @@ class Datasets::LinksController < ApplicationController
 
   def update
     if @link.update(link_params)
-      @link.update_legacy
       redirect_to dataset_links_path(@dataset.uuid, @dataset.name)
     else
       render :edit
