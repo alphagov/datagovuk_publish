@@ -4,12 +4,6 @@ require 'securerandom'
 class Dataset < ApplicationRecord
   enum status: { draft: 0, published: 1 }
 
-  # Tell ActiveRecord to ignore a column from its cache.
-  # Remove self.columns when the published column has been successfully removed
-  def self.columns
-    super.reject { |c| c.name == "published" }
-  end
-
   TITLE_FORMAT = /([a-z]){3}.*/i
   STAGES = %w(initialised completed)
 
@@ -45,8 +39,6 @@ class Dataset < ApplicationRecord
   scope :owned_by, ->(creator_id) { where(creator_id: creator_id) }
   scope :published, ->{ where(status: "published") }
 
-  after_update :update_legacy
-
   def is_readonly?
     if persisted? && self.harvested?
       errors[:base] << 'Harvested datasets cannot be modified.'
@@ -62,6 +54,7 @@ class Dataset < ApplicationRecord
       transaction do
         self.published!
         PublishingWorker.perform_async(self.id)
+        PublishToLegacyUpdateWorker.perform_async(self.id)
       end
     end
   end
@@ -176,10 +169,6 @@ class Dataset < ApplicationRecord
   end
 
   private
-
-  def update_legacy
-    PublishToLegacyUpdateWorker.perform_async(self.id)
-  end
 
   def set_initial_stage
     self.stage ||= 'initialised'
