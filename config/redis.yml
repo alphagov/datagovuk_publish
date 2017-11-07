@@ -1,13 +1,11 @@
 development:
   host: '<%= ENV['REDIS_IP'] || "localhost" %>'
   port: '<%= ENV['REDIS_PORT'] || 6379 %>'
-  password: '<%= ENV['REDIS_PASSWORD'] %>'
   network_timeout: 5
 
 test:
   host: '<%= ENV['REDIS_IP'] || "localhost" %>'
   port: '<%= ENV['REDIS_PORT'] || 6379 %>'
-  password: '<%= ENV['REDIS_PASSWORD'] %>'
   network_timeout: 5
 
 
