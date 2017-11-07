@@ -52,11 +52,19 @@ class Dataset < ApplicationRecord
   def publish!
     if self.publishable?
       transaction do
+        ::LegacySyncService.new(self).send_update
+        set_published_timestamps
         self.published!
         PublishingWorker.perform_async(self.id)
-        PublishToLegacyUpdateWorker.perform_async(self.id)
       end
     end
+  end
+
+  def set_published_timestamps
+    if self.draft?
+      self.published_date = Time.now
+    end
+    self.last_published_at = Time.now
   end
 
   # What we actually want to index in Elastic, rather than the whole
@@ -158,6 +166,10 @@ class Dataset < ApplicationRecord
   def complete!
     self.stage = 'completed'
     self.save!(validate: false)
+  end
+
+  def timeseries?
+    ["annually", "quarterly", "monthly"].include?(frequency)
   end
 
   private

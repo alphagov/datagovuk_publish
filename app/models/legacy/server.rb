@@ -1,29 +1,17 @@
 class Legacy::Server
 
-  def update(payload)
-    begin
-      RestClient.post(url, payload, headers)
-    rescue => e
-      Rails.logger.debug "ERROR! => update not sent to legacy"
-      raise e
-    end
+  def update(path, payload)
+    url = URI.join(host, path).to_s
+    LegacyUpdateWorker.perform_async(url, payload, headers)
   end
 
   private
 
-  def url
-    URI.join(host, path).to_s
-  end
-
   def host
-    ENV['LEGACY_HOST']
-  end
-
-  def path
-    "/api/3/action/package_patch"
+    ENV.fetch('LEGACY_HOST')
   end
 
   def headers
-    { Authorization: ENV['LEGACY_API_KEY'] }
+    { Authorization: ENV.fetch('LEGACY_API_KEY') }
   end
 end

@@ -13,6 +13,10 @@ def click_change(property)
   all(:link, "Change")[index].click
 end
 
+def click_dataset(dataset)
+  find(:xpath, "//a[@href='#{dataset_path(dataset.uuid, dataset.name)}']").click
+end
+
 def set_up_models
 
     let(:land) { FactoryGirl.create(:organisation) }

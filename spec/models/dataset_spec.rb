@@ -31,9 +31,6 @@ describe Dataset do
   end
 
   it "generates a new slug when the title has changed" do
-    url = "https://test.data.gov.uk/api/3/action/package_patch"
-    stub_request(:any, url).to_return(status: 200)
-
     dataset = FactoryGirl.create(:dataset,
                                  uuid: 1234,
                                  title: "My awesome dataset")
@@ -58,9 +55,6 @@ describe Dataset do
   end
 
   it "can pass strict validation when publishing" do
-    url = "https://test.data.gov.uk/api/3/action/package_patch"
-    stub_request(:any, url).to_return(status: 200)
-
     d = Dataset.new(
       title: "dataset",
       summary: "Summary",
@@ -76,9 +70,6 @@ describe Dataset do
   end
 
   it "is not possible to delete a published dataset" do
-    url = "https://test.data.gov.uk/api/3/action/package_patch"
-    stub_request(:any, url).to_return(status: 200)
-
     d = Dataset.new(
       title: "dataset",
       summary: "Summary",
@@ -99,5 +90,71 @@ describe Dataset do
     d.destroy
 
     expect(Dataset.count).to eq 0
+  end
+
+  it "sets a published_date timestamp when published" do
+    stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
+    first_publish = Time.now
+    allow(Time).to receive(:now).and_return(first_publish)
+    dataset = FactoryGirl.create(:dataset, links: [FactoryGirl.create(:link)])
+    dataset.save
+    dataset.publish!
+
+    expect(dataset.published_date).to eq first_publish
+
+    second_publish = Time.now + 1
+    allow(Time).to receive(:now).and_return(second_publish)
+
+    dataset.update(title: 'new-title')
+    dataset.publish!
+
+    expect(dataset.published_date).to eq first_publish
+    expect(dataset.last_published_at).to eq second_publish
+  end
+
+  it "only updates legacy with datafiles that have been updated since last dataset publication" do
+    allow(PublishingWorker).to receive(:perform_async).and_return true
+
+    stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
+    stub_request(:post, legacy_datafile_update_endpoint).to_return(status: 200)
+
+    creation_date = 1.week.ago
+    publication_date = 1.day.ago
+
+    dataset = FactoryGirl.build(:dataset,
+                                 created_at: creation_date,
+                                 updated_at: creation_date,
+                                 last_published_at: publication_date)
+    dataset.save
+
+    datafile_1 = FactoryGirl.build(:link,
+                                   name: 'datafile_1',
+                                   created_at: creation_date,
+                                   updated_at: creation_date,
+                                   dataset: dataset)
+    datafile_1.save
+
+    datafile_2 = FactoryGirl.build(:link,
+                                   name: 'datafile_2',
+                                   created_at: creation_date,
+                                   updated_at: creation_date,
+                                   dataset: dataset)
+    datafile_2.save
+
+    dataset.published!
+
+    datafile_1.update(name: 'new name')
+
+    dataset.publish!
+
+    expect(WebMock)
+      .to have_requested(:post, legacy_datafile_update_endpoint)
+      .with(body: Legacy::Datafile.new(datafile_1).payload)
+      .once
+
+    expect(WebMock)
+      .to_not have_requested(:post, legacy_datafile_update_endpoint)
+      .with(body: Legacy::Datafile.new(datafile_2).payload)
+      .once
   end
 end

@@ -36,13 +36,14 @@ group :development, :test do
   gem 'pry', '~> 0.10'
   gem 'pry-byebug', '~> 3.4'
   gem 'pry-stack_explorer', '~> 0.4.9'
-  gem 'dotenv', '~> 2.2'
+  gem 'dotenv-rails', '~> 2.2'
   gem 'rspec-rails', '~> 3.6'
   gem 'rspec', '~> 3.6'
   gem 'factory_girl_rails', '~> 4.0'
 end
 
 group :development do
+  gem 'pry-rails'
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring', '~> 2.0'

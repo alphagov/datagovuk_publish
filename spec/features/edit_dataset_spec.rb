@@ -1,12 +1,11 @@
 require "rails_helper"
 
 describe 'editing datasets' do
-
   set_up_models
 
   before(:each) do
-    url = "https://test.data.gov.uk/api/3/action/package_patch"
-    stub_request(:any, url).to_return(status: 200)
+    stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
+
     allow_any_instance_of(UrlValidator).to receive(:validPath?).and_return(true)
     user
     sign_in_user
@@ -22,7 +21,7 @@ describe 'editing datasets' do
   context 'editing published datasets from show page' do
     before(:each) do
       click_link 'Manage datasets'
-      find(:xpath, "//a[@href='#{dataset_path(published_dataset.uuid, published_dataset.name)}']").click
+      click_dataset(published_dataset)
     end
 
     it "should be able to update title" do
@@ -79,86 +78,6 @@ describe 'editing datasets' do
 
       expect(page).to have_content('Daily')
       expect(last_updated_dataset.frequency).to eq('daily')
-    end
-
-    it "should be able to add a new file" do
-      link = published_dataset.links.first
-
-      click_change(:datalinks)
-      expect(page).to have_content(link.name)
-
-      click_link 'Add another link'
-      fill_in 'link[url]', with: 'http://google.com'
-      fill_in 'link[name]', with: 'my other test file'
-      click_button 'Save and continue'
-      expect(page).to have_content('my other test file')
-    end
-
-    it "should be able to edit an existing file" do
-      link = published_dataset.links.first
-
-      click_change(:datalinks)
-      expect(page).to have_content(link.name)
-      click_link 'Edit'
-
-      fill_in 'link[name]', with: 'my published test file extreme edition'
-
-      click_button 'Save and continue'
-
-      expect(page).to have_content('my published test file extreme edition')
-    end
-
-    it "should be able to remove a file" do
-      link = published_dataset.links.first
-
-      click_change(:datalinks)
-      expect(page).to have_content(link.name)
-
-      click_link 'Delete'
-      expect(page).to have_content "Are you sure you want to delete ‘#{link.name}’?"
-
-      click_link 'Yes, delete this link'
-      expect(page).to have_content "Your link ‘#{link.name}’ has been deleted"
-      expect(last_updated_dataset.links).to be_empty
-    end
-
-    it "should be able to add a new doc" do
-      doc = published_dataset.docs.first
-
-      click_change(:documentation)
-      expect(page).to have_content(doc.name)
-
-      click_link 'Add another link'
-      fill_in 'doc[url]', with: 'http://google.com/doc'
-      fill_in 'doc[name]', with: 'my other test doc'
-      click_button 'Save and continue'
-      expect(page).to have_content('my other test doc')
-    end
-
-    it "should be able to edit an existing doc" do
-      doc = published_dataset.docs.first
-
-      click_change(:documentation)
-      expect(page).to have_content(doc.name)
-
-      click_link 'Edit'
-      fill_in 'doc[name]', with: 'my published test doc extreme edition'
-      click_button 'Save and continue'
-      expect(page).to have_content('my published test doc extreme edition')
-    end
-
-    it "should be able to remove a doc" do
-      doc = published_dataset.docs.first
-
-      click_change(:documentation)
-      expect(page).to have_content(doc.name)
-
-      click_link 'Delete'
-      expect(page).to have_content "Are you sure you want to delete ‘#{doc.name}’?"
-
-      click_link 'Yes, delete this link'
-      expect(page).to have_content "Your link ‘#{doc.name}’ has been deleted"
-      expect(last_updated_dataset.docs).to be_empty
     end
 
     it "should be able to publish a published dataset" do

@@ -110,6 +110,9 @@ GEM
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     elasticsearch (5.0.4)
       elasticsearch-api (= 5.0.4)
       elasticsearch-transport (= 5.0.4)
@@ -246,6 +249,8 @@ GEM
     pry-byebug (3.4.2)
       byebug (~> 9.0)
       pry (~> 0.10)
+    pry-rails (0.3.6)
+      pry (>= 0.10.4)
     pry-stack_explorer (0.4.9.2)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
@@ -417,7 +422,7 @@ DEPENDENCIES
   database_cleaner
   devise (~> 4.3)
   devise_invitable (~> 1.7.2)
-  dotenv (~> 2.2)
+  dotenv-rails (~> 2.2)
   elasticsearch (~> 5.0.4)
   elasticsearch-model (~> 5.0.1)
   elasticsearch-rails (~> 5.0.1)
@@ -437,6 +442,7 @@ DEPENDENCIES
   pg (~> 0.18)
   pry (~> 0.10)
   pry-byebug (~> 3.4)
+  pry-rails
   pry-stack_explorer (~> 0.4.9)
   puma (~> 3.7)
   rack-cors
