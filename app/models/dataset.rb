@@ -5,14 +5,13 @@ class Dataset < ApplicationRecord
   enum status: { draft: 0, published: 1 }
 
   TITLE_FORMAT = /([a-z]){3}.*/i
-  STAGES = %w(initialised completed)
 
   include Elasticsearch::Model
 
   index_name ENV['ES_INDEX'] || "datasets-#{Rails.env}"
   document_type "dataset"
 
-  after_initialize :set_initial_stage, :set_uuid
+  after_initialize :set_uuid
   before_save :set_name
   before_destroy :prevent_if_published
 
@@ -31,7 +30,6 @@ class Dataset < ApplicationRecord
   validates :frequency, presence: true, if: :published?
   validates :licence, presence: true, if: :published?
   validates :licence_other, presence: true, if: lambda { licence == 'other' }
-  validates :stage, inclusion: { in: STAGES }
 
   validate  :published_dataset_must_have_datafiles_validation
   validate  :is_readonly?, on: :update
@@ -155,26 +153,7 @@ class Dataset < ApplicationRecord
     frequency == 'never'
   end
 
-  def initialised?
-    self.stage == 'initialised'
-  end
-
-  def completed?
-    self.stage == 'completed'
-  end
-
-  def complete!
-    self.stage = 'completed'
-    self.save!(validate: false)
-  end
-
   def timeseries?
     ["annually", "quarterly", "monthly"].include?(frequency)
-  end
-
-  private
-
-  def set_initial_stage
-    self.stage ||= 'initialised'
   end
 end
