@@ -1,6 +1,16 @@
 module MetadataTools
 
-  def add_dataset_metadata(obj, orgs_cache, theme_cache)
+  def index(obj)
+    dataset = Dataset.find_by!(uuid: obj["id"])
+
+    dataset.__elasticsearch__.index_document({
+      index: ::Dataset.__elasticsearch__.index_name,
+      type: ::Dataset.__elasticsearch__.document_type,
+      id: dataset.id, body: dataset.as_indexed_json
+    })
+  end
+
+  def persist(obj, orgs_cache, theme_cache)
     d = Dataset.find_or_create_by(uuid: obj["id"])
     d.legacy_name = obj["name"]
     d.title = obj["title"]
@@ -226,7 +236,7 @@ module MetadataTools
     result["value"]
   end
 
-  module_function :add_dataset_metadata, :generate_summary, :convert_frequency, :add_inspire_metadata,
-    :dataset_type, :get_extra, :harvested?, :calculate_dates_for_month, :calculate_dates_for_year,
-    :documentation?, :get_start_end_date, :add_resource, :convert_location
+  module_function :persist, :index, :generate_summary, :convert_frequency, :add_inspire_metadata,
+                  :dataset_type, :get_extra, :harvested?, :calculate_dates_for_month, :calculate_dates_for_year,
+                  :documentation?, :get_start_end_date, :add_resource, :convert_location
 end
