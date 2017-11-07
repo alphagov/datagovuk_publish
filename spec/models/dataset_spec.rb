@@ -3,19 +3,24 @@ require 'rails_helper'
 describe Dataset do
   let! (:org)  { @org = Organisation.create!(name: "land-registry", title: "Land Registry") }
 
-  it "requires a valid title" do
-    d = Dataset.new
-    d.title = "[][]"
-    d.summary = "Summary"
-    d.frequency = "daily"
-    d.organisation_id = @org.id
-    expect(d.save).to eq(false)
+  it "requires a title and a summary" do
+    dataset = Dataset.new(title: "", summary: "")
 
-    d.title = ""
-    expect(d.save).to eq(false)
+    dataset.valid?
 
-    d.title = "AB"
-    expect(d.save).to eq(false)
+    expect(dataset.errors[:title]).to include "Please enter a valid title"
+    expect(dataset.errors[:summary]).to include "Please provide a summary"
+  end
+
+  it "validates title format" do
+    dataset = Dataset.new(title: "[][]")
+
+    dataset.valid?
+    expect(dataset.errors[:title]).to include "Please enter a valid title"
+
+    dataset.title = "AB"
+    dataset.valid?
+    expect(dataset.errors[:title]).to include "Please enter a valid title"
   end
 
   it "generates a unique slug and stores it on the name column" do
@@ -39,14 +44,17 @@ describe Dataset do
   end
 
   it "validates more strictly when publishing" do
-    d = Dataset.new(
+    dataset = Dataset.new(
       title: "dataset",
       summary: "Summary",
       organisation_id: @org.id,
-      frequency: "daily",
       status: "published")
 
-    expect(d.save).to eq(false)
+    dataset.valid?
+
+    expect(dataset.errors[:licence]).to include("Please select a licence for your dataset")
+    expect(dataset.errors[:frequency]).to include("Please indicate how often this dataset is updated")
+    expect(dataset.errors[:links]).to include("You must add at least one link")
   end
 
   it "can pass strict validation when publishing" do
@@ -57,7 +65,7 @@ describe Dataset do
       title: "dataset",
       summary: "Summary",
       organisation_id: @org.id,
-      frequency: "daily",
+      frequency: "never",
       licence: "uk-ogl")
 
     d.save
@@ -70,12 +78,12 @@ describe Dataset do
   it "is not possible to delete a published dataset" do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
     stub_request(:any, url).to_return(status: 200)
-    
+
     d = Dataset.new(
       title: "dataset",
       summary: "Summary",
       organisation_id: @org.id,
-      frequency: "daily",
+      frequency: "never",
       licence: "uk-ogl")
 
     d.save

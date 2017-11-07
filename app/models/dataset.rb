@@ -24,7 +24,7 @@ class Dataset < ApplicationRecord
   has_many :docs
   has_one :inspire_dataset
 
-  validates :frequency, inclusion: { in: %w(daily weekly monthly quarterly annually financial-year never) },
+  validates :frequency, inclusion: { in: %w(daily monthly quarterly annually financial-year never) },
                         allow_nil: true # To allow creation before setting this value
   validates :title, presence: true, format: { with: TITLE_FORMAT }
   validates :summary, presence: true
@@ -127,10 +127,6 @@ class Dataset < ApplicationRecord
     frequency == 'daily'
   end
 
-  def weekly?
-    frequency == 'weekly'
-  end
-
   def monthly?
     frequency == 'monthly'
   end
@@ -149,10 +145,6 @@ class Dataset < ApplicationRecord
 
   def never?
     frequency == 'never'
-  end
-
-  def one_off?
-    never?
   end
 
   def initialised?
