@@ -14,6 +14,7 @@ gem install pg -v '0.21.0'
 gem install rails -v 5.1.4
 cd /vagrant
 gem install bundler --pre
+gem install sidekiq
 bundle install
 
 rails db:drop db:create db:schema:load db:seed
