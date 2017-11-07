@@ -6,7 +6,7 @@ namespace :sync do
   task legacy: :environment do |_, args|
     orgs_cache =  Organisation.all.pluck(:uuid, :id).to_h
     theme_cache = Theme.all.pluck(:title, :id).to_h
-    host = Rails.env.production? ? 'https://data.gov.uk' : 'https://test.data.gov.uk'
+    host = Rails.env.production? ? 'https://data.gov.uk/' : 'https://test.data.gov.uk/'
 
     legacy_dataset_sync = LegacyDatasetSync.new(
       orgs_cache: orgs_cache,

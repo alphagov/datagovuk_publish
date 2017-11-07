@@ -86,7 +86,7 @@ namespace :import do
       counter += 1
       print "Completed #{counter}\r"
 
-      MetadataTools.add_dataset_metadata(obj, orgs_cache, theme_cache)
+      MetadataTools.persist(obj, orgs_cache, theme_cache)
     end
   end
 
