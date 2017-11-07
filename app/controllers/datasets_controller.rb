@@ -5,7 +5,6 @@ class DatasetsController < ApplicationController
 
   def show
     authorize!(:read, @dataset)
-    @dataset.complete!
 
     if request_to_outdated_url?
       return redirect_to newest_dataset_path, status: :moved_permanently
@@ -41,8 +40,6 @@ class DatasetsController < ApplicationController
   end
 
   def publish
-    @dataset.complete!
-
     if @dataset.publishable?
       if @dataset.published?
         flash[:success] = I18n.t 'dataset_updated'
