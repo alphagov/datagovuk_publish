@@ -15,22 +15,21 @@ class Legacy::Dataset < SimpleDelegator
       "notes" => summary,
       "description" => summary,
       "organization" => { "name" => organisation.name },
-      "update_frequency" => convert_freq_to_legacy_format(frequency),
-      "update_frequency-other" => convert_freq_to_legacy_format(frequency),
+      "update_frequency" => legacy_frequency,
+      "update_frequency-other" => legacy_frequency,
       "extras" => [{"key" => "update_frequency",
                     "package_id" => uuid,
-                    "value" => convert_freq_to_legacy_format(frequency)},
+                    "value" => legacy_frequency},
                     {"key" => "update_frequency-other",
                               "package_id" => uuid,
-                              "value" => convert_freq_to_legacy_format(frequency)}
+                              "value" => legacy_frequency}
                   ],
       "unpublished" => !published?,
       "metadata_created" => created_at,
       "metadata_modified" => last_updated_at,
       "geographic_coverage" => [(location1 || "").downcase],
       "license_id" => licence
-    }.compact
-    extend_extras(ckan_dataset).to_json
+    }.compact.to_json
   end
 
   private
@@ -39,19 +38,7 @@ class Legacy::Dataset < SimpleDelegator
     ENDPOINTS[:update]
   end
 
-  def extend_extras(ckan_dataset)
-    if ckan_dataset["update_frequency"] == 'other'
-      extra = {
-        "key" => "update_frequency-other",
-        "package_id" => uuid,
-        "value" => ckan_dataset["update_frequency-other"]
-      }
-      ckan_dataset["extras"].push(extra)
-    end
-    ckan_dataset
-  end
-
-  def convert_freq_to_legacy_format(frequency)
+  def legacy_frequency
     FREQUENCY_MAP.fetch(frequency, "")
   end
 
