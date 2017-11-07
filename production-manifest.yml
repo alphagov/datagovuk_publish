@@ -3,8 +3,12 @@ applications:
 - name: publish-data-beta
   memory: 512M
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
+  env:
+    RAILS_ENV: production
 - name: publish-data-beta-worker
   memory: 256M
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
   no-route: true
   command: bundle exec sidekiq
+  env:
+    RAILS_ENV: production
