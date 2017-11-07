@@ -5,7 +5,7 @@ class LegacyUpdateWorker
     begin
       RestClient.post(url, payload, headers)
     rescue => e
-      Rails.logger.debug "Failed to send update request to Legacy with error: #{e.message}"
+      Rails.logger.error "Failed to send update request to Legacy with error: #{e.message}"
       raise e
     end
   end
