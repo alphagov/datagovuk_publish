@@ -5,11 +5,11 @@ class Legacy::Dataset < SimpleDelegator
   }
 
   def update
-    Legacy::Server.new.update(update_path, update_payload)
+    Legacy::Server.new.update(path_for_action(:update), update_payload)
   end
 
   def create
-    Legacy::Server.new.create(create_path, create_payload)
+    Legacy::Server.new.create(path_for_action(:create), create_payload)
   end
 
   def update_payload
@@ -57,12 +57,8 @@ class Legacy::Dataset < SimpleDelegator
 
   private
 
-  def update_path
-    ENDPOINTS[:update]
-  end
-
-  def create_path
-    ENDPOINTS[:create]
+  def path_for_action(action)
+    ENDPOINTS[action]
   end
 
   def legacy_frequency
