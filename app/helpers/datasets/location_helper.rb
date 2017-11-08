@@ -1,2 +1,0 @@
-module Datasets::LocationHelper
-end
