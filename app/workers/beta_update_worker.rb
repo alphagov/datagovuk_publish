@@ -1,10 +1,10 @@
 require 'rake'
 PublishDataBeta::Application.load_tasks
 
-class LegacyToBetaDatasetSyncWorker
+class BetaUpdateWorker
   include Sidekiq::Worker
 
   def perform
-    Rake::Task['sync:legacy'].invoke
+    Rake::Task['sync:beta'].invoke
   end
 end

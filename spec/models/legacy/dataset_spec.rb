@@ -19,7 +19,7 @@ describe Legacy::Dataset do
        legacy_dataset = Legacy::Dataset.new(dataset)
 
        legacy_dataset_json_metadata = {
-         'id': dataset.uuid,
+         'id' => dataset.uuid,
          'name' => dataset.legacy_name,
          'title' => dataset.title,
          'notes' => dataset.summary,
