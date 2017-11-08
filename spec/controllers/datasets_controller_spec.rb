@@ -25,7 +25,8 @@ describe DatasetsController, type: :controller do
 
     published_dataset = FactoryGirl.create(:dataset,
                                             links: [FactoryGirl.create(:link)],
-                                            status: "published")
+                                            status: "published",
+                                            published_date: Time.now)
 
     post :publish, params: { uuid: published_dataset.uuid, name: published_dataset.name }
 
@@ -33,7 +34,21 @@ describe DatasetsController, type: :controller do
 
     expect(WebMock)
       .to have_requested(:post, legacy_dataset_update_endpoint)
-      .with(body: legacy_dataset.payload)
+      .with(body: legacy_dataset.update_payload)
+  end
+
+  it "creates a dataset on legacy when a newly created dataset is published" do
+    stub_request(:post, legacy_dataset_create_endpoint).to_return(status: 201)
+    dataset = FactoryGirl.create(:dataset,
+                                links: [FactoryGirl.create(:link)])
+
+    post :publish, params: { uuid: dataset.uuid, name: dataset.name }
+
+    legacy_dataset = Legacy::Dataset.new(dataset)
+
+    expect(WebMock)
+      .to have_requested(:post, legacy_dataset_create_endpoint)
+      .with(body: legacy_dataset.create_payload)
   end
 
   it "redirects to slugged URL" do

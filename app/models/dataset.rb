@@ -52,9 +52,9 @@ class Dataset < ApplicationRecord
   end
 
   def publish!
-    if self.publishable?
+    if publishable?
       transaction do
-        ::LegacySyncService.new(self).send_update
+        LegacySyncService.new(self).sync
         set_published_timestamps
         self.published!
         PublishingWorker.perform_async(self.id)
@@ -63,9 +63,7 @@ class Dataset < ApplicationRecord
   end
 
   def set_published_timestamps
-    if self.draft?
-      self.published_date = Time.now
-    end
+    self.published_date ||= Time.now
     self.last_published_at = Time.now
   end
 

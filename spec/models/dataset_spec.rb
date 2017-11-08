@@ -92,7 +92,8 @@ describe Dataset do
     expect(Dataset.count).to eq 0
   end
 
-  it "sets a published_date timestamp when published" do
+  it "sets a published_date and last_published_at timestamps when published" do
+    stub_request(:post, legacy_dataset_create_endpoint).to_return(status: 200)
     stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
     first_publish = Time.now
     allow(Time).to receive(:now).and_return(first_publish)
@@ -123,8 +124,8 @@ describe Dataset do
 
     dataset = FactoryGirl.build(:dataset,
                                  created_at: creation_date,
-                                 updated_at: creation_date,
-                                 last_published_at: publication_date)
+                                 updated_at: creation_date
+                               )
     dataset.save
 
     datafile_1 = FactoryGirl.build(:link,
@@ -141,7 +142,9 @@ describe Dataset do
                                    dataset: dataset)
     datafile_2.save
 
-    dataset.published!
+    dataset.update(published_date: publication_date,
+                   last_published_at: publication_date,
+                    status: 'published')
 
     datafile_1.update(name: 'new name')
 

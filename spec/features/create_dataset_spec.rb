@@ -9,7 +9,7 @@ describe "dataset creation" do
     before(:each) do
       user
       sign_in_user
-      stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
+      stub_request(:post, legacy_dataset_create_endpoint).to_return(status: 200)
     end
 
     it "navigates to new dataset form" do
@@ -111,8 +111,6 @@ describe "dataset creation" do
   context "when the user doesn't complete flow" do
 
     before(:each) do
-      url = "https://test.data.gov.uk/api/3/action/package_patch"
-      stub_request(:any, url).to_return(status: 200)
       user
       sign_in_user
     end
