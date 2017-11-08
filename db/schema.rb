@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2017071231151258) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -107,7 +110,6 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "uuid"
-    t.string "stage"
     t.integer "theme_id"
     t.integer "secondary_theme_id"
     t.datetime "last_updated_at"

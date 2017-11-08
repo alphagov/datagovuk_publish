@@ -37,6 +37,10 @@ class Dataset < ApplicationRecord
   scope :owned_by, ->(creator_id) { where(creator_id: creator_id) }
   scope :published, ->{ where(status: "published") }
 
+  def self.columns
+    super.reject { |c| c.name == "stage" }
+  end
+
   def is_readonly?
     if persisted? && self.harvested?
       errors[:base] << 'Harvested datasets cannot be modified.'
