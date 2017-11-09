@@ -32,6 +32,6 @@ class ApplicationController < ActionController::Base
     Raven.extra_context(params: params.to_unsafe_h,
                         url: request.url,
                         environment: Rails.env,
-                        app_environment: ENV['VCAP_APPICATION'])
+                        app_environment: ENV['VCAP_APPLICATION'])
   end
 end
