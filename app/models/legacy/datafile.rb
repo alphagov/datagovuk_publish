@@ -1,11 +1,4 @@
 class Legacy::Datafile < SimpleDelegator
-  ENDPOINTS = {
-    update: "/api/3/action/resource_patch"
-  }
-
-  def update
-    Legacy::Server.new.update(path, payload)
-  end
 
   def payload
     {
@@ -20,10 +13,6 @@ class Legacy::Datafile < SimpleDelegator
   end
 
   private
-
-  def path
-    ENDPOINTS[:update]
-  end
 
   def build_date
     return "" unless dataset.timeseries?

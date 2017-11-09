@@ -1,8 +1,20 @@
 class Legacy::Server
+  ENDPOINTS = {
+    update_dataset: "/api/3/action/package_patch",
+    create_dataset: "/api/3/action/package_create",
+    update_datafile: "/api/3/action/resource_patch"
+  }
 
-  def update(path, payload)
-    url = URI.join(host, path).to_s
-    LegacyUpdateWorker.perform_async(url, payload, headers)
+  def update_legacy_dataset_url
+    URI.join(host, ENDPOINTS[:update_dataset]).to_s
+  end
+
+  def create_legacy_dataset_url
+    URI.join(host, ENDPOINTS[:create_dataset]).to_s
+  end
+
+  def update_legacy_datafile_url
+    URI.join(host, ENDPOINTS[:update_datafile]).to_s
   end
 
   def get(path)

@@ -1,16 +1,4 @@
 class Legacy::Dataset < SimpleDelegator
-  ENDPOINTS = {
-    update: "/api/3/action/package_patch",
-    create: "/api/3/action/package_create"
-  }
-
-  def update
-    Legacy::Server.new.update(path_for_action(:update), update_payload)
-  end
-
-  def create
-    Legacy::Server.new.create(path_for_action(:create), create_payload)
-  end
 
   def update_payload
     { "id" => ckan_uuid,
@@ -54,10 +42,6 @@ class Legacy::Dataset < SimpleDelegator
   end
 
   private
-
-  def path_for_action(action)
-    ENDPOINTS[action]
-  end
 
   def legacy_frequency
     FREQUENCY_MAP.fetch(frequency, "")

@@ -29,16 +29,16 @@ class LegacySyncService
   end
 
   def update_legacy_dataset
-    Legacy::Dataset.new(dataset).update
+    LegacyUpdateWorker.perform_async(dataset.id)
   end
 
   def create_legacy_dataset
-    Legacy::Dataset.new(dataset).create
+    LegacyCreateWorker.perform_async(dataset.id)
   end
 
   def update_legacy_datafiles
     datafiles_modified_since_latest_publication.each do |datafile|
-      Legacy::Datafile.new(datafile).update
+      LegacyUpdateDatafileWorker.perform_async(datafile.id)
     end
   end
 
