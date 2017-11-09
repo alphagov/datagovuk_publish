@@ -13,7 +13,7 @@ class Legacy::Dataset < SimpleDelegator
   end
 
   def update_payload
-    { "id" => uuid,
+    { "id" => ckan_uuid,
       "name" => legacy_name,
       "title" => title,
       "notes" => summary,
@@ -22,10 +22,8 @@ class Legacy::Dataset < SimpleDelegator
       "update_frequency" => legacy_frequency,
       "update_frequency-other" => legacy_frequency,
       "extras" => [{"key" => "update_frequency",
-                    "package_id" => uuid,
                     "value" => legacy_frequency},
                     {"key" => "update_frequency-other",
-                              "package_id" => uuid,
                               "value" => legacy_frequency}
                   ],
       "unpublished" => !published?,
@@ -44,11 +42,11 @@ class Legacy::Dataset < SimpleDelegator
       "update_frequency" => legacy_frequency,
       "update_frequency-other" => legacy_frequency,
       "extras" => [{"key" => "update_frequency",
-                    "package_id" => uuid,
                     "value" => legacy_frequency},
                     {"key" => "update_frequency-other",
-                              "package_id" => uuid,
-                              "value" => legacy_frequency}
+                              "value" => legacy_frequency},
+                    {"key" => "publish_uuid",
+                     "value" => uuid}
                   ],
       "geographic_coverage" => [(location1 || "").downcase],
       "license_id" => licence

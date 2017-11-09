@@ -15,11 +15,11 @@ describe Legacy::Dataset do
 
   describe "#update_payload" do
     it "outputs json for legacy" do
-       dataset = FactoryGirl.create(:dataset, frequency: 'daily')
+       dataset = FactoryGirl.create(:dataset, frequency: 'daily', ckan_uuid: '123abc')
        legacy_dataset = Legacy::Dataset.new(dataset)
 
        legacy_dataset_json_metadata = {
-         'id' => dataset.uuid,
+         'id': dataset.ckan_uuid,
          'name' => dataset.legacy_name,
          'title' => dataset.title,
          'notes' => dataset.summary,
@@ -30,10 +30,8 @@ describe Legacy::Dataset do
          'update_frequency' => 'daily',
          'update_frequency-other' => 'daily',
          'extras' => [{"key" => "update_frequency",
-                       "package_id" => dataset.uuid,
                        "value" => 'daily'},
                       {"key" => "update_frequency-other",
-                       "package_id" => dataset.uuid,
                        "value" => 'daily'}
                      ],
          'unpublished' => !dataset.published?,
@@ -59,11 +57,11 @@ describe Legacy::Dataset do
          'update_frequency' => 'daily',
          'update_frequency-other' => 'daily',
          'extras' => [{"key" => "update_frequency",
-                       "package_id" => dataset.uuid,
                        "value" => 'daily'},
                       {"key" => "update_frequency-other",
-                       "package_id" => dataset.uuid,
-                       "value" => 'daily'}
+                       "value" => 'daily'},
+                       {"key" => "publish_uuid",
+                        "value" => dataset.uuid}
                      ],
          'geographic_coverage' => [dataset.location1.to_s.downcase],
          'license_id' => dataset.licence

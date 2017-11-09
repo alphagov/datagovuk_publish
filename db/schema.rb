@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.integer "status", default: 0
     t.string "legacy_name"
     t.datetime "last_published_at"
+    t.string "ckan_uuid"
     t.index ["uuid"], name: "index_datasets_on_uuid"
   end
 
