@@ -22,14 +22,14 @@ class Legacy::Server
     get_json url
   end
 
+  def headers
+    { Authorization: ENV.fetch('LEGACY_API_KEY') }
+  end
+
   private
 
   def host
     ENV.fetch('LEGACY_HOST')
-  end
-
-  def headers
-    { Authorization: ENV.fetch('LEGACY_API_KEY') }
   end
 
   def get_json(url)
