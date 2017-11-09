@@ -68,7 +68,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    get 'start_legacy_sync', to: 'sync#legacy'
+    get 'sync_beta', to: 'sync#beta'
     get 'locations', to: 'locations#lookup'
     get 'organisations', to: 'organisations#lookup'
   end
