@@ -7,9 +7,9 @@ class Datafile < ApplicationRecord
   validates :name, presence: true
   validates_with UrlValidator
 
-  scope :created_after_date, ->(date) { where('created_at > ?', date) }
-  scope :updated_after_date, ->(date) { where('updated_at > ?', date) }
-  scope :updated_since_creation, ->{ where('updated_at > created_at') }
+  scope :created_before_date, ->(date) { where('created_at < ?', date) }
+  scope :created_after_date,  ->(date) { where('created_at > ?', date) }
+  scope :updated_after_date,  ->(date) { where('updated_at > ?', date) }
 
   before_save :set_uuid
 

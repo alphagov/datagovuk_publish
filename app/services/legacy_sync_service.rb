@@ -58,7 +58,7 @@ class LegacySyncService
   def datafiles_modified_since_latest_publication
     Datafile
       .where(dataset_id: dataset.id)
-      .updated_since_creation
+      .created_before_date(dataset.last_published_at)
       .updated_after_date(dataset.last_published_at)
   end
 end
