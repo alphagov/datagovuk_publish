@@ -1,4 +1,4 @@
-class LegacyCreateWorker
+class LegacyDatasetCreateWorker
   include Sidekiq::Worker
 
   def perform(dataset_id)
@@ -13,12 +13,11 @@ class LegacyCreateWorker
         body = JSON.parse(response.body)
         dataset.update(ckan_uuid: body["result"]["id"])
       rescue => error
-        Raven.capture_exception(error, extra: { payload: payload, url:url, headers:headers })
+        Raven.capture_exception(error, extra: { payload: payload, url: url, headers: headers })
         Rails.logger.error "Failed to send update request to Legacy with error: #{error.message}"
       end
     else
       Rails.logger.warn "No legacy api key environment variable found. Skipping sync."
     end
-
   end
 end

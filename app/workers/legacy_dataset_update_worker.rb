@@ -1,4 +1,4 @@
-class LegacyUpdateWorker
+class LegacyDatasetUpdateWorker
   include Sidekiq::Worker
 
   def perform(dataset_id)
@@ -6,6 +6,7 @@ class LegacyUpdateWorker
     url = Legacy::Server.new.update_legacy_dataset_url
     payload = Legacy::Dataset.new(dataset).update_payload
     headers = Legacy::Server.new.headers
+
     if ENV['LEGACY_API_KEY']
       begin
         RestClient.post(url, payload, headers)
@@ -16,7 +17,5 @@ class LegacyUpdateWorker
     else
       Rails.logger.warn "No legacy api key environment variable found. Skipping sync."
     end
-
   end
-
 end
