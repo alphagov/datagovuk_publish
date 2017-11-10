@@ -9,3 +9,7 @@ end
 def legacy_datafile_update_endpoint
   "#{ENV['LEGACY_HOST']}#{Legacy::Server::ENDPOINTS[:update_datafile]}"
 end
+
+def legacy_datafile_create_endpoint
+  "#{ENV['LEGACY_HOST']}#{Legacy::Server::ENDPOINTS[:create_datafile]}"
+end

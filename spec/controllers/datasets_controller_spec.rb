@@ -18,7 +18,7 @@ describe DatasetsController, type: :controller do
     expect(dataset.errors[:base]).to include("Harvested datasets cannot be modified.")
   end
 
-  it "updates legacy when an existing dataset is published" do
+  it "updates the legacy dataset when an existing dataset is published" do
     stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
     stub_request(:post, legacy_datafile_update_endpoint).to_return(status: 200)
 
@@ -54,53 +54,102 @@ describe DatasetsController, type: :controller do
     expect(dataset.reload.ckan_uuid).to eq "123abc"
   end
 
-    it "updates legacy if an existing datafile is updated after last dataset publication" do
-      allow(PublishingWorker).to receive(:perform_async).and_return true
+  it "creates a datafile on legacy for every datafile created since last dataset publication" do
+    allow(PublishingWorker).to receive(:perform_async).and_return true
 
-      stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
-      stub_request(:post, legacy_datafile_update_endpoint).to_return(status: 200)
+    stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
+    stub_request(:post, legacy_datafile_create_endpoint).to_return(status: 200)
 
-      creation_date = 1.week.ago
-      publication_date = 1.day.ago
+    creation_date = 1.week.ago
+    publication_date = 2.days.ago
+    after_last_publication_date = 1.day.ago
 
-      dataset = FactoryGirl.build(:dataset,
+    dataset = FactoryGirl.build(:dataset,
+                                 created_at: creation_date,
+                                 updated_at: creation_date)
+
+    dataset.save
+
+    datafile = FactoryGirl.build(:link,
+                                   name: 'datafile_1',
                                    created_at: creation_date,
-                                   updated_at: creation_date
-                                 )
-      dataset.save
+                                   updated_at: creation_date,
+                                   dataset: dataset)
 
-      datafile_1 = FactoryGirl.build(:link,
-                                     name: 'datafile_1',
-                                     created_at: creation_date,
-                                     updated_at: creation_date,
-                                     dataset: dataset)
-      datafile_1.save
+    datafile.save
 
-      datafile_2 = FactoryGirl.build(:link,
-                                     name: 'datafile_2',
-                                     created_at: creation_date,
-                                     updated_at: creation_date,
-                                     dataset: dataset)
-      datafile_2.save
+    dataset.update(published_date: publication_date,
+                   last_published_at: publication_date,
+                   status: 'published')
 
-      dataset.update(published_date: publication_date,
-                     last_published_at: publication_date,
-                      status: 'published')
+    new_datafile = FactoryGirl.build(:link,
+                                   name: 'datafile_2',
+                                   created_at: after_last_publication_date,
+                                   updated_at: after_last_publication_date,
+                                   dataset: dataset)
 
-      datafile_1.update(name: 'new name')
+    new_datafile.save
 
-      dataset.publish!
+    dataset.publish!
 
-      expect(WebMock)
-        .to have_requested(:post, legacy_datafile_update_endpoint)
-        .with(body: Legacy::Datafile.new(datafile_1).payload)
-        .once
+    expect(WebMock)
+      .to have_requested(:post, legacy_datafile_create_endpoint)
+      .with(body: Legacy::Datafile.new(new_datafile).payload)
+      .once
 
-      expect(WebMock)
-        .to_not have_requested(:post, legacy_datafile_update_endpoint)
-        .with(body: Legacy::Datafile.new(datafile_2).payload)
-        .once
-    end
+    expect(WebMock)
+      .to_not have_requested(:post, legacy_datafile_create_endpoint)
+      .with(body: Legacy::Datafile.new(datafile).payload)
+      .once
+  end
+
+  it "updates a datafile on legacy for every datafile updated since last dataset publication" do
+    allow(PublishingWorker).to receive(:perform_async).and_return true
+
+    stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
+    stub_request(:post, legacy_datafile_update_endpoint).to_return(status: 200)
+
+    creation_date = 1.week.ago
+    publication_date = 1.day.ago
+
+    dataset = FactoryGirl.build(:dataset,
+                                 created_at: creation_date,
+                                 updated_at: creation_date
+                               )
+    dataset.save
+
+    datafile_1 = FactoryGirl.build(:link,
+                                   name: 'datafile_1',
+                                   created_at: creation_date,
+                                   updated_at: creation_date,
+                                   dataset: dataset)
+    datafile_1.save
+
+    datafile_2 = FactoryGirl.build(:link,
+                                   name: 'datafile_2',
+                                   created_at: creation_date,
+                                   updated_at: creation_date,
+                                   dataset: dataset)
+    datafile_2.save
+
+    dataset.update(published_date: publication_date,
+                   last_published_at: publication_date,
+                    status: 'published')
+
+    datafile_1.update(name: 'new name')
+
+    dataset.publish!
+
+    expect(WebMock)
+      .to have_requested(:post, legacy_datafile_update_endpoint)
+      .with(body: Legacy::Datafile.new(datafile_1).payload)
+      .once
+
+    expect(WebMock)
+      .to_not have_requested(:post, legacy_datafile_update_endpoint)
+      .with(body: Legacy::Datafile.new(datafile_2).payload)
+      .once
+  end
 
   it "redirects to slugged URL" do
     organisation = FactoryGirl.create(:organisation, users: [user])

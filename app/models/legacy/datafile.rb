@@ -9,7 +9,7 @@ class Legacy::Datafile < SimpleDelegator
       resource_type: build_datafile_type,
       url: url,
       created: created_at
-    }.to_json
+    }.compact.to_json
   end
 
   private
