@@ -27,11 +27,11 @@ class BetaSyncService
   private
 
   def modified_datasets
-    @legacy_server.fetch ENDPOINTS[:modified_datasets]
+    @legacy_server.get ENDPOINTS[:modified_datasets]
   end
 
   def new_datasets
-    @legacy_server.fetch ENDPOINTS[:new_datasets]
+    @legacy_server.get ENDPOINTS[:new_datasets]
   end
 
   def import(dataset)
