@@ -3,9 +3,9 @@ class LegacyDatasetCreateWorker
 
   def perform(dataset_id)
     dataset = Dataset.find(dataset_id)
-    url = Legacy::Server.new.create_legacy_dataset_url
-    headers = Legacy::Server.new.headers
+    url = Legacy::Server.url_for(resource_name: "dataset", action: "create")
     payload = Legacy::Dataset.new(dataset).create_payload
+    headers = Legacy::Server.headers
 
     if ENV['LEGACY_API_KEY']
       begin

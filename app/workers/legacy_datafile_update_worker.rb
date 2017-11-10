@@ -3,9 +3,9 @@ class LegacyDatafileUpdateWorker
 
   def perform(datafile_id)
     datafile = Datafile.find(datafile_id)
-    url = Legacy::Server.new.update_legacy_datafile_url
+    url = Legacy::Server.url_for(resource_name: "datafile", action: "update")
     payload = Legacy::Datafile.new(datafile).payload
-    headers = Legacy::Server.new.headers
+    headers = Legacy::Server.headers
 
     if ENV['LEGACY_API_KEY']
       begin

@@ -1,43 +1,35 @@
 class Legacy::Server
   ENDPOINTS = {
-    update_dataset: "/api/3/action/package_patch",
-    create_dataset: "/api/3/action/package_create",
-    update_datafile: "/api/3/action/resource_patch",
-    create_datafile: "/api/3/action/resource_create"
-  }
+    dataset: {
+      create: "/api/3/action/package_create",
+      update: "/api/3/action/package_patch",
+    },
+    datafile: {
+      create: "/api/3/action/resource_create",
+      update: "/api/3/action/resource_patch"
+    }
+  }.with_indifferent_access
 
-  def update_legacy_dataset_url
-    URI.join(host, ENDPOINTS[:update_dataset]).to_s
+  def self.url_for(resource_name:, action:)
+    URI.join(self.host, ENDPOINTS[resource_name][action]).to_s
   end
 
-  def create_legacy_dataset_url
-    URI.join(host, ENDPOINTS[:create_dataset]).to_s
-  end
-
-  def update_legacy_datafile_url
-    URI.join(host, ENDPOINTS[:update_datafile]).to_s
-  end
-
-  def create_legacy_datafile_url
-    URI.join(host, ENDPOINTS[:create_datafile]).to_s
-  end
-
-  def get(path)
+  def self.get(path)
     url = URI::join(host, path).to_s
     get_json url
   end
 
-  def headers
+  def self.headers
     { Authorization: ENV.fetch('LEGACY_API_KEY') }
   end
 
   private
 
-  def host
+  def self.host
     ENV.fetch('LEGACY_HOST')
   end
 
-  def get_json(url)
+  def self.get_json(url)
     response = RestClient.get url
     return JSON.parse(response.body)
   rescue RestClient::ExceptionWithResponse

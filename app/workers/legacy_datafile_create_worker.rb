@@ -3,9 +3,9 @@ class LegacyDatafileCreateWorker
 
   def perform(datafile_id)
     datafile = Datafile.find(datafile_id)
-    url = Legacy::Server.new.create_legacy_datafile_url
-    headers = Legacy::Server.new.headers
+    url = Legacy::Server.url_for(resource_name: "datafile", action: "create")
     payload = Legacy::Datafile.new(datafile).payload
+    headers = Legacy::Server.headers
 
     if ENV['LEGACY_API_KEY']
       begin

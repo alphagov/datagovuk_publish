@@ -13,7 +13,7 @@ class LegacySyncService
   private
 
   def sync_dataset
-    if dataset_already_published?
+    if dataset.published_date.present?
       update_legacy_dataset
     else
       create_legacy_dataset
@@ -23,10 +23,6 @@ class LegacySyncService
   def sync_datafiles
     create_legacy_datafiles
     update_legacy_datafiles
-  end
-
-  def dataset_already_published?
-    dataset.published_date.present?
   end
 
   def update_legacy_dataset

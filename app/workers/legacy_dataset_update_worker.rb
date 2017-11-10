@@ -3,9 +3,9 @@ class LegacyDatasetUpdateWorker
 
   def perform(dataset_id)
     dataset = Dataset.find(dataset_id)
-    url = Legacy::Server.new.update_legacy_dataset_url
+    url = Legacy::Server.url_for(resource_name: "dataset", action: "update")
     payload = Legacy::Dataset.new(dataset).update_payload
-    headers = Legacy::Server.new.headers
+    headers = Legacy::Server.headers
 
     if ENV['LEGACY_API_KEY']
       begin

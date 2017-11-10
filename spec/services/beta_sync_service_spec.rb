@@ -7,7 +7,7 @@ describe BetaSyncService do
     @theme_cache = Theme.all.pluck(:title, :id).to_h
     @modified_datasets_path = 'api/3/action/package_search?q=metadata_modified:[NOW-1DAY%20TO%20NOW]'
     @new_datasets_path = 'api/3/action/package_search?q=metadata_created:[NOW-1DAY%20TO%20NOW]'
-    @legacy_server = double('legacy_server', fetch: '')
+    @legacy_server = double('legacy_server')
     @logger = double('logger', info: '')
 
     @beta_sync_service = BetaSyncService.new(
@@ -25,7 +25,7 @@ describe BetaSyncService do
       first_dataset = double('first dataset')
       second_dataset = double('second dataset')
 
-      allow(@legacy_server).to receive(:fetch).and_return(response)
+      allow(@legacy_server).to receive(:get).and_return(response)
       allow(Dataset).to receive(:find_by).and_return([first_dataset, second_dataset])
       allow(MetadataTools).to receive(:persist)
       allow(MetadataTools).to receive(:index)
@@ -33,12 +33,12 @@ describe BetaSyncService do
       @beta_sync_service.run
 
       expect(@legacy_server)
-        .to have_received(:fetch)
+        .to have_received(:get)
               .with(@modified_datasets_path)
               .once
 
       expect(@legacy_server)
-        .to have_received(:fetch)
+        .to have_received(:get)
               .with(@new_datasets_path)
               .once
 
@@ -57,19 +57,19 @@ describe BetaSyncService do
       it 'does not import legacy datasets' do
         response = {'result' => {'results' => []}}
 
-        allow(@legacy_server).to receive(:fetch).and_return(response)
+        allow(@legacy_server).to receive(:get).and_return(response)
         allow(MetadataTools).to receive(:persist)
         allow(MetadataTools).to receive(:index)
 
         @beta_sync_service.run
 
         expect(@legacy_server)
-          .to have_received(:fetch)
+          .to have_received(:get)
                 .with(@modified_datasets_path)
                 .once
 
         expect(@legacy_server)
-          .to have_received(:fetch)
+          .to have_received(:get)
                 .with(@new_datasets_path)
                 .once
 
