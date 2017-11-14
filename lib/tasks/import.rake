@@ -17,93 +17,72 @@ namespace :import do
 
   desc "Import organisations from legacy"
   task legacy_organisations: :environment do |_, args|
-
-    count = 1
-
+    logger = Logger.new(STDOUT)
+    organisation_count = 0
+    child_organisation_count = 0
     relationships = {}
+    host = ENV.fetch('LEGACY_HOST')
+    path = 'data/dumps/data.gov.uk-ckan-meta-data-latest.organizations.jsonl.zip'
+    url = URI::join(host, path).to_s
 
-    puts 'Processing parent organisations'
+    logger.info 'Processing parent organisations'
 
     file = Tempfile.new('latest_organisations')
     file.binmode
-    file.write(RestClient.get('https://data.gov.uk/data/dumps/data.gov.uk-ckan-meta-data-latest.organizations.jsonl.zip').body)
+    file.write(RestClient.get(url).body)
     file.close
 
+    read_json_from_zip(file) do |obj|
+      o = Organisation.find_by(name: obj["name"]) || Organisation.new
+      o.name = obj["name"]
+      o.title = obj["title"]
+      o.description = obj["description"]
+      o.abbreviation = obj["abbreviation"]
+      o.replace_by = "#{obj['replaced_by']}"
+      o.contact_email = obj["contact_email"]
+      o.contact_phone = obj["contact_phone"]
+      o.contact_name = obj["contact_name"]
+      o.foi_email = obj["foi_email"]
+      o.foi_phone = obj["foi_phone"]
+      o.foi_name = obj["foi_name"]
+      o.foi_web = obj["foi_web"]
+      o.category = obj["category"]
+      o.uuid = obj["id"]
 
-    def read_json(filename)
-      puts 'Reading zip file'
-
-      Zip::File.open(filename.path) do |zip_file|
-        zip_file.each do |file|
-          data = zip_file.read(file)
-
-          begin
-            data.each_line do |line|
-              yield JSON.parse(line)
-            end
-          rescue JSON::ParserError => e
-            puts 'found an error'
-            puts e.message
-            puts e.backtrace
-          end
-        end
+      if %w("ministerial-department", "non-ministerial-department",
+          "devolved", "executive-ndpb", "advisory-ndpb",
+          "tribunal-ndpb", "executive-agency",
+          "executive-office", "gov-corporation").include? obj["category"]
+        o.org_type = "central-government"
+      elsif obj["category"] == "local-council"
+        o.org_type = "local-authority"
+      else
+        o.org_type = "other-government-body"
       end
+
+      groups = obj["groups"] || []
+
+      if groups.size != 0
+        parent = groups[0]["name"]
+        relationships[o.name] = parent
+      end
+
+      o.save(validate: false)
+      organisation_count += 1
     end
 
-    read_json(file) do |obj|
-        o = Organisation.find_by(name: obj["name"]) || Organisation.new
+    logger.info "Imported #{organisation_count} organisations...\r"
+    logger.info "Processing #{relationships.size} child organisations"
 
-        o.name = obj["name"]
-        o.title = obj["title"]
-        o.description = obj["description"]
-        o.abbreviation = obj["abbreviation"]
-        o.replace_by = "#{obj['replaced_by']}"
-        o.contact_email = obj["contact_email"]
-        o.contact_phone = obj["contact_phone"]
-        o.contact_name = obj["contact_name"]
-        o.foi_email = obj["foi_email"]
-        o.foi_phone = obj["foi_phone"]
-        o.foi_name = obj["foi_name"]
-        o.foi_web = obj["foi_web"]
-        o.category = obj["category"]
-        o.uuid = obj["id"]
-
-        if ["ministerial-department", "non-ministerial-department",
-            "devolved", "executive-ndpb", "advisory-ndpb",
-            "tribunal-ndpb", "executive-agency",
-            "executive-office", "gov-corporation"].include? obj["category"]
-          o.org_type = "central-government"
-        elsif obj["category"] == "local-council"
-          o.org_type = "local-authority"
-        else
-          o.org_type = "other-government-body"
-        end
-
-        groups = obj["groups"] || []
-        if groups.size != 0
-          parent = groups[0]["name"]
-          relationships[o.name] = parent
-        end
-
-        o.save(validate: false)
-
-        puts "Imported #{count} organisations...\r"
-        count += 1
-      # end
-    end
-
-    puts "Processing #{relationships.size} child organisations"
-    count = 0
     relationships.each do |child, parent|
       o = Organisation.find_by(name: child)
       o.parent = Organisation.find_by(name: parent)
       o.save!(validate: false)
-      # parent_organisations.push o
-      print "Assigned #{count+=1} organisations...\r"
+      child_organisation_count += 1
     end
 
-    puts "\nDone"
-
+    logger.info "Assigned #{child_organisation_count} organisations...\r"
+    logger.info "Done"
   end
 
   desc "Import datasets from a data.gov.uk dump"
@@ -131,5 +110,21 @@ end
 def json_from_lines(filename)
   File.foreach(filename).each do |line|
     yield JSONL.parse(line)
+  end
+end
+
+def read_json_from_zip(filename)
+  Zip::File.open(filename.path) do |zip_file|
+    zip_file.each do |file|
+      data = zip_file.read(file)
+      begin
+        data.each_line do |line|
+          yield JSON.parse(line)
+        end
+      rescue JSON::ParserError => e
+        Raven.capture_exception "Unable to parse organisation json \n #{e.message}"
+        logger.error e.message
+      end
+    end
   end
 end
