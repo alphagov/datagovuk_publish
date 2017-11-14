@@ -1,6 +1,8 @@
 require 'json'
 require 'csv'
 require 'util/metadata_tools'
+require 'zip'
+require 'rest-client'
 
 namespace :import do
 
@@ -13,15 +15,25 @@ namespace :import do
     end
   end
 
-  desc "Import organisations from a data.gov.uk dump"
-  task :organisations, [:filename] => :environment do |_, args|
-    count = 1
-
+  desc "Import organisations from legacy"
+  task legacy_organisations: :environment do |_, args|
+    logger = Logger.new(STDOUT)
+    organisation_count = 0
+    child_organisation_count = 0
     relationships = {}
+    host = ENV.fetch('LEGACY_HOST')
+    path = 'data/dumps/data.gov.uk-ckan-meta-data-latest.organizations.jsonl.zip'
+    url = URI::join(host, path).to_s
 
-    json_from_lines(args.filename) do |obj|
+    logger.info 'Processing parent organisations'
+
+    file = Tempfile.new('latest_organisations')
+    file.binmode
+    file.write(RestClient.get(url).body)
+    file.close
+
+    read_json_from_zip(file) do |obj|
       o = Organisation.find_by(name: obj["name"]) || Organisation.new
-
       o.name = obj["name"]
       o.title = obj["title"]
       o.description = obj["description"]
@@ -37,10 +49,10 @@ namespace :import do
       o.category = obj["category"]
       o.uuid = obj["id"]
 
-      if ["ministerial-department", "non-ministerial-department",
+      if %w("ministerial-department", "non-ministerial-department",
           "devolved", "executive-ndpb", "advisory-ndpb",
           "tribunal-ndpb", "executive-agency",
-          "executive-office", "gov-corporation"].include? obj["category"]
+          "executive-office", "gov-corporation").include? obj["category"]
         o.org_type = "central-government"
       elsif obj["category"] == "local-council"
         o.org_type = "local-authority"
@@ -49,28 +61,28 @@ namespace :import do
       end
 
       groups = obj["groups"] || []
+
       if groups.size != 0
         parent = groups[0]["name"]
         relationships[o.name] = parent
       end
 
       o.save(validate: false)
-
-      print "Imported #{count} organisations...\r"
-      count += 1
+      organisation_count += 1
     end
 
-    puts "Processing #{relationships.size} child organisations"
+    logger.info "Imported #{organisation_count} organisations...\r"
+    logger.info "Processing #{relationships.size} child organisations"
 
-    count = 0
     relationships.each do |child, parent|
       o = Organisation.find_by(name: child)
       o.parent = Organisation.find_by(name: parent)
       o.save!(validate: false)
-      print "Assigned #{count+=1} organisations...\r"
+      child_organisation_count += 1
     end
 
-    puts "\nDone"
+    logger.info "Assigned #{child_organisation_count} organisations...\r"
+    logger.info "Done"
   end
 
   desc "Import datasets from a data.gov.uk dump"
@@ -78,7 +90,7 @@ namespace :import do
     Link.skip_callback(:save, :before, :set_dates)
 
     # Maps the organisation UUIDs to the organisation IDs
-    orgs_cache =  Organisation.all.pluck(:uuid, :id).to_h
+    orgs_cache = Organisation.all.pluck(:uuid, :id).to_h
     theme_cache = Theme.all.pluck(:title, :id).to_h
     counter = 0
 
@@ -97,6 +109,22 @@ end
 # into as hashmap.
 def json_from_lines(filename)
   File.foreach(filename).each do |line|
-    yield JSON.parse(line)
+    yield JSONL.parse(line)
+  end
+end
+
+def read_json_from_zip(filename)
+  Zip::File.open(filename.path) do |zip_file|
+    zip_file.each do |file|
+      data = zip_file.read(file)
+      begin
+        data.each_line do |line|
+          yield JSON.parse(line)
+        end
+      rescue JSON::ParserError => e
+        Raven.capture_exception "Unable to parse organisation json \n #{e.message}"
+        logger.error e.message
+      end
+    end
   end
 end
