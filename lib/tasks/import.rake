@@ -109,7 +109,7 @@ end
 # into as hashmap.
 def json_from_lines(filename)
   File.foreach(filename).each do |line|
-    yield JSONL.parse(line)
+    yield JSON.parse(line)
   end
 end
 
