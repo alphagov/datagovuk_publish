@@ -94,7 +94,8 @@ describe 'editing datasets' do
       expect(page).to have_content "Published datasets cannot be deleted"
     end
 
-    it "should be able to publish an complete dataset" do
+    it "should be able to publish a complete dataset" do
+      stub_request(:post, legacy_dataset_create_endpoint).to_return(status: 201)
       visit dataset_url(unpublished_dataset.uuid, unpublished_dataset.name)
       expect(unpublished_dataset.published?).to be false
 

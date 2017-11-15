@@ -52,21 +52,15 @@ class Dataset < ApplicationRecord
   end
 
   def publish!
-    if self.publishable?
+    if publishable?
       transaction do
-        ::LegacySyncService.new(self).send_update
-        set_published_timestamps
+        sync_with_legacy
+        set_first_publication_date
+        set_latest_publication_date
         self.published!
-        PublishingWorker.perform_async(self.id)
+        send_to_search_index
       end
     end
-  end
-
-  def set_published_timestamps
-    if self.draft?
-      self.published_date = Time.now
-    end
-    self.last_published_at = Time.now
   end
 
   # What we actually want to index in Elastic, rather than the whole
@@ -159,5 +153,23 @@ class Dataset < ApplicationRecord
 
   def timeseries?
     ["annually", "quarterly", "monthly"].include?(frequency)
+  end
+
+  private
+
+  def sync_with_legacy
+    LegacySyncService.new(self).sync
+  end
+
+  def send_to_search_index
+    PublishingWorker.perform_async(self.id)
+  end
+
+  def set_first_publication_date
+    self.published_date ||= Time.now
+  end
+
+  def set_latest_publication_date
+    self.last_published_at = Time.now
   end
 end
