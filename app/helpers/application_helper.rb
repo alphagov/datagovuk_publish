@@ -13,7 +13,7 @@ module ApplicationHelper
     link_to title, { sort: column, direction: direction }, { class: css_class }
   end
 
-  def find_url(dataset_name)
-    "https://#{ENV['FIND_URL'] || ''}/dataset/#{dataset_name}"
+  def find_url(dataset_uuid, dataset_name)
+    "https://#{ENV['FIND_URL'] || ''}/dataset/#{dataset_uuid}/#{dataset_name}"
   end
 end
