@@ -5,6 +5,12 @@ applications:
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
   env:
     RAILS_ENV: staging
+  services:
+  - publish-staging-secrets
+  - publish-beta-staging-pg
+  - beta-staging-redis
+  - logit-ssl-drain
+  - beta-staging-elasticsearch
 - name: publish-data-beta-staging-worker
   memory: 256M
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
@@ -13,3 +19,9 @@ applications:
   env:
     RAILS_ENV: staging
     RACK_ENV: staging
+  services:
+  - publish-staging-secrets
+  - publish-beta-staging-pg
+  - beta-staging-redis
+  - logit-ssl-drain
+  - beta-staging-elasticsearch
