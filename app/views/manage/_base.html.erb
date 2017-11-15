@@ -25,7 +25,7 @@
         <tr>
           <th>
             <% if dataset.published? %>
-              <%= link_to dataset.title, find_url(dataset.name) %>
+              <%= link_to dataset.title, find_url(dataset.uuid, dataset.name) %>
             <% else %>
               <%= dataset.title %>
             <% end %>
