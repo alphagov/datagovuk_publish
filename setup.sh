@@ -26,7 +26,7 @@ print "Adding locations"
 rails import:locations["lib/seeds/locations.csv"]
 
 print "Adding organisations"
-rails import:organisations["data.gov.uk-ckan-meta-data-latest.organizations.jsonl"]
+rails import:legacy_organisations["data.gov.uk-ckan-meta-data-latest.organizations.jsonl"]
 
 print "Adding datasets"
 rails import:datasets["data.gov.uk-ckan-meta-data-latest.v2.jsonl"]

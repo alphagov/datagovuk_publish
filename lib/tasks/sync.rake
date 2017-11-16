@@ -8,7 +8,7 @@ namespace :sync do
       orgs_cache: orgs_cache,
       theme_cache: theme_cache,
       logger: Logger.new(STDOUT),
-      legacy_server: Legacy::Server.new
+      legacy_server: Legacy::Server
     )
 
     legacy_dataset_sync.run

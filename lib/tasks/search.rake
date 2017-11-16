@@ -14,6 +14,10 @@ namespace :search do
             type: "string",
             index: "not_analyzed"
           },
+          uuid: {
+            type: "string",
+            index: "not_analyzed"
+          },
           location1: {
             type: 'string',
             fields: {

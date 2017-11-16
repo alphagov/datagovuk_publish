@@ -87,7 +87,7 @@ namespace :import do
 
   desc "Import datasets from a data.gov.uk dump"
   task :datasets, [:filename] => :environment do |_, args|
-    Link.skip_callback(:save, :before, :set_dates)
+    Link.skip_callback(:save, :before, :set_date)
 
     # Maps the organisation UUIDs to the organisation IDs
     orgs_cache = Organisation.all.pluck(:uuid, :id).to_h
@@ -109,7 +109,7 @@ end
 # into as hashmap.
 def json_from_lines(filename)
   File.foreach(filename).each do |line|
-    yield JSONL.parse(line)
+    yield JSON.parse(line)
   end
 end
 
