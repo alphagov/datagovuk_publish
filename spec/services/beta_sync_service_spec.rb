@@ -5,9 +5,9 @@ describe BetaSyncService do
   before do
     @orgs_cache = Organisation.all.pluck(:uuid, :id).to_h
     @theme_cache = Theme.all.pluck(:title, :id).to_h
-    @modified_datasets_path = 'api/3/action/package_search?q=metadata_modified:[NOW-1DAY%20TO%20NOW]'
-    @new_datasets_path = 'api/3/action/package_search?q=metadata_created:[NOW-1DAY%20TO%20NOW]'
-    @legacy_server = double('legacy_server')
+    @modified_datasets_path = 'api/3/action/package_search?q=metadata_modified:[NOW-1DAY%20TO%20NOW]&rows=5000'
+    @new_datasets_path = 'api/3/action/package_search?q=metadata_created:[NOW-1DAY%20TO%20NOW]&rows=5000'
+    @legacy_server = double('legacy_server', fetch: '')
     @logger = double('logger', info: '')
 
     @beta_sync_service = BetaSyncService.new(
