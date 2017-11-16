@@ -94,12 +94,12 @@ describe DatasetsController, type: :controller do
 
     expect(WebMock)
       .to have_requested(:post, legacy_datafile_create_endpoint)
-      .with(body: Legacy::Datafile.new(new_datafile).payload)
+      .with(body: Legacy::Datafile.new(new_datafile).create_payload)
       .once
 
     expect(WebMock)
       .to_not have_requested(:post, legacy_datafile_create_endpoint)
-      .with(body: Legacy::Datafile.new(datafile).payload)
+      .with(body: Legacy::Datafile.new(datafile).create_payload)
       .once
   end
 
@@ -142,12 +142,12 @@ describe DatasetsController, type: :controller do
 
     expect(WebMock)
       .to have_requested(:post, legacy_datafile_update_endpoint)
-      .with(body: Legacy::Datafile.new(datafile_1).payload)
+      .with(body: Legacy::Datafile.new(datafile_1).update_payload)
       .once
 
     expect(WebMock)
       .to_not have_requested(:post, legacy_datafile_update_endpoint)
-      .with(body: Legacy::Datafile.new(datafile_2).payload)
+      .with(body: Legacy::Datafile.new(datafile_2).update_payload)
       .once
   end
 

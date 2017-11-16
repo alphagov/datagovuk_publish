@@ -1,14 +1,25 @@
 class Legacy::Datafile < SimpleDelegator
 
-  def payload
-    {
-      id: uuid,
-      description: name,
-      format: format,
-      date: build_date,
-      resource_type: build_datafile_type,
-      url: url,
-      created: created_at
+  def update_payload
+    { "id" => uuid,
+      "description" => name,
+      "format" => format,
+      "date" => build_date,
+      "resource_type" => build_datafile_type,
+      "url" => url,
+      "created" => created_at
+    }.compact.to_json
+  end
+
+  def create_payload
+    { "package_id" => dataset.ckan_uuid,
+      "url" => url,
+      "description" => name,
+      "format" => format,
+      "name" => name,
+      "resource_type" => build_datafile_type,
+      "size" => size,
+      "created" => created_at
     }.compact.to_json
   end
 
