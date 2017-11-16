@@ -12,7 +12,7 @@ class LegacyDatasetUpdateWorker
         RestClient.post(url, payload, headers)
       rescue => error
         Raven.capture_exception(error, extra: { payload: payload, url:url, headers:headers })
-        Rails.logger.error "Failed to send update request to Legacy with error: #{error.message}"
+        Rails.logger.error "Failed to update dataset with uuid: #{dataset.uuid} on Legacy with error: #{error.message}"
       end
     else
       Rails.logger.warn "No legacy api key environment variable found. Skipping sync."
