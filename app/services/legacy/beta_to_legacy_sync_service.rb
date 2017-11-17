@@ -1,6 +1,6 @@
 require 'util/metadata_tools'
 
-class BetaSyncService
+class Legacy::BetaToLegacySyncService
   ENDPOINTS = {
     modified_datasets: 'api/3/action/package_search?q=metadata_modified:[NOW-1DAY%20TO%20NOW]&rows=5000'.freeze,
     new_datasets: 'api/3/action/package_search?q=metadata_created:[NOW-1DAY%20TO%20NOW]&rows=5000'.freeze
