@@ -16,7 +16,7 @@ describe "dataset creation" do
       expect(page).to have_current_path("/tasks")
       click_link "Manage datasets"
       click_link "Create a dataset"
-      expect(page).to have_current_path("/datasets/new")
+      expect(page).to have_current_path(new_dataset_path)
       expect(page).to have_content("Create a dataset")
     end
 
@@ -31,7 +31,17 @@ describe "dataset creation" do
 
       expect(Dataset.where(title: "my test dataset").size).to eq(1)
 
-      # PAGE 2: Licence
+      # PAGE 2: Contact details
+      fill_in "dataset_foi_contact[foi_name]", with: "Jon Snow"
+      fill_in "dataset_foi_contact[foi_email]", with: "jonsnow@example.com"
+      fill_in "dataset_foi_contact[foi_phone]", with: "1234"
+      click_button "Save and continue"
+
+      expect(Dataset.last.foi_name).to eq("Jon Snow")
+      expect(Dataset.last.foi_email).to eq("jonsnow@example.com")
+      expect(Dataset.last.foi_phone).to eq("1234")
+
+      # PAGE 3: Licence
       choose option: "uk-ogl"
       click_button "Save and continue"
 
@@ -162,7 +172,7 @@ describe "starting a new draft with invalid inputs" do
     fill_in "dataset[summary]", with: "my test dataset summary"
     fill_in "dataset[description]", with: "my test dataset description"
     click_button "Save and continue"
-    expect(page).to have_content("Choose a licence")
+    expect(page).to have_content("Add contact details")
   end
 
   it "missing summary" do
@@ -177,7 +187,7 @@ describe "starting a new draft with invalid inputs" do
     fill_in "dataset[summary]", with: "my test dataset summary"
     fill_in "dataset[description]", with: "my test dataset description"
     click_button "Save and continue"
-    expect(page).to have_content("Choose a licence")
+    expect(page).to have_content("Add contact details")
   end
 
   it "missing both title and summary" do
@@ -191,7 +201,7 @@ describe "starting a new draft with invalid inputs" do
     fill_in "dataset[summary]", with: "my test dataset summary"
     fill_in "dataset[description]", with: "my test dataset description"
     click_button "Save and continue"
-    expect(page).to have_content("Choose a licence")
+    expect(page).to have_content("Add contact details")
   end
 end
 
@@ -205,11 +215,8 @@ describe "valid options for licence and area" do
     stub_request(:any, url).to_return(status: 200)
     user
     sign_in_user
-    visit new_dataset_path
-    fill_in "dataset[title]", with: "my test dataset"
-    fill_in "dataset[summary]", with: "my test dataset summary"
-    fill_in "dataset[description]", with: "my test dataset description"
-    click_button "Save and continue"
+    dataset = FactoryGirl.create(:dataset, organisation: land_registry)
+    visit new_dataset_licence_path(dataset.uuid, dataset.name)
   end
 
   context "when selecting license type" do
