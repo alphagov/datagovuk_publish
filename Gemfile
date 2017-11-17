@@ -31,6 +31,8 @@ gem 'iconv', "~> 1.0.4"
 gem 'redis-namespace', "~> 1.5.3"
 gem 'sentry-raven'
 gem 'rubyzip', '~> 1.2'
+gem 'lograge', '~> 0.7'
+gem 'logstash-event', '~> 1.2'
 
 group :development, :test do
   gem 'byebug', '~> 9'
