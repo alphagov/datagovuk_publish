@@ -12,3 +12,4 @@ applications:
   command: bundle exec sidekiq
   env:
     RAILS_ENV: staging
+    RACK_ENV: staging
