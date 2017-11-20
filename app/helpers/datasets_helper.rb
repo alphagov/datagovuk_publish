@@ -14,4 +14,8 @@ module DatasetsHelper
       ""
     end
   end
+
+  def foi_contact_details(dataset)
+    "#{dataset.foi_name} (#{dataset.foi_email})"
+  end
 end

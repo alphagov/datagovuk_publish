@@ -43,22 +43,30 @@
       <th class="dgu-checklist__heading">Title</th>
       <td><%= @dataset.title %>
         <td class="dgu-checklist__actions">
-          <%= link_to 'Change', edit_dataset_path(@dataset.uuid, @dataset.name) %>
+          <%= link_to 'Change', edit_dataset_path(@dataset.uuid, @dataset.name), id: "edit_title" %>
         </td>
     </tr>
     <tr>
       <th class="dgu-checklist__heading">Summary</th>
       <td><%= @dataset.summary %>
         <td class="dgu-checklist__actions">
-          <%= link_to 'Change', edit_dataset_path(@dataset.uuid, @dataset.name) %>
+          <%= link_to 'Change', edit_dataset_path(@dataset.uuid, @dataset.name), id: "edit_summary" %>
         </td>
     </tr>
     <tr>
       <th class="dgu-checklist__heading">Additional information</th>
       <td><%= @dataset.description %>
         <td class="dgu-checklist__actions">
-          <%= link_to 'Change', edit_dataset_path(@dataset.uuid, @dataset.name) %>
+          <%= link_to 'Change', edit_dataset_path(@dataset.uuid, @dataset.name), id: "edit_additional_info" %>
         </td>
+    </tr>
+    <tr>
+      <th class="dgu-checklist__heading">Contact Details</th>
+      <td><%= foi_contact_details(@dataset) %>
+        <td class="dgu-checklist__actions">
+          <%= link_to 'Change', edit_dataset_foi_contact_path(@dataset.uuid, @dataset.name), id: "edit_contact_details" %>
+        </td>
+      </td>
     </tr>
     <tr>
       <th class="dgu-checklist__heading">Licence</th>
@@ -72,7 +80,7 @@
       </td>
       <td class="dgu-checklist__actions">
         <% if @dataset.licence %>
-          <%= link_to 'Change', edit_dataset_licence_path(@dataset.uuid, @dataset.name) %>
+          <%= link_to 'Change', edit_dataset_licence_path(@dataset.uuid, @dataset.name), id: "edit_licence" %>
         <% else %>
           <%= link_to 'Select', edit_dataset_licence_path(@dataset.uuid, @dataset.name) %>
         <% end %>
@@ -85,7 +93,7 @@
 
         <td class="dgu-checklist__actions">
           <% if @dataset.location1 %>
-            <%= link_to 'Change', edit_dataset_location_path(@dataset.uuid, @dataset.name) %>
+            <%= link_to 'Change', edit_dataset_location_path(@dataset.uuid, @dataset.name), id: "edit_location" %>
           <% else %>
             <%= link_to 'Add', edit_dataset_location_path(@dataset.uuid, @dataset.name) %>
           <% end %>
@@ -96,7 +104,7 @@
       <td><%= friendly_frequency(@dataset.frequency) if @dataset.frequency %></td>
       <td class="dgu-checklist__actions">
         <% if @dataset.frequency %>
-          <%= link_to 'Change', edit_dataset_frequency_path(@dataset.uuid, @dataset.name) %>
+          <%= link_to 'Change', edit_dataset_frequency_path(@dataset.uuid, @dataset.name), id: "edit_frequency" %>
         <% else %>
           <%= link_to 'Select', edit_dataset_frequency_path(@dataset.uuid, @dataset.name) %>
         <% end %>
@@ -116,7 +124,7 @@
       </td>
       <td class="dgu-checklist__actions">
         <% if @dataset.links.any? %>
-          <%= link_to 'Change', dataset_links_path(@dataset.uuid, @dataset.name) %>
+          <%= link_to 'Change', dataset_links_path(@dataset.uuid, @dataset.name), id: "edit_datalinks" %>
         <% else %>
           <%= link_to 'Add', new_dataset_link_path(@dataset.uuid, @dataset.name) %>
         <% end %>
@@ -124,15 +132,17 @@
     </tr>
     <tr>
       <th class="dgu-checklist__heading">Documentation</th>
-      <td><% @dataset.docs.each do |doc| %>
-        <%= link_to doc.name, doc.url %>
-      <% end %>
-      <td class="dgu-checklist__actions">
-        <% if @dataset.docs.any? %>
-          <%= link_to 'Change', dataset_docs_path(@dataset.uuid, @dataset.name) %>
-        <% else %>
-          <%= link_to 'Add', new_dataset_doc_path(@dataset.uuid, @dataset.name) %>
+      <td>
+        <% @dataset.docs.each do |doc| %>
+          <%= link_to doc.name, doc.url %>
         <% end %>
+        <td class="dgu-checklist__actions">
+          <% if @dataset.docs.any? %>
+            <%= link_to 'Change', dataset_docs_path(@dataset.uuid, @dataset.name), id: "edit_documentation" %>
+          <% else %>
+            <%= link_to 'Add', new_dataset_doc_path(@dataset.uuid, @dataset.name) %>
+          <% end %>
+        </td>
       </td>
     </tr>
   </tbody>

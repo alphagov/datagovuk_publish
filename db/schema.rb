@@ -117,6 +117,9 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.string "legacy_name"
     t.datetime "last_published_at"
     t.string "ckan_uuid"
+    t.string "foi_name"
+    t.string "foi_phone"
+    t.string "foi_email"
     t.index ["uuid"], name: "index_datasets_on_uuid"
   end
 

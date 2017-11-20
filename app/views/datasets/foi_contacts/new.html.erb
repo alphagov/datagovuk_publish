@@ -1,0 +1,52 @@
+<% content_for :page_title do %>
+  New contact details -
+<% end %>
+
+<% if @foi_contact.errors.any? %>
+  <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+    <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+      There was a problem
+    </h1>
+    <ul class="error-summary-list">
+      <% @foi_contact.errors.each do |attr, message| %>
+        <li>
+          <a href="#<%= attr.to_s %>_form_group">
+            <%= message %>
+          </a>
+          <span class="visuallyhidden">.</span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h1 class="heading-large">Add contact details for this dataset</h1>
+
+<p>All datasets must have a contact to pass on queries directly to the publisher of the data or for a Freedom of Information Act (FOI) request.</p>
+
+<%= form_for @foi_contact, url: create_dataset_foi_contact_path do |f| %>
+  <div class="form-group">
+    <fieldset>
+      <legend class="visually-hidden">Add contact details for this dataset</legend>
+
+      <%= dataset_field f, @foi_contact,
+        input_type: :text_field,
+        name: 'foi_name',
+        label: 'Name:' %>
+
+      <%= dataset_field f, @foi_contact,
+        input_type: :text_field,
+        name: 'foi_email',
+        label: 'Email:' %>
+
+      <%= dataset_field f, @foi_contact,
+        input_type: :text_field,
+        name: 'foi_phone',
+        optional: true,
+        label: 'Phone number (optional):' %>
+    </fieldset>
+  </div>
+
+  <p><%= f.submit 'Save and continue', class: 'button' %></p>
+  <p><%= link_to 'Cancel', dataset_path(@dataset.uuid, @dataset.name) %></p>
+<% end %>

@@ -52,6 +52,12 @@ Rails.application.routes.draw do
     post   ':uuid/*name/frequencies',    to: 'datasets/frequencies#create', as: 'create_dataset_frequency'
     patch  ':uuid/*name/frequency',      to: 'datasets/frequencies#update', as: 'update_dataset_frequency'
 
+    # contact details
+    get   ':uuid/*name/foi-contact/new',  to: 'datasets/foi_contacts#new',     as: 'new_dataset_foi_contact'
+    get   ':uuid/*name/foi-contact/edit', to: 'datasets/foi_contacts#edit',    as: 'edit_dataset_foi_contact'
+    post  ':uuid/*name/foi-contacts',     to: 'datasets/foi_contacts#create',  as: 'create_dataset_foi_contact'
+    patch ':uuid/*name/foi-contact',      to: 'datasets/foi_contacts#update',  as: 'update_dataset_foi_contact'
+
     # Datasets other
     get    ':uuid/*name/confirm_delete', to: 'datasets#confirm_delete',     as: 'confirm_delete_dataset'
     get    ':uuid/*name/quality',        to: 'datasets#quality',            as: 'dataset_quality'
