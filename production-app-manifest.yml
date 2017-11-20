@@ -1,0 +1,12 @@
+applications:
+- name: publish-data-beta
+  memory: 512M
+  buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
+  env:
+    RAILS_ENV: production
+    RACK_ENV: production
+  services:
+  - beta-production-elasticsearch
+  - publish-beta-production-pg
+  - publish-production-secrets
+  - logit-ssl-drain
