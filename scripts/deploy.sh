@@ -1,17 +1,5 @@
 #!/bin/bash
 
-CF=`command -v cf`
-echo $CF
-
-if [[ -z $CF ]]
-then
-  echo 'cf not found, installing'
-  wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
-  echo "deb http://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-  sudo apt-get update
-  sudo apt-get install cf-cli
-fi
-
 if [[ -z $CF_API ]]
 then
   echo 'CF_API is not set'
