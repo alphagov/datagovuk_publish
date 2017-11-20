@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# Usage: deploy.sh <app_name> <manifest_prefix>
+#
+#   Command-line arguments:
+#   <app_name>         name of a cf app
+#   <manifest_prefix>  name (before _manifest.yml) of a manifest file in the project root
+#
+#   For this script to work, you need the following env vars to be set:
+#       CF_API:   cf api endpoint. You can find this out with `cf api`
+#       CF_SPACE: cf space. you'll have selected this when logging in
+#       CF_USER:  your cf username
+#       CF_PASS:  your cf password
+#
+#   You must also have cf-cli installed with the cf-blue-green-deployment plugin. You don't need to be logged in.
+#   The script will attempt to install it for you.
+#   The plugin can be found here: (https://github.com/bluemixgaragelondon/cf-blue-green-deploy)
+
 if [[ -z $CF_API ]]
 then
   echo 'CF_API is not set'
