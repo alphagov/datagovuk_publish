@@ -13,3 +13,4 @@ applications:
   - beta-staging-redis
   - logit-ssl-drain
   - beta-staging-elasticsearch
+  health-check-type: process

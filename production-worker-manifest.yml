@@ -12,3 +12,4 @@ applications:
   - publish-beta-production-pg
   - publish-production-secrets
   - logit-ssl-drain
+  health-check-type: process
