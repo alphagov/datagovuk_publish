@@ -53,8 +53,14 @@ then
   CF_ENV='staging'
 fi
 
+rm manifest.yml || true
 
 cf login -a $CF_API -u $CF_USER -p $CF_PASS -s $CF_SPACE
 cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org
 cf install-plugin blue-green-deploy -r CF-Community -f
+
+# For some reason the blue-green deploy breaks if there's no manifest.yml present
+ln -s $CF_ENV-manifest.yml manifest.yml
+
 cf bgd $CF_APP -f $CF_ENV-manifest.yml
+rm manifest.yml
