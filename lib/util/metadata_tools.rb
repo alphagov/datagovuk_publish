@@ -32,6 +32,13 @@ module MetadataTools
     d.last_updated_at = obj["metadata_modified"]
     d.dataset_type = dataset_type(obj)
     d.harvested = harvested?(obj)
+    d.contact_name = obj["contact-name"]
+    d.contact_email = obj["contact-email"]
+    d.contact_phone = obj["contact-phone"]
+    d.foi_name = obj["foi-name"]
+    d.foi_email = obj["foi-email"]
+    d.foi_phone = obj["foi-phone"]
+    d.foi_web = obj["foi-web"]
     d.location1 = convert_location(obj)
     d.location2 = ""
     d.location3 = ""
