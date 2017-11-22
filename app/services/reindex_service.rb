@@ -13,7 +13,7 @@ class ReindexService
     indexer.run
     alias_updater.run
     index_deleter.run
-    logger.info 'Import complete'
+    logger.info 'Reindexing complete!'
   end
 
   private

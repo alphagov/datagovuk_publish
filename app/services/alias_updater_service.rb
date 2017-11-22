@@ -1,4 +1,4 @@
-class AliasUpdater
+class AliasUpdaterService
   def initialize(args)
     @new_index_name = args[:new_index_name]
     @index_alias = args[:index_alias]
@@ -27,8 +27,10 @@ class AliasUpdater
         }
       ]
     }
-  rescue
-    logger.info 'No alias to remove'
+  rescue => e
+    msg = "Could not remove alias.\n #{e.message}"
+    logger.error msg
+    Raven.capture_error msg
   end
 
   def assign_alias_to_new_index
@@ -43,7 +45,7 @@ class AliasUpdater
       ]
     }
   rescue => e
-    msg = "Could not update alias.\n #{e.msg}"
+    msg = "Could not update alias.\n #{e.message}"
     logger.error msg
     Raven.capture_error msg
   end

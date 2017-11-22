@@ -29,9 +29,9 @@ namespace :search do
       logger: logger
     }
 
-    indexer = Indexer.new(indexer_args)
-    alias_updater = AliasUpdater.new(alias_updater_args)
-    index_deleter = IndexDeleter.new(index_deleter_args)
+    indexer = DatasetsIndexerService.new(indexer_args)
+    alias_updater = AliasUpdaterService.new(alias_updater_args)
+    index_deleter = IndexDeletionService.new(index_deleter_args)
 
     reindexService = ReindexService.new(
       indexer: indexer,

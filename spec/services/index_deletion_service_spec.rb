@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe IndexDeleter do
+describe IndexDeletionService do
   it 'deletes all indexes except the three most recent' do
     client_double = double('client')
     logger_double = double('logger', info: '')
@@ -28,7 +28,7 @@ describe IndexDeleter do
     allow(client_double).to receive_message_chain('indices.get_aliases.keys') { indexes }
     allow(client_double).to receive_message_chain('indices.delete') { true }
 
-    index_deleter = IndexDeleter.new(index_deleter_args)
+    index_deleter = IndexDeletionService.new(index_deleter_args)
 
     index_deleter.run
 

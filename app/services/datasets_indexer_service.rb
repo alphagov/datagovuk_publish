@@ -1,4 +1,4 @@
-class Indexer
+class DatasetsIndexerService
   def initialize(args)
     @batch_size = args[:batch_size]
     @date = args[:date]
