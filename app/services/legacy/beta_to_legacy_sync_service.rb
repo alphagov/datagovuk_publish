@@ -1,6 +1,6 @@
 require 'util/metadata_tools'
 
-class BetaSyncService
+class Legacy::BetaToLegacySyncService
   ENDPOINTS = {
     modified_datasets: 'api/3/action/package_search?q=metadata_modified:[NOW-1DAY%20TO%20NOW]&rows=5000'.freeze,
     new_datasets: 'api/3/action/package_search?q=metadata_created:[NOW-1DAY%20TO%20NOW]&rows=5000'.freeze
@@ -36,10 +36,10 @@ class BetaSyncService
 
   def import(dataset)
     begin
-      @logger.info "Attempting to save legacy dataset to postgres and elasticsearch - legacy_id: #{dataset["id"]}"
+      @logger.info "Attempting to save legacy dataset to postgres and elasticsearch - legacy_id: #{dataset['id']}"
       MetadataTools.persist(dataset, @orgs_cache, @theme_cache)
       MetadataTools.index(dataset)
-      @logger.info "Legacy dataset saved - legacy_id: #{dataset["id"]}"
+      @logger.info "Legacy dataset saved - legacy_id: #{dataset['id']}"
     rescue => e
       Raven.capture_exception e.message
     end

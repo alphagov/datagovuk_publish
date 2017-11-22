@@ -4,7 +4,7 @@ namespace :sync do
     orgs_cache =  Organisation.all.pluck(:uuid, :id).to_h
     theme_cache = Theme.all.pluck(:title, :id).to_h
 
-    legacy_dataset_sync = BetaSyncService.new(
+    legacy_dataset_sync = Legacy::BetaToLegacySyncService.new(
       orgs_cache: orgs_cache,
       theme_cache: theme_cache,
       logger: Logger.new(STDOUT),
