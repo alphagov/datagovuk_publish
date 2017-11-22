@@ -22,7 +22,7 @@ class IndexDeletionService
   def select_indexes_for_deletion(indexes)
     # Ensure that the three most recent indexes are not deleted
     indexes
-      .select { |index_name| index_name.include? index_alias }
+      .select { |index_name| index_name.include? "#{index_alias}_" }
       .sort_by { |index_name| Time.parse(index_name.gsub(/"#{index_alias}_"/, '')) }
       .drop(3)
   end
