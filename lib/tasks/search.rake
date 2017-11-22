@@ -1,11 +1,12 @@
 namespace :search do
   desc "Reindex all datasets"
   task :reindex, [:batch_size] => :environment do |_, args|
-    batch_size = args.batch_size.to_i || 50
+    batch_size = args.batch_size.nil? ? 50 : args.batch_size.to_i
     logger = Logger.new(STDOUT)
     client = Dataset.__elasticsearch__.client
     date = Time.now.strftime('%Y%m%d%H%M%S')
     index_alias = "datasets-#{ENV['RAILS_ENV']}"
+    legacy_index = index_alias
     new_index_name = "#{Dataset.index_name}_#{date}"
 
     indexer_args = {
@@ -40,6 +41,17 @@ namespace :search do
       logger: logger,
     )
 
+    check_for_legacy_index(client, legacy_index)
     reindexService.run
+  end
+
+  def check_for_legacy_index(client, legacy_index)
+    indexes = client.indices.get_aliases.keys
+
+    if indexes.include?(legacy_index)
+      msg = "An alias can not be assigned to index of the same name. Please delete index '#{legacy_index}' before continuing."
+      Raven.capture_exception msg
+      raise msg
+    end
   end
 end

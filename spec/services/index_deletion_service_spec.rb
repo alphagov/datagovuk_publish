@@ -9,6 +9,7 @@ describe IndexDeletionService do
     index_from_yesterday = 'datasets-test_20171121070000'
     index_from_last_week = 'datasets-test_20171112070000'
     index_from_last_month = 'datasets-test_20171022070000'
+    legacy_index = 'datasets-development'
 
     indexes = [
       index_from_this_morning,
@@ -32,15 +33,13 @@ describe IndexDeletionService do
 
     index_deleter.run
 
-    indexes_to_keep.each do |index|
-      expect(client_double)
-        .to receive(:'indices.delete')
-        .with(index)
-        .never
-    end
+    expect(client_double)
+      .to receive(:'indices.delete')
+      .with(indexes_to_keep)
+      .never
 
     expect(client_double)
       .to_not receive(:'indices.delete')
-      .with(index_from_this_morning)
+      .with([index_from_this_morning, legacy_index])
   end
 end
