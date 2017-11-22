@@ -24,7 +24,7 @@ class IndexDeletionService
     indexes
       .select { |index_name| index_name.include? index_alias }
       .sort_by { |index_name| Time.parse(index_name.gsub(/"#{index_alias}_"/, '')) }
-      .slice(0...-3)
+      .drop(3)
   end
 
   def delete(indexes)
