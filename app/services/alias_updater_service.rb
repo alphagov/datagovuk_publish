@@ -27,10 +27,9 @@ class AliasUpdaterService
         }
       ]
     }
-  rescue => e
-    msg = "Could not remove alias.\n #{e.message}"
-    logger.error msg
-    Raven.capture_error msg
+  rescue Elasticsearch::Transport::Transport::Errors::NotFound
+    msg = 'Alias not currently assigned to an index'
+    logger.info msg
   end
 
   def assign_alias_to_new_index
@@ -47,6 +46,6 @@ class AliasUpdaterService
   rescue => e
     msg = "Could not update alias.\n #{e.message}"
     logger.error msg
-    Raven.capture_error msg
+    Raven.capture_exception msg
   end
 end
