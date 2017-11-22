@@ -22,6 +22,7 @@ class Legacy::Datafile < SimpleDelegator
       'resource_type' => build_datafile_type,
       'size' => size,
       'created' => created_at
+
     }.compact.to_json
   end
 

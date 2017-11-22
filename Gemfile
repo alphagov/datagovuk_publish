@@ -23,7 +23,7 @@ gem "elasticsearch", "~> 5.0.4"
 gem "elasticsearch-model", "~> 5.0.1"
 gem "elasticsearch-rails", "~> 5.0.1"
 gem "ancestry", "~> 3.0.1"
-gem "govuk-lint", "~> 2.1.0"
+gem "govuk-lint", "~> 3.3.0"
 gem 'whois-parser'
 gem "sidekiq", "~> 5.0.4"
 gem 'rack-cors', :require => 'rack/cors'
@@ -31,6 +31,8 @@ gem 'iconv', "~> 1.0.4"
 gem 'redis-namespace', "~> 1.5.3"
 gem 'sentry-raven'
 gem 'rubyzip', '~> 1.2'
+gem 'lograge', '~> 0.7'
+gem 'logstash-event', '~> 1.2'
 
 group :development, :test do
   gem 'byebug', '~> 9'
