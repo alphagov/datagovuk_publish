@@ -1,7 +1,7 @@
 namespace :search do
   desc "Reindex all datasets"
   task :reindex, [:batch_size] => :environment do |_, args|
-    batch_size = args.batch_size.to_i || 50
+    batch_size = args.batch_size.nil? ? 50 : args.batch_size.to_i
     logger = Logger.new(STDOUT)
     client = Dataset.__elasticsearch__.client
     date = Time.now.strftime('%Y%m%d%H%M%S')

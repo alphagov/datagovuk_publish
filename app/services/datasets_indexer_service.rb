@@ -41,7 +41,7 @@ class DatasetsIndexerService
   rescue => e
     msg = "There was an error indexing datasets:\n#{e.message}"
     logger.error msg
-    Raven.capture msg
+    Raven.capture_exception msg
   end
 
   def index_mapping
