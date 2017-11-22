@@ -1,5 +1,4 @@
 class AliasUpdater
-
   def initialize(args)
     @new_index_name = args[:new_index_name]
     @index_alias = args[:index_alias]

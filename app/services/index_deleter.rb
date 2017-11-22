@@ -1,5 +1,4 @@
 class IndexDeleter
-
   def initialize(args)
     @index_alias = args[:index_alias]
     @client = args[:client]
