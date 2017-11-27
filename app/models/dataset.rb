@@ -54,7 +54,6 @@ class Dataset < ApplicationRecord
   def publish!
     if publishable?
       transaction do
-        sync_with_legacy
         set_first_publication_date
         set_latest_publication_date
         self.published!
@@ -158,10 +157,6 @@ class Dataset < ApplicationRecord
   end
 
   private
-
-  def sync_with_legacy
-    Legacy::BetaToLegacySyncService.new(self).sync
-  end
 
   def send_to_search_index
     PublishingWorker.perform_async(self.id)
