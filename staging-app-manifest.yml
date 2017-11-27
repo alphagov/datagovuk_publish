@@ -2,6 +2,7 @@ applications:
 - name: publish-data-beta-staging
   memory: 256M
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
+  command: bundle exec rake cf:on_first_instance db:migrate
   env:
     RAILS_ENV: staging
     RACK_ENV: staging
