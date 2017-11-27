@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'util/metadata_tools'
 
-describe Legacy::BetaToLegacySyncService do
+describe Legacy::LegacyToBetaSyncService do
   before do
     @orgs_cache = Organisation.all.pluck(:uuid, :id).to_h
     @theme_cache = Theme.all.pluck(:title, :id).to_h
@@ -10,7 +10,7 @@ describe Legacy::BetaToLegacySyncService do
     @legacy_server = double('legacy_server', fetch: '')
     @logger = double('logger', info: '')
 
-    @beta_sync_service = Legacy::BetaToLegacySyncService.new(
+    @beta_sync_service = Legacy::LegacyToBetaSyncService.new(
       orgs_cache: @orgs_cache,
       theme_cache: @theme_cache,
       logger: @logger,
