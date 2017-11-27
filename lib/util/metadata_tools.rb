@@ -10,8 +10,6 @@ module MetadataTools
     })
   end
 
-  # it is possible for a dataset to have a uuid, but no ckan_uuid,
-  # this function will set the value in that case.
   def persist(obj, orgs_cache, theme_cache)
     publish_uuid = get_extra(obj["extras"], "publish_uuid")
 
