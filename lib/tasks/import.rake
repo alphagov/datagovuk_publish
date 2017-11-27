@@ -81,7 +81,7 @@ namespace :import do
   end
 
   desc "Import datasets from a data.gov.uk dump"
-  task :datasets => :environment do |_, args|
+  task :legacy_datasets => :environment do |_, args|
     Link.skip_callback(:save, :before, :set_date)
 
     # Maps the organisation UUIDs to the organisation IDs

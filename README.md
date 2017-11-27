@@ -45,7 +45,7 @@ rails spec
 To log in as a fake user, use the credentials in 'seeds.rb' in the 'db' folder.
 
 ## Importing data
-You can import data into Postgres following commands:
+You can import data into Postgres using following commands:
 
 ```
 rake import:locations[locations.csv]
