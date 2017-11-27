@@ -38,6 +38,10 @@ class Dataset < ApplicationRecord
   scope :published, ->{ where(status: "published") }
 
   def self.columns
+    super.reject { |c| c.name == "ckan_uuid" }
+  end
+
+  def self.columns
     super.reject { |c| c.name == "stage" }
   end
 
