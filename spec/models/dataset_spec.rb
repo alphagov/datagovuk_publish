@@ -92,23 +92,13 @@ describe Dataset do
     expect(Dataset.count).to eq 0
   end
 
-  it "sets a published_date and last_published_at timestamps when published" do
-    first_publish = Time.now
-    allow(Time).to receive(:now).and_return(first_publish)
+  it "sets a published_date timestamp when published" do
+    publication_date = Time.now
+    allow(Time).to receive(:now).and_return(publication_date)
     dataset = FactoryGirl.create(:dataset, links: [FactoryGirl.create(:link)])
     dataset.save
     dataset.publish!
 
-    expect(dataset.published_date).to eq first_publish
-
-    second_publish = Time.now + 1
-    allow(Time).to receive(:now).and_return(second_publish)
-
-    dataset.update(title: 'new-title')
-    dataset.publish!
-
-    expect(dataset.published_date).to eq first_publish
-    expect(dataset.last_published_at).to eq second_publish
+    expect(dataset.published_date).to eq publication_date
   end
-
 end
