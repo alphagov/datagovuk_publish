@@ -160,7 +160,7 @@ class Dataset < ApplicationRecord
   private
 
   def sync_with_legacy
-    Legacy::LegacyToBetaSyncService.new(self).sync
+    Legacy::BetaToLegacySyncService.new(self).sync
   end
 
   def send_to_search_index

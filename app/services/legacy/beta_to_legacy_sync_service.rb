@@ -1,4 +1,4 @@
-class Legacy::LegacyToBetaSyncService
+class Legacy::BetaToLegacySyncService
   attr_reader :dataset
 
   def initialize(dataset)
