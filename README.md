@@ -45,22 +45,41 @@ rails spec
 To log in as a fake user, use the credentials in 'seeds.rb' in the 'db' folder.
 
 ## Importing data
-You can import data from source files using the following commands:
+You can import data into Postgres following commands:
 
 ```
 rake import:locations[locations.csv]
-rake import:organisations[orgs.jsonl]
-rake import:datasets[datasets.jsonl]
+rake import:legacy_organisations
+rake import:legacy_datasets
 ```
 
-Note that organisations need to be imported before datasets.
+Note: 
+- That organisations need to be imported before datasets.
+- Importing locations requires a source file.
 
-If you wish to only import datasets that were modified in the last
+## Reindex all datasets
+You can reindex (Elasticsearch) all datasets using the following command:
+
+```
+rake search:reindex
+```
+
+The reindexing of elasticsearch is done using 'zero deploy' with the aim of minimising downtime for the end user. When running this command:
+ - new index is created with the name 'datasets-[ENVIRONMENT]-[TIMESTAMP]'
+ - the index alias ('datasets-[ENVIRONMENT]') is pointed to the new index. 
+ - A clean up job is then run to delete any old indexes. The most three recent indexes are kept in the event roll-back is required.
+
+
+## Sync data
+
+If you wish to only import datasets that were created or modified in the last
 24 hours, you can run:
 
 ```
-rake sync:daily
+rake sync:beta
 ```
+
+Note that this will import new / modified datasets into postgres and index in Elasticsearch
 
 
 ## Generating 'tasks'.
