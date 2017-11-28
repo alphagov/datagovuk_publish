@@ -21,7 +21,7 @@ namespace :import do
     organisation_count = 0
     child_organisation_count = 0
     relationships = {}
-    host = ENV['LEGACY_HOST'] || 'https://data.gov.uk/'
+    host = ENV['LEGACY_HOST']
     path = 'data/dumps/data.gov.uk-ckan-meta-data-latest.organizations.jsonl.zip'
     url = URI::join(host, path).to_s
     file = download_data('latest_legacy_organisations', url, logger)
@@ -89,7 +89,7 @@ namespace :import do
     orgs_cache = Organisation.all.pluck(:uuid, :id).to_h
     theme_cache = Theme.all.pluck(:title, :id).to_h
     counter = 0
-    host = ENV['LEGACY_HOST'] || 'https://data.gov.uk/'
+    host = ENV['LEGACY_HOST']
     path = 'data/dumps/data.gov.uk-ckan-meta-data-latest.v2.jsonl.zip'
     url = URI::join(host, path).to_s
     file = download_data('latest_legacy_datasets', url, logger)
