@@ -10,16 +10,11 @@ module MetadataTools
     })
   end
 
-  # it is possible for a dataset to have a uuid, but no ckan_uuid,
-  # this function will set the value in that case.
   def persist(obj, orgs_cache, theme_cache)
     publish_uuid = get_extra(obj["extras"], "publish_uuid")
 
-    d = Dataset.find_by(uuid: publish_uuid) || Dataset.find_by(ckan_uuid: obj["id"])
+    d = Dataset.find_or_create_by(uuid: publish_uuid)
 
-    d = Dataset.create(ckan_uuid: obj["id"]) if d.nil?
-
-    d.ckan_uuid = obj["id"]
     d.legacy_name = obj["name"]
     d.title = obj["title"]
     d.summary = generate_summary(obj["notes"])

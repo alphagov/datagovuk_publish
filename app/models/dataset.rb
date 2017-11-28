@@ -38,6 +38,14 @@ class Dataset < ApplicationRecord
   scope :published, ->{ where(status: "published") }
 
   def self.columns
+    super.reject { |c| c.name == "last_published_at" }
+  end
+
+  def self.columns
+    super.reject { |c| c.name == "ckan_uuid" }
+  end
+
+  def self.columns
     super.reject { |c| c.name == "stage" }
   end
 
@@ -54,9 +62,7 @@ class Dataset < ApplicationRecord
   def publish!
     if publishable?
       transaction do
-        sync_with_legacy
         set_first_publication_date
-        set_latest_publication_date
         self.published!
         send_to_search_index
       end
@@ -159,19 +165,11 @@ class Dataset < ApplicationRecord
 
   private
 
-  def sync_with_legacy
-    Legacy::BetaToLegacySyncService.new(self).sync
-  end
-
   def send_to_search_index
     PublishingWorker.perform_async(self.id)
   end
 
   def set_first_publication_date
     self.published_date ||= Time.now
-  end
-
-  def set_latest_publication_date
-    self.last_published_at = Time.now
   end
 end
