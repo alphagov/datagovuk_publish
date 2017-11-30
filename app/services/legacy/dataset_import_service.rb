@@ -20,7 +20,7 @@ class Legacy::DatasetImportService
     d.created_at = obj["metadata_created"]
     d.last_updated_at = obj["metadata_modified"]
     d.dataset_type = build_type
-    d.harvested = harvested?(obj)
+    d.harvested = harvested?
     d.contact_name = obj["contact-name"]
     d.contact_email = obj["contact-email"]
     d.contact_phone = obj["contact-phone"]
@@ -40,7 +40,7 @@ class Legacy::DatasetImportService
     d.secondary_theme_id = themes_cache.fetch(secondary_theme, nil)
     d.save!(validate: false)
 
-    # Add the inspire metadata if we have determined this is a ULKP
+    # Add the inspire metadata if we have determined this is a UKLP
     # dataset.
     # if d.dataset_type == 'inspire'
     #   inspire = add_inspire_metadata(d.id, obj)
@@ -175,13 +175,10 @@ class Legacy::DatasetImportService
     end
   end
 
-  # Returns a value if the dataset is harvested, i.e. it has
-  # a harvest object id.
-  def harvested?(obj)
+  def harvested?
     get_extra(obj["extras"], "harvest_object_id") != ""
   end
 
-  # Determine whether datafile is documentation or not
   def documentation?(fmt)
     ['pdf', 'doc', 'docx'].include? fmt.downcase
   end

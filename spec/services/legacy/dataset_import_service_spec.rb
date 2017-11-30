@@ -105,6 +105,11 @@ describe Legacy::DatasetImportService do
 
   describe "#build_type" do
     it "returns 'inspire' if dataset has UKLP in extras" do
+      legacy_dataset["extras"] = [{
+        "value": "True",
+        "key": "UKLP",
+      }]
+
       type = described_class.new(legacy_dataset, orgs_cache, themes_cache).build_type
       expect(type).to eql("inspire")
     end
@@ -112,20 +117,45 @@ describe Legacy::DatasetImportService do
 
   describe "#build_licence" do
     it "returns 'no-license' if licence has no value specified" do
+      legacy_dataset["license_id"] = ""
+      licence = described_class.new(legacy_dataset, orgs_cache, themes_cache).build_licence
+      expect(licence).to eql("no-licence")
+    end
+
+    it "returns 'other' if the licence is anything other than 'uk-ogl'" do
+      legacy_dataset["license_id"] = "foo"
+      licence = described_class.new(legacy_dataset, orgs_cache, themes_cache).build_licence
+      expect(licence).to eql("other")
     end
   end
 
   describe "#build_licence_other" do
-    it "returns 'no-license' if licence has no value specified" do
+    it "returns the name of the licence if it is anything other than 'uk-ogl'" do
+      legacy_dataset["license_id"] = "foo"
+      licence_other = described_class.new(legacy_dataset, orgs_cache, themes_cache).build_licence_other
+      expect(licence_other).to eql("foo")
     end
   end
 
-  # it "determines if harvested" do
-  # harvested: harvested?(legacy_dataset),
-  # end
+  describe "#harvested?" do
+    it "is true if legacy dataset has a harvest_object_id" do
+      legacy_dataset["extras"] = [{
+        "value": "123",
+        "key": "harvest_object_id",
+      }]
+
+      harvested = described_class.new(legacy_dataset, orgs_cache, themes_cache).harvested?
+      expect(harvested).to be true
+    end
+
+    it "is false if the legacy dataset has no harvest extra" do
+      harvested = described_class.new(legacy_dataset, orgs_cache, themes_cache).harvested?
+      expect(harvested).to be false
+    end
+  end
 
   describe "#add_inspire_metadata" do
-    it "creates an Inspire dataset for the imported dataset" do
+    it "creates an Inspire dataset for a UKLP imported dataset" do
     end
   end
 end
