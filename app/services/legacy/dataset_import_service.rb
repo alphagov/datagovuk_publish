@@ -7,67 +7,66 @@ class Legacy::DatasetImportService
     @themes_cache = themes_cache
   end
 
-  def run
-    d = Dataset.find_or_create_by(uuid: obj["id"])
-    d.legacy_name = obj["name"]
-    d.title = obj["title"]
-    d.summary = generate_summary(obj["notes"])
-    d.description = obj["notes"]
-    d.organisation_id = orgs_cache[obj["owner_org"]]
-    d.frequency = build_frequency
-    d.status = "draft"
-    d.published_date = obj["metadata_created"]
-    d.created_at = obj["metadata_created"]
-    d.last_updated_at = obj["metadata_modified"]
-    d.dataset_type = build_type
-    d.harvested = harvested?
-    d.contact_name = obj["contact-name"]
-    d.contact_email = obj["contact-email"]
-    d.contact_phone = obj["contact-phone"]
-    d.foi_name = obj["foi-name"]
-    d.foi_email = obj["foi-email"]
-    d.foi_phone = obj["foi-phone"]
-    d.foi_web = obj["foi-web"]
-    d.location1 = build_location
-    d.location2 = ""
-    d.location3 = ""
-    d.legacy_metadata = ""
-    d.licence = build_licence
-    d.licence_other = build_licence_other
-    old_theme  = obj["theme-primary"]
-    secondary_theme  = obj["theme-secondary"]
-    d.theme_id = themes_cache.fetch(old_theme, nil)
-    d.secondary_theme_id = themes_cache.fetch(secondary_theme, nil)
-    d.save!(validate: false)
-    d.status = "published"
-    d.save!(validate: false)
-
-    create_inspire_dataset(d.id) if d.dataset_type == 'inspire'
-
-    # Iterate over the resources list and add a new datafile for each
-    # item.
-    # obj["resources"].each do |resource|
-    #   add_resource(resource, d)
-    # end
+  def dataset
+    @dataset ||= Dataset.find_or_create_by(uuid: obj["id"])
   end
 
-  def add_resource(resource, dataset)
-    file_class = documentation?(resource['format']) ? Doc : Link
+  def run
+    update_or_create_dataset
+    create_inspire_dataset(dataset.id) if dataset.dataset_type == 'inspire'
+    create_datafiles(dataset)
+  end
 
-    datafile = file_class.find_by(url: resource["url"], dataset_id: dataset.id)
-    if datafile.nil?
-      datafile = file_class.new(url: resource["url"], dataset_id: dataset.id)
-      datafile.save!(validate: false)
+  def update_or_create_dataset
+    dataset.legacy_name = obj["name"]
+    dataset.title = obj["title"]
+    dataset.summary = generate_summary(obj["notes"])
+    dataset.description = obj["notes"]
+    dataset.organisation_id = orgs_cache[obj["owner_org"]]
+    dataset.frequency = build_frequency
+    dataset.status = "draft"
+    dataset.published_date = obj["metadata_created"]
+    dataset.created_at = obj["metadata_created"]
+    dataset.last_updated_at = obj["metadata_modified"]
+    dataset.dataset_type = build_type
+    dataset.harvested = harvested?
+    dataset.contact_name = obj["contact-name"]
+    dataset.contact_email = obj["contact-email"]
+    dataset.contact_phone = obj["contact-phone"]
+    dataset.foi_name = obj["foi-name"]
+    dataset.foi_email = obj["foi-email"]
+    dataset.foi_phone = obj["foi-phone"]
+    dataset.foi_web = obj["foi-web"]
+    dataset.location1 = build_location
+    dataset.location2 = ""
+    dataset.location3 = ""
+    dataset.legacy_metadata = ""
+    dataset.licence = build_licence
+    dataset.licence_other = build_licence_other
+    old_theme  = obj["theme-primary"]
+    secondary_theme  = obj["theme-secondary"]
+    dataset.theme_id = themes_cache.fetch(old_theme, nil)
+    dataset.secondary_theme_id = themes_cache.fetch(secondary_theme, nil)
+    dataset.save!(validate: false)
+    dataset.status = "published"
+    dataset.save!(validate: false)
+  end
+
+  def create_datafiles(dataset)
+    resources.each do |resource|
+      create_resource(resource, dataset)
     end
+  end
 
+  def create_resource(resource, dataset)
+    datafile = find_or_initialize(resource)
     datafile.uuid = resource["id"]
     datafile.format = resource["format"]
-    datafile.name = resource["description"]
-    datafile.name = "No name specified" if datafile.name.strip() == ""
+    datafile.name = resource["description"].presence || "No name specified"
     datafile.created_at = dataset.created_at
     datafile.updated_at = dataset.last_updated_at
 
-    if !resource["date"].blank? && !documentation?(resource['format'])
+    if resource["date"].present? && !documentation?(resource['format'])
       dates = get_start_end_date(resource["date"])
       if dataset.frequency != 'never'
         begin
@@ -82,6 +81,10 @@ class Legacy::DatasetImportService
         end
       end
     end
+
+    datafile.day = datafile.end_date.day
+    datafile.month = datafile.end_date.month
+    datafile.year = datafile.end_date.year
 
     datafile.save!(validate: false)
   end
@@ -172,10 +175,6 @@ class Legacy::DatasetImportService
     get_extra("harvest_object_id") != ""
   end
 
-  def documentation?(fmt)
-    ['pdf', 'doc', 'docx'].include? fmt.downcase
-  end
-
   # Given a lax legacy date string, try and build a proper
   # date string that we can import
   def get_start_end_date(date_string)
@@ -233,5 +232,21 @@ class Legacy::DatasetImportService
 
   def licence
     obj["license_id"]
+  end
+
+  def resources
+    obj["resources"]
+  end
+
+  def find_or_initialize(resource)
+    file_class(resource).find_or_initialize_by(url: resource["url"], dataset_id: dataset.id)
+  end
+
+  def file_class(resource)
+    documentation?(resource['format']) ? Doc : Link
+  end
+
+  def documentation?(format)
+    ['pdf', 'doc', 'docx'].include?(format.downcase)
   end
 end
