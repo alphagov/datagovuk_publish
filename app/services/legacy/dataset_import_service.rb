@@ -1,14 +1,10 @@
 class Legacy::DatasetImportService
-  attr_reader :obj, :orgs_cache, :themes_cache
+  attr_reader :legacy_dataset, :orgs_cache, :themes_cache
 
-  def initialize(obj, orgs_cache, themes_cache)
-    @obj = obj
+  def initialize(legacy_dataset, orgs_cache, themes_cache)
+    @legacy_dataset = legacy_dataset
     @orgs_cache = orgs_cache
     @themes_cache = themes_cache
-  end
-
-  def dataset
-    @dataset ||= Dataset.find_or_create_by(uuid: obj["id"])
   end
 
   def run
@@ -18,36 +14,31 @@ class Legacy::DatasetImportService
   end
 
   def update_or_create_dataset
-    dataset.legacy_name = obj["name"]
-    dataset.title = obj["title"]
-    dataset.summary = generate_summary(obj["notes"])
-    dataset.description = obj["notes"]
-    dataset.organisation_id = orgs_cache[obj["owner_org"]]
+    dataset.legacy_name = legacy_dataset["name"]
+    dataset.title = legacy_dataset["title"]
+    dataset.summary = generate_summary(legacy_dataset["notes"])
+    dataset.description = legacy_dataset["notes"]
+    dataset.organisation_id = orgs_cache[legacy_dataset["owner_org"]]
     dataset.frequency = build_frequency
-    dataset.status = "draft"
-    dataset.published_date = obj["metadata_created"]
-    dataset.created_at = obj["metadata_created"]
-    dataset.last_updated_at = obj["metadata_modified"]
+    dataset.published_date = legacy_dataset["metadata_created"]
+    dataset.created_at = legacy_dataset["metadata_created"]
+    dataset.last_updated_at = legacy_dataset["metadata_modified"]
     dataset.dataset_type = build_type
     dataset.harvested = harvested?
-    dataset.contact_name = obj["contact-name"]
-    dataset.contact_email = obj["contact-email"]
-    dataset.contact_phone = obj["contact-phone"]
-    dataset.foi_name = obj["foi-name"]
-    dataset.foi_email = obj["foi-email"]
-    dataset.foi_phone = obj["foi-phone"]
-    dataset.foi_web = obj["foi-web"]
+    dataset.contact_name = legacy_dataset["contact-name"]
+    dataset.contact_email = legacy_dataset["contact-email"]
+    dataset.contact_phone = legacy_dataset["contact-phone"]
+    dataset.foi_name = legacy_dataset["foi-name"]
+    dataset.foi_email = legacy_dataset["foi-email"]
+    dataset.foi_phone = legacy_dataset["foi-phone"]
+    dataset.foi_web = legacy_dataset["foi-web"]
     dataset.location1 = build_location
-    dataset.location2 = ""
-    dataset.location3 = ""
-    dataset.legacy_metadata = ""
     dataset.licence = build_licence
     dataset.licence_other = build_licence_other
-    old_theme  = obj["theme-primary"]
-    secondary_theme  = obj["theme-secondary"]
+    old_theme  = legacy_dataset["theme-primary"]
+    secondary_theme  = legacy_dataset["theme-secondary"]
     dataset.theme_id = themes_cache.fetch(old_theme, nil)
     dataset.secondary_theme_id = themes_cache.fetch(secondary_theme, nil)
-    dataset.save!(validate: false)
     dataset.status = "published"
     dataset.save!(validate: false)
   end
@@ -133,7 +124,7 @@ class Legacy::DatasetImportService
 
   # Converts a legacy frequency into a new-style frequency
   def build_frequency
-    freq = obj["update_frequency"]
+    freq = legacy_dataset["update_frequency"]
     return 'never' if !freq
 
     new_frequency = {
@@ -145,7 +136,7 @@ class Legacy::DatasetImportService
     if new_frequency != "never"
       # Make sure all data resources have dates... if any don't we will
       # set frequency to never
-      r = obj["resources"].select { |res|
+      r = legacy_dataset["resources"].select { |res|
         !documentation?(res["format"]) && res.fetch("date","").blank?
       }
 
@@ -158,21 +149,17 @@ class Legacy::DatasetImportService
   end
 
   def build_location
-    Array(obj["geographic_coverage"]).map(&:titleize).join(', ')
+    Array(legacy_dataset["geographic_coverage"]).map(&:titleize).join(', ')
   end
 
   # Determine the type of dataset based on the presence of
   # a known INSPIRE key.
   def build_type
-    if get_extra("UKLP") == "True"
-      "inspire"
-    else
-      ""
-    end
+    "inspire" if get_extra("UKLP") == "True"
   end
 
   def harvested?
-    get_extra("harvest_object_id") != ""
+    get_extra("harvest_object_id").present?
   end
 
   # Given a lax legacy date string, try and build a proper
@@ -211,6 +198,10 @@ class Legacy::DatasetImportService
 
   private
 
+  def dataset
+    @dataset ||= Dataset.find_or_create_by(uuid: legacy_dataset["id"])
+  end
+
   def get_extra(key)
     parsed_extras.fetch(key, "")
   end
@@ -227,15 +218,15 @@ class Legacy::DatasetImportService
   end
 
   def extras
-    obj.fetch("extras", [])
+    legacy_dataset.fetch("extras", [])
   end
 
   def licence
-    obj["license_id"]
+    legacy_dataset["license_id"]
   end
 
   def resources
-    obj["resources"]
+    legacy_dataset["resources"]
   end
 
   def find_or_initialize(resource)

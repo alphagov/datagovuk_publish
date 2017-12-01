@@ -23,7 +23,6 @@ describe Legacy::DatasetImportService do
 
       expect(imported_dataset.uuid).to eql(legacy_dataset["id"])
       expect(imported_dataset.legacy_name).to eql(legacy_dataset["name"])
-      expect(imported_dataset.legacy_metadata).to eql("")
       expect(imported_dataset.title).to eql(legacy_dataset["title"])
       expect(imported_dataset.summary).to eql(legacy_dataset["notes"])
       expect(imported_dataset.description).to eql(legacy_dataset["notes"])
