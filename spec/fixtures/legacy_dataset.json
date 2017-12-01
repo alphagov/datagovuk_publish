@@ -1,0 +1,454 @@
+{
+    "help": "http://test.data.gov.uk/api/3/action/help_show?name=package_show",
+    "success": true,
+    "result": {
+        "owner_org": "90aefa0d-0e92-4895-a7fd-c1adb2b3f14f",
+        "maintainer": null,
+        "groups": [],
+        "temporal_coverage-from": "",
+        "date_updated": "15/9/2011",
+        "relationships_as_object": [],
+        "unpublished": "false",
+        "private": false,
+        "maintainer_email": null,
+        "revision_timestamp": "2017-11-06T13:44:05.554071",
+        "foi-email": "",
+        "id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+        "metadata_created": "2011-09-16T15:59:17.535259",
+        "metadata_modified": "2017-11-07T15:44:09.125716",
+        "author": "Local Directgov",
+        "author_email": "author@example.com",
+        "its-dataset": "false",
+        "geographic_coverage": [
+            "scotland",
+            "wales"
+        ],
+        "state": "active",
+        "version": null,
+        "archiver": {
+            "status": "Archived successfully",
+            "is_broken": false,
+            "reason": "",
+            "status_id": 0
+        },
+        "core-dataset": "false",
+        "temporal_coverage-to": "",
+        "license_id": "other",
+        "foi-web": "",
+        "resources": [
+            {
+                "description": "Local Authority Service Details-5000",
+                "created": "2011-09-16T15:59:17.535000",
+                "url": "https://example.com",
+                "format": "CSV",
+                "qa": {
+                    "updated": "2017-11-27T04:33:08.987556",
+                    "openness_score": 0,
+                    "archival_timestamp": "2017-11-25T14:45:23.545127",
+                    "format": "HTML",
+                    "created": "2014-05-10T03:50:23.152385",
+                    "resource_timestamp": "2014-05-10T02:50:22.851283",
+                    "openness_score_reason": "Content of file appeared to be format \"HTML\" which receives openness score: 0."
+                },
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "archiver": {
+                    "is_broken_printable": "Downloaded OK",
+                    "updated": "2017-11-25T14:45:23.545127",
+                    "cache_filepath": "/mnt/shared/ckan_resource_cache/87/87670351-1cb6-454e-83eb-5fc15e121616/resource",
+                    "last_success": "2017-11-25T14:45:23.545127",
+                    "size": "11276",
+                    "is_broken": false,
+                    "failure_count": 0,
+                    "etag": null,
+                    "status": "Archived successfully",
+                    "url_redirected_to": "https://www.example.co.uk/?gfe_rd=cr&dcr=0&ei=A4IZWpTlGevv8Af_36HIDw",
+                    "hash": "c3308757d4b0466349468229f06f566d79dc076c",
+                    "status_id": 0,
+                    "reason": "",
+                    "last_modified": null,
+                    "resource_timestamp": "2017-11-02T16:34:06.532673",
+                    "mimetype": "text/html",
+                    "cache_url": "http://data.gov.uk/data/resource_cache/87/87670351-1cb6-454e-83eb-5fc15e121616/resource",
+                    "created": "2012-06-27T16:48:18.468526",
+                    "first_failure": null
+                },
+                "date": "31/3/2016",
+                "position": 0,
+                "revision_id": "614cc209-a8ec-4b7f-9120-ee2e0787f6ac",
+                "id": "87670351-1cb6-454e-83eb-5fc15e121616",
+                "resource_type": "file",
+                "name": "Toby is back!"
+            },
+            {
+                "hash": "",
+                "description": "google888",
+                "created": "2011-09-16T15:59:17.535000",
+                "url": "https://example.com",
+                "format": "html",
+                "qa": {
+                    "updated": "2017-11-27T04:33:09.022692",
+                    "openness_score": 0,
+                    "archival_timestamp": "2017-11-25T14:45:23.763579",
+                    "format": "HTML",
+                    "created": "2017-10-26T13:54:13.798077",
+                    "resource_timestamp": null,
+                    "openness_score_reason": "Content of file appeared to be format \"HTML\" which receives openness score: 0."
+                },
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "archiver": {
+                    "is_broken_printable": "Downloaded OK",
+                    "updated": "2017-11-25T14:45:23.763579",
+                    "cache_filepath": "/mnt/shared/ckan_resource_cache/08/08a6b3d1-b57c-413c-982c-bdacd4275740/resource",
+                    "last_success": "2017-11-25T14:45:23.763579",
+                    "size": "11257",
+                    "is_broken": false,
+                    "failure_count": 0,
+                    "etag": null,
+                    "status": "Archived successfully",
+                    "url_redirected_to": "https://www.example.co.uk/?gfe_rd=cr&dcr=0&ei=A4IZWvrEJfDv8Ae_iZeoAg",
+                    "hash": "77c2f8a05d1ecf86168f788062b193b98ac36334",
+                    "status_id": 0,
+                    "reason": "",
+                    "last_modified": null,
+                    "resource_timestamp": "2017-11-07T15:44:09.109458",
+                    "mimetype": "text/html",
+                    "cache_url": "http://data.gov.uk/data/resource_cache/08/08a6b3d1-b57c-413c-982c-bdacd4275740/resource",
+                    "created": "2017-10-26T13:54:13.300376",
+                    "first_failure": null
+                },
+                "date": "31/12/2003",
+                "position": 1,
+                "revision_id": "7adfc540-d7b1-4bf0-a498-c8999461080f",
+                "id": "08a6b3d1-b57c-413c-982c-bdacd4275740",
+                "resource_type": "file"
+            }
+        ],
+        "num_resources": 2,
+        "contact-email": "",
+        "tags": [
+            {
+                "vocabulary_id": null,
+                "display_name": "Administration",
+                "name": "Administration",
+                "revision_timestamp": "2013-04-12T13:03:14.657894",
+                "state": "active",
+                "id": "93e47b71-c3ce-4a52-ae65-291915d2a6de"
+            },
+            {
+                "vocabulary_id": null,
+                "display_name": "Government",
+                "name": "Government",
+                "revision_timestamp": "2013-04-12T13:03:14.657894",
+                "state": "active",
+                "id": "bf629917-bdad-469e-9714-9b7d2aa947e5"
+            }
+        ],
+        "title": "Local directgov services list - 7000",
+        "foi-name": "",
+        "tracking_summary": {
+            "total": 0,
+            "recent": 0
+        },
+        "contact-phone": "",
+        "creator_user_id": null,
+        "relationships_as_subject": [],
+        "license_title": "other",
+        "num_tags": 2,
+        "organization": {
+            "description": "The Government Digital Service is a team within Cabinet Office tasked with transforming government digital services.\r\nEstablished in response to Martha Lane Fox’s report, ‘Directgov 2010 and beyond: revolution not evolution’, our core purpose is to ensure the Government offers world-class digital products that meet people’s needs.\r\n\r\nhttp://digital.cabinetoffice.gov.uk/category/gds/\r\n\r\n@gdsteam\r\n",
+            "created": "2012-07-12T19:31:11.722062",
+            "title": "Government Digital Service",
+            "name": "government-digital-services",
+            "revision_timestamp": "2017-07-04T16:37:30.526153",
+            "is_organization": true,
+            "state": "active",
+            "image_url": "",
+            "revision_id": "7b41519e-b69f-4cce-8cc7-1528ea667654",
+            "type": "organization",
+            "id": "90aefa0d-0e92-4895-a7fd-c1adb2b3f14f",
+            "approval_status": "pending"
+        },
+        "contact-name": "",
+        "name": "local_directgov_services",
+        "isopen": false,
+        "url": "http://local.direct.gov.uk/Data/local_authority_service_details.csv",
+        "type": "dataset",
+        "notes": "This dataset is no longer being updated-5000. \r\n\r\nIt has been replaced by a dataset of [URLs to services provided by local authorities](https://data.gov.uk/dataset/local-authority-services). \r\n\r\nIt was last updated on 30 August 2016.\r\n",
+        "register": "false",
+        "qa": {
+            "openness_score_reason": "Content of file appeared to be format \"HTML\" which receives openness score: 0.",
+            "updated": "2017-11-27T04:33:09.022692",
+            "openness_score": 0
+        },
+        "theme-secondary": [
+            ""
+        ],
+        "extras": [
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "True",
+                "revision_timestamp": "2016-08-24T11:19:10.782936",
+                "state": "active",
+                "key": "UKLP",
+                "revision_id": "643e58ba-3eda-4999-9697-337b50558058",
+                "id": "fe4df876-6aac-43d7-8fa4-e898504b685c"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "",
+                "revision_timestamp": "2016-08-24T11:19:10.782936",
+                "state": "active",
+                "key": "contact-email",
+                "revision_id": "643e58ba-3eda-4999-9697-337b50558058",
+                "id": "fe4df876-6aac-43d7-8fa4-e898504b685c"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "",
+                "revision_timestamp": "2016-08-24T11:19:10.782936",
+                "state": "active",
+                "key": "contact-name",
+                "revision_id": "643e58ba-3eda-4999-9697-337b50558058",
+                "id": "c7a4b403-1a09-423a-abc7-c5a75ce3838f"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "",
+                "revision_timestamp": "2016-08-24T11:19:10.782936",
+                "state": "active",
+                "key": "contact-phone",
+                "revision_id": "643e58ba-3eda-4999-9697-337b50558058",
+                "id": "81a3d92d-66ed-4207-9510-8d96c091b5ff"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "false",
+                "revision_timestamp": "2016-08-24T11:19:10.782936",
+                "state": "active",
+                "key": "core-dataset",
+                "revision_id": "643e58ba-3eda-4999-9697-337b50558058",
+                "id": "8bc3829b-70c6-4cf5-9f82-2d47f449508c"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "31/12/2003",
+                "revision_timestamp": "2017-11-07T15:44:09.109458",
+                "state": "active",
+                "key": "date",
+                "revision_id": "7adfc540-d7b1-4bf0-a498-c8999461080f",
+                "id": "2ca3e579-a24b-463e-89ac-b719b3db429d"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "2011-09-15",
+                "revision_timestamp": "2011-09-16T15:59:17.535259",
+                "state": "active",
+                "key": "date_released",
+                "revision_id": "d0644732-8783-466a-81be-18b6631c1774",
+                "id": "5ef76905-2566-46c0-b285-181a8071c68e"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "2011-09-16",
+                "revision_timestamp": "2011-09-16T15:59:17.535259",
+                "state": "active",
+                "key": "date_update_future",
+                "revision_id": "d0644732-8783-466a-81be-18b6631c1774",
+                "id": "280d2ad8-b64d-49d7-b6ee-28acfb649b6f"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "2011-09-15",
+                "revision_timestamp": "2011-09-16T15:59:17.535259",
+                "state": "active",
+                "key": "date_updated",
+                "revision_id": "d0644732-8783-466a-81be-18b6631c1774",
+                "id": "6acfb1b3-e59c-46a7-925f-b9cbc04a6441"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "",
+                "revision_timestamp": "2016-08-24T11:19:10.782936",
+                "state": "active",
+                "key": "foi-email",
+                "revision_id": "643e58ba-3eda-4999-9697-337b50558058",
+                "id": "e3c32dee-1c05-49a0-8330-b1db7d19571a"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "",
+                "revision_timestamp": "2016-08-24T11:19:10.782936",
+                "state": "active",
+                "key": "foi-name",
+                "revision_id": "643e58ba-3eda-4999-9697-337b50558058",
+                "id": "477e8004-0417-450d-afe6-197692ab6e08"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "",
+                "revision_timestamp": "2016-08-24T11:19:10.782936",
+                "state": "active",
+                "key": "foi-phone",
+                "revision_id": "643e58ba-3eda-4999-9697-337b50558058",
+                "id": "85a4a313-3f9e-4550-9de4-6f34762693b2"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "",
+                "revision_timestamp": "2013-04-12T13:03:14.657894",
+                "state": "active",
+                "key": "foi-web",
+                "revision_id": "1e7f93b9-b7a4-43a2-85d0-6fb19ffaf8b6",
+                "id": "5f638f47-c771-48e4-85a9-70cba71780c7"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "010000: Scotland",
+                "revision_timestamp": "2017-11-02T16:28:43.809734",
+                "state": "active",
+                "key": "geographic_coverage",
+                "revision_id": "1089f5a7-9bc4-41ed-aec0-0e87e2f9f002",
+                "id": "656f8e4e-05fa-4c06-9b73-e4d66fd4b0de"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "false",
+                "revision_timestamp": "2017-10-23T17:10:27.631087",
+                "state": "active",
+                "key": "its-dataset",
+                "revision_id": "75f18f66-1019-44d9-b8cc-f4f3101d4a00",
+                "id": "ce70d3c7-404b-47f9-bf74-27a34787c745"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "false",
+                "revision_timestamp": "2017-10-23T17:10:27.631087",
+                "state": "active",
+                "key": "register",
+                "revision_id": "75f18f66-1019-44d9-b8cc-f4f3101d4a00",
+                "id": "ca724322-2f10-4092-aff5-39c11f5c340f"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "",
+                "revision_timestamp": "2016-08-24T11:19:10.782936",
+                "state": "active",
+                "key": "sla",
+                "revision_id": "643e58ba-3eda-4999-9697-337b50558058",
+                "id": "356beda4-549e-445c-af95-474a495599e4"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "",
+                "revision_timestamp": "2011-09-16T15:59:17.535259",
+                "state": "active",
+                "key": "temporal_coverage-from",
+                "revision_id": "d0644732-8783-466a-81be-18b6631c1774",
+                "id": "85eaf77f-05b6-4348-b2bf-33eb1413a0fe"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "",
+                "revision_timestamp": "2011-09-16T15:59:17.535259",
+                "state": "active",
+                "key": "temporal_coverage-to",
+                "revision_id": "d0644732-8783-466a-81be-18b6631c1774",
+                "id": "d6cc00a2-0013-4497-a3df-96cd6f9b393b"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "Government",
+                "revision_timestamp": "2013-08-12T23:00:31.404269",
+                "state": "active",
+                "key": "theme-primary",
+                "revision_id": "c930b80c-f9af-481e-a345-97899b538b94",
+                "id": "406177b4-30ee-4b00-93cd-141837f454dd"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "[\"\"]",
+                "revision_timestamp": "2016-08-24T11:19:10.782936",
+                "state": "active",
+                "key": "theme-secondary",
+                "revision_id": "643e58ba-3eda-4999-9697-337b50558058",
+                "id": "27a870bd-55b8-4311-b12e-822b787e1501"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "false",
+                "revision_timestamp": "2017-10-23T18:06:03.170982",
+                "state": "active",
+                "key": "unpublished",
+                "revision_id": "ff94609b-efbd-4df8-b995-d92901876f2d",
+                "id": "0388007f-b648-4063-b635-cbbc893c07f2"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "monthly",
+                "revision_timestamp": "2017-11-07T15:44:09.109458",
+                "state": "active",
+                "key": "update_frequency",
+                "revision_id": "7adfc540-d7b1-4bf0-a498-c8999461080f",
+                "id": "126d19c4-fb48-4c15-b55a-c13594ea8b1b"
+            },
+            {
+                "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+                "value": "annual",
+                "revision_timestamp": "2017-11-07T10:43:32.082376",
+                "state": "active",
+                "key": "update_frequency-other",
+                "revision_id": "9965117d-f4f9-4940-bfc5-4af4d2a464c3",
+                "id": "1e307811-e401-44c1-a826-5d6e2762a5c0"
+            }
+        ],
+        "timeseries_resources": [
+            {
+                "description": "Local Authority Service Details-5000",
+                "created": "2011-09-16T15:59:17.535000",
+                "url": "https://example.com",
+                "format": "CSV",
+                "qa": "{'updated': '2017-11-27T04:33:08.987556', 'openness_score': 0, 'archival_timestamp': '2017-11-25T14:45:23.545127', 'format': u'HTML', 'created': '2014-05-10T03:50:23.152385', 'resource_timestamp': '2014-05-10T02:50:22.851283', 'openness_score_reason': u'Content of file appeared to be format \"HTML\" which receives openness score: 0.'}",
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "date": "31/3/2016",
+                "position": 0,
+                "revision_id": "614cc209-a8ec-4b7f-9120-ee2e0787f6ac",
+                "id": "87670351-1cb6-454e-83eb-5fc15e121616",
+                "resource_type": "file",
+                "name": "Toby is back!"
+            },
+            {
+                "hash": "",
+                "description": "google888",
+                "created": "2011-09-16T15:59:17.535000",
+                "url": "https://example.com",
+                "format": "html",
+                "qa": "{'updated': '2017-11-27T04:33:09.022692', 'openness_score': 0, 'archival_timestamp': '2017-11-25T14:45:23.763579', 'format': u'HTML', 'created': '2017-10-26T13:54:13.798077', 'resource_timestamp': None, 'openness_score_reason': u'Content of file appeared to be format \"HTML\" which receives openness score: 0.'}",
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "date": "31/12/2003",
+                "position": 1,
+                "revision_id": "7adfc540-d7b1-4bf0-a498-c8999461080f",
+                "id": "08a6b3d1-b57c-413c-982c-bdacd4275740",
+                "resource_type": "file"
+            }
+        ],
+        "date_update_future": "16/9/2011",
+        "update_frequency": "monthly",
+        "revision_id": "197dfecf-32e7-4666-b08a-2e35a9536b16",
+        "date_released": "15/9/2011",
+        "foi-phone": "",
+        "sla": "",
+        "theme-primary": "Government"
+    }
+}
