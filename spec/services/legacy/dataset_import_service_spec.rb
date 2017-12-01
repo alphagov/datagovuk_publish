@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe Legacy::DatasetImportService do
   let(:legacy_dataset) do
-      file_path = Rails.root.join('spec', 'fixtures', 'legacy_dataset.json')
-      legacy_dataset_json = File.read(file_path)
-      JSON.parse(legacy_dataset_json)["result"].with_indifferent_access
+    file_path = Rails.root.join('spec', 'fixtures', 'legacy_dataset.json')
+    legacy_dataset_json = File.read(file_path)
+    JSON.parse(legacy_dataset_json)["result"].with_indifferent_access
   end
 
   let(:orgs_cache) do
@@ -84,10 +84,10 @@ describe Legacy::DatasetImportService do
     it "returns 'never' if any datafile has no date" do
       legacy_dataset["resources"] = [
         {
-          "description": "Datafile 1",
-          "format": "CSV",
-          "date": ""
-        }
+        "description": "Datafile 1",
+        "format": "CSV",
+        "date": ""
+      }
       ]
 
       frequency = described_class.new(legacy_dataset, orgs_cache, themes_cache).build_frequency
@@ -154,8 +154,115 @@ describe Legacy::DatasetImportService do
     end
   end
 
-  describe "#add_inspire_metadata" do
+  describe "#create_inspire_dataset" do
     it "creates an Inspire dataset for a UKLP imported dataset" do
+      legacy_dataset["extras"] = [
+      {
+        "value": "True",
+        "key": "UKLP",
+      },
+        {
+        "value": "bbox east long",
+        "key": "bbox-east-long"
+      },
+        {
+        "value": "bbox north lat",
+        "key": "bbox-north-lat"
+      },
+        {
+        "value": "bbox south lat",
+        "key": "bbox-south-lat"
+      },
+        {
+        "value": "bbox west long",
+        "key": "bbox-west-long"
+      },
+        {
+        "value": "coupled resource",
+        "key": "coupled-resource"
+      },
+        {
+        "value": "dataset reference date",
+        "key": "dataset-reference-date"
+      },
+        {
+        "value": "frequency of update",
+        "key": "frequency-of-update"
+      },
+        {
+        "value": "harvest object id",
+        "key": "harvest_object_id"
+      },
+        {
+        "value": "harvest source reference",
+        "key": "harvest_source_reference"
+      },
+        {
+        "value": "import source",
+        "key": "import_source"
+      },
+        {
+        "value": "metadata date",
+        "key": "metadata-date"
+      },
+        {
+        "value": "metadata language",
+        "key": "metadata-language"
+      },
+        {
+        "value": "provider",
+        "key": "provider"
+      },
+        {
+        "value": "resource type",
+        "key": "resource-type"
+      },
+        {
+        "value": "responsible party",
+        "key": "responsible-party"
+      },
+        {
+        "value": "spatial",
+        "key": "spatial"
+      },
+        {
+        "value": "spatial data service type",
+        "key": "spatial-data-service-type"
+      },
+        {
+        "value": "spatial reference system",
+        "key": "spatial-reference-system"
+      },
+        {
+        "value": "guid",
+        "key": "guid"
+      }
+      ]
+
+      described_class.new(legacy_dataset, orgs_cache, themes_cache).run
+
+      imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
+      inspire_dataset = InspireDataset.find_by(dataset_id: imported_dataset.id)
+
+      expect(inspire_dataset.bbox_east_long).to eql('bbox east long')
+      expect(inspire_dataset.bbox_north_lat).to eql('bbox north lat')
+      expect(inspire_dataset.bbox_south_lat).to eql('bbox south lat')
+      expect(inspire_dataset.bbox_west_long).to eql('bbox west long')
+      expect(inspire_dataset.coupled_resource).to eql('coupled resource')
+      expect(inspire_dataset.dataset_reference_date).to eql('dataset reference date')
+      expect(inspire_dataset.frequency_of_update).to eql('frequency of update')
+      expect(inspire_dataset.harvest_object_id).to eql('harvest object id')
+      expect(inspire_dataset.harvest_source_reference).to eql('harvest source reference')
+      expect(inspire_dataset.import_source).to eql('import source')
+      expect(inspire_dataset.metadata_date).to eql('metadata date')
+      expect(inspire_dataset.metadata_language).to eql('metadata language')
+      expect(inspire_dataset.provider).to eql('provider')
+      expect(inspire_dataset.resource_type).to eql('resource type')
+      expect(inspire_dataset.responsible_party).to eql('responsible party')
+      expect(inspire_dataset.spatial).to eql('spatial')
+      expect(inspire_dataset.spatial_data_service_type).to eql('spatial data service type')
+      expect(inspire_dataset.spatial_reference_system).to eql('spatial reference system')
+      expect(inspire_dataset.guid).to eql('guid')
     end
   end
 end

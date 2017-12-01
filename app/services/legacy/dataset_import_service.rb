@@ -39,22 +39,16 @@ class Legacy::DatasetImportService
     d.theme_id = themes_cache.fetch(old_theme, nil)
     d.secondary_theme_id = themes_cache.fetch(secondary_theme, nil)
     d.save!(validate: false)
+    d.status = "published"
+    d.save!(validate: false)
 
-    # Add the inspire metadata if we have determined this is a UKLP
-    # dataset.
-    # if d.dataset_type == 'inspire'
-    #   inspire = add_inspire_metadata(d.id, obj)
-    #   inspire.save!(validate: false)
-    # end
+    create_inspire_dataset(d.id) if d.dataset_type == 'inspire'
 
     # Iterate over the resources list and add a new datafile for each
     # item.
     # obj["resources"].each do |resource|
     #   add_resource(resource, d)
     # end
-
-    d.status = "published"
-    d.save!(validate: false)
   end
 
   def add_resource(resource, dataset)
@@ -92,29 +86,28 @@ class Legacy::DatasetImportService
     datafile.save!(validate: false)
   end
 
-  def add_inspire_metadata(dataset_id, dataset)
-    extras = dataset["extras"]
-
+  def create_inspire_dataset(dataset_id)
     inspire = InspireDataset.find_or_create_by(dataset_id: dataset_id)
-    inspire.bbox_east_long = get_extra(extras, 'bbox-east-long')
-    inspire.bbox_north_lat = get_extra(extras, 'bbox-north-lat')
-    inspire.bbox_south_lat = get_extra(extras, 'bbox-south-lat')
-    inspire.bbox_west_long = get_extra(extras, 'bbox-west-long')
-    inspire.coupled_resource = get_extra(extras, 'coupled-resource')
-    inspire.dataset_reference_date = get_extra(extras, 'dataset-reference-date')
-    inspire.frequency_of_update = get_extra(extras, 'frequency-of-update')
-    inspire.harvest_object_id = get_extra(extras, 'harvest_object_id')
-    inspire.harvest_source_reference = get_extra(extras, 'harvest_source_reference')
-    inspire.import_source = get_extra(extras, 'import_source')
-    inspire.metadata_date = get_extra(extras, 'metadata-date')
-    inspire.metadata_language = get_extra(extras, 'metadata-language')
-    inspire.provider = get_extra(extras, 'provider')
-    inspire.resource_type = get_extra(extras, 'resource-type')
-    inspire.responsible_party = get_extra(extras, 'responsible-party')
-    inspire.spatial = get_extra(extras, 'spatial')
-    inspire.spatial_data_service_type = get_extra(extras, 'spatial-data-service-type')
-    inspire.spatial_reference_system = get_extra(extras, 'spatial-reference-system')
-    inspire.guid = get_extra(extras, 'guid')
+    inspire.bbox_east_long = get_extra('bbox-east-long')
+    inspire.bbox_north_lat = get_extra('bbox-north-lat')
+    inspire.bbox_south_lat = get_extra('bbox-south-lat')
+    inspire.bbox_west_long = get_extra('bbox-west-long')
+    inspire.coupled_resource = get_extra('coupled-resource')
+    inspire.dataset_reference_date = get_extra('dataset-reference-date')
+    inspire.frequency_of_update = get_extra('frequency-of-update')
+    inspire.harvest_object_id = get_extra('harvest_object_id')
+    inspire.harvest_source_reference = get_extra('harvest_source_reference')
+    inspire.import_source = get_extra('import_source')
+    inspire.metadata_date = get_extra('metadata-date')
+    inspire.metadata_language = get_extra('metadata-language')
+    inspire.provider = get_extra('provider')
+    inspire.resource_type = get_extra('resource-type')
+    inspire.responsible_party = get_extra('responsible-party')
+    inspire.spatial = get_extra('spatial')
+    inspire.spatial_data_service_type = get_extra('spatial-data-service-type')
+    inspire.spatial_reference_system = get_extra('spatial-reference-system')
+    inspire.guid = get_extra('guid')
+    inspire.save!(validate: false)
     inspire
   end
 
@@ -168,7 +161,7 @@ class Legacy::DatasetImportService
   # Determine the type of dataset based on the presence of
   # a known INSPIRE key.
   def build_type
-    if get_extra(obj["extras"], "UKLP") == "True"
+    if get_extra("UKLP") == "True"
       "inspire"
     else
       ""
@@ -176,7 +169,7 @@ class Legacy::DatasetImportService
   end
 
   def harvested?
-    get_extra(obj["extras"], "harvest_object_id") != ""
+    get_extra("harvest_object_id") != ""
   end
 
   def documentation?(fmt)
@@ -217,28 +210,26 @@ class Legacy::DatasetImportService
     ["1/1/#{year}", "31/12/#{year}"]
   end
 
-  # Iterates through the hashes in the extras list looking
-  # for a matching key. If found will return the value
-  #
-  # A typical extra value looks like ...
-  #
-  # {"id"=>"7096e248-1129-422f-a4b9-5ee570cd2f75",
-  #  "key"=>"spatial-data-service-type",
-  #  "package_id"=>"00b14406-02bf-4021-b538-8069223da623",
-  #  "revision_id"=>"1e138922-8638-47b0-b15e-f87ff3b96f35",
-  #  "revision_timestamp"=>"2016-06-16T08:43:55.184222",
-  #  "state"=>"active",
-  #  "value"=>""}
-  def get_extra(extras, key)
-    return "" if !extras
+  private
 
-    result = extras.select{|hash| hash["key"] == key }.first
-    return "" if !result
-
-    result["value"]
+  def get_extra(key)
+    parsed_extras.fetch(key, "")
   end
 
-  private
+  def parsed_extras
+  # A typical extra value looks like:
+  # { "key"=>"foo", "value"=>"bar"}
+  # this method turns that into:
+  # { "foo" => "bar" }
+    extras.inject({}) do |result, hash|
+      result[hash["key"]] = hash["value"]
+      result
+    end
+  end
+
+  def extras
+    obj.fetch("extras", [])
+  end
 
   def licence
     obj["license_id"]
