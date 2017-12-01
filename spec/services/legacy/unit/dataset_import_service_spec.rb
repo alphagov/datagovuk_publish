@@ -81,19 +81,21 @@ describe Legacy::DatasetImportService do
       expect(frequency).to eql("quarterly")
     end
 
-    it "returns 'never' if any datafile has no date" do
-      legacy_dataset["resources"] = [
-        {
-          "description": "Datafile 1",
-          "format": "CSV",
-          "date": ""
-        }
-      ]
+    # DEPRECATED: This logic is incorrect and has been corrected. Part of the reason why time series datasets were not displaying properly
 
-      frequency = described_class.new(legacy_dataset, orgs_cache, themes_cache).build_frequency
-
-      expect(frequency).to eql('never')
-    end
+    # it "returns 'never' if any datafile has no date" do
+    #   legacy_dataset["resources"] = [
+    #     {
+    #       "description": "Datafile 1",
+    #       "format": "CSV",
+    #       "date": ""
+    #     }
+    #   ]
+    #
+    #   frequency = described_class.new(legacy_dataset, orgs_cache, themes_cache).build_frequency
+    #
+    #   expect(frequency).to eql('never')
+    # end
   end
 
   describe "#build_location" do

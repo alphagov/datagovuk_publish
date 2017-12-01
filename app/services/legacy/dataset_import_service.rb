@@ -47,50 +47,106 @@ class Legacy::DatasetImportService
     #   inspire.save!(validate: false)
     # end
 
-    # Iterate over the resources list and add a new datafile for each
-    # item.
-    # obj["resources"].each do |resource|
-    #   add_resource(resource, d)
-    # end
+    if obj.has_key?('timeseries_resources')
+      obj['timeseries_resources'].each do |resource|
+        add_timeseries_datafiles(resource, d)
+      end
+    end
+
+    if obj.has_key?('additional_resources')
+      obj['additional_resources'].each do |resource|
+        add_additional_info_datafiles(resource, d)
+      end
+    end
 
     d.status = "published"
     d.save!(validate: false)
   end
 
-  def add_resource(resource, dataset)
-    file_class = documentation?(resource['format']) ? Doc : Link
+  def add_additional_info_datafiles(resource, dataset)
+    datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
+    base_attributes = create_datafile_base_attributes(resource, dataset)
 
-    datafile = file_class.find_by(url: resource["url"], dataset_id: dataset.id)
-    if datafile.nil?
-      datafile = file_class.new(url: resource["url"], dataset_id: dataset.id)
-      datafile.save!(validate: false)
-    end
+    datafile.assign_attributes(base_attributes)
+    datafile.save!(validate: false)
+  end
 
-    datafile.uuid = resource["id"]
-    datafile.format = resource["format"]
-    datafile.name = resource["description"]
-    datafile.name = "No name specified" if datafile.name.strip() == ""
-    datafile.created_at = dataset.created_at
-    datafile.updated_at = dataset.last_updated_at
+  def add_timeseries_datafiles(resource, dataset)
+    datafile = Link.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
+    base_attributes = create_datafile_base_attributes(resource, dataset)
+    date_attributes = create_datafile_date_attributes(resource)
 
-    if !resource["date"].blank? && !documentation?(resource['format'])
-      dates = get_start_end_date(resource["date"])
-      if dataset.frequency != 'never'
-        begin
-          datafile.start_date = Date.parse(dates[0])
-        rescue ArgumentError
-          datafile.start_date = Date.new(1,1,1)
-        end
-        begin
-          datafile.end_date = Date.parse(dates[1])
-        rescue ArgumentError
-          datafile.end_date = Date.new(1,1,1)
-        end
-      end
-    end
+    datafile.assign_attributes(base_attributes)
+    datafile.assign_attributes(date_attributes)
 
     datafile.save!(validate: false)
   end
+
+  def create_datafile_base_attributes(resource, dataset)
+    {
+      uuid: resource["id"],
+      format: resource["format"],
+      name: datafile_name(resource),
+      created_at: dataset.created_at,
+      updated_at: dataset.last_updated_at
+    }
+  end
+
+  def create_datafile_date_attributes(resource)
+    dates = get_start_end_date(resource["date"])
+    start_date = Date.parse(dates[0])
+    end_date = Date.parse(dates[1])
+
+    {
+      start_date: start_date,
+      end_date: end_date,
+      # the month and year property are not stored but required to prevent Date validation error in Link model.
+      # This does not seem right to me. Speak to Laurent and Jess
+      month: end_date.month,
+      year: end_date.year,
+    }
+  end
+
+  def datafile_name(resource)
+    resource['description'].strip == '' ? 'No name specified' : resource['description']
+  end
+
+  # DEPRECATED
+
+  # def add_resource(resource, dataset)
+  #   file_class = documentation?(resource['format']) ? Doc : Link
+  #
+  #   datafile = file_class.find_by(url: resource["url"], dataset_id: dataset.id)
+  #   if datafile.nil?
+  #     datafile = file_class.new(url: resource["url"], dataset_id: dataset.id)
+  #     datafile.save!(validate: false)
+  #   end
+  #
+  #   datafile.uuid = resource["id"]
+  #   datafile.format = resource["format"]
+  #   datafile.name = resource["description"]
+  #   datafile.name = "No name specified" if datafile.name.strip() == ""
+  #   datafile.created_at = dataset.created_at
+  #   datafile.updated_at = dataset.last_updated_at
+  #
+  #   if !resource["date"].blank? && !documentation?(resource['format'])
+  #     dates = get_start_end_date(resource["date"])
+  #     if dataset.frequency != 'never'
+  #       begin
+  #         datafile.start_date = Date.parse(dates[0])
+  #       rescue ArgumentError
+  #         datafile.start_date = Date.new(1,1,1)
+  #       end
+  #       begin
+  #         datafile.end_date = Date.parse(dates[1])
+  #       rescue ArgumentError
+  #         datafile.end_date = Date.new(1,1,1)
+  #       end
+  #     end
+  #   end
+  #
+  #   datafile.save!(validate: false)
+  # end
 
   def add_inspire_metadata(dataset_id, dataset)
     extras = dataset["extras"]
@@ -146,17 +202,19 @@ class Legacy::DatasetImportService
       "monthly"=> "monthly"
     }[freq] || "never"
 
-    if new_frequency != "never"
-      # Make sure all data resources have dates... if any don't we will
-      # set frequency to never
-      r = obj["resources"].select { |res|
-        !documentation?(res["format"]) && res.fetch("date","").blank?
-      }
+    # DEPRECATED
 
-      if r.size > 0
-        new_frequency = "never"
-      end
-    end
+    # if new_frequency != "never"
+    #   # Make sure all data resources have dates... if any don't we will
+    #   # set frequency to never
+    #   r = obj["resources"].select { |res|
+    #     !documentation?(res["format"]) && res.fetch("date","").blank?
+    #   }
+    #
+    #   if r.size > 0
+    #     new_frequency = "never"
+    #   end
+    # end
 
     new_frequency
   end
