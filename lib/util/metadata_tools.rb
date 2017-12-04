@@ -50,7 +50,7 @@ module MetadataTools
     d.secondary_theme_id = theme_cache.fetch(secondary_theme, nil)
     d.save!(validate: false)
 
-    # Add the inspire metadata if we have determined this is a ULKP
+    # Add the inspire metadata if we have determined this is a UKLP
     # dataset.
     if d.dataset_type == 'inspire'
       inspire = add_inspire_metadata(d.id, obj)
