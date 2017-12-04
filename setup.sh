@@ -1,4 +1,4 @@
-# !/usr/bin/env bash
+#!/usr/bin/env bash
 
 print_warning() {
   echo -e "\033[1;33m"$1"\033[00m";
@@ -29,7 +29,7 @@ print "Adding organisations"
 rails import:legacy_organisations["data.gov.uk-ckan-meta-data-latest.organizations.jsonl"]
 
 print "Adding datasets"
-rails import:datasets["data.gov.uk-ckan-meta-data-latest.v2.jsonl"]
+rails import:legacy_datasets["data.gov.uk-ckan-meta-data-latest.v2.jsonl"]
 
 print "Cleaning up"
 rm data.gov.uk-ckan-meta-data-latest.organizations.jsonl data.gov.uk-ckan-meta-data-latest.v2.jsonl
