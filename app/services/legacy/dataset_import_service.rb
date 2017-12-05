@@ -50,41 +50,35 @@ class Legacy::DatasetImportService
   end
 
   def create_additional_info_datafiles(dataset)
-    if @legacy_dataset.has_key?('additional_resources')
-      @legacy_dataset['additional_resources'].each do |resource|
-        datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
-        base_attributes = create_datafile_base_attributes(resource, dataset)
+    Array(@legacy_dataset['additional_resources']).each do |resource|
+      datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
+      base_attributes = create_datafile_base_attributes(resource, dataset)
 
-        datafile.assign_attributes(base_attributes)
-        datafile.save!(validate: false)
-      end
+      datafile.assign_attributes(base_attributes)
+      datafile.save!(validate: false)
     end
   end
 
   def create_non_timeseries_datafiles(dataset)
-    if @legacy_dataset.has_key?('individual_resources')
-      @legacy_dataset['individual_resources'].each do |resource|
-        datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
-        base_attributes = create_datafile_base_attributes(resource, dataset)
+    Array(@legacy_dataset['individual_resources']).each do |resource|
+      datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
+      base_attributes = create_datafile_base_attributes(resource, dataset)
 
-        datafile.assign_attributes(base_attributes)
-        datafile.save!(validate: false)
-      end
+      datafile.assign_attributes(base_attributes)
+      datafile.save!(validate: false)
     end
   end
 
   def create_timeseries_datafiles(dataset)
-    if @legacy_dataset.has_key?('timeseries_resources')
-      @legacy_dataset['timeseries_resources'].each do |resource|
-        datafile = Link.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
-        base_attributes = create_datafile_base_attributes(resource, dataset)
-        date_attributes = create_datafile_date_attributes(resource)
+    Array(@legacy_dataset['timeseries_resources']).each do |resource|
+      datafile = Link.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
+      base_attributes = create_datafile_base_attributes(resource, dataset)
+      date_attributes = create_datafile_date_attributes(resource)
 
-        datafile.assign_attributes(base_attributes)
-        datafile.assign_attributes(date_attributes)
+      datafile.assign_attributes(base_attributes)
+      datafile.assign_attributes(date_attributes)
 
-        datafile.save!(validate: false)
-      end
+      datafile.save!(validate: false)
     end
   end
 
