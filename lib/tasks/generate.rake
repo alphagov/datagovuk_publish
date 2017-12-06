@@ -1,6 +1,5 @@
 require 'json'
 require 'csv'
-require 'util/metadata_tools'
 
 namespace :generate do
   desc "Generate a data.json file"

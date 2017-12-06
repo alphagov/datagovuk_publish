@@ -7,6 +7,18 @@ describe Legacy::DatasetImportService do
     JSON.parse(legacy_dataset_json)["result"].with_indifferent_access
   end
 
+  let(:timeseries_legacy_dataset) do
+    file_path = Rails.root.join('spec', 'fixtures', 'timeseries_dataset.json')
+    legacy_land_registry_dataset = File.read(file_path)
+    JSON.parse(legacy_land_registry_dataset).with_indifferent_access
+  end
+
+  let(:non_timeseries_legacy_dataset) do
+    file_path = Rails.root.join('spec', 'fixtures', 'non_timeseries_dataset.json')
+    legacy_land_registry_dataset = File.read(file_path)
+    JSON.parse(legacy_land_registry_dataset).with_indifferent_access
+  end
+
   let(:orgs_cache) do
     { legacy_dataset["owner_org"] => 123 }
   end
@@ -58,6 +70,20 @@ describe Legacy::DatasetImportService do
       expect(first_imported_datafile.start_date).to eql(Date.parse(first_resource["date"]).beginning_of_month)
       expect(first_imported_datafile.end_date).to eql(Date.parse(first_resource["date"]).end_of_month)
     end
+
+    it "builds a dataset from a non timeseries legacy dataset" do
+      Legacy::DatasetImportService.new(non_timeseries_legacy_dataset, orgs_cache, themes_cache).run
+      expect(Dataset.last.frequency).to eq('never')
+      expect(Dataset.last.docs.count).to eq(4)
+    end
+
+    it "builds a dataset from a timeseries legacy dataset" do
+      Legacy::DatasetImportService.new(timeseries_legacy_dataset, orgs_cache, themes_cache).run
+      expect(Dataset.last.frequency).to eq('monthly')
+
+      expect(Dataset.last.links.count).to eq(3)
+      expect(Dataset.last.docs.count).to eq(1)
+    end
   end
 
   describe "#build_frequency" do
@@ -94,20 +120,6 @@ describe Legacy::DatasetImportService do
       frequency = described_class.new(legacy_dataset, orgs_cache, themes_cache).build_frequency
 
       expect(frequency).to eql("quarterly")
-    end
-
-    it "returns 'never' if any datafile has no date" do
-      legacy_dataset["resources"] = [
-        {
-        "description": "Datafile 1",
-        "format": "CSV",
-        "date": ""
-      }
-      ]
-
-      frequency = described_class.new(legacy_dataset, orgs_cache, themes_cache).build_frequency
-
-      expect(frequency).to eql('never')
     end
   end
 

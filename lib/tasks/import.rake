@@ -1,6 +1,5 @@
 require 'json'
 require 'csv'
-require 'util/metadata_tools'
 require 'zip'
 require 'rest-client'
 
@@ -28,7 +27,6 @@ namespace :import do
 
     logger.info 'Processing parent organisations'
     read_json_from_zip(file, logger) do |obj|
-      # TODO - move to MetadataTools.rb
       o = Organisation.find_by(name: obj["name"]) || Organisation.new
       o.name = obj["name"]
       o.title = obj["title"]
@@ -94,10 +92,10 @@ namespace :import do
     url = URI::join(host, path).to_s
     file = download_data('latest_legacy_datasets', url, logger)
 
-    read_json_from_zip(file, logger) do |obj|
+    read_json_from_zip(file, logger) do |legacy_dataset|
       counter += 1
       print "Completed #{counter}\r"
-      MetadataTools.persist(obj, orgs_cache, theme_cache)
+      Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, theme_cache).run
     end
     logger.info 'Import complete'
   end

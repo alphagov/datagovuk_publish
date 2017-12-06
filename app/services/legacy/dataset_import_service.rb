@@ -35,8 +35,8 @@ class Legacy::DatasetImportService
     dataset.location1 = build_location
     dataset.licence = build_licence
     dataset.licence_other = build_licence_other
-    old_theme  = legacy_dataset["theme-primary"]
-    secondary_theme  = legacy_dataset["theme-secondary"]
+    old_theme = legacy_dataset["theme-primary"]
+    secondary_theme = legacy_dataset["theme-secondary"]
     dataset.theme_id = themes_cache.fetch(old_theme, nil)
     dataset.secondary_theme_id = themes_cache.fetch(secondary_theme, nil)
     dataset.status = "published"
@@ -44,40 +44,70 @@ class Legacy::DatasetImportService
   end
 
   def create_datafiles(dataset)
-    resources.each do |resource|
-      create_resource(resource, dataset)
+    create_timeseries_datafiles(dataset)
+    create_non_timeseries_datafiles(dataset)
+    create_additional_info_datafiles(dataset)
+  end
+
+  def create_additional_info_datafiles(dataset)
+    Array(@legacy_dataset['additional_resources']).each do |resource|
+      datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
+      base_attributes = create_datafile_base_attributes(resource, dataset)
+
+      datafile.assign_attributes(base_attributes)
+      datafile.save!(validate: false)
     end
   end
 
-  def create_resource(resource, dataset)
-    datafile = find_or_initialize(resource)
-    datafile.uuid = resource["id"]
-    datafile.format = resource["format"]
-    datafile.name = resource["description"].presence || "No name specified"
-    datafile.created_at = dataset.created_at
-    datafile.updated_at = dataset.last_updated_at
+  def create_non_timeseries_datafiles(dataset)
+    Array(@legacy_dataset['individual_resources']).each do |resource|
+      datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
+      base_attributes = create_datafile_base_attributes(resource, dataset)
 
-    if resource["date"].present? && !documentation?(resource['format'])
-      dates = get_start_end_date(resource["date"])
-      if dataset.frequency != 'never'
-        begin
-          datafile.start_date = Date.parse(dates[0])
-        rescue ArgumentError
-          datafile.start_date = Date.new(1,1,1)
-        end
-        begin
-          datafile.end_date = Date.parse(dates[1])
-        rescue ArgumentError
-          datafile.end_date = Date.new(1,1,1)
-        end
-      end
+      datafile.assign_attributes(base_attributes)
+      datafile.save!(validate: false)
     end
+  end
 
-    datafile.day = datafile.end_date.day
-    datafile.month = datafile.end_date.month
-    datafile.year = datafile.end_date.year
+  def create_timeseries_datafiles(dataset)
+    Array(@legacy_dataset['timeseries_resources']).each do |resource|
+      datafile = Link.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
+      base_attributes = create_datafile_base_attributes(resource, dataset)
+      date_attributes = create_datafile_date_attributes(resource)
 
-    datafile.save!(validate: false)
+      datafile.assign_attributes(base_attributes)
+      datafile.assign_attributes(date_attributes)
+
+      datafile.save!(validate: false)
+    end
+  end
+
+  def create_datafile_base_attributes(resource, dataset)
+    {
+      uuid: resource["id"],
+      format: resource["format"],
+      name: datafile_name(resource),
+      created_at: dataset.created_at,
+      updated_at: dataset.last_updated_at
+    }
+  end
+
+  def create_datafile_date_attributes(resource)
+    dates = get_start_end_date(resource["date"])
+    start_date = Date.parse(dates[0])
+    end_date = Date.parse(dates[1])
+
+    {
+      start_date: start_date,
+      end_date: end_date,
+      day: end_date.day,
+      month: end_date.month,
+      year: end_date.year
+    }
+  end
+
+  def datafile_name(resource)
+    resource['description'].strip == '' ? 'No name specified' : resource['description']
   end
 
   def create_inspire_dataset(dataset_id)
@@ -128,22 +158,10 @@ class Legacy::DatasetImportService
     return 'never' if !freq
 
     new_frequency = {
-      "annual"=> "annually",
-      "quarterly"=> "quarterly",
-      "monthly"=> "monthly"
+      "annual" => "annually",
+      "quarterly" => "quarterly",
+      "monthly" => "monthly"
     }[freq] || "never"
-
-    if new_frequency != "never"
-      # Make sure all data resources have dates... if any don't we will
-      # set frequency to never
-      r = legacy_dataset["resources"].select { |res|
-        !documentation?(res["format"]) && res.fetch("date","").blank?
-      }
-
-      if r.size > 0
-        new_frequency = "never"
-      end
-    end
 
     new_frequency
   end
@@ -207,10 +225,10 @@ class Legacy::DatasetImportService
   end
 
   def parsed_extras
-  # A typical extra value looks like:
-  # { "key"=>"foo", "value"=>"bar"}
-  # this method turns that into:
-  # { "foo" => "bar" }
+    # A typical extra value looks like:
+    # { "key"=>"foo", "value"=>"bar"}
+    # this method turns that into:
+    # { "foo" => "bar" }
     extras.inject({}) do |result, hash|
       result[hash["key"]] = hash["value"]
       result
