@@ -61,7 +61,7 @@ describe Legacy::DatasetImportService do
       first_imported_datafile = imported_datafiles.first
       first_resource = legacy_dataset["resources"][0]
 
-      expect(imported_datafiles.count).to eql(2)
+      expect(imported_datafiles.count).to eql(1)
       expect(first_imported_datafile.uuid).to eql(first_resource["id"])
       expect(first_imported_datafile.format).to eql(first_resource["format"])
       expect(first_imported_datafile.name).to eql(first_resource["description"])
@@ -74,15 +74,17 @@ describe Legacy::DatasetImportService do
     it "builds a dataset from a non timeseries legacy dataset" do
       Legacy::DatasetImportService.new(non_timeseries_legacy_dataset, orgs_cache, themes_cache).run
       expect(Dataset.last.frequency).to eq('never')
-      expect(Dataset.last.docs.count).to eq(4)
+      expect(Dataset.last.links.count).to eq(0)
+      expect(Dataset.last.docs.count).to eq(3)
+      expect(Dataset.last.additional_infos.count).to eq(1)
     end
 
     it "builds a dataset from a timeseries legacy dataset" do
       Legacy::DatasetImportService.new(timeseries_legacy_dataset, orgs_cache, themes_cache).run
       expect(Dataset.last.frequency).to eq('monthly')
-
+      expect(Dataset.last.docs.count).to eq(0)
       expect(Dataset.last.links.count).to eq(3)
-      expect(Dataset.last.docs.count).to eq(1)
+      expect(Dataset.last.additional_infos.count).to eq(1)
     end
   end
 
