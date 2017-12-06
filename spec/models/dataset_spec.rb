@@ -51,7 +51,6 @@ describe Dataset do
 
     expect(dataset.errors[:licence]).to include("Please select a licence for your dataset")
     expect(dataset.errors[:frequency]).to include("Please indicate how often this dataset is updated")
-    expect(dataset.errors[:links]).to include("You must add at least one link")
   end
 
   it "can pass strict validation when publishing" do

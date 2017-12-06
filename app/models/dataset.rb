@@ -31,7 +31,6 @@ class Dataset < ApplicationRecord
   validates :licence, presence: true, if: :published?
   validates :licence_other, presence: true, if: lambda { licence == 'other' }
 
-  validate  :published_dataset_must_have_datafiles_validation
   validate  :is_readonly?, on: :update
 
   scope :owned_by, ->(creator_id) { where(creator_id: creator_id) }
@@ -115,12 +114,6 @@ class Dataset < ApplicationRecord
 
   def prevent_if_published
     raise 'published datasets cannot be deleted' if published?
-  end
-
-  def published_dataset_must_have_datafiles_validation
-    if self.published? && self.links.empty?
-      errors.add(:links, "You must add at least one link")
-    end
   end
 
   def daily?

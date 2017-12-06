@@ -1,13 +1,27 @@
 require "rails_helper"
 
 describe 'editing datasets' do
-  set_up_models
+  let(:land) { FactoryGirl.create(:organisation) }
+  let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
+
+  let!(:published_dataset) { FactoryGirl.create(:dataset,
+                                               organisation: land,
+                                               status: "published",
+                                               links: [FactoryGirl.create(:link)],
+                                               docs: [FactoryGirl.create(:doc)],
+                                               creator: user,
+                                               owner: user) }
+
+  let!(:unpublished_dataset) { FactoryGirl.create(:dataset,
+                                                 organisation: land,
+                                                 status: "draft",
+                                                 creator: user,
+                                                 owner: user ) }
 
   before(:each) do
     allow_any_instance_of(UrlValidator).to receive(:validPath?).and_return(true)
     user
     sign_in_user
-    build_datasets
   end
 
   it "should be able to go to datasets's page" do
@@ -94,21 +108,24 @@ describe 'editing datasets' do
 
     it "should be able to publish a complete dataset" do
       visit dataset_url(unpublished_dataset.uuid, unpublished_dataset.name)
-      expect(unpublished_dataset.published?).to be false
+      expect(unpublished_dataset).not_to be_published
 
       click_button 'Publish'
       expect(last_updated_dataset.id).to eq(unpublished_dataset.id)
-      expect(last_updated_dataset.published?).to be true
+      expect(last_updated_dataset).to be_published
       expect(page).to have_content("Your dataset has been published")
     end
 
-    it "should not be possible to publish an incomplete dataset" do
+    it "can publish an incomplete dataset" do
+      unfinished_dataset = FactoryGirl.create(:dataset,
+                                               creator: user,
+                                               owner: user)
+
       visit dataset_url(unfinished_dataset.uuid, unfinished_dataset.name)
-      expect(unfinished_dataset.published?).to be false
+      expect(unfinished_dataset).not_to be_published
+
       click_button 'Publish'
-      expect(page).to have_content 'There was a problem'
-      expect(page).not_to have_content 'Your dataset has been published'
-      expect(current_path).to eq publish_dataset_path(unfinished_dataset.uuid, unfinished_dataset.name)
+      expect(page).to have_content 'Your dataset has been published'
     end
   end
 
