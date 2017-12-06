@@ -21,6 +21,7 @@ class Dataset < ApplicationRecord
 
   has_many :links
   has_many :docs
+  has_many :additional_infos
   has_one :inspire_dataset
 
   validates :frequency, inclusion: { in: %w(daily monthly quarterly annually financial-year never) },
@@ -70,7 +71,9 @@ class Dataset < ApplicationRecord
              :harvested, :uuid],
       include: {
         organisation: {},
-        datafiles: {},
+        docs: {},
+        links: {},
+        additional_infos: {},
         inspire_dataset: {}
       }
     )

@@ -51,7 +51,7 @@ class Legacy::DatasetImportService
 
   def create_additional_info_datafiles(dataset)
     Array(@legacy_dataset['additional_resources']).each do |resource|
-      datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
+      datafile = AdditionalInfo.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
       base_attributes = create_datafile_base_attributes(resource, dataset)
 
       datafile.assign_attributes(base_attributes)
