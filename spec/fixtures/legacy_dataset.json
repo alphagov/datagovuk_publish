@@ -34,47 +34,7 @@
     "revision_id": "197dfecf-32e7-4666-b08a-2e35a9536b16",
     "date_released": "15/9/2011",
     "theme-primary": "Government",
-    "resources": [
-      {
-        "hash": "",
-        "description": "Resource 1 description",
-        "created": "2017-12-04T09:35:25.928982",
-        "url": "https://example.com/file.csv",
-        "date": "2017",
-        "format": "CSV",
-        "date": "3/2016",
-        "id": "e12a256b-893f-44f7-ba49-8dfafe41e718"
-      },
-      {
-        "hash": "",
-        "description": "Resource 2 description",
-        "created": "2017-12-04T09:35:25.928982",
-        "url": "https://example.com/file.html",
-        "format": "html",
-        "id": "e12a256b-893f-44f7-ba49-8dfafe41e718"
-      }
-    ],
-    "timeseries_resources": [
-      {
-        "hash": "",
-        "description": "Resource 1 description",
-        "created": "2017-12-04T09:35:25.928982",
-        "url": "https://example.com/file_1.csv",
-        "date": "3/2016",
-        "format": "CSV",
-        "id": "e12a256b-893f-44f7-ba49-8dfafe41e718"
-      }
-    ],
-    "additional_resources": [
-      {
-        "hash": "",
-        "description": "Resource 2 description",
-        "created": "2017-12-04T09:35:25.928982",
-        "url": "https://example.com/file.html",
-        "format": "html",
-        "id": "e12a256b-893f-44f7-ba49-8dfafe41e718"
-      }
-    ],
+    "resources": [],
     "tags": [
       {
         "vocabulary_id": null,
