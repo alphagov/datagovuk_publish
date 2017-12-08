@@ -1,6 +1,6 @@
 applications:
 - name: publish-data-beta-staging
-  memory: 256M
+  memory: 512M
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
   env:
     RAILS_ENV: staging
@@ -8,6 +8,5 @@ applications:
   services:
   - publish-staging-secrets
   - publish-beta-staging-pg
-  - beta-staging-redis
   - logit-ssl-drain
   - beta-staging-elasticsearch
