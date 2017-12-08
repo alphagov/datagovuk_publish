@@ -1,0 +1,2 @@
+class AdditionalInfo < Datafile
+end

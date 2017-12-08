@@ -54,35 +54,20 @@ describe Legacy::DatasetImportService do
       expect(imported_dataset.secondary_theme_id).to eql(678)
     end
 
-    it "creates the datafiles for the imported dataset" do
-      described_class.new(legacy_dataset, orgs_cache, themes_cache).run
-      imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
-      imported_datafiles = imported_dataset.datafiles
-      first_imported_datafile = imported_datafiles.first
-      first_resource = legacy_dataset["resources"][0]
-
-      expect(imported_datafiles.count).to eql(2)
-      expect(first_imported_datafile.uuid).to eql(first_resource["id"])
-      expect(first_imported_datafile.format).to eql(first_resource["format"])
-      expect(first_imported_datafile.name).to eql(first_resource["description"])
-      expect(first_imported_datafile.created_at).to eql(imported_dataset.created_at)
-      expect(first_imported_datafile.updated_at).to eql(imported_dataset.last_updated_at)
-      expect(first_imported_datafile.start_date).to eql(Date.parse(first_resource["date"]).beginning_of_month)
-      expect(first_imported_datafile.end_date).to eql(Date.parse(first_resource["date"]).end_of_month)
-    end
-
     it "builds a dataset from a non timeseries legacy dataset" do
       Legacy::DatasetImportService.new(non_timeseries_legacy_dataset, orgs_cache, themes_cache).run
       expect(Dataset.last.frequency).to eq('never')
-      expect(Dataset.last.docs.count).to eq(4)
+      expect(Dataset.last.links.count).to eq(0)
+      expect(Dataset.last.docs.count).to eq(3)
+      expect(Dataset.last.additional_infos.count).to eq(1)
     end
 
     it "builds a dataset from a timeseries legacy dataset" do
       Legacy::DatasetImportService.new(timeseries_legacy_dataset, orgs_cache, themes_cache).run
       expect(Dataset.last.frequency).to eq('monthly')
-
+      expect(Dataset.last.docs.count).to eq(0)
       expect(Dataset.last.links.count).to eq(3)
-      expect(Dataset.last.docs.count).to eq(1)
+      expect(Dataset.last.additional_infos.count).to eq(1)
     end
   end
 
