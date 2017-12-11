@@ -50,8 +50,8 @@ class Legacy::DatasetImportService
   end
 
   def create_additional_info_datafiles(dataset)
-    Array(legacy_dataset['additional_resources']).each do |resource|
-      datafile = AdditionalInfo.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
+    Array(@legacy_dataset['additional_resources']).each do |resource|
+      datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
       base_attributes = create_datafile_base_attributes(resource, dataset)
 
       datafile.assign_attributes(base_attributes)
@@ -60,7 +60,7 @@ class Legacy::DatasetImportService
   end
 
   def create_non_timeseries_datafiles(dataset)
-    Array(legacy_dataset['individual_resources']).each do |resource|
+    Array(@legacy_dataset['individual_resources']).each do |resource|
       datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
       base_attributes = create_datafile_base_attributes(resource, dataset)
 
@@ -70,7 +70,7 @@ class Legacy::DatasetImportService
   end
 
   def create_timeseries_datafiles(dataset)
-    Array(legacy_dataset['timeseries_resources']).each do |resource|
+    Array(@legacy_dataset['timeseries_resources']).each do |resource|
       datafile = Link.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
       base_attributes = create_datafile_base_attributes(resource, dataset)
       date_attributes = create_datafile_date_attributes(resource)
