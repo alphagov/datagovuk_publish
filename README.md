@@ -48,14 +48,13 @@ To log in as a fake user, use the credentials in 'seeds.rb' in the 'db' folder.
 You can import data into Postgres using following commands:
 
 ```
-rake import:locations[locations.csv]
-rake import:legacy_organisations
-rake import:legacy_datasets
+rake import:locations[filename]
+rake import:legacy_organisations[filename]
+rake import:legacy_datasets[filename]
 ```
 
 Note: 
 - That organisations need to be imported before datasets.
-- Importing locations requires a source file.
 
 ## Reindex all datasets
 You can reindex (Elasticsearch) all datasets using the following command:
