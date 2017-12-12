@@ -160,7 +160,8 @@ class Legacy::DatasetImportService
     new_frequency = {
       "annual" => "annually",
       "quarterly" => "quarterly",
-      "monthly" => "monthly"
+      "monthly" => "monthly",
+      "other" => "irregular"
     }[freq] || "never"
 
     new_frequency
