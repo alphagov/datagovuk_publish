@@ -15,18 +15,14 @@ namespace :import do
   end
 
   desc "Import organisations from legacy"
-  task legacy_organisations: :environment do |_, args|
+  task :legacy_organisations, [:filename] => :environment do |_, args|
     logger = Logger.new(STDOUT)
     organisation_count = 0
     child_organisation_count = 0
     relationships = {}
-    host = ENV['LEGACY_HOST']
-    path = 'data/dumps/data.gov.uk-ckan-meta-data-latest.organizations.jsonl.zip'
-    url = URI::join(host, path).to_s
-    file = download_data('latest_legacy_organisations', url, logger)
 
     logger.info 'Processing parent organisations'
-    read_json_from_zip(file, logger) do |obj|
+    json_from_lines(args.filename) do |obj|
       o = Organisation.find_by(name: obj["name"]) || Organisation.new
       o.name = obj["name"]
       o.title = obj["title"]
@@ -79,7 +75,7 @@ namespace :import do
   end
 
   desc "Import datasets from a data.gov.uk dump"
-  task :legacy_datasets => :environment do |_, args|
+  task :legacy_datasets, [:filename] => :environment do |_, args|
     Link.skip_callback(:save, :before, :set_date)
 
     # Maps the organisation UUIDs to the organisation IDs
@@ -87,12 +83,9 @@ namespace :import do
     orgs_cache = Organisation.all.pluck(:uuid, :id).to_h
     theme_cache = Theme.all.pluck(:title, :id).to_h
     counter = 0
-    host = ENV['LEGACY_HOST']
-    path = 'data/dumps/data.gov.uk-ckan-meta-data-latest.v2.jsonl.zip'
-    url = URI::join(host, path).to_s
-    file = download_data('latest_legacy_datasets', url, logger)
 
-    read_json_from_zip(file, logger) do |legacy_dataset|
+    logger.info 'Importing legacy datasets'
+    json_from_lines(args.filename) do |legacy_dataset|
       counter += 1
       print "Completed #{counter}\r"
       Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, theme_cache).run
@@ -108,32 +101,4 @@ def json_from_lines(filename)
   File.foreach(filename).each do |line|
     yield JSON.parse(line)
   end
-end
-
-def read_json_from_zip(filename, logger)
-  logger.info 'Importing data'
-  Zip::File.open(filename.path) do |zip_file|
-    zip_file.each do |file|
-      data = zip_file.read(file)
-      begin
-        data.each_line do |line|
-          yield JSON.parse(line)
-        end
-      rescue JSON::ParserError => e
-        msg = "Unable to parse organisation json \n #{e.message}"
-        Raven.capture_exception(msg)
-        logger.error(e.message)
-      end
-    end
-  end
-end
-
-def download_data(file_name, url, logger)
-  logger.info("Downloading data from #{url}")
-  file = Tempfile.new(file_name)
-  file.binmode
-  file.write(RestClient.get(url).body)
-  file.close
-  logger.info('Download complete')
-  file
 end
