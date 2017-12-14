@@ -61,7 +61,7 @@ class Dataset < ApplicationRecord
   # dataset.
   def as_indexed_json(_options={})
     as_json(
-      only: [:name, :title, :summary, :description,
+      only: [:name, :legacy_name, :title, :summary, :description,
              :foi_name, :foi_email, :foi_phone, :foi_web,
              :contact_name, :contact_email, :contact_phone,
              :location1, :location2, :location3,
