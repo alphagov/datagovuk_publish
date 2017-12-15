@@ -1,4 +1,42 @@
 class DatasetsIndexerService
+  INDEX_MAPPING = {
+    dataset: {
+      properties: {
+        name: {
+          type: 'string',
+          index: 'not_analyzed'
+        },
+        uuid: {
+          type: 'string',
+          index: 'not_analyzed'
+        },
+        location1: {
+          type: 'string',
+          fields: {
+            raw: {
+              type: 'string',
+              index: 'not_analyzed'
+            }
+          }
+        },
+        organisation: {
+          type: 'nested',
+          properties: {
+            title: {
+              type: 'string',
+              fields: {
+                raw: {
+                  type: 'string',
+                  index: 'not_analyzed'
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   def initialize(args)
     @batch_size = args[:batch_size]
     @date = args[:date]
@@ -28,7 +66,7 @@ class DatasetsIndexerService
   def create_new_index
     client.indices.create(
       index: new_index_name,
-      body: { mappings: index_mapping }
+      body: { mappings: INDEX_MAPPING }
     )
   end
 
@@ -42,50 +80,6 @@ class DatasetsIndexerService
     msg = "There was an error indexing datasets:\n#{e.message}"
     logger.error msg
     Raven.capture_exception msg
-  end
-
-  def index_mapping
-    {
-      dataset: {
-        properties: {
-          name: {
-            type: 'string',
-            index: 'not_analyzed'
-          },
-          legacy_name: {
-            type: 'string',
-            index: 'not_analyzed'
-          },
-          uuid: {
-            type: 'string',
-            index: 'not_analyzed'
-          },
-          location1: {
-            type: 'string',
-            fields: {
-              raw: {
-                type: 'string',
-                index: 'not_analyzed'
-              }
-            }
-          },
-          organisation: {
-            type: 'nested',
-            properties: {
-              title: {
-                type: 'string',
-                fields: {
-                  raw: {
-                    type: 'string',
-                    index: 'not_analyzed'
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
   end
 
   def prepare_records(datasets)
