@@ -26,8 +26,6 @@ describe 'datafiles' do
   end
 
   it "should be able to edit an existing file" do
-    stub_request(:post, legacy_datafile_update_endpoint).to_return(status: 200)
-
     link = published_dataset.links.first
 
     click_change(:datalinks)
@@ -92,5 +90,4 @@ describe 'datafiles' do
     expect(page).to have_content "Your link ‘#{doc.name}’ has been deleted"
     expect(last_updated_dataset.docs).to be_empty
   end
-
 end

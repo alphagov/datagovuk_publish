@@ -9,7 +9,6 @@ describe "dataset creation" do
     before(:each) do
       user
       sign_in_user
-      stub_request(:post, legacy_dataset_create_endpoint).to_return(status: 200)
     end
 
     it "navigates to new dataset form" do

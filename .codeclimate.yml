@@ -1,6 +1,11 @@
 engines:
   rubocop:
     enabled: true
+    checks:
+      Rubocop/Style/Documentation:
+        enabled: false
+      Rubocop/Style/FrozenStringLiteralComment:
+        enabled: false
   eslint:
     enabled: true
   csslint:

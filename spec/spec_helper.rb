@@ -66,39 +66,7 @@ RSpec.configure do |config|
 end
 
 def mappings
-  {
-    dataset: {
-      properties: {
-        name: {
-          type: "string",
-          index: "not_analyzed"
-        },
-        location1: {
-          type: 'string',
-          fields: {
-            raw: {
-              type: 'string',
-              index: 'not_analyzed'
-            }
-          }
-        },
-        organisation: {
-          type: "nested",
-          properties: {
-            title: {
-              type: "string",
-              fields: {
-                raw: {
-                  type: "string",
-                  index: "not_analyzed"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+  DatasetsIndexerService::INDEX_MAPPING
 end
 
 def delete_index

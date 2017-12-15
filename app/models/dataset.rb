@@ -37,10 +37,6 @@ class Dataset < ApplicationRecord
   scope :owned_by, ->(creator_id) { where(creator_id: creator_id) }
   scope :published, ->{ where(status: "published") }
 
-  def self.columns
-    super.reject { |c| c.name == "stage" }
-  end
-
   def is_readonly?
     if persisted? && self.harvested?
       errors[:base] << 'Harvested datasets cannot be modified.'
@@ -54,9 +50,7 @@ class Dataset < ApplicationRecord
   def publish!
     if publishable?
       transaction do
-        sync_with_legacy
         set_first_publication_date
-        set_latest_publication_date
         self.published!
         send_to_search_index
       end
@@ -67,7 +61,9 @@ class Dataset < ApplicationRecord
   # dataset.
   def as_indexed_json(_options={})
     as_json(
-      only: [:name, :title, :summary, :description,
+      only: [:name, :legacy_name, :title, :summary, :description,
+             :foi_name, :foi_email, :foi_phone, :foi_web,
+             :contact_name, :contact_email, :contact_phone,
              :location1, :location2, :location3,
              :licence, :licence_other, :frequency,
              :published_date, :last_updated_at, :created_at,
@@ -157,19 +153,11 @@ class Dataset < ApplicationRecord
 
   private
 
-  def sync_with_legacy
-    LegacySyncService.new(self).sync
-  end
-
   def send_to_search_index
     PublishingWorker.perform_async(self.id)
   end
 
   def set_first_publication_date
     self.published_date ||= Time.now
-  end
-
-  def set_latest_publication_date
-    self.last_published_at = Time.now
   end
 end
