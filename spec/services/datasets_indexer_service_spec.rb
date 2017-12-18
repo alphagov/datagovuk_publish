@@ -39,6 +39,12 @@ describe DatasetsIndexerService do
                 }
               }
             }
+          },
+          datafiles: {
+            type: "nested",
+            properties: {
+              format: { type: "keyword" }
+            }
           }
         }
       }

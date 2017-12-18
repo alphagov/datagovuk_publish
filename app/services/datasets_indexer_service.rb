@@ -36,6 +36,12 @@ class DatasetsIndexerService
               }
             }
           }
+        },
+        datafiles: {
+          type: "nested",
+          properties: {
+            format: { type: "keyword" }
+          }
         }
       }
     }
