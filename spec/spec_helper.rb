@@ -1,3 +1,5 @@
+ENV["RAILS_ENV"] = 'test'
+
 require "simplecov"
 require "factory_girl_rails"
 require "database_cleaner"
