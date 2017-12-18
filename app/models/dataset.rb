@@ -50,7 +50,7 @@ class Dataset < ApplicationRecord
   def publish!
     if publishable?
       transaction do
-        set_first_publication_date
+        set_timestamps
         self.published!
         send_to_search_index
       end
@@ -157,7 +157,16 @@ class Dataset < ApplicationRecord
     PublishingWorker.perform_async(self.id)
   end
 
+  def set_timestamps
+    set_first_publication_date
+    set_last_updated_date
+  end
+
   def set_first_publication_date
     self.published_date ||= Time.now
+  end
+
+  def set_last_updated_date
+    self.last_updated_at = Time.now
   end
 end
