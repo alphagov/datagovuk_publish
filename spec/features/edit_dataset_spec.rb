@@ -4,8 +4,6 @@ describe 'editing datasets' do
   set_up_models
 
   before(:each) do
-    stub_request(:post, legacy_dataset_update_endpoint).to_return(status: 200)
-
     allow_any_instance_of(UrlValidator).to receive(:validPath?).and_return(true)
     user
     sign_in_user
@@ -95,7 +93,6 @@ describe 'editing datasets' do
     end
 
     it "should be able to publish a complete dataset" do
-      stub_request(:post, legacy_dataset_create_endpoint).to_return(status: 201)
       visit dataset_url(unpublished_dataset.uuid, unpublished_dataset.name)
       expect(unpublished_dataset.published?).to be false
 

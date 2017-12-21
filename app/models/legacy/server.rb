@@ -1,15 +1,4 @@
 class Legacy::Server
-  ENDPOINTS = {
-    dataset: {
-      create: "/api/3/action/package_create",
-      update: "/api/3/action/package_patch",
-    },
-    datafile: {
-      create: "/api/3/action/resource_create",
-      update: "/api/3/action/resource_patch"
-    }
-  }.with_indifferent_access
-
   def self.url_for(resource_name:, action:)
     URI.join(self.host, ENDPOINTS[resource_name][action]).to_s
   end

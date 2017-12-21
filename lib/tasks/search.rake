@@ -1,78 +1,57 @@
 namespace :search do
-
   desc "Reindex all datasets"
-  task :reindex => :environment do |_, args|
+  task :reindex, [:batch_size] => :environment do |_, args|
+    batch_size = args.batch_size.nil? ? 50 : args.batch_size.to_i
+    logger = Logger.new(STDOUT)
+    client = Dataset.__elasticsearch__.client
+    date = Time.now.strftime('%Y%m%d%H%M%S')
+    index_alias = "datasets-#{ENV['RAILS_ENV']}"
+    legacy_index = index_alias
+    new_index_name = "#{Dataset.index_name}_#{date}"
 
-    nb_datasets_to_index = Dataset.published.count
-
-    puts "Indexing #{nb_datasets_to_index} datasets"
-
-    datasetMappings = {
-      dataset: {
-        properties: {
-          name: {
-            type: "string",
-            index: "not_analyzed"
-          },
-          uuid: {
-            type: "string",
-            index: "not_analyzed"
-          },
-          location1: {
-            type: 'string',
-            fields: {
-              raw: {
-                type: 'string',
-                index: 'not_analyzed'
-              }
-            }
-          },
-          organisation: {
-            type: "nested",
-            properties: {
-              title: {
-                type: "string",
-                fields: {
-                  raw: {
-                    type: "string",
-                    index: "not_analyzed"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+    indexer_args = {
+      batch_size: batch_size,
+      date: date,
+      new_index_name: new_index_name,
+      client: client,
+      logger: logger
     }
 
-    Dataset.__elasticsearch__.client.indices.delete index: Dataset.__elasticsearch__.index_name rescue nil
-    Dataset.__elasticsearch__.client.indices.create index: Dataset.__elasticsearch__.index_name, body: {mappings: datasetMappings}
+    alias_updater_args = {
+      new_index_name: new_index_name,
+      index_alias: index_alias,
+      client: client,
+      logger: logger
+    }
 
-    nb_dataset_processed = 0
-    Dataset.published.find_in_batches(batch_size: 50) do |datasets|
-      puts " Batching #{datasets.length} datasets (done #{nb_dataset_processed} / #{nb_datasets_to_index})"
-      bulk_index(datasets)
-      nb_dataset_processed = nb_dataset_processed + 50
-    end
+    index_deleter_args = {
+      index_alias: index_alias,
+      client: client,
+      logger: logger
+    }
+
+    indexer = DatasetsIndexerService.new(indexer_args)
+    alias_updater = AliasUpdaterService.new(alias_updater_args)
+    index_deleter = IndexDeletionService.new(index_deleter_args)
+
+    reindexService = ReindexService.new(
+      indexer: indexer,
+      alias_updater: alias_updater,
+      index_deleter: index_deleter,
+      logger: logger,
+    )
+
+    check_for_legacy_index(client, legacy_index)
+    reindexService.run
   end
 
-  def bulk_index(datasets)
-    begin
-      Dataset.__elasticsearch__.client.bulk({
-                                              index: ::Dataset.__elasticsearch__.index_name,
-                                              type: ::Dataset.__elasticsearch__.document_type,
-                                              body: prepare_records(datasets)
-                                            })
-    rescue => e
-      puts "There was an error uploading datasets:"
-      puts e
+  def check_for_legacy_index(client, legacy_index)
+    indexes = client.indices.get_aliases.keys
+
+    if indexes.include?(legacy_index)
+      msg = "An alias can not be assigned to index of the same name. Please delete index '#{legacy_index}' before continuing."
+      Raven.capture_exception msg
+      raise msg
     end
   end
-
-  def prepare_records(datasets)
-    datasets.map do |dataset|
-      {index: {_id: dataset.id, data: dataset.as_indexed_json}}
-    end
-  end
-
 end
