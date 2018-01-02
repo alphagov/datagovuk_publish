@@ -5,6 +5,7 @@ class Legacy::DatasetImportService
     @legacy_dataset = legacy_dataset
     @orgs_cache = orgs_cache
     @themes_cache = themes_cache
+    @logger = Logger.new(STDOUT)
   end
 
   def run
@@ -84,21 +85,36 @@ class Legacy::DatasetImportService
   end
 
   def create_datafile_date_attributes(resource)
-    if resource["date"].blank?
-      {}
-    else
-      dates = get_start_end_date(resource["date"])
-      start_date = Date.parse(dates[0])
-      end_date = Date.parse(dates[1])
+    return {} if resource['date'].blank?
 
-      {
-        start_date: start_date,
-        end_date: end_date,
-        day: end_date.day,
-        month: end_date.month,
-        year: end_date.year
-      }
-    end
+    dates = get_start_end_date(resource['date'])
+    start_date = parse_date(dates[0])
+    end_date = parse_date(dates[1])
+
+    return {} if start_date.nil? || end_date.nil?
+    
+    date_attributes = {
+      start_date: start_date,
+      end_date: end_date
+    }
+
+    day_month_year = day_month_year_from(end_date)
+    date_attributes.merge(day_month_year)
+  end
+
+  def parse_date(date)
+    Date.parse(date)
+  rescue ArgumentError
+    @logger.error('Invalid date detected. Returning nil')
+    nil
+  end
+
+  def day_month_year_from(end_date)
+    {
+      day: end_date.day,
+      month: end_date.month,
+      year: end_date.year
+    }
   end
 
   def datafile_name(resource)
@@ -183,16 +199,16 @@ class Legacy::DatasetImportService
     if date_string.length == 4
       return calculate_dates_for_year(date_string.to_i)
     end
-     # eg "1983/02/12"
-     parts = date_string.split("/")
-   if parts.length == 3
-     return [date_string, date_string]
-   end
-     # eg "1983/02"
-   if parts and parts.length == 2
-     return calculate_dates_for_month(parts[0].to_i, parts[1].to_i)
-   end
-     ["", ""]
+    # eg "1983/02/12"
+    parts = date_string.split("/")
+    if parts.length == 3
+      return [date_string, date_string]
+    end
+    # eg "1983/02"
+    if parts and parts.length == 2
+      return calculate_dates_for_month(parts[0].to_i, parts[1].to_i)
+    end
+    ["", ""]
   end
 
   # Date helpers
