@@ -83,6 +83,24 @@ class Legacy::DatasetImportService
     }
   end
 
+  def create_datafile_date_attributes(resource)
+    if resource["date"].blank?
+      {}
+    else
+      dates = get_start_end_date(resource["date"])
+      start_date = Date.parse(dates[0])
+      end_date = Date.parse(dates[1])
+
+      {
+        start_date: start_date,
+        end_date: end_date,
+        day: end_date.day,
+        month: end_date.month,
+        year: end_date.year
+      }
+    end
+  end
+
   def datafile_name(resource)
     resource['description'].strip == '' ? 'No name specified' : resource['description']
   end
@@ -156,24 +174,6 @@ class Legacy::DatasetImportService
 
   def harvested?
     get_extra("harvest_object_id").present?
-  end
-
-  def create_datafile_date_attributes(resource)
-    if resource["date"].blank?
-      {}
-    else
-      dates = get_start_end_date(resource["date"])
-      start_date = Date.parse(dates[0])
-      end_date = Date.parse(dates[1])
-
-      {
-        start_date: start_date,
-        end_date: end_date,
-        day: end_date.day,
-        month: end_date.month,
-        year: end_date.year
-      }
-    end
   end
 
   # Given a lax legacy date string, try and build a proper
