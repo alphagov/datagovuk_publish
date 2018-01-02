@@ -10,7 +10,7 @@ class Legacy::DatasetImportService
   def run
     update_or_create_dataset
     create_inspire_dataset(dataset.id) if dataset.dataset_type == 'inspire'
-    create_datafiles(dataset)
+    create_resources(dataset)
   end
 
   def update_or_create_dataset
@@ -43,46 +43,37 @@ class Legacy::DatasetImportService
     dataset.save!(validate: false)
   end
 
+  def create_resources(dataset)
+    create_datafiles(dataset)
+    create_documents(dataset)
+  end
+
   def create_datafiles(dataset)
-    create_timeseries_datafiles(dataset)
-    create_non_timeseries_datafiles(dataset)
-    create_additional_info_datafiles(dataset)
-  end
-
-  def create_additional_info_datafiles(dataset)
-    Array(@legacy_dataset['additional_resources']).each do |resource|
-      datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
-      base_attributes = create_datafile_base_attributes(resource, dataset)
-
-      datafile.assign_attributes(base_attributes)
-      datafile.save!(validate: false)
-    end
-  end
-
-  def create_non_timeseries_datafiles(dataset)
-    Array(@legacy_dataset['individual_resources']).each do |resource|
-      datafile = Doc.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
-      base_attributes = create_datafile_base_attributes(resource, dataset)
-
-      datafile.assign_attributes(base_attributes)
-      datafile.save!(validate: false)
-    end
-  end
-
-  def create_timeseries_datafiles(dataset)
-    Array(@legacy_dataset['timeseries_resources']).each do |resource|
-      datafile = Link.find_or_create_by(url: resource["url"], dataset_id: dataset.id)
-      base_attributes = create_datafile_base_attributes(resource, dataset)
-      date_attributes = create_datafile_date_attributes(resource)
-
+    resources = Array(@legacy_dataset['resources'])
+    legacy_datafiles = resources.select{ |resource| resource['resource_type'] == 'file'}
+    legacy_datafiles.each do |legacy_datafile|
+      datafile = Link.find_or_create_by(url: legacy_datafile["url"], dataset_id: dataset.id)
+      base_attributes = create_resource_base_attributes(legacy_datafile, dataset)
+      date_attributes = create_datafile_date_attributes(legacy_datafile)
       datafile.assign_attributes(base_attributes)
       datafile.assign_attributes(date_attributes)
-
       datafile.save!(validate: false)
     end
   end
 
-  def create_datafile_base_attributes(resource, dataset)
+  def create_documents(dataset)
+    resources = Array(@legacy_dataset['resources'])
+    legacy_documents = resources.select{ |resource| resource['resource_type'] == 'documentation'}
+    legacy_documents.each do |legacy_document|
+      document = Doc.find_or_create_by(url: legacy_document["url"], dataset_id: dataset.id)
+      base_attributes = create_resource_base_attributes(legacy_document, dataset)
+
+      document.assign_attributes(base_attributes)
+      document.save!(validate: false)
+    end
+  end
+
+  def create_resource_base_attributes(resource, dataset)
     {
       uuid: resource["id"],
       format: resource["format"],
@@ -93,17 +84,21 @@ class Legacy::DatasetImportService
   end
 
   def create_datafile_date_attributes(resource)
-    dates = get_start_end_date(resource["date"])
-    start_date = Date.parse(dates[0])
-    end_date = Date.parse(dates[1])
+    if resource["date"].blank?
+      {}
+    else
+      dates = get_start_end_date(resource["date"])
+      start_date = Date.parse(dates[0])
+      end_date = Date.parse(dates[1])
 
-    {
-      start_date: start_date,
-      end_date: end_date,
-      day: end_date.day,
-      month: end_date.month,
-      year: end_date.year
-    }
+      {
+        start_date: start_date,
+        end_date: end_date,
+        day: end_date.day,
+        month: end_date.month,
+        year: end_date.year
+      }
+    end
   end
 
   def datafile_name(resource)
@@ -160,7 +155,8 @@ class Legacy::DatasetImportService
     new_frequency = {
       "annual" => "annually",
       "quarterly" => "quarterly",
-      "monthly" => "monthly"
+      "monthly" => "monthly",
+      "other" => "irregular"
     }[freq] || "never"
 
     new_frequency
@@ -183,28 +179,24 @@ class Legacy::DatasetImportService
   # Given a lax legacy date string, try and build a proper
   # date string that we can import
   def get_start_end_date(date_string)
-    return ["", ""] if !date_string
-
     # eg "1983"
     if date_string.length == 4
       return calculate_dates_for_year(date_string.to_i)
     end
-
-    # eg "1983/02/12"
-    parts = date_string.split("/")
-    if parts.length == 3
-      return [date_string, date_string]
-    end
-
-    # eg "1983/02"
-    if parts and parts.length == 2
-      return calculate_dates_for_month(parts[0].to_i, parts[1].to_i)
-    end
-
-    ["", ""]
+     # eg "1983/02/12"
+     parts = date_string.split("/")
+   if parts.length == 3
+     return [date_string, date_string]
+   end
+     # eg "1983/02"
+   if parts and parts.length == 2
+     return calculate_dates_for_month(parts[0].to_i, parts[1].to_i)
+   end
+     ["", ""]
   end
 
   # Date helpers
+
   def calculate_dates_for_month(month, year)
     days = Time.days_in_month(month, year)
     ["1/#{month}/#{year}", "#{days}/#{month}/#{year}"]
@@ -215,6 +207,10 @@ class Legacy::DatasetImportService
   end
 
   private
+
+  def calculate_quarterly_dates(date_object)
+    Date.new(date_object.year, 1+(date_object.month -1 )/4*4)
+  end
 
   def dataset
     @dataset ||= Dataset.find_or_create_by(uuid: legacy_dataset["id"])
