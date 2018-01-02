@@ -3,7 +3,8 @@ require 'rails_helper'
 describe Legacy::DatasetImportService do
   let(:legacy_dataset) { create_dataset_from('legacy_dataset.json') }
   let(:timeseries_legacy_dataset) { create_dataset_from('timeseries_dataset.json') }
-  let(:timeseries_legacy_dataset_with_invalid_date) { create_dataset_from('timeseries_dataset_with_invalid_date.json') }
+  let(:daily_timeseries_legacy_dataset_with_invalid_date) { create_dataset_from('daily_timeseries_dataset_with_invalid_date.json') }
+  let(:monthly_timeseries_legacy_dataset_with_invalid_date) { create_dataset_from('monthly_timeseries_dataset_with_invalid_date.json') }
   let(:non_timeseries_legacy_dataset) { create_dataset_from('non_timeseries_dataset.json') }
 
   let(:orgs_cache) { { legacy_dataset["owner_org"] => 123 } }
@@ -66,9 +67,17 @@ describe Legacy::DatasetImportService do
       expect(Dataset.last.links.count).to eq(1)
       expect(Dataset.last.docs.count).to eq(1)
     end
+  end
 
-    it "builds a dataset from a timeseries legacy dataset with an invalid date" do
-      Legacy::DatasetImportService.new(timeseries_legacy_dataset_with_invalid_date, orgs_cache, themes_cache).run
+  describe "Invalid dates" do
+    it "builds a dataset from a daily timeseries legacy dataset with an invalid date" do
+      Legacy::DatasetImportService.new(daily_timeseries_legacy_dataset_with_invalid_date, orgs_cache, themes_cache).run
+
+      expect(Dataset.last.links.count).to eq(1)
+    end
+
+    it "builds a dataset from a monthly timeseries legacy dataset with an invalid date" do
+      Legacy::DatasetImportService.new(monthly_timeseries_legacy_dataset_with_invalid_date, orgs_cache, themes_cache).run
 
       expect(Dataset.last.links.count).to eq(1)
     end
