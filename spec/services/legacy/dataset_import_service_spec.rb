@@ -1,35 +1,18 @@
 require 'rails_helper'
 
 describe Legacy::DatasetImportService do
-  let(:legacy_dataset) do
-    file_path = Rails.root.join('spec', 'fixtures', 'legacy_dataset.json')
-    legacy_dataset_json = File.read(file_path)
-    JSON.parse(legacy_dataset_json)["result"].with_indifferent_access
-  end
+  let(:legacy_dataset) { create_dataset_from('legacy_dataset.json') }
+  let(:timeseries_legacy_dataset) { create_dataset_from('timeseries_dataset.json') }
+  let(:daily_timeseries_legacy_dataset_with_invalid_date) { create_dataset_from('daily_timeseries_dataset_with_invalid_date.json') }
+  let(:monthly_timeseries_legacy_dataset_with_invalid_date) { create_dataset_from('monthly_timeseries_dataset_with_invalid_date.json') }
+  let(:non_timeseries_legacy_dataset) { create_dataset_from('non_timeseries_dataset.json') }
 
-  let(:timeseries_legacy_dataset) do
-    file_path = Rails.root.join('spec', 'fixtures', 'timeseries_dataset.json')
-    legacy_land_registry_dataset = File.read(file_path)
-    JSON.parse(legacy_land_registry_dataset).with_indifferent_access
-  end
-
-  let(:non_timeseries_legacy_dataset) do
-    file_path = Rails.root.join('spec', 'fixtures', 'non_timeseries_dataset.json')
-    legacy_land_registry_dataset = File.read(file_path)
-    JSON.parse(legacy_land_registry_dataset).with_indifferent_access
-  end
-
-  let(:orgs_cache) do
-    { legacy_dataset["owner_org"] => 123 }
-  end
-
-  let(:themes_cache) do
-    { legacy_dataset["theme-primary"] => 345, legacy_dataset["theme-secondary"] => 678}
-  end
+  let(:orgs_cache) { { legacy_dataset["owner_org"] => 123 } }
+  let(:themes_cache) { { legacy_dataset["theme-primary"] => 345, legacy_dataset["theme-secondary"] => 678} }
 
   describe "#run" do
     it "builds a dataset from a legacy dataset" do
-      described_class.new(legacy_dataset, orgs_cache, themes_cache).run
+      Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, themes_cache).run
 
       imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
 
@@ -55,7 +38,8 @@ describe Legacy::DatasetImportService do
     end
 
     it "creates the datafiles for the imported dataset" do
-      described_class.new(legacy_dataset, orgs_cache, themes_cache).run
+      Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, themes_cache).run
+
       imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
       imported_datafiles = imported_dataset.datafiles
       first_imported_datafile = imported_datafiles.first
@@ -74,15 +58,30 @@ describe Legacy::DatasetImportService do
     it "builds a dataset from a non timeseries legacy dataset" do
       Legacy::DatasetImportService.new(non_timeseries_legacy_dataset, orgs_cache, themes_cache).run
       expect(Dataset.last.frequency).to eq('never')
-      expect(Dataset.last.docs.count).to eq(4)
+      expect(Dataset.last.docs.count).to eq(1)
     end
 
     it "builds a dataset from a timeseries legacy dataset" do
       Legacy::DatasetImportService.new(timeseries_legacy_dataset, orgs_cache, themes_cache).run
-      expect(Dataset.last.frequency).to eq('monthly')
 
-      expect(Dataset.last.links.count).to eq(3)
+      expect(Dataset.last.frequency).to eq('monthly')
+      expect(Dataset.last.links.count).to eq(1)
       expect(Dataset.last.docs.count).to eq(1)
+    end
+  end
+
+  describe "Invalid dates" do
+    it "builds a dataset from a daily timeseries legacy dataset with an invalid date" do
+      Legacy::DatasetImportService.new(daily_timeseries_legacy_dataset_with_invalid_date, orgs_cache, themes_cache).run
+
+      expect(Dataset.last.links.count).to eq(1)
+    end
+
+    it "builds a dataset from a monthly timeseries legacy dataset with an invalid date" do
+      Legacy::DatasetImportService.new(monthly_timeseries_legacy_dataset_with_invalid_date, orgs_cache, themes_cache).run
+
+      expect(Dataset.last.links.count).to eq(1)
+      expect(Dataset.last.frequency).to eq('monthly')
     end
   end
 
@@ -291,5 +290,11 @@ describe Legacy::DatasetImportService do
       expect(inspire_dataset.spatial_reference_system).to eql('spatial reference system')
       expect(inspire_dataset.guid).to eql('guid')
     end
+  end
+
+  def create_dataset_from(json)
+    file_path = Rails.root.join('spec', 'fixtures', json)
+    legacy_land_registry_dataset = File.read(file_path)
+    JSON.parse(legacy_land_registry_dataset).with_indifferent_access
   end
 end

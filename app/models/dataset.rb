@@ -23,7 +23,7 @@ class Dataset < ApplicationRecord
   has_many :docs
   has_one :inspire_dataset
 
-  validates :frequency, inclusion: { in: %w(daily monthly quarterly annually financial-year never) },
+  validates :frequency, inclusion: { in: %w(daily monthly quarterly annually financial-year never irregular) },
                         allow_nil: true # To allow creation before setting this value
   validates :title, presence: true, format: { with: TITLE_FORMAT }
   validates :summary, presence: true

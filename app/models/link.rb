@@ -1,7 +1,9 @@
 class Link < Datafile
   attr_accessor :day, :month, :year
 
-  before_save :set_date
+  # Some legacy datafiles have invalid dates (e.g. 31/06/15).
+  # When this occurs the date attributes are empty, therefore we cannot invoke this call-back
+  before_save :set_end_date, unless: ->{ year.nil? }
 
   validate  :validate_date_input, unless: ->{ dataset.never? }
   validates :quarter, presence: true, if: ->{ dataset.quarterly? }
@@ -14,7 +16,7 @@ class Link < Datafile
     }.with_indifferent_access
   end
 
-  def set_date
+  def set_end_date
     self.end_date = compute_date
   end
 
@@ -29,9 +31,7 @@ class Link < Datafile
   end
 
   def daily_date
-    Date.new(year.to_i,
-             month.to_i,
-             day.to_i)
+    Date.new(year.to_i, month.to_i, day.to_i)
   end
 
   def monthly_date
