@@ -25,18 +25,18 @@ after_success:
   - sudo apt-get install cf-cli
 deploy:
   - provider: script
-    script: scripts/deploy.sh publish-data-beta-staging staging-app
+    script: scripts/deploy.sh publish-data-beta-staging staging app
     on:
       branch: master
   - provider: script
-    script: scripts/deploy.sh publish-data-beta-staging-worker staging-worker
+    script: scripts/deploy.sh publish-data-beta-staging-worker staging worker
     on:
       branch: master
   - provider: script
-    script: scripts/deploy.sh publish-data-beta production-app
+    script: scripts/deploy.sh publish-data-beta production app
     on:
       branch: production
   - provider: script
-    script: scripts/deploy.sh publish-data-beta-worker production-worker
+    script: scripts/deploy.sh publish-data-beta-worker production worker
     on:
       branch: production
