@@ -42,6 +42,8 @@ fi
 
 CF_APP=$1
 CF_ENV=$2
+CF_ROLE=$3
+
 if [[ -z $CF_APP ]]
 then
   echo 'please specify the app you wish to push to as your first argument'
@@ -60,7 +62,7 @@ cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org
 cf install-plugin blue-green-deploy -r CF-Community -f
 
 # For some reason the blue-green deploy breaks if there's no manifest.yml present
-ln -s $CF_ENV-app-manifest.yml manifest.yml
+ln -s $CF_ENV-$CF_ROLE-manifest.yml manifest.yml
 
-cf bgd $CF_APP -f $CF_ENV-app-manifest.yml
+cf bgd $CF_APP -f $CF_ENV-$CF_ROLE-manifest.yml
 rm manifest.yml
