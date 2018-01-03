@@ -27,16 +27,20 @@ deploy:
   - provider: script
     script: scripts/deploy.sh publish-data-beta-staging staging-app
     on:
+      repo: alphagov/datagovuk_publish
       branch: master
   - provider: script
     script: scripts/deploy.sh publish-data-beta-staging-worker staging-worker
     on:
+      repo: alphagov/datagovuk_publish
       branch: master
   - provider: script
     script: scripts/deploy.sh publish-data-beta production-app
     on:
+      repo: alphagov/datagovuk_publish
       branch: production
   - provider: script
     script: scripts/deploy.sh publish-data-beta-worker production-worker
     on:
+      repo: alphagov/datagovuk_publish
       branch: production
