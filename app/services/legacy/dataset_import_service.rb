@@ -5,6 +5,7 @@ class Legacy::DatasetImportService
     @legacy_dataset = legacy_dataset
     @orgs_cache = orgs_cache
     @themes_cache = themes_cache
+    @logger = Logger.new(STDOUT)
   end
 
   def run
@@ -86,17 +87,22 @@ class Legacy::DatasetImportService
   end
 
   def create_datafile_date_attributes(resource)
-    if resource["date"].blank?
-      {}
-    else
-      date = get_end_date(resource["date"])
-      end_date = Date.parse(date)
-      {
-        day: end_date.day,
-        month: end_date.month,
-        year: end_date.year
-      }
-    end
+    return {} if resource["date"].blank?
+    date = get_end_date(resource["date"])
+    end_date = parse_date(date)
+
+    {
+      day: end_date&.day,
+      month: end_date&.month,
+      year: end_date&.year
+    }
+  end
+
+  def parse_date(date)
+    Date.parse(date)
+  rescue ArgumentError
+    @logger.error("Invalid date detected: '#{date}'. Returning nil")
+    nil
   end
 
   def datafile_name(resource)
