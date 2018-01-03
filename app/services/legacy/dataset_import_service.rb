@@ -5,7 +5,6 @@ class Legacy::DatasetImportService
     @legacy_dataset = legacy_dataset
     @orgs_cache = orgs_cache
     @themes_cache = themes_cache
-    @logger = Logger.new(STDOUT)
   end
 
   def run
@@ -56,8 +55,10 @@ class Legacy::DatasetImportService
       datafile = Link.find_or_create_by(url: legacy_datafile["url"], dataset_id: dataset.id)
       base_attributes = create_resource_base_attributes(legacy_datafile, dataset)
       date_attributes = create_datafile_date_attributes(legacy_datafile)
+      datafile.day = date_attributes[:day]
+      datafile.month = date_attributes[:month]
+      datafile.year = date_attributes[:year]
       datafile.assign_attributes(base_attributes)
-      datafile.assign_attributes(date_attributes)
       datafile.save!(validate: false)
     end
   end
@@ -85,36 +86,17 @@ class Legacy::DatasetImportService
   end
 
   def create_datafile_date_attributes(resource)
-    return {} if resource['date'].blank?
-
-    dates = get_start_end_date(resource['date'])
-    start_date = parse_date(dates[0])
-    end_date = parse_date(dates[1])
-
-    return {} if start_date.nil? || end_date.nil?
-    
-    date_attributes = {
-      start_date: start_date,
-      end_date: end_date
-    }
-
-    day_month_year = day_month_year_from(end_date)
-    date_attributes.merge(day_month_year)
-  end
-
-  def parse_date(date)
-    Date.parse(date)
-  rescue ArgumentError
-    @logger.error('Invalid date detected. Returning nil')
-    nil
-  end
-
-  def day_month_year_from(end_date)
-    {
-      day: end_date.day,
-      month: end_date.month,
-      year: end_date.year
-    }
+    if resource["date"].blank?
+      {}
+    else
+      date = get_end_date(resource["date"])
+      end_date = Date.parse(date)
+      {
+        day: end_date.day,
+        month: end_date.month,
+        year: end_date.year
+      }
+    end
   end
 
   def datafile_name(resource)
@@ -160,6 +142,7 @@ class Legacy::DatasetImportService
   end
 
   def build_licence_other
+    return nil if licence.blank?
     return licence if licence != "uk-ogl"
   end
 
@@ -194,32 +177,32 @@ class Legacy::DatasetImportService
 
   # Given a lax legacy date string, try and build a proper
   # date string that we can import
-  def get_start_end_date(date_string)
+  def get_end_date(date_string)
     # eg "1983"
     if date_string.length == 4
       return calculate_dates_for_year(date_string.to_i)
     end
-    # eg "1983/02/12"
-    parts = date_string.split("/")
-    if parts.length == 3
-      return [date_string, date_string]
-    end
-    # eg "1983/02"
-    if parts and parts.length == 2
-      return calculate_dates_for_month(parts[0].to_i, parts[1].to_i)
-    end
-    ["", ""]
+     # eg "1983/02/12"
+     parts = date_string.split("/")
+   if parts.length == 3
+     return date_string
+   end
+     # eg "1983/02"
+   if parts and parts.length == 2
+     return calculate_dates_for_month(parts[0].to_i, parts[1].to_i)
+   end
+    ""
   end
 
   # Date helpers
 
   def calculate_dates_for_month(month, year)
     days = Time.days_in_month(month, year)
-    ["1/#{month}/#{year}", "#{days}/#{month}/#{year}"]
+    "#{days}/#{month}/#{year}"
   end
 
   def calculate_dates_for_year(year)
-    ["1/1/#{year}", "31/12/#{year}"]
+    "31/12/#{year}"
   end
 
   private
