@@ -1,140 +1,141 @@
 {
-  "result": {
-    "owner_org": "90aefa0d-0e92-4895-a7fd-c1adb2b3f14f",
-    "title": "Dataset title",
-    "creator_user_id": null,
-    "license_title": "other",
-    "temporal_coverage-from": "",
-    "date_updated": "15/9/2011",
-    "relationships_as_object": [],
-    "unpublished": "false",
-    "private": false,
-    "revision_timestamp": "2017-11-06T13:44:05.554071",
-    "id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
-    "metadata_created": "2011-09-16T15:59:17.535259",
-    "metadata_modified": "2017-11-07T15:44:09.125716",
-    "author": "Local Directgov",
-    "author_email": "author@example.com",
-    "geographic_coverage": [
-      "scotland",
-      "wales"
-    ],
-    "state": "active",
-    "version": null,
-    "temporal_coverage-to": "",
-    "license_id": "other",
-    "foi-name": "",
-    "foi-email": "",
-    "foi-web": "",
-    "foi-phone": "",
-    "contact-name": "",
-    "contact-email": "",
-    "contact-phone": "",
-    "update_frequency": "monthly",
-    "revision_id": "197dfecf-32e7-4666-b08a-2e35a9536b16",
-    "date_released": "15/9/2011",
-    "theme-primary": "Government",
-    "resources": [
-      {
-        "hash": "",
-        "description": "Resource 1 description",
-        "created": "2017-12-04T09:35:25.928982",
-        "url": "https://example.com/file.csv",
-        "date": "2017",
-        "format": "CSV",
-        "date": "3/2016",
-        "id": "e12a256b-893f-44f7-ba49-8dfafe41e718"
-      },
-      {
-        "hash": "",
-        "description": "Resource 2 description",
-        "created": "2017-12-04T09:35:25.928982",
-        "url": "https://example.com/file.html",
-        "format": "html",
-        "id": "e12a256b-893f-44f7-ba49-8dfafe41e718"
-      }
-    ],
-    "timeseries_resources": [
-      {
-        "hash": "",
-        "description": "Resource 1 description",
-        "created": "2017-12-04T09:35:25.928982",
-        "url": "https://example.com/file_1.csv",
-        "date": "3/2016",
-        "format": "CSV",
-        "id": "e12a256b-893f-44f7-ba49-8dfafe41e718"
-      }
-    ],
-    "additional_resources": [
-      {
-        "hash": "",
-        "description": "Resource 2 description",
-        "created": "2017-12-04T09:35:25.928982",
-        "url": "https://example.com/file.html",
-        "format": "html",
-        "id": "e12a256b-893f-44f7-ba49-8dfafe41e718"
-      }
-    ],
-    "tags": [
-      {
-        "vocabulary_id": null,
-        "display_name": "Administration",
-        "name": "Administration",
-        "revision_timestamp": "2013-04-12T13:03:14.657894",
-        "state": "active",
-        "id": "93e47b71-c3ce-4a52-ae65-291915d2a6de"
-      },
-      {
-        "vocabulary_id": null,
-        "display_name": "Government",
-        "name": "Government",
-        "revision_timestamp": "2013-04-12T13:03:14.657894",
-        "state": "active",
-        "id": "bf629917-bdad-469e-9714-9b7d2aa947e5"
-      }
-    ],
-    "organization": {
-      "description": "The Government Digital Service is a team within Cabinet Office tasked with transforming government digital services.\r\nEstablished in response to Martha Lane Fox’s report, ‘Directgov 2010 and beyond: revolution not evolution’, our core purpose is to ensure the Government offers world-class digital products that meet people’s needs.\r\n\r\nhttp://digital.cabinetoffice.gov.uk/category/gds/\r\n\r\n@gdsteam\r\n",
-      "created": "2012-07-12T19:31:11.722062",
-      "title": "Government Digital Service",
-      "name": "government-digital-services",
-      "revision_timestamp": "2017-07-04T16:37:30.526153",
-      "is_organization": true,
-      "state": "active",
-      "image_url": "",
-      "revision_id": "7b41519e-b69f-4cce-8cc7-1528ea667654",
-      "type": "organization",
-      "id": "90aefa0d-0e92-4895-a7fd-c1adb2b3f14f",
-      "approval_status": "pending"
+  "owner_org": "90aefa0d-0e92-4895-a7fd-c1adb2b3f14f",
+  "title": "Dataset title",
+  "creator_user_id": null,
+  "license_title": "other",
+  "temporal_coverage-from": "",
+  "date_updated": "15/9/2011",
+  "relationships_as_object": [],
+  "unpublished": "false",
+  "private": false,
+  "revision_timestamp": "2017-11-06T13:44:05.554071",
+  "id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+  "metadata_created": "2011-09-16T15:59:17.535259",
+  "metadata_modified": "2017-11-07T15:44:09.125716",
+  "author": "Local Directgov",
+  "author_email": "author@example.com",
+  "geographic_coverage": [
+    "scotland",
+    "wales"
+  ],
+  "state": "active",
+  "version": null,
+  "temporal_coverage-to": "",
+  "license_id": "other",
+  "foi-name": "",
+  "foi-email": "",
+  "foi-web": "",
+  "foi-phone": "",
+  "contact-name": "",
+  "contact-email": "",
+  "contact-phone": "",
+  "update_frequency": "monthly",
+  "revision_id": "197dfecf-32e7-4666-b08a-2e35a9536b16",
+  "date_released": "15/9/2011",
+  "theme-primary": "Government",
+  "resources": [
+    {
+      "hash": "",
+      "description": "Resource 1 description",
+      "created": "2017-12-04T09:35:25.928982",
+      "url": "https://example.com/file_1.csv",
+      "format": "CSV",
+      "date": "3/2016",
+      "id": "e12a256b-893f-44f7-ba49-8dfafe41e719",
+      "resource_type": "file"
     },
-    "name": "local_directgov_services",
-    "isopen": false,
-    "url": "http://local.direct.gov.uk/Data/local_authority_service_details.csv",
-    "type": "dataset",
-    "notes": "This dataset is no longer being updated-5000. \r\n\r\nIt has been replaced by a dataset of [URLs to services provided by local authorities](https://data.gov.uk/dataset/local-authority-services). \r\n\r\nIt was last updated on 30 August 2016.\r\n",
-    "register": "false",
-    "theme-secondary": [
-      ""
-    ],
-    "extras": [
-      {
-        "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
-        "value": "True",
-        "revision_timestamp": "2016-08-24T11:19:10.782936",
-        "state": "active",
-        "key": "UKLP",
-        "revision_id": "643e58ba-3eda-4999-9697-337b50558058",
-        "id": "fe4df876-6aac-43d7-8fa4-e898504b685c"
-      },
-      {
-        "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
-        "value": "",
-        "revision_timestamp": "2016-08-24T11:19:10.782936",
-        "state": "active",
-        "key": "contact-phone",
-        "revision_id": "643e58ba-3eda-4999-9697-337b50558058",
-        "id": "81a3d92d-66ed-4207-9510-8d96c091b5ff"
-      }
-    ]
-  }
+    {
+      "hash": "",
+      "description": "Resource 2 description",
+      "created": "2017-12-04T09:35:25.928982",
+      "url": "https://example.com/file.html",
+      "format": "html",
+      "id": "e12a256b-893f-44f7-ba49-8dfafe41e718",
+      "resource_type": "documentation"
+    }
+  ],
+  "timeseries_resources": [
+    {
+      "hash": "",
+      "description": "Resource 1 description",
+      "created": "2017-12-04T09:35:25.928982",
+      "url": "https://example.com/file_1.csv",
+      "date": "2017",
+      "format": "CSV",
+      "id": "e12a256b-893f-44f7-ba49-8dfafe41e719",
+      "resource_type": "file"
+    }
+  ],
+  "additional_resources": [
+    {
+      "hash": "",
+      "description": "Resource 2 description",
+      "created": "2017-12-04T09:35:25.928982",
+      "url": "https://example.com/file.html",
+      "format": "html",
+      "id": "e12a256b-893f-44f7-ba49-8dfafe41e718",
+      "resource_type": "documentation"
+    }
+  ],
+  "tags": [
+    {
+      "vocabulary_id": null,
+      "display_name": "Administration",
+      "name": "Administration",
+      "revision_timestamp": "2013-04-12T13:03:14.657894",
+      "state": "active",
+      "id": "93e47b71-c3ce-4a52-ae65-291915d2a6de"
+    },
+    {
+      "vocabulary_id": null,
+      "display_name": "Government",
+      "name": "Government",
+      "revision_timestamp": "2013-04-12T13:03:14.657894",
+      "state": "active",
+      "id": "bf629917-bdad-469e-9714-9b7d2aa947e5"
+    }
+  ],
+  "organization": {
+    "description": "The Government Digital Service is a team within Cabinet Office tasked with transforming government digital services.\r\nEstablished in response to Martha Lane Fox’s report, ‘Directgov 2010 and beyond: revolution not evolution’, our core purpose is to ensure the Government offers world-class digital products that meet people’s needs.\r\n\r\nhttp://digital.cabinetoffice.gov.uk/category/gds/\r\n\r\n@gdsteam\r\n",
+    "created": "2012-07-12T19:31:11.722062",
+    "title": "Government Digital Service",
+    "name": "government-digital-services",
+    "revision_timestamp": "2017-07-04T16:37:30.526153",
+    "is_organization": true,
+    "state": "active",
+    "image_url": "",
+    "revision_id": "7b41519e-b69f-4cce-8cc7-1528ea667654",
+    "type": "organization",
+    "id": "90aefa0d-0e92-4895-a7fd-c1adb2b3f14f",
+    "approval_status": "pending"
+  },
+  "name": "local_directgov_services",
+  "isopen": false,
+  "url": "http://local.direct.gov.uk/Data/local_authority_service_details.csv",
+  "type": "dataset",
+  "notes": "This dataset is no longer being updated-5000. \r\n\r\nIt has been replaced by a dataset of [URLs to services provided by local authorities](https://data.gov.uk/dataset/local-authority-services). \r\n\r\nIt was last updated on 30 August 2016.\r\n",
+  "register": "false",
+  "theme-secondary": [
+    ""
+  ],
+  "extras": [
+    {
+      "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+      "value": "True",
+      "revision_timestamp": "2016-08-24T11:19:10.782936",
+      "state": "active",
+      "key": "UKLP",
+      "revision_id": "643e58ba-3eda-4999-9697-337b50558058",
+      "id": "fe4df876-6aac-43d7-8fa4-e898504b685c"
+    },
+    {
+      "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
+      "value": "",
+      "revision_timestamp": "2016-08-24T11:19:10.782936",
+      "state": "active",
+      "key": "contact-phone",
+      "revision_id": "643e58ba-3eda-4999-9697-337b50558058",
+      "id": "81a3d92d-66ed-4207-9510-8d96c091b5ff"
+    }
+  ]
 }
