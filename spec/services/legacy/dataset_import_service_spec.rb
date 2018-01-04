@@ -50,7 +50,6 @@ describe Legacy::DatasetImportService do
       expect(first_imported_datafile.name).to eql(first_resource["description"])
       expect(first_imported_datafile.created_at).to eql(imported_dataset.created_at)
       expect(first_imported_datafile.updated_at).to eql(imported_dataset.last_updated_at)
-      expect(first_imported_datafile.start_date).to eql(Date.parse(first_resource["date"]).beginning_of_month)
       expect(first_imported_datafile.end_date).to eql(Date.parse(first_resource["date"]).end_of_month)
     end
 
