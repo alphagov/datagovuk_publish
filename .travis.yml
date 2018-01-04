@@ -3,6 +3,10 @@ language: ruby
 cache: bundler
 rvm:
 - 2.4
+branches:
+  only:
+  - master
+  - /deploy-production*/
 services:
 - postgresql
 - elasticsearch
@@ -24,19 +28,23 @@ after_success:
   - sudo apt-get update
   - sudo apt-get install cf-cli
 deploy:
+  # To Staging
   - provider: script
     script: scripts/deploy.sh publish-data-beta-staging staging app
     on:
-      branch: master
+      repo: alphagov/datagovuk_publish
   - provider: script
     script: scripts/deploy.sh publish-data-beta-staging-worker staging worker
     on:
-      branch: master
+      repo: alphagov/datagovuk_publish
+  # To Production
   - provider: script
     script: scripts/deploy.sh publish-data-beta production app
     on:
-      branch: production
+      repo: alphagov/datagovuk_publish
+      tags: true
   - provider: script
     script: scripts/deploy.sh publish-data-beta-worker production worker
     on:
-      branch: production
+      repo: alphagov/datagovuk_publish
+      tags: true
