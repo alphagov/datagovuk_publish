@@ -1,15 +1,20 @@
 require "rails_helper"
 
 describe 'datafiles' do
-  set_up_models
+  let(:land) { FactoryGirl.create(:organisation) }
+  let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
+  let(:published_dataset) { FactoryGirl.create(:dataset,
+                                               organisation: land,
+                                               status: "published",
+                                               links: [FactoryGirl.create(:link)],
+                                               docs: [FactoryGirl.create(:doc)],
+                                               creator: user,
+                                               owner: user) }
 
   before(:each) do
     user
     sign_in_user
-    build_datasets
-
-    click_link 'Manage datasets'
-    click_dataset(published_dataset)
+    visit dataset_path(published_dataset.uuid, published_dataset.name)
   end
 
   it "should be able to add a new file" do
