@@ -243,20 +243,4 @@ class Legacy::DatasetImportService
   def licence
     legacy_dataset["license_id"]
   end
-
-  def resources
-    legacy_dataset["resources"]
-  end
-
-  def find_or_initialize(resource)
-    file_class(resource).find_or_initialize_by(url: resource["url"], dataset_id: dataset.id)
-  end
-
-  def file_class(resource)
-    documentation?(resource['format']) ? Doc : Link
-  end
-
-  def documentation?(format)
-    ['pdf', 'doc', 'docx'].include?(format.downcase)
-  end
 end
