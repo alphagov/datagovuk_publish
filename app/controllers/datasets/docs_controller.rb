@@ -1,3 +1,4 @@
+# coding: utf-8
 class Datasets::DocsController < ApplicationController
   before_action :set_dataset, only: [:index, :new, :create, :edit, :update, :confirm_delete, :destroy]
   before_action :set_doc,     only: [:edit, :update, :confirm_delete, :destroy]
@@ -12,6 +13,7 @@ class Datasets::DocsController < ApplicationController
 
   def create
     @doc = @dataset.docs.build(doc_params)
+    @doc.documentation = true
 
     if @doc.save
       redirect_to dataset_docs_path(@dataset.uuid, @dataset.name)
