@@ -16,7 +16,3 @@ RUN bundle install
 
 # Copy the contents of the Rails app folder into the container
 COPY . /usr/src/app
-
-# Make port 3000 available to the world outside this container
-EXPOSE 3000
-CMD ["rails", "server", "-b", "0.0.0.0"]
