@@ -113,3 +113,35 @@ $ vagrant ssh -c /vagrant/tools/vagrant-dev-setup.sh
 $ vagrant ssh -c "cd /vagrant && rails s"
 $ vagrant ssh -c "cd /vagrant && bundle exec sidekiq
 ```
+
+# Docker
+
+To run the app on your local machine, [download](https://store.docker.com) and install Docker CE, then:
+
+* `$ docker-compose up`
+* `$ docker-compose web run rake db:create db:migrate db:seed`
+
+This will run one container for each of the following:
+
+* Rails
+* Postgres
+* Redis
+* Sidekiq
+* ElasticSearch
+
+|   Service     | Container name  |
+| ------------- | --------------- |
+| Rails         | `web`           |
+| Postgres      | `db`            |
+| Redis         | `redis`         |
+| Sidekiq       | `sidekiq`       |
+| ElasticSearch | `elasticsearch` |
+
+To run a command on a container, `docker-compose [container_name] [command]`.
+
+*e.g.*
+
+To stop all the running containers: `docker-compose down`.
+To stop an individual container: `docker-compose stop [container_name]`.
+
+For more commands, full [docker-compose CLI documentation](https://docs.docker.com/compose/reference/overview).
