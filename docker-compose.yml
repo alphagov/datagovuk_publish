@@ -30,7 +30,7 @@ services:
 
   sidekiq:
     build: .
-    command: sidekiq -C config/sidekiq.yml.erb
+    command: bundle exec sidekiq
     volumes:
       - '.:/usr/src/app'
     env_file:
