@@ -6,7 +6,7 @@ rvm:
 branches:
   only:
   - master
-  - /deploy-production*/
+  - /publish-beta-v*/
 services:
 - postgresql
 - elasticsearch
