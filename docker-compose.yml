@@ -3,6 +3,7 @@ services:
   web:
     build: .
     environment:
+      - RAILS_ENV=development
       - REDIS_IP=redis
       - ES_HOST=elasticsearch
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
@@ -30,11 +31,11 @@ services:
 
   sidekiq:
     build: .
+    environment:
+      - REDIS_IP=redis
     command: bundle exec sidekiq
     volumes:
       - '.:/usr/src/app'
-    env_file:
-      - '.env'
     depends_on:
       - 'db'
       - 'redis'
