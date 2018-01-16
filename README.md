@@ -137,11 +137,12 @@ This will run one container for each of the following:
 | Sidekiq       | `sidekiq`       |
 | ElasticSearch | `elasticsearch` |
 
-To run a command on a container, `docker-compose [container_name] [command]`.
+To run a command on a container: `docker-compose [container_name] [command]`.
 
 *e.g.*
 
 To stop all the running containers: `docker-compose down`.
+
 To stop an individual container: `docker-compose stop [container_name]`.
 
 For more commands, full [docker-compose CLI documentation](https://docs.docker.com/compose/reference/overview).
