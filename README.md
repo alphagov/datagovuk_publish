@@ -119,7 +119,7 @@ $ vagrant ssh -c "cd /vagrant && bundle exec sidekiq
 To run the app on your local machine, [download](https://store.docker.com) and install Docker CE, then:
 
 * `$ docker-compose up`
-* `$ docker-compose web run rake db:create db:migrate db:seed`
+* `$ docker-compose run web rake db:create db:migrate db:seed`
 
 This will run one container for each of the following:
 
