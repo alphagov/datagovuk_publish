@@ -40,7 +40,7 @@ describe Legacy::DatasetImportService do
     it "creates the datafiles for the imported dataset" do
       Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, themes_cache).run
       imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
-      imported_datafiles = imported_dataset.datafiles
+      imported_datafiles = imported_dataset.links
       first_imported_datafile = imported_datafiles.first
       first_resource = legacy_dataset["resources"][0]
 
@@ -63,7 +63,7 @@ describe Legacy::DatasetImportService do
       Legacy::DatasetImportService.new(timeseries_legacy_dataset, orgs_cache, themes_cache).run
 
       expect(Dataset.last.frequency).to eq('monthly')
-      expect(Dataset.last.links.count).to eq(1)
+      expect(Dataset.last.datafiles.count).to eq(1)
       expect(Dataset.last.docs.count).to eq(1)
     end
   end
@@ -72,7 +72,7 @@ describe Legacy::DatasetImportService do
     it "builds a dataset from a daily timeseries legacy dataset with an invalid date" do
       Legacy::DatasetImportService.new(daily_timeseries_legacy_dataset_with_invalid_date, orgs_cache, themes_cache).run
 
-      expect(Dataset.last.links.count).to eq(1)
+      expect(Dataset.last.datafiles.count).to eq(1)
     end
 
     it "builds a dataset from a monthly timeseries legacy dataset with an invalid date" do

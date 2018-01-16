@@ -23,7 +23,7 @@ describe DatasetsController, type: :controller do
     dataset = FactoryGirl.create(:dataset,
                                  name: "legit-name",
                                  organisation: organisation,
-                                 links: [FactoryGirl.create(:link)])
+                                 datafiles: [FactoryGirl.create(:datafile)])
 
     get :show, params: { uuid: dataset.uuid, name: "absolute-nonsense-name" }
 
@@ -36,12 +36,12 @@ describe DatasetsController, type: :controller do
     another_organisation = FactoryGirl.create(:organisation)
 
     allowed_dataset = FactoryGirl.create(:dataset,
-                                 organisation: organisation,
-                                 links: [FactoryGirl.create(:link)])
+                                         organisation: organisation,
+                                         datafiles: [FactoryGirl.create(:datafile)])
 
     forbidden_dataset = FactoryGirl.create(:dataset,
-                                 organisation: another_organisation,
-                                 links: [FactoryGirl.create(:link)])
+                                           organisation: another_organisation,
+                                           datafiles: [FactoryGirl.create(:datafile)])
 
     get :show, params: { uuid: forbidden_dataset.uuid, name: forbidden_dataset.name }
 
@@ -54,12 +54,12 @@ describe DatasetsController, type: :controller do
     another_organisation = FactoryGirl.create(:organisation)
 
     allowed_dataset = FactoryGirl.create(:dataset,
-                                 organisation: organisation,
-                                 links: [FactoryGirl.create(:link)])
+                                         organisation: organisation,
+                                         datafiles: [FactoryGirl.create(:datafile)])
 
     forbidden_dataset = FactoryGirl.create(:dataset,
-                                 organisation: another_organisation,
-                                 links: [FactoryGirl.create(:link)])
+                                           organisation: another_organisation,
+                                           datafiles: [FactoryGirl.create(:datafile)])
 
     get :edit, params: { uuid: forbidden_dataset.uuid, name: forbidden_dataset.name }
 

@@ -52,14 +52,14 @@ describe "dataset creation" do
 
       expect(Dataset.last.frequency).to eq("never")
 
-      # Page 5: Add Datafile
-      fill_in 'link[url]', with: 'https://localhost'
-      fill_in 'link[name]', with: 'my test datafile'
+      # Page 5: Add Link
+      fill_in 'datafile[url]', with: 'https://localhost'
+      fill_in 'datafile[name]', with: 'my test datafile'
       click_button "Save and continue"
 
-      expect(Dataset.last.links.size).to eq(1)
-      expect(Dataset.last.links.last.url).to eq('https://localhost')
-      expect(Dataset.last.links.last.name).to eq('my test datafile')
+      expect(Dataset.last.datafiles.size).to eq(1)
+      expect(Dataset.last.datafiles.last.url).to eq('https://localhost')
+      expect(Dataset.last.datafiles.last.name).to eq('my test datafile')
 
       # Files page
       expect(page).to have_content("Links to your data")
@@ -92,8 +92,8 @@ describe "dataset creation" do
       expect(page).to have_content("Open Government Licence")
       expect(page).to have_content(Dataset.last.location1)
       expect(page).to have_content("One-off")
-      expect(page).to have_content(Dataset.last.links.first.name)
-      expect(page).to have_content(Dataset.last.links.last.name)
+      expect(page).to have_content(Dataset.last.datafiles.first.name)
+      expect(page).to have_content(Dataset.last.datafiles.last.name)
 
       click_button "Publish"
 
@@ -282,11 +282,11 @@ describe "dataset frequency options" do
 
       expect(page).to_not have_content('Year')
 
-      fill_in 'link[url]', with: 'https://localhost/doc'
-      fill_in 'link[name]', with: 'my test doc'
+      fill_in 'datafile[url]', with: 'https://localhost/doc'
+      fill_in 'datafile[name]', with: 'my test doc'
       click_button "Save and continue"
 
-      expect(Dataset.last.datafiles.last.end_date).to be_nil
+      expect(Dataset.last.links.last.end_date).to be_nil
     end
   end
 
@@ -296,17 +296,17 @@ describe "dataset frequency options" do
       stub_request(:any, url).to_return(status: 200)
       choose option: 'daily'
       click_button "Save and continue"
-      fill_in 'link[url]', with: 'https://localhost/doc'
-      fill_in 'link[name]', with: 'my test doc'
+      fill_in 'datafile[url]', with: 'https://localhost/doc'
+      fill_in 'datafile[name]', with: 'my test doc'
     end
 
     it "shows date fields and sets end date" do
       expect(page).to     have_content('Month')
       expect(page).to     have_content('Year')
 
-      fill_in "link[day]", with: '15'
-      fill_in 'link[month]', with: '1'
-      fill_in 'link[year]',  with: '2020'
+      fill_in "datafile[day]", with: '15'
+      fill_in 'datafile[month]', with: '1'
+      fill_in 'datafile[year]',  with: '2020'
 
       click_button "Save and continue"
 
@@ -329,20 +329,20 @@ describe "dataset frequency options" do
       stub_request(:any, url).to_return(status: 200)
       choose option: 'monthly'
       click_button "Save and continue"
-      fill_in 'link[url]', with: 'https://localhost/doc'
-      fill_in 'link[name]', with: 'my test doc'
+      fill_in 'datafile[url]', with: 'https://localhost/doc'
+      fill_in 'datafile[name]', with: 'my test doc'
     end
 
     it "shows date fields and sets end date" do
       expect(page).to     have_content('Month')
       expect(page).to     have_content('Year')
 
-      fill_in 'link[month]', with: '1'
-      fill_in 'link[year]',  with: '2020'
+      fill_in 'datafile[month]', with: '1'
+      fill_in 'datafile[year]',  with: '2020'
 
       click_button "Save and continue"
 
-      expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(2020, 1).end_of_month)
+      expect(Dataset.last.links.last.end_date).to eq(Date.new(2020, 1).end_of_month)
     end
 
     it "displays errors when dates aren't entered" do
@@ -365,10 +365,10 @@ describe "dataset frequency options" do
     def pick_quarter(quarter)
       expect(page).to     have_content('Year')
       expect(page).to     have_content('Quarter')
-      fill_in 'link[url]', with: 'https://localhost/doc'
-      fill_in 'link[name]', with: 'my test doc'
+      fill_in 'datafile[url]', with: 'https://localhost/doc'
+      fill_in 'datafile[name]', with: 'my test doc'
       choose option: quarter.to_s
-      fill_in "link[year]", with: Date.today.year
+      fill_in "datafile[year]", with: Date.today.year
       click_button "Save and continue"
     end
 
@@ -398,9 +398,9 @@ describe "dataset frequency options" do
       choose option: year_type
       click_button "Save and continue"
       expect(page).to     have_content('Year')
-      fill_in 'link[url]', with: 'https://localhost/doc'
-      fill_in 'link[name]', with: 'my test doc'
-      fill_in 'link[year]',  with: '2015'
+      fill_in 'datafile[url]', with: 'https://localhost/doc'
+      fill_in 'datafile[name]', with: 'my test doc'
+      fill_in 'datafile[year]',  with: '2015'
       click_button "Save and continue"
     end
 
@@ -449,14 +449,14 @@ describe "passing the frequency page" do
     choose option: "daily"
     click_button "Save and continue"
     expect(page).to have_content("Add a link to your data")
-    fill_in "link[day]", with: '15'
-    fill_in 'link[month]', with: '1'
-    fill_in 'link[year]',  with: '2020'
+    fill_in "datafile[day]", with: '15'
+    fill_in 'datafile[month]', with: '1'
+    fill_in 'datafile[year]',  with: '2020'
     click_button "Save and continue"
     expect(page).to have_content("Please enter a valid url", count: 2)
     expect(page).to have_content("Please enter a valid name", count: 2)
-    fill_in "link[url]", with: "http://www.example.com/test.csv"
-    fill_in "link[name]", with: "Test datafile"
+    fill_in "datafile[url]", with: "http://www.example.com/test.csv"
+    fill_in "datafile[name]", with: "Test datafile"
     click_button "Save and continue"
     expect(page).to have_content("Links to your data")
   end
@@ -473,13 +473,13 @@ describe "passing the frequency page" do
     click_button "Save and continue"
     expect(page).to have_content("Add a link to your data")
     expect(page).to have_content("Time period for this link")
-    fill_in "link[url]", with: "http://www.example.com/test.csv"
-    fill_in "link[name]", with: "Test datafile"
+    fill_in "datafile[url]", with: "http://www.example.com/test.csv"
+    fill_in "datafile[name]", with: "Test datafile"
     click_button "Save and continue"
     expect(page).to have_content("Please enter a valid month", count: 2)
     expect(page).to have_content("Please enter a valid year", count: 2)
-    fill_in "link[month]", with: "01"
-    fill_in "link[year]", with: "2019"
+    fill_in "datafile[month]", with: "01"
+    fill_in "datafile[year]", with: "2019"
     click_button "Save and continue"
     expect(page).to have_content("Links to your data")
   end
@@ -489,13 +489,13 @@ describe "passing the frequency page" do
     click_button "Save and continue"
     expect(page).to have_content("Add a link to your data")
     expect(page).to have_content("Quarter")
-    fill_in "link[url]", with: "http://www.example.com/test.csv"
-    fill_in "link[name]", with: "Test datafile"
+    fill_in "datafile[url]", with: "http://www.example.com/test.csv"
+    fill_in "datafile[name]", with: "Test datafile"
     click_button "Save and continue"
     expect(page).to have_content("Please select a quarter", count: 2)
     expect(page).to have_content("Please enter a valid year", count: 2)
     choose option: "2"
-    fill_in "link[year]", with: "2019"
+    fill_in "datafile[year]", with: "2019"
     click_button "Save and continue"
     expect(page).to have_content("Links to your data")
   end
@@ -507,11 +507,11 @@ describe "passing the frequency page" do
     expect(page).to have_content("Time period for this link")
     expect(page).to_not have_content("Month")
     expect(page).to have_content("Year")
-    fill_in "link[url]", with: "http://www.example.com/test.csv"
-    fill_in "link[name]", with: "Test datafile"
+    fill_in "datafile[url]", with: "http://www.example.com/test.csv"
+    fill_in "datafile[name]", with: "Test datafile"
     click_button "Save and continue"
     expect(page).to have_content("Please enter a valid year", count: 2)
-    fill_in "link[year]", with: "2019"
+    fill_in "datafile[year]", with: "2019"
     click_button "Save and continue"
     expect(page).to have_content("Links to your data")
   end
@@ -523,11 +523,11 @@ describe "passing the frequency page" do
     expect(page).to have_content("Time period for this link")
     expect(page).to_not have_content("Month")
     expect(page).to have_content("Year")
-    fill_in "link[url]", with: "http://www.example.com/test.csv"
-    fill_in "link[name]", with: "Test datafile"
+    fill_in "datafile[url]", with: "http://www.example.com/test.csv"
+    fill_in "datafile[name]", with: "Test datafile"
     click_button "Save and continue"
     expect(page).to have_content("Please enter a valid year", count: 2)
-    fill_in "link[year]", with: "2019"
+    fill_in "datafile[year]", with: "2019"
     click_button "Save and continue"
     expect(page).to have_content("Links to your data")
   end

@@ -8,7 +8,7 @@ describe "Harvested datasets" do
     harvested_dataset = FactoryGirl.create(:dataset,
                                            organisation: land,
                                            harvested: true,
-                                           links: [FactoryGirl.create(:link)],
+                                           links: [FactoryGirl.create(:datafile)],
                                            creator: user,
                                            owner: user)
 

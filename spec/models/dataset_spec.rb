@@ -63,7 +63,7 @@ describe Dataset do
 
     d.save
 
-    d.links.create(url: "http://127.0.0.1", name: "Test link")
+    d.datafiles.create(url: "http://127.0.0.1", name: "Datafile link")
 
     expect(d.published!).to eq(true)
   end
@@ -78,7 +78,7 @@ describe Dataset do
 
     d.save
 
-    d.links.create(url: "http://127.0.0.1", name: "Test link")
+    d.datafiles.create(url: "http://127.0.0.1", name: "Test datafile")
 
     d.published!
 
@@ -94,7 +94,7 @@ describe Dataset do
   it "sets a published_date timestamp when published" do
     publication_date = Time.now
     allow(Time).to receive(:now).and_return(publication_date)
-    dataset = FactoryGirl.create(:dataset, links: [FactoryGirl.create(:link)])
+    dataset = FactoryGirl.create(:dataset, datafiles: [FactoryGirl.create(:datafile)])
     dataset.save
     dataset.publish!
 
@@ -104,7 +104,7 @@ describe Dataset do
   it "sets a last_updated_at timestamp when published" do
     last_updated_at = Time.now
     allow(Time).to receive(:now).and_return(last_updated_at)
-    dataset = FactoryGirl.create(:dataset, links: [FactoryGirl.create(:link)])
+    dataset = FactoryGirl.create(:dataset, datafiles: [FactoryGirl.create(:datafile)])
     dataset.save
     dataset.publish!
 
