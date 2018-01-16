@@ -53,7 +53,7 @@ class Legacy::DatasetImportService
     resources = Array(@legacy_dataset['resources'])
     legacy_datafiles = resources.select{ |resource| resource['resource_type'] == 'file'}
     legacy_datafiles.each do |legacy_datafile|
-      datafile = Link.find_or_create_by(url: legacy_datafile["url"], dataset_id: dataset.id)
+      datafile = Datafile.find_or_create_by(url: legacy_datafile["url"], dataset_id: dataset.id)
       base_attributes = create_resource_base_attributes(legacy_datafile, dataset)
       date_attributes = create_datafile_date_attributes(legacy_datafile)
       datafile.day = date_attributes[:day]

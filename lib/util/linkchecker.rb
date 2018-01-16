@@ -9,7 +9,7 @@ module LinkChecker
   # link as necessary with success, size, mimetype, last-modified etc.
   def check_dataset(dataset)
     puts "Checking dataset #{dataset.title} (#{dataset.name})"
-    datafiles = Datafile.includes(:dataset_id => dataset.id)
+    datafiles = Link.includes(:dataset_id => dataset.id)
     datafiles.each do |datafile|
       puts "Processing datafile"
       check_link(datafile)
@@ -61,7 +61,7 @@ module LinkChecker
   end
 
   def broken_link_count
-    dataset.joins(:datafiles).merge(Datafile.where(broken:true)).count
+    dataset.joins(:links).merge(Link.where(broken:true)).count
   end
 
   # Creates a new task for dataset with broken datafile links

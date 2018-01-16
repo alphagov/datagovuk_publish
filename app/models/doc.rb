@@ -1,2 +1,2 @@
-class Doc < Datafile
+class Doc < Link
 end

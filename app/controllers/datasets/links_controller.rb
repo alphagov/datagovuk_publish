@@ -53,11 +53,11 @@ class Datasets::LinksController < ApplicationController
   end
 
   def set_link
-    @link = Link.find(params[:id])
+    @link = Datafile.find(params[:id])
   end
 
   def link_params
-    params.require(:link).permit(
+    params.require(:datafile).permit(
       :url,
       :name,
       :day, :month, :year,

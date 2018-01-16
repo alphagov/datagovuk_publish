@@ -19,7 +19,7 @@ class Dataset < ApplicationRecord
   belongs_to :theme, optional: true
   belongs_to :secondary_theme, optional: true
 
-  has_many :links
+  has_many :datafiles
   has_many :docs
   has_one :inspire_dataset
 
@@ -42,8 +42,8 @@ class Dataset < ApplicationRecord
     end
   end
 
-  def datafiles
-    links + docs
+  def links
+    datafiles + docs
   end
 
   def publish!
@@ -69,7 +69,7 @@ class Dataset < ApplicationRecord
              :harvested, :uuid],
       include: {
         organisation: {},
-        datafiles: {},
+        links: {},
         inspire_dataset: {}
       }
     )
