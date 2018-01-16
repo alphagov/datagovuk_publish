@@ -1,7 +1,7 @@
 version: '3'
 services:
-  web:
-    build: .
+  publish_app:
+    image: 'datagovukteam/publish-app:v16012018'
     environment:
       - RAILS_ENV=development
       - REDIS_IP=redis
@@ -10,10 +10,23 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - .:/usr/src/app
+      - .:/usr/src/datagovuk_publish
     depends_on:
       - db
       - sidekiq
+      - elasticsearch
+
+  find_app:
+    image: 'datagovukteam/find-app:v16012018'
+    environment:
+      - RAILS_ENV=development
+      - ES_HOST=elasticsearch
+    command: bundle exec rails s -p 3001 -b '0.0.0.0'
+    ports:
+      - '3001:3001'
+    volumes:
+      - .:/usr/src/datagovuk_find
+    depends_on:
       - elasticsearch
 
   db:
@@ -30,18 +43,21 @@ services:
       - 'redis:/data'
 
   sidekiq:
-    build: .
+    image: 'datagovukteam/publish-app:v16012018'
     environment:
       - REDIS_IP=redis
+      - ES_HOST=elasticsearch
     command: bundle exec sidekiq
     volumes:
-      - '.:/usr/src/app'
+      - .:/usr/src/datagovuk_publish
     depends_on:
       - 'db'
       - 'redis'
 
   elasticsearch:
     image: 'docker.elastic.co/elasticsearch/elasticsearch:5.2.2'
+    environment:
+     - "xpack.security.enabled=false"
     ports:
       - '9200:9200'
     volumes:
