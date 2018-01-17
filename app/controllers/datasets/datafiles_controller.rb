@@ -1,4 +1,5 @@
 # coding: utf-8
+require 'pry'
 class Datasets::LinksController < ApplicationController
   before_action :set_dataset, only: [:index, :new, :create, :edit, :update, :confirm_delete, :destroy]
   before_action :set_link,    only: [:edit, :update, :confirm_delete, :destroy]
@@ -8,6 +9,7 @@ class Datasets::LinksController < ApplicationController
   end
 
   def new
+    binding.pry
     @link = @dataset.links.build
   end
 
