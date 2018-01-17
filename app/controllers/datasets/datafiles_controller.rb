@@ -1,21 +1,21 @@
 # coding: utf-8
-class Datasets::DatafilesController < ApplicationController
+class Datasets::LinksController < ApplicationController
   before_action :set_dataset, only: [:index, :new, :create, :edit, :update, :confirm_delete, :destroy]
-  before_action :set_datafile, only: [:edit, :update, :confirm_delete, :destroy]
+  before_action :set_link,    only: [:edit, :update, :confirm_delete, :destroy]
 
   def index
-    @datafiles = @dataset.datafiles
+    @links = @dataset.links
   end
 
   def new
-    @datafile = @dataset.datafiles.build
+    @link = @dataset.links.build
   end
 
   def create
-    @datafile = @dataset.datafiles.build(link_params)
+    @link = @dataset.links.build(link_params)
 
-    if @datafile.save
-      redirect_to dataset_datafiles_path(@dataset.uuid, @dataset.name)
+    if @link.save
+      redirect_to dataset_links_path(@dataset.uuid, @dataset.name)
     else
       render :new
     end
@@ -25,25 +25,25 @@ class Datasets::DatafilesController < ApplicationController
   end
 
   def update
-    if @datafile.update(link_params)
-      redirect_to dataset_datafiles_path(@dataset.uuid, @dataset.name)
+    if @link.update(link_params)
+      redirect_to dataset_links_path(@dataset.uuid, @dataset.name)
     else
       render :edit
     end
   end
 
   def confirm_delete
-    flash[:alert] = "Are you sure you want to delete ‘#{@datafile.name}’?"
-    flash[:link_id] = @datafile.id
+    flash[:alert] = "Are you sure you want to delete ‘#{@link.name}’?"
+    flash[:link_id] = @link.id
 
-    redirect_to dataset_datafiles_path(@dataset.uuid, @dataset.name)
+    redirect_to dataset_links_path(@dataset.uuid, @dataset.name)
   end
 
   def destroy
-    flash[:deleted] = "Your link ‘#{@datafile.name}’ has been deleted"
-    @datafile.destroy
+    flash[:deleted] = "Your link ‘#{@link.name}’ has been deleted"
+    @link.destroy
 
-    redirect_to dataset_datafiles_path(@dataset.uuid, @dataset.name)
+    redirect_to dataset_links_path(@dataset.uuid, @dataset.name)
   end
 
   private
@@ -52,8 +52,8 @@ class Datasets::DatafilesController < ApplicationController
     @dataset = Dataset.find_by(uuid: params[:uuid])
   end
 
-  def set_datafile
-    @datafile = Datafile.find(params[:id])
+  def set_link
+    @link = Datafile.find(params[:id])
   end
 
   def link_params
