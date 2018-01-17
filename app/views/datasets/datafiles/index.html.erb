@@ -9,11 +9,11 @@
         <% if flash[:alert] %>
           <h1 class="heading-medium error-summary-heading"><%= flash[:alert] %></h1>
             <%= link_to "Yes, delete this link",
-                delete_dataset_link_path(@dataset.uuid, @dataset.name, flash[:link_id]),
+                delete_dataset_datafile_path(@dataset.uuid, @dataset.name, flash[:link_id]),
                 method: :delete,
                 class: 'button confirm-delete-box__button'
             %>
-            <%= link_to "Cancel", dataset_links_path(@dataset.uuid, @dataset.name), class: 'secondary-button' %>
+            <%= link_to "Cancel", dataset_datafiles_path(@dataset.uuid, @dataset.name), class: 'secondary-button' %>
           <% end %>
 
           <% if flash[:deleted] %>
@@ -34,13 +34,13 @@
       </tr>
     </thead>
     <tbody>
-      <% @links.each do |link| %>
+      <% @datafiles.each do |link| %>
         <tr id="file_1">
           <th><a href="<%= link.url %>"><%= link.name %></a></th>
           <td>✔</td>
           <td class="actions">
-            <%= link_to 'Edit', edit_dataset_link_path(@dataset.uuid, @dataset.name, link.id) %>
-            <%= link_to 'Delete', confirm_delete_dataset_link_path(@dataset.uuid, @dataset.name, link.id) %>
+            <%= link_to 'Edit', edit_dataset_datafile_path(@dataset.uuid, @dataset.name, link.id) %>
+            <%= link_to 'Delete', confirm_delete_dataset_datafile_path(@dataset.uuid, @dataset.name, link.id) %>
           </td>
         </tr>
       <% end %>
@@ -48,7 +48,7 @@
   </table>
 
   <p>
-    <%= link_to 'Add another link', new_dataset_link_path(@dataset.uuid, @dataset.name), class: "secondary-button" %>
+    <%= link_to 'Add another link', new_dataset_datafile_path(@dataset.uuid, @dataset.name), class: "secondary-button" %>
   </p>
 
   <p>
