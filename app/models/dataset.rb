@@ -69,7 +69,8 @@ class Dataset < ApplicationRecord
              :harvested, :uuid],
       include: {
         organisation: {},
-        links: {},
+        datafiles: {},
+        docs: {},
         inspire_dataset: {}
       }
     )
