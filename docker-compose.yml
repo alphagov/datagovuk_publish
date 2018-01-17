@@ -1,7 +1,7 @@
 version: '3'
 services:
   publish_app:
-    image: 'datagovuk/publish-app:v16012018'
+    image: 'datagovuk/publish-app:latest'
     environment:
       - RAILS_ENV=development
       - REDIS_IP=redis
@@ -18,7 +18,7 @@ services:
       - elasticsearch
 
   find_app:
-    image: 'datagovuk/find-app:v16012018'
+    image: 'datagovuk/find-app:latest'
     environment:
       - RAILS_ENV=development
       - ES_HOST=elasticsearch
@@ -44,7 +44,7 @@ services:
       - 'redis:/data'
 
   sidekiq:
-    image: 'datagovuk/publish-app:v16012018'
+    image: 'datagovuk/publish-app:latest'
     environment:
       - REDIS_IP=redis
       - ES_HOST=elasticsearch
