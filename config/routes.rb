@@ -14,15 +14,15 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq' unless Rails.env.production?
 
   scope '/datasets' do
-    # links
-    get    ':uuid/*name/links/new',      to: 'datasets/links#new',          as: 'new_dataset_link'
-    get    ':uuid/*name/links/:id/edit', to: 'datasets/links#edit',         as: 'edit_dataset_link'
-    get    ':uuid/*name/links',          to: 'datasets/links#index',        as: 'dataset_links'
-    post   ':uuid/*name/links',          to: 'datasets/links#create'
-    patch  ':uuid/*name/links/:id',      to: 'datasets/links#update',       as: 'update_dataset_link'
-    delete ':uuid/*name/links/:id',      to: 'datasets/links#destroy',      as: 'delete_dataset_link'
+    # datafiles
+    get    ':uuid/*name/datafiles/new',      to: 'datasets/datafiles#new',          as: 'new_dataset_datafile'
+    get    ':uuid/*name/datafiles/:id/edit', to: 'datasets/datafiles#edit',         as: 'edit_dataset_datafile'
+    get    ':uuid/*name/datafiles',          to: 'datasets/datafiles#index',        as: 'dataset_datafiles'
+    post   ':uuid/*name/datafiles',          to: 'datasets/datafiles#create'
+    patch  ':uuid/*name/datafiles/:id',      to: 'datasets/datafiles#update',       as: 'update_dataset_datafile'
+    delete ':uuid/*name/datafiles/:id',      to: 'datasets/datafiles#destroy',      as: 'delete_dataset_datafile'
 
-    get    ':uuid/*name/links/:id/confirm_delete', to: 'datasets/links#confirm_delete', as: 'confirm_delete_dataset_link'
+    get    ':uuid/*name/datafiles/:id/confirm_delete', to: 'datasets/datafiles#confirm_delete', as: 'confirm_delete_dataset_datafile'
 
     # docs
     get    ':uuid/*name/docs/new',      to: 'datasets/docs#new',        as: 'new_dataset_doc'
