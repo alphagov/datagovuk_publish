@@ -1,7 +1,10 @@
 require 'rails_helper'
-require 'pry'
 
 describe Datafile, type: :model do
+
+  DAILY = 'daily'
+  MONTHLY = 'monthly'
+  ANNUALLY = 'annually'
 
   before do
     @datafile = FactoryGirl.create(:datafile)
@@ -14,9 +17,9 @@ describe Datafile, type: :model do
   end
 
   describe 'date validation' do
-    describe "associated dataset has frequency 'annual'" do
+    describe "associated dataset has frequency: #{ANNUALLY}" do
       before(:each) do
-        @datafile.dataset.frequency = 'annually'
+        @datafile.dataset.frequency = ANNUALLY
       end
 
       it 'is valid' do
@@ -44,9 +47,9 @@ describe Datafile, type: :model do
       end
     end
 
-    describe "associated dataset has frequency 'monthly'" do
+    describe "associated dataset has frequency: #{MONTHLY}" do
       before(:each) do
-        @datafile.dataset.frequency = 'monthly'
+        @datafile.dataset.frequency = MONTHLY
       end
 
       it 'is valid' do
@@ -75,9 +78,9 @@ describe Datafile, type: :model do
       end
     end
 
-    describe "associated dataset has frequency 'daily'" do
+    describe "associated dataset has frequency #{DAILY}" do
       before(:each) do
-        @datafile.dataset.frequency = 'daily'
+        @datafile.dataset.frequency = DAILY
       end
 
       it 'is valid' do
@@ -104,8 +107,11 @@ describe Datafile, type: :model do
   end
 
   describe 'before saving' do
+    before(:each) do
+      @datafile.dataset.frequency = ANNUALLY
+    end
+
     it 'sets an end date if year is not nil' do
-      @datafile.dataset.frequency = 'annually'
       @datafile.year = '2016'
       @datafile.end_date = nil
 
@@ -114,9 +120,7 @@ describe Datafile, type: :model do
       expect(Datafile.last.end_date).to_not be_nil
     end
 
-
     it 'sets a start date if year is not nil' do
-      @datafile.dataset.frequency = 'annually'
       @datafile.year = '2016'
       @datafile.start_date = nil
 
@@ -125,16 +129,17 @@ describe Datafile, type: :model do
       expect(Datafile.last.start_date).to_not be_nil
     end
 
-
     describe 'Importing legacy datasets' do
-
       # Some legacy datafiles have invalid dates (e.g. 31/06/15)
       # When this occurs the date attributes are not set
       # Validations are skipped when importing, therefore it is possible
       # to save a datafile with no start or end dates
+      
+      before(:each) do
+        @datafile.dataset.frequency = ANNUALLY
+      end      
 
       it 'does not set an end date if year is nil' do
-        @datafile.dataset.frequency = 'annually'
         @datafile.year = nil
         @datafile.end_date = nil
 
@@ -144,7 +149,6 @@ describe Datafile, type: :model do
       end
 
       it 'does not set a start date if year is nil' do
-        @datafile.dataset.frequency = 'annually'
         @datafile.year = nil
         @datafile.start_date = nil
 

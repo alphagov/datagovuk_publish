@@ -12,7 +12,7 @@ class Datasets::DatafilesController < ApplicationController
   end
 
   def create
-    @datafile = @dataset.datafiles.build(link_params)
+    @datafile = @dataset.datafiles.build(datafile_params)
 
     if @datafile.save
       redirect_to dataset_datafiles_path(@dataset.uuid, @dataset.name)
@@ -25,7 +25,7 @@ class Datasets::DatafilesController < ApplicationController
   end
 
   def update
-    if @datafile.update(link_params)
+    if @datafile.update(datafile_params)
       redirect_to dataset_datafiles_path(@dataset.uuid, @dataset.name)
     else
       render :edit
@@ -56,7 +56,7 @@ class Datasets::DatafilesController < ApplicationController
     @datafile = Datafile.find(params[:id])
   end
 
-  def link_params
+  def datafile_params
     params.require(:datafile).permit(
       :url,
       :name,
