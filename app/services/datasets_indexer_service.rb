@@ -1,5 +1,16 @@
 class DatasetsIndexerService
-  INDEX_MAPPING = {
+  INDEX_SETTINGS = {
+    analysis: {
+      normalizer: {
+        lowercase_normalizer: {
+          type: "custom",
+          filter: "lowercase"
+        }
+      }
+    }
+  }
+
+  INDEX_MAPPINGS = {
     dataset: {
       properties: {
         name: {
@@ -40,7 +51,10 @@ class DatasetsIndexerService
         datafiles: {
           type: "nested",
           properties: {
-            format: { type: "keyword" }
+            format: {
+              type: "keyword",
+              normalizer: "lowercase_normalizer"
+            }
           }
         }
       }
@@ -76,7 +90,10 @@ class DatasetsIndexerService
   def create_new_index
     client.indices.create(
       index: new_index_name,
-      body: { mappings: INDEX_MAPPING }
+      body: {
+          settings: INDEX_SETTINGS,
+          mappings: INDEX_MAPPINGS
+      }
     )
   end
 
