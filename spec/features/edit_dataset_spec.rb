@@ -5,12 +5,12 @@ describe 'editing datasets' do
   let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
 
   let!(:published_dataset) { FactoryGirl.create(:dataset,
-                                               organisation: land,
-                                               status: "published",
-                                               links: [FactoryGirl.create(:link)],
-                                               docs: [FactoryGirl.create(:doc)],
-                                               creator: user,
-                                               owner: user) }
+                                                organisation: land,
+                                                status: "published",
+                                                datafiles: [FactoryGirl.create(:datafile)],
+                                                docs: [FactoryGirl.create(:doc)],
+                                                creator: user,
+                                                owner: user) }
 
   let!(:unpublished_dataset) { FactoryGirl.create(:dataset,
                                                  organisation: land,

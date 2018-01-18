@@ -69,26 +69,6 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.index ["user_id", "user_type"], name: "user_index"
   end
 
-  create_table "datafiles", force: :cascade do |t|
-    t.string "name"
-    t.text "url"
-    t.string "format"
-    t.integer "size"
-    t.integer "dataset_id"
-    t.date "start_date"
-    t.date "end_date"
-    t.integer "quarter"
-    t.boolean "broken"
-    t.datetime "last_check"
-    t.boolean "documentation"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "uuid"
-    t.datetime "last_modified"
-    t.string "type"
-    t.index ["uuid"], name: "index_datafiles_on_uuid"
-  end
-
   create_table "datasets", force: :cascade do |t|
     t.string "name"
     t.string "title"
@@ -151,6 +131,26 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.string "uuid"
     t.index ["dataset_id"], name: "index_inspire_datasets_on_dataset_id"
     t.index ["uuid"], name: "index_inspire_datasets_on_uuid"
+  end
+
+  create_table "links", force: :cascade do |t|
+    t.string "name"
+    t.text "url"
+    t.string "format"
+    t.integer "size"
+    t.integer "dataset_id"
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "quarter"
+    t.boolean "broken"
+    t.datetime "last_check"
+    t.boolean "documentation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "uuid"
+    t.datetime "last_modified"
+    t.string "type"
+    t.index ["uuid"], name: "index_links_on_uuid"
   end
 
   create_table "locations", force: :cascade do |t|

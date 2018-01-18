@@ -6,7 +6,7 @@ describe 'datafiles' do
   let(:published_dataset) { FactoryGirl.create(:dataset,
                                                organisation: land,
                                                status: "published",
-                                               links: [FactoryGirl.create(:link)],
+                                               datafiles: [FactoryGirl.create(:datafile)],
                                                docs: [FactoryGirl.create(:doc)],
                                                creator: user,
                                                owner: user) }
@@ -18,43 +18,43 @@ describe 'datafiles' do
   end
 
   it "should be able to add a new file" do
-    link = published_dataset.links.first
+    datafile = published_dataset.datafiles.first
 
     click_change(:datalinks)
-    expect(page).to have_content(link.name)
+    expect(page).to have_content(datafile.name)
 
     click_link 'Add another link'
-    fill_in 'link[url]', with: 'http://google.com'
-    fill_in 'link[name]', with: 'my other test file'
+    fill_in 'datafile[url]', with: 'http://google.com'
+    fill_in 'datafile[name]', with: 'my other test file'
     click_button 'Save and continue'
     expect(page).to have_content('my other test file')
   end
 
   it "should be able to edit an existing file" do
-    link = published_dataset.links.first
+    datafile = published_dataset.datafiles.first
 
     click_change(:datalinks)
-    expect(page).to have_content(link.name)
+    expect(page).to have_content(datafile.name)
 
     click_link 'Edit'
-    fill_in 'link[name]', with: 'my published test file extreme edition'
+    fill_in 'datafile[name]', with: 'my published test file extreme edition'
 
     click_button 'Save and continue'
     expect(page).to have_content('my published test file extreme edition')
   end
 
   it "should be able to remove a file" do
-    link = published_dataset.links.first
+    datafile = published_dataset.datafiles.first
 
     click_change(:datalinks)
-    expect(page).to have_content(link.name)
+    expect(page).to have_content(datafile.name)
 
     click_link 'Delete'
-    expect(page).to have_content "Are you sure you want to delete ‘#{link.name}’?"
+    expect(page).to have_content "Are you sure you want to delete ‘#{datafile.name}’?"
 
     click_link 'Yes, delete this link'
-    expect(page).to have_content "Your link ‘#{link.name}’ has been deleted"
-    expect(last_updated_dataset.links).to be_empty
+    expect(page).to have_content "Your link ‘#{datafile.name}’ has been deleted"
+    expect(last_updated_dataset.datafiles).to be_empty
   end
 
   it "should be able to add a new doc" do

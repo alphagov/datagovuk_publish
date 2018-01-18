@@ -1,0 +1,46 @@
+<div class="form-group" id="date_form_group">
+  <fieldset>
+    <legend>
+      <span class="form-label-bold">
+          Date
+        <span class="form-hint">For example, 31 3 2016</span>
+      </span>
+    </legend>
+
+    <div class="form-group form-date <% "form-group-error" if @datafile.errors.any? %>">
+      <% @datafile.errors[:date].each do |message| %>
+        <span class="error-message"><%= message %></span>
+      <% end %>
+
+      <div class="form-group form-group-day<%= "form-group-error" if @datafile.errors[:day].any? %>">
+        <label for="day">Day</label>
+
+        <% @datafile.errors[:day].each do |message| %>
+          <span class="error-message"><%= message %></span>
+        <% end %>
+
+        <%= text_field_tag "datafile[day]", @datafile.dates[:day], id: "day", class: "form-control" %>
+      </div>
+
+      <div class="form-group form-group-month<%= "form-group-error" if @datafile.errors[:month].any? %>">
+        <label for="month">Month</label>
+
+        <% @datafile.errors[:month].each do |message| %>
+          <span class="error-message"><%= message %></span>
+        <% end %>
+
+        <%= text_field_tag "datafile[month]", @datafile.dates[:month], id: "month", class: "form-control" %>
+      </div>
+
+      <div class="form-group form-group-year<%= "form-group-error" if @datafile.errors[:year].any? %>">
+        <label for="year">Year</label>
+
+        <% @datafile.errors[:year].each do |message| %>
+          <span class="error-message"><%= message %></span>
+        <% end %>
+
+        <%= text_field_tag "datafile[year]", @datafile.dates[:year], id: "year", class: "form-control" %>
+      </div>
+    </div>
+  </fieldset>
+</div>

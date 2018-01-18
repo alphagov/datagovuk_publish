@@ -62,7 +62,7 @@ def dataset_record(dataset)
   }
 
   resources = []
-  dataset.datafiles.each do |file|
+  dataset.links.each do |file|
     resource = {
       "@type":     "dcat:Distribution",
       name:      file.name,

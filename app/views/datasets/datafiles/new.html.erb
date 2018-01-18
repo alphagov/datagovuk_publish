@@ -3,14 +3,14 @@
 <% end %>
 
 <div class="datasets">
-  <% if @link.errors.any? %>
+  <% if @datafile.errors.any? %>
     <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
       <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
         There was a problem
       </h1>
 
       <ul class="error-summary-list">
-        <% @link.errors.each do |attr, message| %>
+        <% @datafile.errors.each do |attr, message| %>
           <li>
             <a href="#<%= attr.to_s %>_form_group">
               <%= message %>
@@ -24,22 +24,22 @@
 
   <h1 class="heading-large">Add a link to your data</h1>
 
-  <%= form_for @link, url: dataset_links_path(@dataset.uuid, @dataset.name), method: :post do |f| %>
-    <%= dataset_field f, @link,
-    name: 'url',
-    label: 'URL',
-    input_type: :text_field,
-    input_class: 'form-control-2-3',
-    hint: 'Enter a link (beginning with http:// or https://) to point directly to your data file. The file will usually be uploaded to either your organisation’s website or another website, like GOV.UK or Amazon Web Services (AWS).',
-    value: @link.url %>
+  <%= form_for @datafile, url: dataset_datafiles_path(@dataset.uuid, @dataset.name), method: :post do |f| %>
+    <%= dataset_field f, @datafile,
+                      name: 'url',
+                      label: 'URL',
+                      input_type: :text_field,
+                      input_class: 'form-control-2-3',
+                      hint: 'Enter a link (beginning with http:// or https://) to point directly to your data file. The file will usually be uploaded to either your organisation’s website or another website, like GOV.UK or Amazon Web Services (AWS).',
+                      value: @datafile.url %>
 
-    <%= dataset_field f, @link,
-    name: 'name',
-    label: 'Link name',
-    input_type: :text_field,
-    input_class: 'form-control-2-3',
-    hint: 'The link name mustn’t be the same as the URL. It should clearly describe the data so users can find it easily.',
-    value: @link.name %>
+    <%= dataset_field f, @datafile,
+                      name: 'name',
+                      label: 'Link name',
+                      input_type: :text_field,
+                      input_class: 'form-control-2-3',
+                      hint: 'The link name mustn’t be the same as the URL. It should clearly describe the data so users can find it easily.',
+                      value: @datafile.name %>
 
     <% if @dataset.daily? %>
       <%= render 'date_field' %>
