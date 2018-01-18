@@ -76,8 +76,6 @@ namespace :import do
 
   desc "Import datasets from a data.gov.uk dump"
   task :legacy_datasets, [:filename] => :environment do |_, args|
-    Datafile.skip_callback(:save, :before, :set_end_date)
-
     # Maps the organisation UUIDs to the organisation IDs
     logger = Logger.new(STDOUT)
     orgs_cache = Organisation.all.pluck(:uuid, :id).to_h
