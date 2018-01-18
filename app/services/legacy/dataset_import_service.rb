@@ -60,6 +60,7 @@ class Legacy::DatasetImportService
       datafile.month = date_attributes[:month]
       datafile.year = date_attributes[:year]
       datafile.assign_attributes(base_attributes)
+      datafile.documentation = false
       datafile.save!(validate: false)
     end
   end
@@ -72,6 +73,7 @@ class Legacy::DatasetImportService
       base_attributes = create_resource_base_attributes(legacy_document, dataset)
 
       document.assign_attributes(base_attributes)
+      document.documentation = true
       document.save!(validate: false)
     end
   end

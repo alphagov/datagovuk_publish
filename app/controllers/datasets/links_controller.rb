@@ -13,6 +13,7 @@ class Datasets::LinksController < ApplicationController
 
   def create
     @link = @dataset.links.build(link_params)
+    @link.documentation = false
 
     if @link.save
       redirect_to dataset_links_path(@dataset.uuid, @dataset.name)
