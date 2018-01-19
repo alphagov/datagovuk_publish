@@ -1,0 +1,19 @@
+{
+  "abbreviation":"ED",
+  "approval_status":"approved",
+  "category":"ministerial-department",
+  "contact-email":"jane.bar@example.com",
+  "contact-name":"Jane Bar",
+  "contact-phone":"3456",
+  "description":"Example description",
+  "foi-email":"jdoe@example.com",
+  "foi-name":"John Doe",
+  "foi-phone":"1234",
+  "foi-web":"http://www.example.com",
+  "id":"12345-6789",
+  "is_organization":true,
+  "name":"2gether-nhs-foundation-trust",
+  "replaced_by":[],
+  "title":"2gether NHS Foundation Trust",
+  "type":"organization"
+}

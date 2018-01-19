@@ -10,6 +10,6 @@ namespace :orgs do
       end
     end
 
-    puts "Done. There are #{Organisation.where(active: false).length} inactive organisations."
+    puts "Done. There are #{Organisation.where(active: false).count} inactive organisations."
   end
 end
