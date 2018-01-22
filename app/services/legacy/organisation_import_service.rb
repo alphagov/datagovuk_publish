@@ -6,7 +6,15 @@ class Legacy::OrganisationImportService
   end
 
   def run
-    organisation.update_columns({
+    if organisation.persisted?
+      organisation.update_columns(organisation_attributes)
+    else
+      organisation.update_attributes(organisation_attributes)
+    end
+  end
+
+  def organisation_attributes
+    {
       uuid: legacy_organisation["id"],
       name: legacy_organisation["name"],
       title: legacy_organisation["title"],
@@ -23,7 +31,7 @@ class Legacy::OrganisationImportService
       category: legacy_organisation["category"],
       org_type: get_org_type,
       ancestry: get_parent_organisation_id
-    })
+    }
   end
 
   private
