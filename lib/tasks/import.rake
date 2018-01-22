@@ -18,60 +18,14 @@ namespace :import do
   task :legacy_organisations, [:filename] => :environment do |_, args|
     logger = Logger.new(STDOUT)
     organisation_count = 0
-    child_organisation_count = 0
-    relationships = {}
 
-    logger.info 'Processing parent organisations'
-    json_from_lines(args.filename) do |obj|
-      o = Organisation.find_by(name: obj["name"]) || Organisation.new
-      o.name = obj["name"]
-      o.title = obj["title"]
-      o.description = obj["description"]
-      o.abbreviation = obj["abbreviation"]
-      o.replace_by = "#{obj['replaced_by']}"
-      o.contact_email = obj["contact_email"]
-      o.contact_phone = obj["contact_phone"]
-      o.contact_name = obj["contact_name"]
-      o.foi_email = obj["foi_email"]
-      o.foi_phone = obj["foi_phone"]
-      o.foi_name = obj["foi_name"]
-      o.foi_web = obj["foi_web"]
-      o.category = obj["category"]
-      o.uuid = obj["id"]
-
-      if %w("ministerial-department", "non-ministerial-department",
-          "devolved", "executive-ndpb", "advisory-ndpb",
-          "tribunal-ndpb", "executive-agency",
-          "executive-office", "gov-corporation").include? obj["category"]
-        o.org_type = "central-government"
-      elsif obj["category"] == "local-council"
-        o.org_type = "local-authority"
-      else
-        o.org_type = "other-government-body"
-      end
-
-      groups = obj["groups"] || []
-
-      if groups.size != 0
-        parent = groups[0]["name"]
-        relationships[o.name] = parent
-      end
-
-      o.save(validate: false)
+    json_from_lines(args.filename) do |legacy_org|
+      Legacy::OrganisationImportService.new(legacy_org).run
       organisation_count += 1
+      print "Importing #{organisation_count} organisations\r"
     end
-    logger.info "Imported #{organisation_count} organisations...\r"
 
-    logger.info "Processing #{relationships.size} child organisations"
-    relationships.each do |child, parent|
-      o = Organisation.find_by(name: child)
-      o.parent = Organisation.find_by(name: parent)
-      o.save!(validate: false)
-      child_organisation_count += 1
-    end
-    logger.info "Assigned #{child_organisation_count} organisations...\r"
-
-    logger.info "Import complete"
+    logger.info "Organisation import complete"
   end
 
   desc "Import datasets from a data.gov.uk dump"
