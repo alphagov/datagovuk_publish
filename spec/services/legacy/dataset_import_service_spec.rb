@@ -53,6 +53,17 @@ describe Legacy::DatasetImportService do
       expect(first_imported_datafile.end_date).to eql(Date.parse(first_resource["date"]).end_of_month)
     end
 
+    it "sets datafile created_at date to resource created date, if present" do
+      legacy_dataset['resources'].first['created'] = nil
+      dataset_with_resource_without_created_date = legacy_dataset
+      Legacy::DatasetImportService.new(dataset_with_resource_without_created_date, orgs_cache, themes_cache).run
+      imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
+      imported_datafiles = imported_dataset.links
+      first_imported_datafile = imported_datafiles.first
+
+      expect(first_imported_datafile.created_at).to eql(imported_dataset.created_at)
+    end
+
     it "builds a dataset from a non timeseries legacy dataset" do
       Legacy::DatasetImportService.new(non_timeseries_legacy_dataset, orgs_cache, themes_cache).run
       expect(Dataset.last.frequency).to eq('never')
