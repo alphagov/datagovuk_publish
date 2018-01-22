@@ -48,7 +48,16 @@ class DatasetsIndexerService
             }
           }
         },
-        links: {
+        datafiles: {
+          type: "nested",
+          properties: {
+            format: {
+              type: "keyword",
+              normalizer: "lowercase_normalizer"
+            }
+          }
+        },
+        docs: {
           type: "nested",
           properties: {
             format: {
@@ -73,14 +82,13 @@ class DatasetsIndexerService
     number_datasets_processed = 0
 
     create_new_index
-
     Dataset.published.find_in_batches(batch_size: batch_size) do |datasets|
       logger.info "Batching #{datasets.length} datasets"
       bulk_index(datasets)
       number_datasets_processed += batch_size
     end
 
-    logger.info "Datasets indexed to #{new_index_name}"
+      logger.info "Datasets indexed to #{new_index_name}"
   end
 
   private
