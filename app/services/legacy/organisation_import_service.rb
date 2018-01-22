@@ -6,44 +6,44 @@ class Legacy::OrganisationImportService
   end
 
   def run
-    o = Organisation.find_by(name: legacy_organisation["name"]) || Organisation.new
-
-    o.uuid = legacy_organisation["id"]
-    o.name = legacy_organisation["name"]
-    o.title = legacy_organisation["title"]
-    o.description = legacy_organisation["description"]
-    o.abbreviation = legacy_organisation["abbreviation"]
-    o.replace_by = "#{legacy_organisation['replaced_by']}"
-    o.contact_email = legacy_organisation["contact-email"]
-    o.contact_phone = legacy_organisation["contact-phone"]
-    o.contact_name = legacy_organisation["contact-name"]
-    o.foi_email = legacy_organisation["foi-email"]
-    o.foi_phone = legacy_organisation["foi-phone"]
-    o.foi_name = legacy_organisation["foi-name"]
-    o.foi_web = legacy_organisation["foi-web"]
-    o.category = legacy_organisation["category"]
-
-    if central_government?
-      o.org_type = "central-government"
-    elsif local_council?
-      o.org_type = "local-authority"
-    else
-      o.org_type = "other-government-body"
-    end
-
-    o.parent = parent_organisation if groups.any?
-
-    o.save(validate: false)
+    organisation.update_columns({
+      uuid: legacy_organisation["id"],
+      name: legacy_organisation["name"],
+      title: legacy_organisation["title"],
+      description: legacy_organisation["description"],
+      abbreviation: legacy_organisation["abbreviation"],
+      replace_by: "#{legacy_organisation['replaced_by']}",
+      contact_email: legacy_organisation["contact-email"],
+      contact_phone: legacy_organisation["contact-phone"],
+      contact_name: legacy_organisation["contact-name"],
+      foi_email: legacy_organisation["foi-email"],
+      foi_phone: legacy_organisation["foi-phone"],
+      foi_name: legacy_organisation["foi-name"],
+      foi_web: legacy_organisation["foi-web"],
+      category: legacy_organisation["category"],
+      org_type: get_org_type,
+      ancestry: get_parent_organisation_id
+    })
   end
 
   private
 
-  def parent_organisation
-    Organisation.find_by(name: groups[0]["name"])
+  def organisation
+    @organisation ||= Organisation.find_or_initialize_by(name: legacy_organisation["name"])
+  end
+
+  def get_parent_organisation_id
+    Organisation.find_by(name: groups[0]["name"]) if groups.any?
   end
 
   def groups
     legacy_organisation.fetch("groups", [])
+  end
+
+  def get_org_type
+    return "central-government" if central_government?
+    return  "local-authority" if local_council?
+    "other-government-body"
   end
 
   def central_government?
