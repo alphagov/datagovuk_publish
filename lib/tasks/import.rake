@@ -18,28 +18,14 @@ namespace :import do
   task :legacy_organisations, [:filename] => :environment do |_, args|
     logger = Logger.new(STDOUT)
     organisation_count = 0
-    child_organisation_count = 0
-    relationships = {}
-
-    logger.info 'Processing parent organisations'
 
     json_from_lines(args.filename) do |legacy_org|
       Legacy::OrganisationImportService.new(legacy_org).run
       organisation_count += 1
+      print "Importing #{organisation_count} organisations\r"
     end
 
-    logger.info "Imported #{organisation_count} organisations...\r"
-    logger.info "Processing #{relationships.size} child organisations"
-
-    relationships.each do |child, parent|
-      o = Organisation.find_by(name: child)
-      o.parent = Organisation.find_by(name: parent)
-      o.save!(validate: false)
-      child_organisation_count += 1
-    end
-    logger.info "Assigned #{child_organisation_count} organisations...\r"
-
-    logger.info "Import complete"
+    logger.info "Organisation import complete"
   end
 
   desc "Import datasets from a data.gov.uk dump"

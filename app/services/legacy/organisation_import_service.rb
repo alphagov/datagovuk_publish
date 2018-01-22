@@ -31,17 +31,20 @@ class Legacy::OrganisationImportService
       o.org_type = "other-government-body"
     end
 
-    groups = legacy_organisation["groups"] || []
-
-    if groups.size != 0
-      parent = groups[0]["name"]
-      relationships[o.name] = parent
-    end
+    o.parent = parent_organisation if groups.any?
 
     o.save(validate: false)
   end
 
   private
+
+  def parent_organisation
+    Organisation.find_by(name: groups[0]["name"])
+  end
+
+  def groups
+    legacy_organisation.fetch("groups", [])
+  end
 
   def central_government?
     %w("ministerial-department", "non-ministerial-department",
