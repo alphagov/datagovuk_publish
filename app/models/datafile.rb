@@ -1,8 +1,11 @@
 class Datafile < Link
   attr_accessor :day, :month, :year
 
-  # Some legacy datafiles have invalid dates (e.g. 31/06/15).
-  # When this occurs the date attributes are empty, therefore we cannot invoke this call-back
+  # Some legacy datafiles have invalid dates (e.g. 31/06/15)
+  # When this occurs the date attributes are not set.
+  # Validations are skipped when importing, therefore it is possible
+  # to save a datafile with no start or end dates
+
   before_save :set_end_date, unless: ->{ year.nil? }
   before_save :set_start_date, unless: ->{ year.nil? }
 
