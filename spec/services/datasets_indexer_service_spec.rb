@@ -40,7 +40,16 @@ describe DatasetsIndexerService do
               }
             }
           },
-          links: {
+          datafiles: {
+            type: "nested",
+            properties: {
+              format: {
+                type: "keyword",
+                normalizer: "lowercase_normalizer"
+              }
+            }
+          },
+          docs: {
             type: "nested",
             properties: {
               format: {
