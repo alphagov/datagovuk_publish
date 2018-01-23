@@ -40,7 +40,7 @@ namespace :import do
     json_from_lines(args.filename) do |legacy_dataset|
       counter += 1
       print "Completed #{counter}\r"
-      Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, theme_cache).run
+      DatasetImportWorker.perform_async(legacy_dataset, orgs_cache, theme_cache)
     end
     logger.info 'Import complete'
   end
