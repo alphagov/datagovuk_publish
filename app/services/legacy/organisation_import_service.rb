@@ -6,11 +6,7 @@ class Legacy::OrganisationImportService
   end
 
   def run
-    if organisation.persisted?
-      organisation.update_columns(organisation_attributes)
-    else
-      organisation.update_attributes(organisation_attributes)
-    end
+    organisation.update_attributes!(organisation_attributes)
   end
 
   def organisation_attributes
@@ -30,7 +26,7 @@ class Legacy::OrganisationImportService
       foi_web: legacy_organisation["foi-web"],
       category: legacy_organisation["category"],
       org_type: get_org_type,
-      ancestry: get_parent_organisation_id
+      parent: get_parent_organisation
     }
   end
 
@@ -40,7 +36,7 @@ class Legacy::OrganisationImportService
     @organisation ||= Organisation.find_or_initialize_by(name: legacy_organisation["name"])
   end
 
-  def get_parent_organisation_id
+  def get_parent_organisation
     Organisation.find_by(name: groups[0]["name"]) if groups.any?
   end
 
