@@ -35,6 +35,7 @@ class Dataset < ApplicationRecord
 
   scope :owned_by, ->(creator_id) { where(creator_id: creator_id) }
   scope :published, ->{ where(status: "published") }
+  scope :draft, ->{ where(status: "draft") }
 
   def is_readonly?
     if persisted? && self.harvested?

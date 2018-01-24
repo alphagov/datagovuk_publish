@@ -3,6 +3,9 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   root to: 'home#index'
 
+  get 'quality',   to: 'home#quality'
+  get 'dashboard', to: 'home#dashboard', as: 'dashboard'
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, controllers: {
@@ -77,9 +80,6 @@ Rails.application.routes.draw do
 
   get 'tasks', to: 'tasks#my'
   get 'tasks/organisation', to: 'tasks#organisation'
-
-  # FIX: Temporary route, remove me when no longer required
-  get 'quality', to: 'home#quality'
 
   get 'manage', to: 'manage#manage_own'
   get 'manage/organisation', to: 'manage#manage_organisation'
