@@ -44,7 +44,7 @@ describe Legacy::DatasetImportService do
       first_imported_datafile = imported_datafiles.first
       first_resource = legacy_dataset["resources"][0]
 
-      expect(imported_datafiles.count).to eql(2)
+      expect(imported_datafiles.count).to eql(3)
       expect(first_imported_datafile.uuid).to eql(first_resource["id"])
       expect(first_imported_datafile.format).to eql(first_resource["format"])
       expect(first_imported_datafile.name).to eql(first_resource["description"])
@@ -305,5 +305,4 @@ describe Legacy::DatasetImportService do
     legacy_land_registry_dataset = File.read(file_path)
     JSON.parse(legacy_land_registry_dataset).with_indifferent_access
   end
-
 end
