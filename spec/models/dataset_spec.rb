@@ -110,4 +110,22 @@ describe Dataset do
 
     expect(dataset.last_updated_at).to eq last_updated_at
   end
+
+  it "generates a unique short_id upon initialising" do
+    dataset = Dataset.new
+    expect(dataset.short_id).to_not be_nil 
+  end
+
+  it "continues to generate short_ids until it has found a unique one" do
+
+    short_id = '123abc'
+    unique_short_id = 'unique'
+
+    allow(SecureRandom).to receive(:urlsafe_base64).and_return(short_id, short_id, unique_short_id)
+
+    existing_dataset = FactoryGirl.create(:dataset)
+    new_dataset = Dataset.new
+
+    expect(new_dataset.short_id).to eq(unique_short_id)
+  end
 end
