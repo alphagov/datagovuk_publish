@@ -25,6 +25,10 @@ class DatasetsIndexerService
           type: 'string',
           index: 'not_analyzed'
         },
+        short_id: {
+          type: 'string',
+          index: 'not_analyzed',
+        },
         location1: {
           type: 'string',
           fields: {
