@@ -1,4 +1,6 @@
 class IndexDeletionService
+  NUMBER_OF_INDEXES_TO_KEEP = 3.freeze
+
   def initialize(args)
     @index_alias = args[:index_alias]
     @client = args[:client]
@@ -20,11 +22,15 @@ class IndexDeletionService
   attr_reader :client, :index_alias, :logger
 
   def select_indexes_for_deletion(indexes)
+    ordered_indexes = indexes
+                        .select { |index_name| index_name.include? "#{index_alias}_" }
+                        .sort_by { |index_name| Time.parse(index_name.gsub(/"#{index_alias}_"/, '')) }
+                        .reverse
+
     # Ensure that the three most recent indexes are not deleted
-    indexes
-      .select { |index_name| index_name.include? "#{index_alias}_" }
-      .sort_by { |index_name| Time.parse(index_name.gsub(/"#{index_alias}_"/, '')) }
-      .drop(3)
+    indexes_to_keep = ordered_indexes.take(NUMBER_OF_INDEXES_TO_KEEP)
+
+    ordered_indexes - indexes_to_keep 
   end
 
   def delete(indexes)
