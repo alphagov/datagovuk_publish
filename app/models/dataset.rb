@@ -124,7 +124,7 @@ class Dataset < ApplicationRecord
   end
 
   def generate_short_id
-    SecureRandom.urlsafe_base64(8, true)
+    SecureRandom.urlsafe_base64(6, true)
   end
 
   def set_name
