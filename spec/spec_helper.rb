@@ -8,6 +8,7 @@ require 'webmock/rspec'
 
 include WebMock::API
 WebMock.disable_net_connect!(allow_localhost: true)
+WebMock.disable_net_connect!(allow: "#{ENV['ES_HOST']}:9200")
 
 Sidekiq::Testing.inline!
 
