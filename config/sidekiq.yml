@@ -4,3 +4,4 @@
 :queues:
   - default
   - importer
+  - indexer
