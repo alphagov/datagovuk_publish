@@ -1,8 +1,12 @@
-class DatasetImportWorker
+class DatasetIndexerWorker
   include Sidekiq::Worker
-  sidekiq_options :queue => :importer, :retry => false
+  sidekiq_options :queue => :indexer, :retry => false
 
-  def perform(legacy_dataset, orgs_cache, theme_cache)
-    Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, theme_cache).run
+  def perform(datasets, index_name)
+    Dataset.__elasticsearch__.client.bulk(
+      index: index_name,
+      type: ::Dataset.__elasticsearch__.document_type,
+      body: datasets
+    )
   end
 end
