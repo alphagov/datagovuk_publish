@@ -102,6 +102,8 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.string "foi_email"
     t.string "foi_phone"
     t.string "foi_web"
+    t.string "short_id"
+    t.index ["short_id"], name: "index_datasets_on_short_id", unique: true
     t.index ["uuid"], name: "index_datasets_on_uuid"
   end
 
@@ -150,6 +152,8 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.string "uuid"
     t.datetime "last_modified"
     t.string "type"
+    t.string "short_id"
+    t.index ["short_id"], name: "index_links_on_short_id", unique: true
     t.index ["uuid"], name: "index_links_on_uuid"
   end
 

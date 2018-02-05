@@ -12,6 +12,8 @@ class Dataset < ApplicationRecord
   document_type "dataset"
 
   after_initialize :set_uuid
+  after_initialize :set_short_id
+
   before_save :set_name
   before_destroy :prevent_if_published
 
@@ -24,7 +26,7 @@ class Dataset < ApplicationRecord
   has_one :inspire_dataset
 
   validates :frequency, inclusion: { in: %w(daily monthly quarterly annually financial-year never irregular) },
-                        allow_nil: true # To allow creation before setting this value
+    allow_nil: true # To allow creation before setting this value
   validates :title, presence: true, format: { with: TITLE_FORMAT }
   validates :summary, presence: true
   validates :frequency, presence: true, if: :published?
@@ -67,13 +69,13 @@ class Dataset < ApplicationRecord
              :location1, :location2, :location3,
              :licence, :licence_other, :frequency,
              :published_date, :last_updated_at, :created_at,
-             :harvested, :uuid],
-      include: {
-        organisation: {},
-        datafiles: {},
-        docs: {},
-        inspire_dataset: {}
-      }
+             :harvested, :uuid, :short_id],
+             include: {
+               organisation: {},
+               datafiles: {},
+               docs: {},
+               inspire_dataset: {}
+             }
     )
   end
 
@@ -108,6 +110,22 @@ class Dataset < ApplicationRecord
     if self.uuid.blank?
       self.uuid = SecureRandom.uuid
     end
+  end
+
+  def set_short_id
+    if self.short_id.blank?
+      candidate_short_id = generate_short_id 
+
+      while Dataset.where(short_id: candidate_short_id).exists? do
+        candidate_short_id = generate_short_id
+      end
+
+      self.short_id = candidate_short_id
+    end
+  end
+
+  def generate_short_id
+    SecureRandom.urlsafe_base64(6, true)
   end
 
   def set_name

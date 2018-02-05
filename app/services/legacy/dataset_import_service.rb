@@ -11,72 +11,70 @@ class Legacy::DatasetImportService
   def run
     update_or_create_dataset
     create_inspire_dataset(dataset.id) if dataset.dataset_type == 'inspire'
-    create_resources(dataset)
+    create_datafiles
+    create_documents
   end
 
   def update_or_create_dataset
-    dataset.legacy_name = legacy_dataset["name"]
-    dataset.title = legacy_dataset["title"]
-    dataset.summary = generate_summary(legacy_dataset["notes"])
-    dataset.description = legacy_dataset["notes"]
-    dataset.organisation_id = orgs_cache[legacy_dataset["owner_org"]]
-    dataset.frequency = build_frequency
-    dataset.published_date = legacy_dataset["metadata_created"]
-    dataset.created_at = legacy_dataset["metadata_created"]
-    dataset.last_updated_at = legacy_dataset["metadata_modified"]
-    dataset.dataset_type = build_type
-    dataset.harvested = harvested?
-    dataset.contact_name = legacy_dataset["contact-name"]
-    dataset.contact_email = legacy_dataset["contact-email"]
-    dataset.contact_phone = legacy_dataset["contact-phone"]
-    dataset.foi_name = legacy_dataset["foi-name"]
-    dataset.foi_email = legacy_dataset["foi-email"]
-    dataset.foi_phone = legacy_dataset["foi-phone"]
-    dataset.foi_web = legacy_dataset["foi-web"]
-    dataset.location1 = build_location
-    dataset.licence = build_licence
-    dataset.licence_other = build_licence_other
-    old_theme = legacy_dataset["theme-primary"]
-    secondary_theme = legacy_dataset["theme-secondary"]
-    dataset.theme_id = themes_cache.fetch(old_theme, nil)
-    dataset.secondary_theme_id = themes_cache.fetch(secondary_theme, nil)
-    dataset.status = "published"
-    dataset.save!(validate: false)
+    dataset.assign_attributes(dataset_attributes)
+    dataset.save(validate: false)
   end
 
-  def create_resources(dataset)
-    create_datafiles(dataset)
-    create_documents(dataset)
+  def dataset_attributes
+    {
+      legacy_name: legacy_dataset["name"],
+      title: legacy_dataset["title"],
+      summary: build_summary(legacy_dataset["notes"]),
+      description: legacy_dataset["notes"],
+      organisation_id: orgs_cache[legacy_dataset["owner_org"]],
+      frequency: build_frequency,
+      published_date: legacy_dataset["metadata_created"],
+      created_at: legacy_dataset["metadata_created"],
+      last_updated_at: legacy_dataset["metadata_modified"],
+      dataset_type: build_type,
+      harvested: harvested?,
+      contact_name: legacy_dataset["contact-name"],
+      contact_email: legacy_dataset["contact-email"],
+      contact_phone: legacy_dataset["contact-phone"],
+      foi_name: legacy_dataset["foi-name"],
+      foi_email: legacy_dataset["foi-email"],
+      foi_phone: legacy_dataset["foi-phone"],
+      foi_web: legacy_dataset["foi-web"],
+      location1: build_location,
+      licence: build_licence,
+      licence_other: build_licence_other,
+      theme_id: build_theme_id,
+      secondary_theme_id: build_secondary_theme_id,
+      status: "published"
+    }
   end
 
-  def create_datafiles(dataset)
-    resources = Array(@legacy_dataset['resources'])
-    legacy_datafiles = resources.select{ |resource| resource['resource_type'] == 'file'}
+  def build_theme_id
+    themes_cache.fetch(legacy_dataset["theme-primary"], nil)
+  end
+
+  def build_secondary_theme_id
+    themes_cache.fetch(legacy_dataset["theme-secondary"], nil)
+  end
+
+  def create_datafiles
     legacy_datafiles.each do |legacy_datafile|
       datafile = Datafile.find_or_create_by(url: legacy_datafile["url"], dataset_id: dataset.id)
-      base_attributes = create_resource_base_attributes(legacy_datafile, dataset)
-      date_attributes = create_datafile_date_attributes(legacy_datafile)
-      datafile.day = date_attributes[:day]
-      datafile.month = date_attributes[:month]
-      datafile.year = date_attributes[:year]
-      datafile.assign_attributes(base_attributes)
+      attributes = base_attributes_for_resource(legacy_datafile).merge(date_attributes_for_resource(legacy_datafile))
+      datafile.assign_attributes(attributes)
       datafile.save!(validate: false)
     end
   end
 
-  def create_documents(dataset)
-    resources = Array(@legacy_dataset['resources'])
-    legacy_documents = resources.select{ |resource| resource['resource_type'] == 'documentation'}
+  def create_documents
     legacy_documents.each do |legacy_document|
       document = Doc.find_or_create_by(url: legacy_document["url"], dataset_id: dataset.id)
-      base_attributes = create_resource_base_attributes(legacy_document, dataset)
-
-      document.assign_attributes(base_attributes)
+      document.assign_attributes(base_attributes_for_resource(legacy_document))
       document.save!(validate: false)
     end
   end
 
-  def create_resource_base_attributes(resource, dataset)
+  def base_attributes_for_resource(resource)
     {
       uuid: resource["id"],
       format: resource["format"],
@@ -86,7 +84,7 @@ class Legacy::DatasetImportService
     }
   end
 
-  def create_datafile_date_attributes(resource)
+  def date_attributes_for_resource(resource)
     return {} if resource["date"].blank?
     date = get_end_date(resource["date"])
     end_date = parse_date(date)
@@ -136,7 +134,7 @@ class Legacy::DatasetImportService
 
   # Generates a summary from the provided notes as in
   # the legacy metadata we don't have a summary field.
-  def generate_summary(notes)
+  def build_summary(notes)
     return notes if notes && notes != ""
     "No description provided"
   end
@@ -212,6 +210,18 @@ class Legacy::DatasetImportService
   end
 
   private
+
+  def legacy_datafiles
+    resources.select{ |resource| resource['resource_type'] == 'file'}
+  end
+
+  def legacy_documents
+    resources.select{ |resource| resource['resource_type'] == 'documentation'}
+  end
+
+  def resources
+    Array(legacy_dataset['resources'])
+  end
 
   def calculate_quarterly_dates(date_object)
     Date.new(date_object.year, 1+(date_object.month -1 )/4*4)

@@ -25,6 +25,10 @@ class DatasetsIndexerService
           type: 'string',
           index: 'not_analyzed'
         },
+        short_id: {
+          type: 'string',
+          index: 'not_analyzed',
+        },
         location1: {
           type: 'string',
           fields: {
@@ -106,15 +110,8 @@ class DatasetsIndexerService
   end
 
   def bulk_index(datasets)
-    client.bulk(
-      index: new_index_name,
-      type: ::Dataset.__elasticsearch__.document_type,
-      body: prepare_records(datasets)
-    )
-  rescue => e
-    msg = "There was an error indexing datasets:\n#{e.message}"
-    logger.error msg
-    Raven.capture_exception msg
+    prepared_datasets = prepare_records(datasets)
+    DatasetIndexerWorker.perform_async(prepared_datasets, new_index_name)
   end
 
   def prepare_records(datasets)
