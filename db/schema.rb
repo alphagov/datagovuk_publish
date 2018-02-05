@@ -90,8 +90,8 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "uuid"
-    t.integer "theme_id"
-    t.integer "secondary_theme_id"
+    t.integer "topic_id"
+    t.integer "secondary_topic_id"
     t.datetime "last_updated_at"
     t.integer "status", default: 0
     t.string "legacy_name"
