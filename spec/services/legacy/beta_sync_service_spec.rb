@@ -6,7 +6,7 @@ describe Legacy::BetaSyncService do
     @new_datasets_path = 'api/3/action/package_search?q=metadata_created:[NOW-1DAY%20TO%20NOW]&rows=5000'
 
     @orgs_cache = Organisation.all.pluck(:uuid, :id).to_h
-    @theme_cache = Theme.all.pluck(:title, :id).to_h
+    @theme_cache = Topic.all.pluck(:title, :id).to_h
     @legacy_server = double(:legacy_server)
     @logger = double(:logger, info: true)
 

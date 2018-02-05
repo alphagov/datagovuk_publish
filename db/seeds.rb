@@ -12,8 +12,8 @@ require 'csv'
 # Add default themes.  This is required before you can import the legacy metadata
 # so that we don't lose data in the migration
 
-if Theme.count == 0
-  Theme.create(
+if Topic.count == 0
+  Topic.create(
     [
       {name: "business-and-economy", title: "Business and economy"},
       {name: "environment", title: "Environment"},

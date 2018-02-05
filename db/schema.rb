@@ -233,7 +233,7 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.index ["organisation_id"], name: "index_tasks_on_organisation_id"
   end
 
-  create_table "themes", force: :cascade do |t|
+  create_table "topics", force: :cascade do |t|
     t.string "name"
     t.string "title"
     t.datetime "created_at", null: false
