@@ -190,7 +190,7 @@
     "updated": "2017-12-04T09:36:30.997414",
     "openness_score": 3
   },
-  "theme-secondary": [
+  "topic-secondary": [
     ""
   ],
   "extras": [
@@ -316,7 +316,7 @@
       "value": "",
       "revision_timestamp": "2017-12-04T09:35:25.733768",
       "state": "active",
-      "key": "theme-primary",
+      "key": "topic-primary",
       "revision_id": "4e6b7e42-0409-49fd-bd09-2893cec38e8a",
       "id": "f9b34654-50b8-421f-93b9-fce50eb81162"
     },
@@ -325,7 +325,7 @@
       "value": "[\"\"]",
       "revision_timestamp": "2017-12-04T09:35:25.733768",
       "state": "active",
-      "key": "theme-secondary",
+      "key": "topic-secondary",
       "revision_id": "4e6b7e42-0409-49fd-bd09-2893cec38e8a",
       "id": "6b940c30-2909-4328-b222-e7395df0081b"
     },
@@ -406,5 +406,5 @@
   "revision_id": "4e6b7e42-0409-49fd-bd09-2893cec38e8a",
   "foi-phone": "",
   "sla": "",
-  "theme-primary": ""
+  "topic-primary": ""
 }

@@ -32,7 +32,7 @@
   "update_frequency": "monthly",
   "revision_id": "197dfecf-32e7-4666-b08a-2e35a9536b16",
   "date_released": "15/9/2011",
-  "theme-primary": "Government",
+  "topic-primary": "Transport",
   "resources": [
     {
       "hash": "",
@@ -115,7 +115,7 @@
   "type": "dataset",
   "notes": "This dataset is no longer being updated-5000. \r\n\r\nIt has been replaced by a dataset of [URLs to services provided by local authorities](https://data.gov.uk/dataset/local-authority-services). \r\n\r\nIt was last updated on 30 August 2016.\r\n",
   "register": "false",
-  "theme-secondary": [
+  "topic-secondary": [
     ""
   ],
   "extras": [
