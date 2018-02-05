@@ -10,6 +10,7 @@ class Link < ApplicationRecord
 
   before_save :set_uuid
 
+  scope :broken, ->{ where(broken: true) }
 
   def set_uuid
     if self.uuid.blank?
