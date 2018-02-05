@@ -9,13 +9,13 @@ class HomeController < ApplicationController
   end
 
   def dashboard
-    @total_datasets = Dataset.count
-    @total_datafiles = Link.count
-    @total_publishers = Organisation.count
-    @total_published_datasets = Dataset.published.count
-    @total_draft_datasets = Dataset.draft.count
-    @total_unpublished_datasets = Dataset.left_outer_joins(:datafiles).where(links: { id: nil } ).count # i.e. datasets with no datafiles
-    @datafile_count_by_format = Datafile.group(:format).count.sort_by { |_k, value| value }.reverse
+    @datasets_count = Dataset.count
+    @datafiles_count = Link.count
+    @publishers_count = Organisation.count
+    @published_datasets_count = Dataset.published.count
+    @draft_datasets_count = Dataset.draft.count
+    @unpublished_datasets_count = Dataset.left_outer_joins(:datafiles).where(links: { id: nil } ).count # i.e. datasets with no datafiles
+    @datafiles_count_by_format = Datafile.group(:format).count.sort_by { |_k, value| value }.reverse
     @broken_links_count = Link.broken.count
   end
 
