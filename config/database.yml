@@ -12,14 +12,11 @@ test:
   <<: *default
   database: publish_data_beta_test
 
-staging:
+production: &production
   <<: *default
   database: publish_data_beta_production
   username: publish_data_beta
   password: <%= ENV['PUBLISH_DATA_BETA_DATABASE_PASSWORD'] %>
 
-production:
-  <<: *default
-  database: publish_data_beta_production
-  username: publish_data_beta
-  password: <%= ENV['PUBLISH_DATA_BETA_DATABASE_PASSWORD'] %>
+staging:
+  <<: *production
