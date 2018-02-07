@@ -54,7 +54,7 @@ class LinkCheckerService
   end
 
   def response
-    @response ||= RestClient.head(link.url)
+    @response ||= RestClient::Request.execute(method: :head, url: link.url, timeout: 5)
   end
 
   def last_modified
