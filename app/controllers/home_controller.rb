@@ -14,7 +14,7 @@ class HomeController < ApplicationController
     @publishers_count = Organisation.count
     @published_datasets_count = Dataset.published.count
     @draft_datasets_count = Dataset.draft.count
-    @unpublished_datasets_count = Dataset.left_outer_joins(:datafiles).where(links: { id: nil } ).count # i.e. datasets with no datafiles
+    @unpublished_datasets_count = Dataset.with_no_datafiles.count
     @datafiles_count_by_format = Datafile.group(:format).count.sort_by { |_k, value| value }.reverse
     @broken_links_count = Link.broken.count
   end
