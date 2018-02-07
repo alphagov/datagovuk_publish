@@ -8,10 +8,10 @@ class LinkCheckerService
   def run
     begin
       check_link
-    rescue RestClient::ExceptionWithResponse
+    rescue RestClient::ExceptionWithResponse => error
       link.broken = true
       link.save(validate: false)
-      create_broken_link_task
+      create_broken_link_task(error)
     end
   end
 
@@ -27,7 +27,7 @@ class LinkCheckerService
     link.save(validate: false)
   end
 
-  def create_broken_link_task
+  def create_broken_link_task(error)
     task = Task.find_or_initialize_by(related_object_id: dataset.uuid, category: "broken")
     task.attributes = {
       organisation_id: organisation.id,
@@ -36,7 +36,7 @@ class LinkCheckerService
       category: "broken",
       quantity: broken_link_count,
       related_object_id: dataset.uuid,
-      description: "'#{dataset.title}' contains broken links"
+      description: error.message
     }
     task.save
   end
