@@ -21,15 +21,16 @@ describe LinkCheckerService do
 
       service.run
 
-      task = Task.last
-
-      expect(task.organisation_id).to eql link.dataset.organisation_id
-      expect(task.owning_organisation).to eql link.dataset.organisation.name
-      expect(task.required_permission_name).to eql ""
-      expect(task.category).to eql "broken"
-      expect(task.quantity).to eql 1
-      expect(task.related_object_id).to eql link.dataset.uuid
-      expect(task.description).to eql %('#{link.dataset.title}' contains broken links)
+      expect(Task.last)
+        .to have_attributes(
+          organisation_id: link.dataset.organisation_id,
+          owning_organisation: link.dataset.organisation.name,
+          required_permission_name: be_blank,
+          category: "broken",
+          quantity: 1,
+          related_object_id: link.dataset.uuid,
+          description: %('#{link.dataset.title}' contains broken links)
+          )
     end
 
     it 'saves the attributes of a valid link' do
