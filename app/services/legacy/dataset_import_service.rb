@@ -208,11 +208,11 @@ class Legacy::DatasetImportService
   end
 
   def legacy_datafiles
-    resources.select{ |resource| resource['resource_type'] != 'documentation'}
+    resources.reject { |resource| resource['resource_type'] == 'documentation'}
   end
 
   def legacy_documents
-    resources.select{ |resource| resource['resource_type'] == 'documentation'}
+    resources.select { |resource| resource['resource_type'] == 'documentation'}
   end
 
   def resources
