@@ -9,7 +9,8 @@ class LinkCheckerService
     begin
       check_link
     rescue RestClient::ExceptionWithResponse
-      link.update(broken: true)
+      link.broken = true
+      link.save(validate: false)
       create_broken_link_task
     end
   end
@@ -17,12 +18,13 @@ class LinkCheckerService
   private
 
   def check_link
-    link.update({
+    link.attributes = {
       broken: !working?,
       format: file_format,
       size: file_size,
       last_check: DateTime.now
-    })
+    }
+    link.save(validate: false)
   end
 
   def create_broken_link_task
