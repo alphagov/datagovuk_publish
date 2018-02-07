@@ -67,7 +67,7 @@ class LinkCheckerService
   end
 
   def working?
-    response.code > 199 && response.code < 299
+    response.net_http_res.is_a?(Net::HTTPSuccess)
   end
 
   def file_format
