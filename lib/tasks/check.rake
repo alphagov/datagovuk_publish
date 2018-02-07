@@ -21,7 +21,14 @@ namespace :check do
   end
 
   namespace :links  do
-    desc "Check if a single dataset is overdue"
+    desc "Check for broken links"
+    task :all => :environment do
+      Link.find_each(batch_size: 10) do |link|
+        LinkCheckerWorker.perform_async(link.id)
+      end
+    end
+
+    desc "Check for broken links in a single dataset"
     task :dataset, [:dataset] => :environment do |_, args|
       dataset = Dataset.find_by(name: args.dataset)
 
@@ -29,7 +36,7 @@ namespace :check do
 
       dataset.links.each do |link|
         puts "Processing datafile"
-        LinkCheckerService.new(link).run
+        LinkCheckerWorker.perform_async(link.id)
       end
     end
 
@@ -43,7 +50,7 @@ namespace :check do
       datasets.find_each(batch_size: 10) do |dataset|
         dataset.links.each do |link|
           puts "Processing datafile"
-          LinkCheckerService.new(link).run
+          LinkCheckerWorker.perform_async(link.id)
         end
       end
     end
