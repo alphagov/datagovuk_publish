@@ -1,8 +1,4 @@
-require 'util/organisation_checker'
-
 module OverdueChecker
-  include OrganisationChecker
-
   @@frequencies = {
     "monthly" => 30,
     "annually" => 365,
@@ -61,5 +57,5 @@ module OverdueChecker
     }
   end
 
-  module_function :check_organisation, :check_dataset, :find_end_date, :create_overdue_task
+  module_function :check_dataset, :find_end_date, :create_overdue_task
 end
