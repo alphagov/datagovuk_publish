@@ -2,27 +2,24 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV['DATABASE_URL'] %>
 
 development:
   <<: *default
   database: publish_data_beta_development
-  url: <%= ENV['DATABASE_URL'] %>
 
 test:
   <<: *default
   database: publish_data_beta_test
-  url: <%= ENV['DATABASE_URL'] %>
 
 staging:
   <<: *default
   database: publish_data_beta_production
   username: publish_data_beta
   password: <%= ENV['PUBLISH_DATA_BETA_DATABASE_PASSWORD'] %>
-  url: <%= ENV['DATABASE_URL'] %>
 
 production:
   <<: *default
   database: publish_data_beta_production
   username: publish_data_beta
   password: <%= ENV['PUBLISH_DATA_BETA_DATABASE_PASSWORD'] %>
-  url: <%= ENV['DATABASE_URL'] %>
