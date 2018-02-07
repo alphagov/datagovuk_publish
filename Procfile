@@ -1,2 +1,2 @@
 web: bin/rails server -p $PORT -e $RAILS_ENV
-worker: bin/sidekiq -c 10
+worker: bin/sidekiq
