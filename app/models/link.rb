@@ -10,6 +10,8 @@ class Link < ApplicationRecord
 
   before_save :set_uuid
   after_initialize :set_short_id
+  
+  scope :broken, ->{ where(broken: true) }
 
   def set_uuid
     if self.uuid.blank?
