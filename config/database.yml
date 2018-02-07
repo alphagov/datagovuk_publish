@@ -7,7 +7,7 @@ default: &default
 
 development:
   <<: *default
-  host: <%= ENV['DATABASE_HOST'] || localhost %>
+  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
   database: publish_data_beta_development
   url: <%= ENV['DATABASE_URL'] %>
 
