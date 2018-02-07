@@ -2,9 +2,7 @@ require 'util/linkchecker'
 require 'util/overduechecker'
 
 namespace :check do
-
   namespace :overdue  do
-
     desc "Check overdue datasets in an organisation"
     task :organisation, [:organisation] => :environment do |_, args|
       organisation = Organisation.find_by(name: args.organisation)
@@ -16,12 +14,17 @@ namespace :check do
       dataset = Dataset.find_by(name: args.dataset)
       OverdueChecker.check_dataset(dataset)
     end
-
   end
 
   namespace :links  do
+    desc "Check for broken links"
+    task :all => :environment do
+      Link.all.each do |link|
+        LinkChecker.check_link(link)
+      end
+    end
 
-    desc "Check if a single dataset is overdue"
+    desc "Check for broken links in a single dataset"
     task :dataset, [:dataset] => :environment do |_, args|
       dataset = Dataset.find_by(name: args.dataset)
       LinkChecker.check_dataset(dataset)
@@ -32,8 +35,6 @@ namespace :check do
       organisation = Organisation.find_by(name: args.organisation)
       LinkChecker.check_organisation(organisation)
     end
-
   end
-
 end
 

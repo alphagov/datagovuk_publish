@@ -5,68 +5,46 @@ require 'util/organisation_checker'
 module LinkChecker
   include OrganisationChecker
 
-  # Checks all of the links within the specified dataset and updates each
-  # link as necessary with success, size, mimetype, last-modified etc.
   def check_dataset(dataset)
     puts "Checking dataset #{dataset.title} (#{dataset.name})"
-    datafiles = Link.includes(:dataset_id => dataset.id)
-    datafiles.each do |datafile|
-      puts "Processing datafile"
-      check_link(datafile)
+    dataset.links.each do |link|
+      puts "Processing link"
+      check_link(link)
     end
   end
 
-  # Given a datafile, checks if the link is broken or not, and if not
-  # record some extra metadata about it before saving.
-  def check_link(datafile)
-    puts "Checking link #{datafile.url}"
-
-    begin
-      response = RestClient.head datafile.url
-      save_result(datafile, response)
-    rescue RestClient::ExceptionWithResponse
-      datafile.broken = true
-      datafile.save()
-      create_broken_link_task(datafile)
-    end
+  def check_link(link)
+    puts "Checking link #{link.url}"
+    LinkCheckerWorker.perform_async(link.id)
   end
 
-  # When provided with a datafile and a HTTP response then this function
-  # will update some of the datafile metadata, such as last-modified, size,
-  # format etc based on what is available.
-  # The changed datafile is then saved.
-  def save_result(datafile, response)
+  def save_result(link, response)
     working = response.code > 199 && response.code < 299
     file_format = parse_content_type(response.headers[:content_type])
-
+    size = response.headers[:content_length].to_i
     last_modified = response.headers[:last_modified]
-    if last_modified != nil
-      last_modified = Time.parse last_modified
-      datafile.last_modified = last_modified
-    end
 
-    datafile.broken = !working
-    datafile.format = file_format
-    datafile.size = response.headers[:content_length].to_i
-    datafile.last_check = DateTime.now
-    datafile.save()
+    link.update_attributes({
+      last_modified: last_modified.blank? ? nil : Time.parse(last_modified),
+      last_check: DateTime.now,
+      broken: !working,
+      format: file_format,
+      size: size
+    })
   end
 
-  # Splits the content type (removing the charset if necessary) and
-  # then determins the preferred extension to use as a format.
   def parse_content_type(content)
     parts = content.split(';')
     mimetype = MIME::Types[parts[0]].first
     mimetype.preferred_extension.upcase()
   end
 
-  def broken_link_count
+  def broken_link_count(dataset)
     dataset.joins(:links).merge(Link.where(broken:true)).count
   end
 
-  # Creates a new task for dataset with broken datafile links
-  def create_broken_link_task(datafile)
-    dataset = datafile.dataset
+  def create_broken_link_task(link)
+    dataset = link.dataset
     org = Organisation.find_by(id: dataset.organisation_id)
 
     if Task.where(related_object_id: dataset.uuid, category: "broken").exists?
@@ -84,7 +62,6 @@ module LinkChecker
     t.created_at = t.updated_at = DateTime.now
     t.description = "'#{dataset.title}' contains broken links"
     t.save()
-
   end
 
   module_function :check_organisation, :check_dataset, :check_link,
