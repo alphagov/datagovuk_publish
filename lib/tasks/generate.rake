@@ -22,7 +22,7 @@ end
 # call which will return the prelude, each successive call will
 # return either a punctuation string, or a string representation
 # of a dataset (as a json object).
-def generate_string()
+def generate_string
   Enumerator.new do |enum|
     enum.yield '{
       "@context"   : "https://project-open-data.cio.gov/v1.1/schema/catalog.jsonld",
