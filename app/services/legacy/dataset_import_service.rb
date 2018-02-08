@@ -190,8 +190,8 @@ class Legacy::DatasetImportService
     get_extra("harvest_object_id").present?
   end
 
-  # Given a lax legacy date string, try and build a proper
-  # date string that we can import
+  private
+
   def get_end_date(date_string)
     # eg "1983"
     if date_string.length == 4
@@ -209,8 +209,6 @@ class Legacy::DatasetImportService
     ""
   end
 
-  # Date helpers
-
   def calculate_dates_for_month(month, year)
     days = Time.days_in_month(month, year)
     "#{days}/#{month}/#{year}"
@@ -220,14 +218,12 @@ class Legacy::DatasetImportService
     "31/12/#{year}"
   end
 
-  private
-
   def legacy_datafiles
-    resources.select{ |resource| resource['resource_type'] == 'file'}
+    resources.reject { |resource| resource['resource_type'] == 'documentation'}
   end
 
   def legacy_documents
-    resources.select{ |resource| resource['resource_type'] == 'documentation'}
+    resources.select { |resource| resource['resource_type'] == 'documentation'}
   end
 
   def resources
@@ -235,7 +231,7 @@ class Legacy::DatasetImportService
   end
 
   def calculate_quarterly_dates(date_object)
-    Date.new(date_object.year, 1+(date_object.month -1 )/4*4)
+    Date.new(date_object.year, 1 + (date_object.month -1 ) / 4 * 4)
   end
 
   def dataset

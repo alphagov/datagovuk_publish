@@ -52,6 +52,14 @@
       "format": "html",
       "id": "e12a256b-893f-44f7-ba49-8dfafe41e718",
       "resource_type": "documentation"
+    },
+    {
+      "hash": "",
+      "description": "Resource 3 description",
+      "created": "2017-12-05T09:35:25.928982",
+      "url": "https://example.com/something_maybe",
+      "format": "Some format",
+      "id": "e12a256b-893f-44f7-ba49-8dfafe41e718"
     }
   ],
   "timeseries_resources": [
