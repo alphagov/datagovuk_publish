@@ -34,13 +34,14 @@ namespace :import do
     logger = Logger.new(STDOUT)
     orgs_cache = Organisation.all.pluck(:uuid, :id).to_h
     topic_cache = Topic.all.pluck(:title, :id).to_h
+    theme_cache = Theme.all.pluck(:title, :id).to_h
     counter = 0
 
     logger.info 'Importing legacy datasets'
     json_from_lines(args.filename) do |legacy_dataset|
       counter += 1
       print "Completed #{counter}\r"
-      DatasetImportWorker.perform_async(legacy_dataset, orgs_cache, topic_cache)
+      DatasetImportWorker.perform_async(legacy_dataset, orgs_cache, theme_cache, topic_cache)
     end
     logger.info 'Import complete'
   end

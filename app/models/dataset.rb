@@ -19,7 +19,9 @@ class Dataset < ApplicationRecord
 
   belongs_to :organisation
   belongs_to :topic, optional: true
+  belongs_to :theme, optional: true
   belongs_to :secondary_topic, optional: true
+  belongs_to :secondary_theme, optional: true
 
   has_many :datafiles
   has_many :docs

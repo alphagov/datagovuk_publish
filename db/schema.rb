@@ -90,8 +90,8 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "uuid"
-    t.integer "topic_id"
-    t.integer "secondary_topic_id"
+    t.integer "theme_id"
+    t.integer "secondary_theme_id"
     t.datetime "last_updated_at"
     t.integer "status", default: 0
     t.string "legacy_name"
@@ -103,6 +103,8 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.string "foi_phone"
     t.string "foi_web"
     t.string "short_id"
+    t.integer "topic_id"
+    t.integer "secondary_topic_id"
     t.index ["short_id"], name: "index_datasets_on_short_id", unique: true
     t.index ["uuid"], name: "index_datasets_on_uuid"
   end
@@ -231,6 +233,13 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organisation_id"], name: "index_tasks_on_organisation_id"
+  end
+
+  create_table "themes", force: :cascade do |t|
+    t.string "name"
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "topics", force: :cascade do |t|
