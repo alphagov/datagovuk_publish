@@ -6,27 +6,27 @@ describe DatasetsIndexerService do
       dataset: {
         properties: {
           name: {
-            type: 'string',
-            index: 'not_analyzed'
+            type: 'keyword',
+            index: true,
           },
           legacy_name: {
-            type: 'string',
-            index: 'not_analyzed'
+            type: 'keyword',
+            index: true,
           },
           uuid: {
-            type: 'string',
-            index: 'not_analyzed'
+            type: 'keyword',
+            index: true,
           },
           short_id: {
-            type: 'string',
-            index: 'not_analyzed'
+            type: 'keyword',
+            index: true,
           },
           location1: {
-            type: 'string',
+            type: 'text',
             fields: {
               raw: {
-                type: 'string',
-                index: 'not_analyzed'
+                type: 'keyword',
+                index: true,
               }
             }
           },
@@ -34,11 +34,11 @@ describe DatasetsIndexerService do
             type: 'nested',
             properties: {
               title: {
-                type: 'string',
+                type: 'text',
                 fields: {
                   raw: {
-                    type: 'string',
-                    index: 'not_analyzed'
+                    type: 'keyword',
+                    index: true,
                   }
                 }
               }
@@ -48,11 +48,11 @@ describe DatasetsIndexerService do
             type: 'nested',
             properties: {
               title: {
-                type: 'string',
+                type: 'text',
                 fields: {
                   raw: {
-                    type: 'string',
-                    index: 'not_analyzed'
+                    type: 'keyword',
+                    index: true,
                   }
                 }
               }
