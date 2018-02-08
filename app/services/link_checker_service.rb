@@ -22,7 +22,7 @@ class LinkCheckerService
       broken: !working?,
       format: file_format,
       size: file_size,
-      last_check: DateTime.now
+      last_check: Time.now
     }
     link.save(validate: false)
   end

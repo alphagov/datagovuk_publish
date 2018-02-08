@@ -6,7 +6,6 @@ require "database_cleaner"
 require "govuk_sidekiq/testing"
 require 'webmock/rspec'
 
-include WebMock::API
 WebMock.disable_net_connect!(allow_localhost: true)
 
 Sidekiq::Logging.logger = Rails.logger
@@ -16,11 +15,7 @@ SimpleCov.start
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
-
-  config.before(:each) do
-    delete_index
-    create_index
-  end
+  config.include WebMock::API
 
   config.order = :random
 

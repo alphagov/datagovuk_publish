@@ -44,9 +44,7 @@ namespace :import do
     logger.info 'Importing legacy datasets'
     json_from_lines(args.filename) do |legacy_dataset|
       counter += 1
-      if counter % 10 == 0
-        print "Completed #{counter}\r"
-      end
+      print "Completed #{counter}\n" if (counter % 10).zero?
       Legacy::DatasetImportService.new(legacy_dataset, organisation_cache, topic_cache).run
     end
     logger.info 'Import complete'

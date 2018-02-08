@@ -16,7 +16,7 @@ module OverdueChecker
     # Finds the max end_date from the datafiles, then determines the
     # number of days since that end_date.
     max_end_date = find_end_date(dataset)
-    diff_days = (DateTime.now - max_end_date).to_i
+    diff_days = (Time.now - max_end_date).to_i
 
     # Check if the number of days since most recent datafile is >
     # size of frequency (so > 30 for monthly, 365 for annual etc).
@@ -39,7 +39,7 @@ module OverdueChecker
     t.category = "overdue"
     t.quantity = days
     t.related_object_id = dataset.uuid
-    t.created_at = t.updated_at = DateTime.now
+    t.created_at = t.updated_at = Time.now
     t.description = "'#{dataset.title}' is overdue"
     t.save()
   end

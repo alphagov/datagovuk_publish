@@ -22,7 +22,7 @@ namespace :check do
 
   namespace :links  do
     desc "Check for broken links"
-    task :all => :environment do
+    task all: :environment do
       Link.find_each(batch_size: 10) do |link|
         LinkCheckerWorker.perform_async(link.id)
       end
