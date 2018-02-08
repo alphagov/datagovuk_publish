@@ -1,9 +1,5 @@
 module OverdueChecker
-  @@frequencies = {
-    "monthly" => 30,
-    "annually" => 365,
-    "quarterly" => 90
-  }
+  mattr_accessor :frequencies, default: { "monthly" => 30, "annually" => 365, "quarterly" => 90 }
 
   # Checks the dataset to see if it has a frequency, and whether the
   # datafiles are up to date.
@@ -11,7 +7,7 @@ module OverdueChecker
     puts "Checking dataset #{dataset.title} (#{dataset.name})"
 
     # If there is no frequency, then we bail quickly
-    return unless @@frequencies.key? dataset.frequency
+    return unless frequencies.key? dataset.frequency
 
     # Skip if there is already a task for this dataset
     return if Task.find_by(related_object_id: dataset.uuid,
@@ -24,7 +20,7 @@ module OverdueChecker
 
     # Check if the number of days since most recent datafile is >
     # size of frequency (so > 30 for monthly, 365 for annual etc).
-    if diff_days > @@frequencies[dataset.frequency]
+    if diff_days > frequencies[dataset.frequency]
       puts "Creating task for #{dataset.name}"
       create_overdue_task(dataset, diff_days)
     end
