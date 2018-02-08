@@ -220,7 +220,7 @@ class Legacy::DatasetImportService
      return date_string
    end
      # eg "1983/02"
-   if parts and parts.length == 2
+   if parts && (parts.length == 2)
      return calculate_dates_for_month(parts[0].to_i, parts[1].to_i)
    end
     ""
