@@ -12,6 +12,29 @@ require 'csv'
 # Add default themes.  This is required before you can import the legacy metadata
 # so that we don't lose data in the migration
 
+if Topic.count == 0
+  Topic.create(
+    [
+      {name: "business-and-economy", title: "Business and economy"},
+      {name: "environment", title: "Environment"},
+      {name: "mapping", title: "Mapping"},
+      {name: "crime-and-justice", title: "Crime and justice"},
+      {name: "government", title: "Government"},
+      {name: "society", title: "Society"},
+      {name: "defence", title: "Defence"},
+      {name: "government-spending", title: "Government spending"},
+      {name: "towns-and-cities", title: "Towns and cities"},
+      {name: "education", title: "Education"},
+      {name: "health", title: "Health"},
+      {name: "transport", title: "Transport"},
+    ]
+  )
+end
+
+puts 'Seeded topics'
+
+# Theme model is depracated - TR
+
 if Theme.count == 0
   Theme.create(
     [
@@ -31,6 +54,8 @@ if Theme.count == 0
   )
 end
 
+puts 'Seeded themes (nb: deprecated!)'
+
 # We can create land-registry now, and if we import organisations
 # then they will just update it.
 land_registry = Organisation.new
@@ -42,6 +67,8 @@ hmrc = Organisation.new
 hmrc.name = "hmrc"
 hmrc.title = "hmrc"
 hmrc.save!()
+
+puts 'Seeded organisations'
 
 # Admin
 AdminUser.create!(
@@ -69,9 +96,13 @@ User.create!(
   primary_organisation: hmrc
 )
 
+puts 'Seeded users'
+
 # Locations
 location_csv_text = File.read('lib/seeds/locations.csv')
 location_csv = CSV.parse(location_csv_text, :headers => true)
 location_csv.each do |row|
   Location.create!(row.to_hash)
 end
+
+puts 'Seeded locations'

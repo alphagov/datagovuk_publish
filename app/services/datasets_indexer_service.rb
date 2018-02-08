@@ -52,6 +52,20 @@ class DatasetsIndexerService
             }
           }
         },
+        topic: {
+          type: 'nested',
+          properties: {
+            title: {
+              type: 'string',
+              fields: {
+                raw: {
+                  type: 'string',
+                  index: 'not_analyzed'
+                }
+              }
+            }
+          }
+        },
         datafiles: {
           type: "nested",
           properties: {
@@ -92,7 +106,7 @@ class DatasetsIndexerService
       number_datasets_processed += batch_size
     end
 
-      logger.info "Datasets indexed to #{new_index_name}"
+    logger.info "Datasets indexed to #{new_index_name}"
   end
 
   private
@@ -103,8 +117,8 @@ class DatasetsIndexerService
     client.indices.create(
       index: new_index_name,
       body: {
-          settings: INDEX_SETTINGS,
-          mappings: INDEX_MAPPINGS
+        settings: INDEX_SETTINGS,
+        mappings: INDEX_MAPPINGS
       }
     )
   end

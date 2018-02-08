@@ -87,7 +87,7 @@
     "updated": "2017-12-04T09:31:29.005203",
     "openness_score": 3
   },
-  "theme-secondary": [
+  "topic-secondary": [
     ""
   ],
   "extras": [
@@ -222,7 +222,7 @@
       "value": "",
       "revision_timestamp": "2017-12-04T09:30:51.025540",
       "state": "active",
-      "key": "theme-primary",
+      "key": "topic-primary",
       "revision_id": "e0f01b22-791f-4c75-b2e5-2d521048a3d9",
       "id": "c19c2930-8171-48f2-a38c-2ad0540778fb"
     },
@@ -231,7 +231,7 @@
       "value": "[\"\"]",
       "revision_timestamp": "2017-12-04T09:30:51.025540",
       "state": "active",
-      "key": "theme-secondary",
+      "key": "topic-secondary",
       "revision_id": "e0f01b22-791f-4c75-b2e5-2d521048a3d9",
       "id": "cf51c628-a154-48e2-b159-005734a09ee4"
     },
@@ -279,6 +279,6 @@
   "revision_id": "e0f01b22-791f-4c75-b2e5-2d521048a3d9",
   "foi-phone": "",
   "sla": "",
-  "theme-primary": ""
+  "topic-primary": ""
 }
 

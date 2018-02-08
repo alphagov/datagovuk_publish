@@ -7,12 +7,14 @@ describe Legacy::BetaSyncService do
 
     @orgs_cache = Organisation.all.pluck(:uuid, :id).to_h
     @theme_cache = Theme.all.pluck(:title, :id).to_h
+    @topic_cache = Topic.all.pluck(:title, :id).to_h
     @legacy_server = double(:legacy_server)
     @logger = double(:logger, info: true)
 
     @beta_sync_service = Legacy::BetaSyncService.new(
       orgs_cache: @orgs_cache,
       theme_cache: @theme_cache,
+      topic_cache: @topic_cache,
       logger: @logger,
       legacy_server: @legacy_server
     )
@@ -35,12 +37,12 @@ describe Legacy::BetaSyncService do
       allow(@legacy_server).to receive(:get).and_return(first_response, second_response)
 
       expect(Legacy::DatasetImportService).to receive(:new)
-                                                .with(first_legacy_dataset, @orgs_cache, @theme_cache)
+                                                .with(first_legacy_dataset, @orgs_cache, @theme_cache, @topic_cache)
                                                 .once
                                                 .and_return(dataset_import_service)
 
       expect(Legacy::DatasetImportService).to receive(:new)
-                                                .with(second_legacy_dataset, @orgs_cache, @theme_cache)
+                                                .with(second_legacy_dataset, @orgs_cache, @theme_cache, @topic_cache)
                                                 .once
                                                 .and_return(dataset_import_service)
 

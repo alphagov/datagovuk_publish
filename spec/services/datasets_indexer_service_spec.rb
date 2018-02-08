@@ -44,6 +44,20 @@ describe DatasetsIndexerService do
               }
             }
           },
+          topic: {
+            type: 'nested',
+            properties: {
+              title: {
+                type: 'string',
+                fields: {
+                  raw: {
+                    type: 'string',
+                    index: 'not_analyzed'
+                  }
+                }
+              }
+            }
+          },
           datafiles: {
             type: "nested",
             properties: {

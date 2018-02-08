@@ -18,7 +18,9 @@ class Dataset < ApplicationRecord
   before_destroy :prevent_if_published
 
   belongs_to :organisation
+  belongs_to :topic, optional: true
   belongs_to :theme, optional: true
+  belongs_to :secondary_topic, optional: true
   belongs_to :secondary_theme, optional: true
 
   has_many :datafiles
@@ -73,6 +75,7 @@ class Dataset < ApplicationRecord
              :harvested, :uuid, :short_id],
              include: {
                organisation: {},
+               topic: {},
                datafiles: {},
                docs: {},
                inspire_dataset: {}

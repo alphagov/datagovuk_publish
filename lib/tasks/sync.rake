@@ -3,9 +3,12 @@ namespace :sync do
   task beta: :environment do |_, args|
     orgs_cache =  Organisation.all.pluck(:uuid, :id).to_h
     theme_cache = Theme.all.pluck(:title, :id).to_h
+    topic_cache = Topic.all.pluck(:title, :id).to_h
+
     args = {
       orgs_cache: orgs_cache,
       theme_cache: theme_cache,
+      topic_cache: topic_cache,
       logger: Logger.new(STDOUT),
       legacy_server: Legacy::Server
     }
