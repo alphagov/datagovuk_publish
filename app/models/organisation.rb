@@ -8,7 +8,7 @@ class Organisation < ApplicationRecord
   has_and_belongs_to_many :users
   has_many :tasks, dependent: :destroy
   has_many :datasets
-  friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
+  friendly_id :slug_candidates, use: :slugged, slug_column: :name
 
   before_destroy :deregister_users
   before_save :set_uuid

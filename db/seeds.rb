@@ -77,7 +77,7 @@ puts 'Seeded users'
 
 # Locations
 location_csv_text = File.read('lib/seeds/locations.csv')
-location_csv = CSV.parse(location_csv_text, :headers => true)
+location_csv = CSV.parse(location_csv_text, headers: true)
 location_csv.each do |row|
   Location.create!(row.to_hash)
 end

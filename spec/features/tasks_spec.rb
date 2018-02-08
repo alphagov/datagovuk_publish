@@ -12,7 +12,7 @@ describe "viewing tasks" do
     expect(page).to have_current_path '/tasks'
     click_link 'Land Registry tasks'
     expect(page).to have_selector(%(table), count: 2)
-    expect(page).to have_selector 'h2', :text => '1 datasets need to be updated'
-    expect(page).to have_selector 'h2', :text => '1 datasets have broken data links'
+    expect(page).to have_selector 'h2', text: '1 datasets need to be updated'
+    expect(page).to have_selector 'h2', text: '1 datasets have broken data links'
   end
 end

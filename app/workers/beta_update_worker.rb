@@ -1,6 +1,6 @@
 class BetaUpdateWorker
   include Sidekiq::Worker
-  sidekiq_options :queue => :indexer, :retry => false
+  sidekiq_options queue: :indexer, retry: false
 
   attr_writer :logger
 

@@ -10,7 +10,7 @@ namespace :import do
   desc "Import locations from a CSV file"
   task :locations, [:filename] => :environment do |_, args|
     csv_text = File.read(args.filename)
-    csv = CSV.parse(csv_text, :headers => true)
+    csv = CSV.parse(csv_text, headers: true)
     csv.each do |row|
       Location.create!(row.to_hash)
     end

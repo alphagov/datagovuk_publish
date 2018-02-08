@@ -43,7 +43,7 @@ namespace :check do
     desc "Check for broken links in each dataset of an organisation"
     task :organisation, [:organisation] => :environment do |_, args|
       organisation = Organisation.find_by(name: args.organisation)
-      datasets = Dataset.includes(:organisation_id => organisation.id)
+      datasets = Dataset.includes(organisation_id: organisation.id)
 
       puts "Checking datasets for #{organisation.title}"
 

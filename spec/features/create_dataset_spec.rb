@@ -148,7 +148,7 @@ describe "starting a new draft with invalid inputs" do
     click_button "Save and continue"
     expect(page).to have_content("There was a problem")
     expect(page).to have_content("Please enter a valid title", count: 2)
-    expect(page).to have_selector("div", :class => "form-group-error")
+    expect(page).to have_selector("div", class: "form-group-error")
     expect(Dataset.where(title: "my test dataset").size).to eq(0)
     # recover
     fill_in "dataset[title]", with: "my test dataset"
@@ -163,7 +163,7 @@ describe "starting a new draft with invalid inputs" do
     click_button "Save and continue"
     expect(page).to have_content("There was a problem")
     expect(page).to have_content("Please provide a summary", count: 2)
-    expect(page).to have_selector("div", :class => "form-group-error")
+    expect(page).to have_selector("div", class: "form-group-error")
     expect(Dataset.where(title: "my test dataset").size).to eq(0)
     # recover
     fill_in "dataset[title]", with: "my test dataset"
