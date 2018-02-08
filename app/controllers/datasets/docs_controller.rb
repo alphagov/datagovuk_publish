@@ -20,8 +20,7 @@ class Datasets::DocsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @doc.update(doc_params)

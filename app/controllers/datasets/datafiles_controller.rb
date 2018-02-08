@@ -21,8 +21,7 @@ class Datasets::DatafilesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @datafile.update(datafile_params)
