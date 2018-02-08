@@ -8,24 +8,26 @@ class LinkCheckerService
   def run
     begin
       check_link
-    rescue RestClient::ExceptionWithResponse
-      link.update(broken: true)
-      create_broken_link_task
+    rescue RestClient::ExceptionWithResponse => error
+      link.broken = true
+      link.save(validate: false)
+      create_broken_link_task(error)
     end
   end
 
   private
 
   def check_link
-    link.update({
+    link.attributes = {
       broken: !working?,
       format: file_format,
       size: file_size,
       last_check: DateTime.now
-    })
+    }
+    link.save(validate: false)
   end
 
-  def create_broken_link_task
+  def create_broken_link_task(error)
     task = Task.find_or_initialize_by(related_object_id: dataset.uuid, category: "broken")
     task.attributes = {
       organisation_id: organisation.id,
@@ -34,7 +36,7 @@ class LinkCheckerService
       category: "broken",
       quantity: broken_link_count,
       related_object_id: dataset.uuid,
-      description: "'#{dataset.title}' contains broken links"
+      description: error.message
     }
     task.save
   end
@@ -52,7 +54,7 @@ class LinkCheckerService
   end
 
   def response
-    @response ||= RestClient.head(link.url)
+    @response ||= RestClient::Request.execute(method: :head, url: link.url, timeout: 5)
   end
 
   def last_modified
@@ -65,7 +67,7 @@ class LinkCheckerService
   end
 
   def working?
-    response.code > 199 && response.code < 299
+    response.net_http_res.is_a?(Net::HTTPSuccess)
   end
 
   def file_format

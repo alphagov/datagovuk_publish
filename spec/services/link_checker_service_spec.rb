@@ -29,7 +29,7 @@ describe LinkCheckerService do
           category: "broken",
           quantity: 1,
           related_object_id: link.dataset.uuid,
-          description: %('#{link.dataset.title}' contains broken links)
+          description: "404 Not Found"
           )
     end
 
