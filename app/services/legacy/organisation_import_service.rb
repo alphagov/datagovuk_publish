@@ -30,7 +30,7 @@ class Legacy::OrganisationImportService
     }
   end
 
-  private
+private
 
   def organisation
     @organisation ||= Organisation.find_or_initialize_by(name: legacy_organisation["name"])

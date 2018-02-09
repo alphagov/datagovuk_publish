@@ -16,7 +16,7 @@ class ReindexService
     logger.info 'Reindexing complete!'
   end
 
-  private
+private
 
   def published_datasets_count
     Dataset.published.count

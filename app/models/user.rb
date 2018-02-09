@@ -20,7 +20,7 @@ class User < ApplicationRecord
     id == dataset.creator_id
   end
 
-  private
+private
 
   def user_organisations
     organisations + [primary_organisation]

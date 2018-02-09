@@ -176,7 +176,7 @@ class Dataset < ApplicationRecord
     %w[annually quarterly monthly].include?(frequency)
   end
 
-  private
+private
 
   def send_to_search_index
     PublishingWorker.perform_async(self.id)

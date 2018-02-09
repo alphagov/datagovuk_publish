@@ -17,7 +17,7 @@ class IndexDeletionService
     Raven.capture_error msg
   end
 
-  private
+private
 
   attr_reader :client, :index_alias, :logger
 

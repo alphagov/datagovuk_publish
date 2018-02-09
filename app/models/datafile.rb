@@ -28,7 +28,7 @@ class Datafile < Link
     self.start_date = compute_date(:start)
   end
 
-  private
+private
 
   def compute_date(date_type)
     return daily_date                       if dataset.daily?

@@ -207,7 +207,7 @@ class Legacy::DatasetImportService
     get_extra("harvest_object_id").present?
   end
 
-  private
+private
 
   def get_end_date(date_string)
     # eg "1983"

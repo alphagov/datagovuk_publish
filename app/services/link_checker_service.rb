@@ -15,7 +15,7 @@ class LinkCheckerService
     end
   end
 
-  private
+private
 
   def check_link
     link.attributes = {

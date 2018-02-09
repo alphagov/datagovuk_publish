@@ -12,7 +12,7 @@ class AliasUpdaterService
     logger.info "Alias '#{index_alias}' now pointing to '#{new_index_name}'"
   end
 
-  private
+private
 
   attr_reader :logger, :client, :index_alias, :new_index_name
 

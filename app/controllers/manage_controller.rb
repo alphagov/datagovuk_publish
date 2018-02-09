@@ -28,7 +28,7 @@ class ManageController < ApplicationController
     @datasets = @datasets.order("#{sort_column} #{sort_direction}").page(params[:page]).per(params[:per])
   end
 
-  private
+private
 
   def sql_query
     "name ILIKE CONCAT('%',:query,'%') OR title ILIKE CONCAT('%',:query,'%')"

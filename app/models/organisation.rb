@@ -21,7 +21,7 @@ class Organisation < ApplicationRecord
     !active?
   end
 
-  private
+private
 
   def set_uuid
     if self.uuid.blank?

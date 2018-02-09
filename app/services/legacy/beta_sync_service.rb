@@ -22,7 +22,7 @@ class Legacy::BetaSyncService
     @logger.info "Imported #{@count} datasets...\r"
   end
 
-  private
+private
 
   def modified_datasets
     @legacy_server.get ENDPOINTS[:modified_datasets]

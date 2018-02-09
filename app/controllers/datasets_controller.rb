@@ -85,7 +85,7 @@ class DatasetsController < ApplicationController
     @reasons = q.reasons
   end
 
-  private
+private
 
   def set_dataset
     @dataset = Dataset.find_by!(uuid: params[:uuid])

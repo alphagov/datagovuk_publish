@@ -13,7 +13,7 @@ class Legacy::Server
       { Authorization: ENV.fetch('LEGACY_API_KEY') }
     end
 
-    private
+  private
 
     def host
       ENV.fetch('LEGACY_HOST')

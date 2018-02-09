@@ -45,7 +45,7 @@ class Datasets::DatafilesController < ApplicationController
     redirect_to dataset_datafiles_path(@dataset.uuid, @dataset.name)
   end
 
-  private
+private
 
   def set_dataset
     @dataset = Dataset.find_by(uuid: params[:uuid])
