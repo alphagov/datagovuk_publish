@@ -45,7 +45,8 @@ describe Dataset do
       title: "dataset",
       summary: "Summary",
       organisation_id: @org.id,
-      status: "published")
+      status: "published"
+    )
 
     dataset.valid?
 
@@ -59,7 +60,8 @@ describe Dataset do
       summary: "Summary",
       organisation_id: @org.id,
       frequency: "never",
-      licence: "uk-ogl")
+      licence: "uk-ogl"
+    )
 
     d.save
 
@@ -74,7 +76,8 @@ describe Dataset do
       summary: "Summary",
       organisation_id: @org.id,
       frequency: "never",
-      licence: "uk-ogl")
+      licence: "uk-ogl"
+    )
 
     d.save
 
