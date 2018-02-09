@@ -173,7 +173,7 @@ class Dataset < ApplicationRecord
   end
 
   def timeseries?
-    ["annually", "quarterly", "monthly"].include?(frequency)
+    %w[annually quarterly monthly].include?(frequency)
   end
 
   private
