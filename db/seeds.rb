@@ -12,7 +12,7 @@ require 'csv'
 # Add default topics.  This is required before you can import the legacy metadata
 # so that we don't lose data in the migration
 
-if Topic.count == 0
+if Topic.count.zero?
   Topic.create(
     [
       {name: "business-and-economy", title: "Business and economy"},

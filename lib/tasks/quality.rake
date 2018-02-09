@@ -33,7 +33,7 @@ def calculate_organisation_score(organisation)
     current_scores = []
 
     datasets = organisation.datasets.preload(:links).preload(:docs).all
-    if datasets.size == 0
+    if datasets.size.zero?
       print "\nSkipping empty organisation"
       return
     end
@@ -48,8 +48,8 @@ def calculate_organisation_score(organisation)
 
     sorted = current_scores.sort
     len = sorted.length
-    median = 0 if len == 0
-    median = (sorted[(len - 1) / 2] + sorted[len / 2]) / 2.0 if len > 0
+    median = 0 if len.zero?
+    median = (sorted[(len - 1) / 2] + sorted[len / 2]) / 2.0 if len.positive?
 
     current = QualityScore.find_by(organisation_id: organisation.id)
     current = QualityScore.new if current.blank?
