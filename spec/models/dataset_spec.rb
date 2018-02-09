@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Dataset do
-  let! (:org)  { @org = Organisation.create!(name: "land-registry", title: "Land Registry") }
+  let!(:org)  { @org = Organisation.create!(name: "land-registry", title: "Land Registry") }
 
   it "requires a title and a summary" do
     dataset = Dataset.new(title: "", summary: "")
