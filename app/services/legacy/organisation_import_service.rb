@@ -52,9 +52,9 @@ private
 
   def central_government?
     %w(ministerial-department non-ministerial-department
-        devolved executive-ndpb advisory-ndpb
-        tribunal-ndpb executive-agency
-        executive-office gov-corporation).include? legacy_organisation["category"]
+       devolved executive-ndpb advisory-ndpb
+       tribunal-ndpb executive-agency
+       executive-office gov-corporation).include? legacy_organisation["category"]
   end
 
   def local_council?

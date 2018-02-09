@@ -155,9 +155,9 @@ describe Legacy::DatasetImportService do
   describe "#build_type" do
     it "returns 'inspire' if dataset has UKLP in extras" do
       legacy_dataset["extras"] = [{
-        "value": "True",
-        "key": "UKLP",
-      }]
+                                    "value": "True",
+                                    "key": "UKLP",
+                                  }]
 
       type = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_type
       expect(type).to eql("inspire")
@@ -212,9 +212,9 @@ describe Legacy::DatasetImportService do
   describe "#harvested?" do
     it "is true if legacy dataset has a harvest_object_id" do
       legacy_dataset["extras"] = [{
-        "value": "123",
-        "key": "harvest_object_id",
-      }]
+                                    "value": "123",
+                                    "key": "harvest_object_id",
+                                  }]
 
       harvested = described_class.new(legacy_dataset, orgs_cache, topics_cache).harvested?
       expect(harvested).to be true
@@ -229,86 +229,86 @@ describe Legacy::DatasetImportService do
   describe "#create_inspire_dataset" do
     it "creates an Inspire dataset for a UKLP imported dataset" do
       legacy_dataset["extras"] = [
-      {
-        "value": "True",
-        "key": "UKLP",
-      },
         {
-        "value": "bbox east long",
-        "key": "bbox-east-long"
-      },
+          "value": "True",
+          "key": "UKLP",
+        },
         {
-        "value": "bbox north lat",
-        "key": "bbox-north-lat"
-      },
+          "value": "bbox east long",
+          "key": "bbox-east-long"
+        },
         {
-        "value": "bbox south lat",
-        "key": "bbox-south-lat"
-      },
+          "value": "bbox north lat",
+          "key": "bbox-north-lat"
+        },
         {
-        "value": "bbox west long",
-        "key": "bbox-west-long"
-      },
+          "value": "bbox south lat",
+          "key": "bbox-south-lat"
+        },
         {
-        "value": "coupled resource",
-        "key": "coupled-resource"
-      },
+          "value": "bbox west long",
+          "key": "bbox-west-long"
+        },
         {
-        "value": "dataset reference date",
-        "key": "dataset-reference-date"
-      },
+          "value": "coupled resource",
+          "key": "coupled-resource"
+        },
         {
-        "value": "frequency of update",
-        "key": "frequency-of-update"
-      },
+          "value": "dataset reference date",
+          "key": "dataset-reference-date"
+        },
         {
-        "value": "harvest object id",
-        "key": "harvest_object_id"
-      },
+          "value": "frequency of update",
+          "key": "frequency-of-update"
+        },
         {
-        "value": "harvest source reference",
-        "key": "harvest_source_reference"
-      },
+          "value": "harvest object id",
+          "key": "harvest_object_id"
+        },
         {
-        "value": "import source",
-        "key": "import_source"
-      },
+          "value": "harvest source reference",
+          "key": "harvest_source_reference"
+        },
         {
-        "value": "metadata date",
-        "key": "metadata-date"
-      },
+          "value": "import source",
+          "key": "import_source"
+        },
         {
-        "value": "metadata language",
-        "key": "metadata-language"
-      },
+          "value": "metadata date",
+          "key": "metadata-date"
+        },
         {
-        "value": "provider",
-        "key": "provider"
-      },
+          "value": "metadata language",
+          "key": "metadata-language"
+        },
         {
-        "value": "resource type",
-        "key": "resource-type"
-      },
+          "value": "provider",
+          "key": "provider"
+        },
         {
-        "value": "responsible party",
-        "key": "responsible-party"
-      },
+          "value": "resource type",
+          "key": "resource-type"
+        },
         {
-        "value": "spatial",
-        "key": "spatial"
-      },
+          "value": "responsible party",
+          "key": "responsible-party"
+        },
         {
-        "value": "spatial data service type",
-        "key": "spatial-data-service-type"
-      },
+          "value": "spatial",
+          "key": "spatial"
+        },
         {
-        "value": "spatial reference system",
-        "key": "spatial-reference-system"
-      },
+          "value": "spatial data service type",
+          "key": "spatial-data-service-type"
+        },
         {
-        "value": "guid",
-        "key": "guid"
-      }
+          "value": "spatial reference system",
+          "key": "spatial-reference-system"
+        },
+        {
+          "value": "guid",
+          "key": "guid"
+        }
       ]
 
       described_class.new(legacy_dataset, orgs_cache, topics_cache).run
