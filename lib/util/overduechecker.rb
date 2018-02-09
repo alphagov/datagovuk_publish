@@ -41,7 +41,7 @@ module OverdueChecker
     t.related_object_id = dataset.uuid
     t.created_at = t.updated_at = Time.now
     t.description = "'#{dataset.title}' is overdue"
-    t.save()
+    t.save
   end
 
   # Find the lastest end_date in the datafiles for this dataset and return

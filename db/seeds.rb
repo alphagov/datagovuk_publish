@@ -38,12 +38,12 @@ puts 'Seeded topics'
 land_registry = Organisation.new
 land_registry.name = "land-registry"
 land_registry.title = "Land Registry"
-land_registry.save!()
+land_registry.save!
 
 hmrc = Organisation.new
 hmrc.name = "hmrc"
 hmrc.title = "hmrc"
-hmrc.save!()
+hmrc.save!
 
 puts 'Seeded organisations'
 

@@ -77,6 +77,6 @@ class LinkCheckerService
   def parse_content_type(content)
     parts = content.split(';')
     mimetype = MIME::Types[parts[0]].first
-    mimetype.preferred_extension.upcase()
+    mimetype.preferred_extension.upcase
   end
 end
