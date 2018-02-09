@@ -48,7 +48,7 @@ module OverdueChecker
   def find_end_date(dataset)
     Link.where(dataset_id: dataset.id).all.inject(Date.parse("2000-01-01")) {
       |acc, datafile|
-        [datafile.end_date, acc].max
+      [datafile.end_date, acc].max
     }
   end
 

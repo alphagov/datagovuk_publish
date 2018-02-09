@@ -28,7 +28,7 @@ namespace :quality do
 end
 
 def calculate_organisation_score(organisation)
-    current_scores = []
+  current_scores = []
 
     datasets = organisation.datasets.preload(:links).preload(:docs).all
     if datasets.size.zero?
