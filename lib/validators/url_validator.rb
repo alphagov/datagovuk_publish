@@ -13,23 +13,23 @@ class UrlValidator < ActiveModel::Validator
   def urlPresent?(record)
     error = 'Url was not present'
 
-    !record.url || record.url.empty? ?
-        createValidationError(record, error) :
-        true
+    record.url.blank? ? createValidationError(record, error) : true
   end
 
   def urlStartsWithProtocol?(record)
     error = 'Url does not start with http or https'
 
-    record.url !~ /^https?/ ?
-        createValidationError(record, error) :
-        true
+    if record.url !~ /^https?/
+      createValidationError(record, error)
+    else
+      true
+    end
   end
 
   def validPath?(record)
     begin
       RestClient.head record.url
-    rescue 
+    rescue
       error = 'Url path is not valid'
       createValidationError(record, error)
     end
