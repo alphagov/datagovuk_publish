@@ -46,10 +46,10 @@ module OverdueChecker
   # Find the lastest end_date in the datafiles for this dataset and return
   # it.
   def find_end_date(dataset)
-    Link.where(dataset_id: dataset.id).all.inject(Date.parse("2000-01-01")) {
-      |acc, datafile|
-      [datafile.end_date, acc].max
-    }
+    Link
+      .where(dataset_id: dataset.id)
+      .all
+      .inject(Date.parse("2000-01-01")) { |acc, datafile| [datafile.end_date, acc].max }
   end
 
   module_function :check_dataset, :find_end_date, :create_overdue_task
