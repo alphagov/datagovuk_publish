@@ -1,5 +1,4 @@
 module TasksHelper
-
   SORT_UPDATES = {
     "ascending" => {created_at: :asc},
     "-name" => {description: :desc},
@@ -31,5 +30,4 @@ module TasksHelper
   def broken_dataset_count
     @broken_dataset_tasks.count
   end
-
 end
