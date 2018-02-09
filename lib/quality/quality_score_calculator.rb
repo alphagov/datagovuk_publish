@@ -12,7 +12,7 @@ class QualityScoreCalculator
     value = 100
 
     methods = QualityScoreCalculator.instance_methods.grep(/.*_score/)
-    methods.each do | f |
+    methods.each do |f|
       value -= self.send(f)
     end
 

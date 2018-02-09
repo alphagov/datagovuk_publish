@@ -8,7 +8,7 @@ namespace :generate do
     # entire database into memory.
     file = File.new("data.json", "w+")
 
-    generate_string.each do | blob |
+    generate_string.each do |blob|
       file.puts blob
     end
 
