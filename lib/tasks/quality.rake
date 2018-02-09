@@ -15,7 +15,7 @@ namespace :quality do
   end
 
   desc "Calculate scores for all organisations"
-  task :calculate_all, [] => :environment do |_, args|
+  task :calculate_all, [] => :environment do |_, _args|
     count = 1
     total = Organisation.all.count
 
