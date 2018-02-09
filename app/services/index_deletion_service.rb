@@ -30,7 +30,7 @@ private
     # Ensure that the three most recent indexes are not deleted
     indexes_to_keep = ordered_indexes.take(NUMBER_OF_INDEXES_TO_KEEP)
 
-    ordered_indexes - indexes_to_keep 
+    ordered_indexes - indexes_to_keep
   end
 
   def delete(indexes)
