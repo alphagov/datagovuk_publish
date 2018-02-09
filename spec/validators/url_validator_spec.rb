@@ -15,7 +15,7 @@ RSpec.describe UrlValidator do
     describe 'Creates validation errors when' do
 
       before(:each) do
-        allow_any_instance_of(UrlValidator).to receive(:validPath?).and_call_original
+        allow_any_instance_of(UrlValidator).to receive(:valid_path?).and_call_original
       end
 
       EXPECTED_ERROR_MESSAGE = 'Please enter a valid url'.freeze

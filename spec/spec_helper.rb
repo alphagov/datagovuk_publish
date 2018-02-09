@@ -20,7 +20,7 @@ RSpec.configure do |config|
   config.order = :random
 
   config.before(:each) do
-    allow_any_instance_of(UrlValidator).to receive(:validPath?).and_return(true)
+    allow_any_instance_of(UrlValidator).to receive(:valid_path?).and_return(true)
   end
 
   config.around(:each) do |example|

@@ -5,37 +5,37 @@ require 'logger'
 
 class UrlValidator < ActiveModel::Validator
   def validate(record)
-    urlPresent?(record) &&
-        urlStartsWithProtocol?(record) &&
-        validPath?(record)
+    url_present?(record) &&
+        url_starts_with_protocol?(record) &&
+        valid_path?(record)
   end
 
-  def urlPresent?(record)
+  def url_present?(record)
     error = 'Url was not present'
 
-    record.url.blank? ? createValidationError(record, error) : true
+    record.url.blank? ? create_validation_error(record, error) : true
   end
 
-  def urlStartsWithProtocol?(record)
+  def url_starts_with_protocol?(record)
     error = 'Url does not start with http or https'
 
     if record.url !~ /^https?/
-      createValidationError(record, error)
+      create_validation_error(record, error)
     else
       true
     end
   end
 
-  def validPath?(record)
+  def valid_path?(record)
     begin
       RestClient.head record.url
     rescue RestClient::ExceptionWithResponse
       error = 'Url path is not valid'
-      createValidationError(record, error)
+      create_validation_error(record, error)
     end
   end
 
-  def createValidationError(record, error)
+  def create_validation_error(record, error)
     Rails.logger.debug('Validation error: ' + error)
     record.errors[:url] << 'Please enter a valid url'
     false
