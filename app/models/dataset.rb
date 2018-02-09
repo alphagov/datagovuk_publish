@@ -104,12 +104,12 @@ class Dataset < ApplicationRecord
 
   def publishable?
     if self.published?
-      return self.valid?
+      self.valid?
     else
       self.status = "published"
       result = self.valid?
       self.status = "draft"
-      return result
+      result
     end
   end
 
