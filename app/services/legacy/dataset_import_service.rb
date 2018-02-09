@@ -248,7 +248,7 @@ class Legacy::DatasetImportService
   end
 
   def calculate_quarterly_dates(date_object)
-    Date.new(date_object.year, 1 + (date_object.month -1 ) / 4 * 4)
+    Date.new(date_object.year, 1 + (date_object.month - 1) / 4 * 4)
   end
 
   def dataset
