@@ -6,8 +6,8 @@ require 'logger'
 class UrlValidator < ActiveModel::Validator
   def validate(record)
     url_present?(record) &&
-        url_starts_with_protocol?(record) &&
-        valid_path?(record)
+      url_starts_with_protocol?(record) &&
+      valid_path?(record)
   end
 
   def url_present?(record)
