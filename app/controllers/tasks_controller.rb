@@ -13,7 +13,6 @@ class TasksController < ApplicationController
     manage_sort
   end
 
-
   def organisation
     @organisation = current_user.primary_organisation
     @datasets = Dataset.where(organisation: @organisation.id)
