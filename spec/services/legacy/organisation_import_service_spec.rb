@@ -39,7 +39,7 @@ describe Legacy::OrganisationImportService do
             imported_organisation = Organisation.find_by(uuid: legacy_organisation["id"])
 
             expect(imported_organisation.org_type).to eql 'central-government'
-          end
+      end
     end
 
     it "assigns the organisation type to 'local-council' from relevant category" do
