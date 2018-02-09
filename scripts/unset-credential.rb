@@ -1,7 +1,8 @@
 #!/usr/local/bin/ruby -w
 require 'json'
 
-APP, KEY = ARGV[0], ARGV[1]
+APP = ARGV[0]
+KEY = ARGV[1]
 
 def app_env
   `cf env #{APP}`
