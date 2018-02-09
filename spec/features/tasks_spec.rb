@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe "viewing tasks" do
   let(:land_registry) { FactoryGirl.create(:organisation, title: 'Land Registry') }
-  let(:user) { FactoryGirl.create(:user, primary_organisation_id: land_registry.id ) }
-  let!(:fix_task) { FactoryGirl.create(:task, category: 'broken', organisation: land_registry ) }
-  let!(:update_task) { FactoryGirl.create(:task, category: 'overdue', organisation: land_registry ) }
-  let!(:dataset) { FactoryGirl.create(:dataset, name: 'my_dataset', title: 'My  Dataset', summary: 'Some data', organisation: land_registry ) }
+  let(:user) { FactoryGirl.create(:user, primary_organisation_id: land_registry.id) }
+  let!(:fix_task) { FactoryGirl.create(:task, category: 'broken', organisation: land_registry) }
+  let!(:update_task) { FactoryGirl.create(:task, category: 'overdue', organisation: land_registry) }
+  let!(:dataset) { FactoryGirl.create(:dataset, name: 'my_dataset', title: 'My  Dataset', summary: 'Some data', organisation: land_registry) }
 
   it "after login" do
     create_user_and_sign_in

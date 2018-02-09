@@ -255,7 +255,7 @@ end
 describe "dataset frequency options" do
   let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
   let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
-  let!(:dataset) { FactoryGirl.create(:dataset, organisation: land, owner: user ) }
+  let!(:dataset) { FactoryGirl.create(:dataset, organisation: land, owner: user) }
 
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
@@ -408,7 +408,7 @@ end
 describe "passing the frequency page" do
   let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
   let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
-  let!(:dataset) { FactoryGirl.create(:dataset, organisation: land, owner: user, frequency: nil ) }
+  let!(:dataset) { FactoryGirl.create(:dataset, organisation: land, owner: user, frequency: nil) }
 
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
