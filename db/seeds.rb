@@ -16,18 +16,18 @@ require 'csv'
 if Topic.count.zero?
   Topic.create(
     [
-      {name: "business-and-economy", title: "Business and economy"},
-      {name: "environment", title: "Environment"},
-      {name: "mapping", title: "Mapping"},
-      {name: "crime-and-justice", title: "Crime and justice"},
-      {name: "government", title: "Government"},
-      {name: "society", title: "Society"},
-      {name: "defence", title: "Defence"},
-      {name: "government-spending", title: "Government spending"},
-      {name: "towns-and-cities", title: "Towns and cities"},
-      {name: "education", title: "Education"},
-      {name: "health", title: "Health"},
-      {name: "transport", title: "Transport"},
+      { name: "business-and-economy", title: "Business and economy" },
+      { name: "environment", title: "Environment" },
+      { name: "mapping", title: "Mapping" },
+      { name: "crime-and-justice", title: "Crime and justice" },
+      { name: "government", title: "Government" },
+      { name: "society", title: "Society" },
+      { name: "defence", title: "Defence" },
+      { name: "government-spending", title: "Government spending" },
+      { name: "towns-and-cities", title: "Towns and cities" },
+      { name: "education", title: "Education" },
+      { name: "health", title: "Health" },
+      { name: "transport", title: "Transport" },
     ]
   )
 end

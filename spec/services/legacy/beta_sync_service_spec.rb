@@ -23,11 +23,11 @@ describe Legacy::BetaSyncService do
       id_for_first_legacy_dataset = 1
       id_for_second_legacy_dataset = 2
 
-      first_legacy_dataset = {'name'  => 'Awesome data', 'id' => id_for_first_legacy_dataset}
-      second_legacy_dataset = {'name' => 'More awesome data', 'id' => id_for_second_legacy_dataset}
+      first_legacy_dataset = { 'name'  => 'Awesome data', 'id' => id_for_first_legacy_dataset }
+      second_legacy_dataset = { 'name' => 'More awesome data', 'id' => id_for_second_legacy_dataset }
 
-      first_response = {'result' => {'results' => [first_legacy_dataset]}}
-      second_response = {'result' => {'results' => [second_legacy_dataset]}}
+      first_response = { 'result' => { 'results' => [first_legacy_dataset] } }
+      second_response = { 'result' => { 'results' => [second_legacy_dataset] } }
 
       dataset_import_service = double(:dataset_importer_service, run: true)
       dataset_index_service = double(:dataset_indexer_service, index: true)
@@ -77,7 +77,7 @@ describe Legacy::BetaSyncService do
 
     describe 'there are no modified or new datasets to be imported' do
       it 'does not import legacy datasets' do
-        response = {'result' => {'results' => []}}
+        response = { 'result' => { 'results' => [] } }
 
         allow(@legacy_server).to receive(:get).and_return(response)
 

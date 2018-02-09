@@ -1,13 +1,13 @@
 module TasksHelper
   SORT_UPDATES = {
-    "ascending" => {created_at: :asc},
-    "-name" => {description: :desc},
-    "name" => {description: :asc},
-    "descending" => {created_at: :desc},
-    "-broken-name" => {description: :desc},
-    "decreasing" => {created_at: :desc},
-    "increasing" => {created_at: :asc},
-    "broken-name" => {description: :asc}
+    "ascending" => { created_at: :asc },
+    "-name" => { description: :desc },
+    "name" => { description: :asc },
+    "descending" => { created_at: :desc },
+    "-broken-name" => { description: :desc },
+    "decreasing" => { created_at: :desc },
+    "increasing" => { created_at: :asc },
+    "broken-name" => { description: :asc }
   }.freeze
 
   def manage_sort
