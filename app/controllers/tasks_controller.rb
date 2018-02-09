@@ -26,5 +26,4 @@ private
   def get_tasks(organisation, category)
     Task.where(organisation: organisation.id, category: category)
   end
-
 end

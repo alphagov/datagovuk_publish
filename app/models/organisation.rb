@@ -45,5 +45,4 @@ private
     sequence = Organisation.where("name like ?", "#{slug}-%").count + 2
     "#{slug}-#{sequence}"
   end
-
 end

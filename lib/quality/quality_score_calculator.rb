@@ -98,6 +98,4 @@ class QualityScoreCalculator
       0
     end
   end
-
-
 end

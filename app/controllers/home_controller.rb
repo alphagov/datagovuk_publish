@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-
   def index
     home_path_for_user
   end

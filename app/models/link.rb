@@ -2,7 +2,6 @@ require 'securerandom'
 require 'validators/url_validator'
 
 class Link < ApplicationRecord
-
   belongs_to :dataset
 
   validates :name, presence: true
