@@ -215,14 +215,14 @@ private
       return calculate_dates_for_year(date_string.to_i)
     end
      # eg "1983/02/12"
-     parts = date_string.split("/")
-   if parts.length == 3
-     return date_string
-   end
+    parts = date_string.split("/")
+    if parts.length == 3
+      return date_string
+    end
      # eg "1983/02"
-   if parts && (parts.length == 2)
-     return calculate_dates_for_month(parts[0].to_i, parts[1].to_i)
-   end
+    if parts && (parts.length == 2)
+      return calculate_dates_for_month(parts[0].to_i, parts[1].to_i)
+    end
     ""
   end
 
