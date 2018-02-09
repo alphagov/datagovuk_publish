@@ -2,7 +2,7 @@ require 'quality/quality_score_calculator'
 
 namespace :quality do
   desc "Quality score for named dataset"
-  task :score,[:dataset] => :environment do |_, args|
+  task :score, [:dataset] => :environment do |_, args|
     dataset = Dataset.find_by(name: args.dataset)
     QualityScoreCalculator.new(dataset)
   end
