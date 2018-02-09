@@ -11,7 +11,7 @@ class IndexDeletionService
     indexes = client.indices.get_aliases.keys
     indexes_to_be_deleted = select_indexes_for_deletion(indexes)
     delete(indexes_to_be_deleted)
-  rescue => e
+  rescue StandardError => e
     msg = "Failed to delete old indexes.\n#{e.message}"
     logger.error msg
     Raven.capture_error msg

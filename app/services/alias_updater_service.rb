@@ -43,7 +43,7 @@ class AliasUpdaterService
         }
       ]
     }
-  rescue => e
+  rescue StandardError => e
     msg = "Could not update alias.\n #{e.message}"
     logger.error msg
     Raven.capture_exception msg
