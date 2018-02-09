@@ -113,28 +113,28 @@ describe Legacy::DatasetImportService do
       legacy_dataset["update_frequency"] = nil
       frequency = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_frequency
 
-      expect(frequency).to eql ("never")
+      expect(frequency).to eql "never"
     end
 
     it "returns 'never' if frequency has an unknown value" do
       legacy_dataset["update_frequency"] = "bi-foobarly"
       frequency = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_frequency
 
-      expect(frequency).to eql ("never")
+      expect(frequency).to eql "never"
     end
 
     it "returns 'annually' if legacy frequency is 'annual'" do
       legacy_dataset["update_frequency"] = "annual"
       frequency = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_frequency
 
-      expect(frequency).to eql ("annually")
+      expect(frequency).to eql "annually"
     end
 
     it "returns 'monthly' if legacy frequency is 'monthly'" do
       legacy_dataset["update_frequency"] = "monthly"
       frequency = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_frequency
 
-      expect(frequency).to eql ("monthly")
+      expect(frequency).to eql "monthly"
     end
 
     it "returns 'quarterly' if legacy frequency is 'quarterly'" do
