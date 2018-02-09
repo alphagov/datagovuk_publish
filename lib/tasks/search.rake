@@ -34,7 +34,7 @@ namespace :search do
     alias_updater = AliasUpdaterService.new(alias_updater_args)
     index_deleter = IndexDeletionService.new(index_deleter_args)
 
-    reindexService = ReindexService.new(
+    reindex_service = ReindexService.new(
       indexer: indexer,
       alias_updater: alias_updater,
       index_deleter: index_deleter,
@@ -42,7 +42,7 @@ namespace :search do
     )
 
     check_for_legacy_index(client, legacy_index)
-    reindexService.run
+    reindex_service.run
   end
 
   def check_for_legacy_index(client, legacy_index)
