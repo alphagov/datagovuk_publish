@@ -30,10 +30,10 @@ describe Legacy::OrganisationImportService do
     end
 
     it "assigns the organisation type to 'central-government' from relevant set of categories" do
-      %w("ministerial-department", "non-ministerial-department",
-          "devolved", "executive-ndpb", "advisory-ndpb",
-          "tribunal-ndpb", "executive-agency",
-          "executive-office", "gov-corporation").each do |category|
+      %w(ministerial-department non-ministerial-department
+          devolved executive-ndpb advisory-ndpb
+          tribunal-ndpb executive-agency
+          executive-office gov-corporation).each do |category|
             legacy_organisation["category"] = category
             Legacy::OrganisationImportService.new(legacy_organisation).run
             imported_organisation = Organisation.find_by(uuid: legacy_organisation["id"])
