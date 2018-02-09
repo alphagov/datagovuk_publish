@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "viewing tasks" do
-  let(:land_registry) { FactoryGirl.create(:organisation, title:'Land Registry') }
+  let(:land_registry) { FactoryGirl.create(:organisation, title: 'Land Registry') }
   let(:user) { FactoryGirl.create(:user, primary_organisation_id: land_registry.id ) }
   let!(:fix_task) { FactoryGirl.create(:task, category: 'broken', organisation: land_registry ) }
   let!(:update_task) { FactoryGirl.create(:task, category: 'overdue', organisation: land_registry ) }
