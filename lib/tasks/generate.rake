@@ -36,7 +36,7 @@ def generate_string
       enum.yield "," if count != 0
       enum.yield dataset_record(dataset)
 
-      print "Encoded #{count+=1} datasets...\r"
+      print "Encoded #{count += 1} datasets...\r"
     end
 
     enum.yield "\n]}"
