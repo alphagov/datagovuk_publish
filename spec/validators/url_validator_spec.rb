@@ -18,7 +18,7 @@ RSpec.describe UrlValidator do
         allow_any_instance_of(UrlValidator).to receive(:validPath?).and_call_original
       end
 
-      EXPECTED_ERROR_MESSAGE = 'Please enter a valid url'
+      EXPECTED_ERROR_MESSAGE = 'Please enter a valid url'.freeze
 
       it 'the field is an empty string' do
         subject.url = ''

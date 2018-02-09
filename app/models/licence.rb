@@ -15,7 +15,7 @@ class Licence
     "other-open" => LicenceInfo.new("Other (Open)"),
     "other-pd" => LicenceInfo.new("Other (Public Domain)"),
     "uk-ogl" => LicenceInfo.new("Open Government Licence", "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"),
-  }
+  }.freeze
 
   def self.lookup(licence_code)
     LICENCES.fetch(licence_code, LicenceInfo.new)

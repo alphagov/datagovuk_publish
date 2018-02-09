@@ -8,7 +8,7 @@ class DatasetsIndexerService
         }
       }
     }
-  }
+  }.freeze
 
   INDEX_MAPPINGS = {
     dataset: {
@@ -138,7 +138,7 @@ class DatasetsIndexerService
         }
       }
     }
-  }
+  }.freeze
 
   def initialize(args)
     @batch_size = args[:batch_size]

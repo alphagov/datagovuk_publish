@@ -9,7 +9,7 @@ module TasksHelper
     "decreasing" => {created_at: :desc},
     "increasing" => {created_at: :asc},
     "broken-name" => {description: :asc}
-  }
+  }.freeze
 
   def manage_sort
     @date_sort          = params["update_sort_by"] == "descending" ? "ascending" : "descending"

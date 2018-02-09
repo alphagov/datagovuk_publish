@@ -3,7 +3,7 @@ require 'csv'
 require 'zip'
 require 'rest-client'
 
-LEGACY_SHOW_API = 'https://data.gov.uk/api/3/action/package_show'
+LEGACY_SHOW_API = 'https://data.gov.uk/api/3/action/package_show'.freeze
 
 namespace :import do
 

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe Datafile, type: :model do
-  DAILY = 'daily'
-  MONTHLY = 'monthly'
-  ANNUALLY = 'annually'
+  DAILY = 'daily'.freeze
+  MONTHLY = 'monthly'.freeze
+  ANNUALLY = 'annually'.freeze
 
   before do
     @datafile = FactoryGirl.create(:datafile)
