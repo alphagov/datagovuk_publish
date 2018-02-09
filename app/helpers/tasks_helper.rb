@@ -16,7 +16,6 @@ module TasksHelper
     @update_name_sort   = params["update_sort_by"] == "name" ? "-name" : "name"
     @count_sort         = params["fix_sort_by"] == "increasing" ? "decreasing" : "increasing"
     @fix_name_sort      = params["fix_sort_by"] == "broken-name" ? "-broken-name" : "broken-name"
-
   end
 
   def sorted_update_tasks

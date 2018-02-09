@@ -29,7 +29,6 @@ module OverdueChecker
   # Creates a new task for the overdue dataset, specifying when it
   # should have been updated.
   def create_overdue_task(dataset, days)
-
     org = Organisation.find_by(id: dataset.organisation_id)
 
     t = Task.new

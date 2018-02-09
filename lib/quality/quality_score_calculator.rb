@@ -65,7 +65,6 @@ class QualityScoreCalculator
     else
       0
     end
-
   end
 
   def additional_notes_score
