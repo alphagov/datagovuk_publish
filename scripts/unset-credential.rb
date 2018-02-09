@@ -16,9 +16,10 @@ def sys_env
 end
 
 def secret_service
-  @secret_service ||= sys_env["VCAP_SERVICES"]["user-provided"].select do |s|
-    s["name"].include?("secret")
-  end.first
+  @secret_service ||= sys_env
+                        .dig("VCAP_SERVICES", "user-provided")
+                        .select { |s| s["name"].include?("secret") }
+                        .first
 end
 
 def creds

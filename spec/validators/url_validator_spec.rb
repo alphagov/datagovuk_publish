@@ -2,15 +2,14 @@ require 'rails_helper'
 require 'active_model'
 require './lib/validators/url_validator'
 
-RSpec.describe UrlValidator do
-  subject do
-    Class.new do
-      include ActiveModel::Validations
-      validates_with UrlValidator
-      attr_accessor :url
-    end.new
-  end
+UrlValidatable = Struct.new(:url) do
+  include ActiveModel::Validations
 
+  validates_with UrlValidator
+end
+
+RSpec.describe UrlValidator do
+  subject { UrlValidatable.new }
 
   describe 'Url Validator' do
     describe 'Creates validation errors when' do
