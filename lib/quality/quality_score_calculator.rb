@@ -49,7 +49,7 @@ class QualityScoreCalculator
               end
 
     # Are any links broken?
-    broken = links.select {|link| link.broken }
+    broken = links.select(&:broken)
     if broken.size.positive?
       @reasons << "There are broken links in this dataset"
       current += 15
