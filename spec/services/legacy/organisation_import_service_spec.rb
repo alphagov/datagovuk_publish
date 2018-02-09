@@ -34,11 +34,11 @@ describe Legacy::OrganisationImportService do
          devolved executive-ndpb advisory-ndpb
          tribunal-ndpb executive-agency
          executive-office gov-corporation).each do |category|
-            legacy_organisation["category"] = category
-            Legacy::OrganisationImportService.new(legacy_organisation).run
-            imported_organisation = Organisation.find_by(uuid: legacy_organisation["id"])
+        legacy_organisation["category"] = category
+        Legacy::OrganisationImportService.new(legacy_organisation).run
+        imported_organisation = Organisation.find_by(uuid: legacy_organisation["id"])
 
-            expect(imported_organisation.org_type).to eql 'central-government'
+        expect(imported_organisation.org_type).to eql 'central-government'
       end
     end
 
