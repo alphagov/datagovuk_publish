@@ -1,5 +1,5 @@
 class IndexDeletionService
-  NUMBER_OF_INDEXES_TO_KEEP = 3.freeze
+  NUMBER_OF_INDEXES_TO_KEEP = 3
 
   def initialize(args)
     @index_alias = args[:index_alias]
