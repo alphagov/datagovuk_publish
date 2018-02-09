@@ -85,7 +85,7 @@ describe Dataset do
 
     d.published!
 
-    expect{ d.destroy }.to raise_exception 'published datasets cannot be deleted'
+    expect { d.destroy }.to raise_exception 'published datasets cannot be deleted'
     expect(Dataset.count).to eq 1
 
     d.draft!

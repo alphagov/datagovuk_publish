@@ -41,7 +41,7 @@ def calculate_organisation_score(organisation)
       current_scores << q.score
     end
 
-    average = current_scores.inject{ |sum, el| sum + el }.to_f / current_scores.size
+    average = current_scores.inject { |sum, el| sum + el }.to_f / current_scores.size
     average = average.round(2)
 
     sorted = current_scores.sort
