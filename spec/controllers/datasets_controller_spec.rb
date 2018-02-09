@@ -35,9 +35,9 @@ describe DatasetsController, type: :controller do
 
     another_organisation = FactoryGirl.create(:organisation)
 
-    allowed_dataset = FactoryGirl.create(:dataset,
-                                         organisation: organisation,
-                                         datafiles: [FactoryGirl.create(:datafile)])
+    _allowed_dataset = FactoryGirl.create(:dataset,
+                                          organisation: organisation,
+                                          datafiles: [FactoryGirl.create(:datafile)])
 
     forbidden_dataset = FactoryGirl.create(:dataset,
                                            organisation: another_organisation,
@@ -53,9 +53,9 @@ describe DatasetsController, type: :controller do
 
     another_organisation = FactoryGirl.create(:organisation)
 
-    allowed_dataset = FactoryGirl.create(:dataset,
-                                         organisation: organisation,
-                                         datafiles: [FactoryGirl.create(:datafile)])
+    _allowed_dataset = FactoryGirl.create(:dataset,
+                                          organisation: organisation,
+                                          datafiles: [FactoryGirl.create(:datafile)])
 
     forbidden_dataset = FactoryGirl.create(:dataset,
                                            organisation: another_organisation,
