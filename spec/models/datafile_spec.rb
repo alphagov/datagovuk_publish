@@ -100,7 +100,6 @@ describe Datafile, type: :model do
         @datafile.day = invalid_day
 
         expect(@datafile).to_not be_valid
-
       end
     end
   end

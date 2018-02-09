@@ -1,7 +1,6 @@
 require 'quality/quality_score_calculator'
 
 namespace :quality do
-
   desc "Quality score for named dataset"
   task :score,[:dataset] => :environment do |_, args|
     dataset = Dataset.find_by(name: args.dataset)
@@ -26,7 +25,6 @@ namespace :quality do
       count += 1
     end
   end
-
 end
 
 def calculate_organisation_score(organisation)

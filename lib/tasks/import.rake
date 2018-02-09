@@ -6,7 +6,6 @@ require 'rest-client'
 LEGACY_SHOW_API = 'https://data.gov.uk/api/3/action/package_show'.freeze
 
 namespace :import do
-
   desc "Import locations from a CSV file"
   task :locations, [:filename] => :environment do |_, args|
     csv_text = File.read(args.filename)

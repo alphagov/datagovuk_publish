@@ -4,7 +4,6 @@ require 'csv'
 namespace :generate do
   desc "Generate a data.json file"
   task :datajson, [:filename] => :environment do |_, _args|
-
     # We'll export this in blobs so that we don't load the
     # entire database into memory.
     file = File.new("data.json", "w+")

@@ -13,7 +13,6 @@ RSpec.describe UrlValidator do
 
   describe 'Url Validator' do
     describe 'Creates validation errors when' do
-
       before(:each) do
         allow_any_instance_of(UrlValidator).to receive(:valid_path?).and_call_original
       end

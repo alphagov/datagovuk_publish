@@ -28,5 +28,4 @@ describe Link, type: :model do
       expect(Link.last.uuid).to_not be_nil
     end
   end
-
 end

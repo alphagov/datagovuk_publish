@@ -11,5 +11,4 @@ ActiveAdmin.register Link do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
-
 end

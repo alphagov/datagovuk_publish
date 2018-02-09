@@ -73,7 +73,6 @@ describe Legacy::BetaSyncService do
         .to have_received(:index)
               .with(id_for_second_legacy_dataset)
               .once
-
     end
 
     describe 'there are no modified or new datasets to be imported' do
