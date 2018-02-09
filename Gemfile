@@ -24,7 +24,7 @@ gem "elasticsearch", "~> 5.0.4"
 gem "elasticsearch-model", "~> 5.0.1"
 gem "elasticsearch-rails", "~> 5.0.1"
 gem "ancestry", "~> 3.0.1"
-gem "govuk-lint", "~> 3.3.0"
+gem "govuk-lint"
 gem 'whois-parser'
 gem 'govuk_sidekiq', '~> 3.0'
 gem 'rack-cors', :require => 'rack/cors'
