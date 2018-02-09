@@ -16,7 +16,7 @@ class Legacy::OrganisationImportService
       title: legacy_organisation["title"],
       description: legacy_organisation["description"],
       abbreviation: legacy_organisation["abbreviation"],
-      replace_by: "#{legacy_organisation['replaced_by']}",
+      replace_by: legacy_organisation['replaced_by'],
       contact_email: legacy_organisation["contact-email"],
       contact_phone: legacy_organisation["contact-phone"],
       contact_name: legacy_organisation["contact-name"],

@@ -27,7 +27,7 @@ describe Dataset do
     dataset = FactoryGirl.create(:dataset,
                                  title: "My awesome dataset")
 
-    expect(dataset.name).to eq("#{dataset.title}".parameterize)
+    expect(dataset.name).to eq(dataset.title.parameterize)
   end
 
   it "generates a new slug when the title has changed" do
