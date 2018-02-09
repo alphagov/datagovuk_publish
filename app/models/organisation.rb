@@ -37,7 +37,7 @@ class Organisation < ApplicationRecord
   end
 
   def slug_candidates
-    [:title, :title_and_sequence]
+    %i[title title_and_sequence]
   end
 
   def title_and_sequence

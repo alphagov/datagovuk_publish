@@ -68,21 +68,42 @@ class Dataset < ApplicationRecord
   # dataset.
   def as_indexed_json(_options={})
     as_json(
-      only: [:name, :legacy_name, :title, :summary, :description,
-             :foi_name, :foi_email, :foi_phone, :foi_web,
-             :contact_name, :contact_email, :contact_phone,
-             :location1, :location2, :location3,
-             :licence, :licence_other, :frequency,
-             :licence_code, :licence_title, :licence_url, :licence_custom,
-             :published_date, :last_updated_at, :created_at,
-             :harvested, :uuid],
-             include: {
-               organisation: {},
-               topic: {},
-               datafiles: {},
-               docs: {},
-               inspire_dataset: {}
-             }
+      only: %i[
+                name
+                legacy_name
+                title
+                summary
+                description
+                foi_name
+                foi_email
+                foi_phone
+                foi_web
+                contact_name
+                contact_email
+                contact_phone
+                location1
+                location2
+                location3
+                licence
+                licence_other
+                licence_code
+                licence_title
+                licence_url
+                licence_custom
+                frequency
+                published_date
+                last_updated_at
+                created_at
+                harvested
+                uuid
+            ],
+      include: {
+        organisation: {},
+        topic: {},
+        datafiles: {},
+        docs: {},
+        inspire_dataset: {}
+      }
     )
   end
 
