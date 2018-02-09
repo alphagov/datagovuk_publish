@@ -33,8 +33,7 @@ end
 
 puts 'Seeded topics'
 
-# Theme model is depracated - TR
-
+# Theme model is deprecated
 if Theme.count == 0
   Theme.create(
     [

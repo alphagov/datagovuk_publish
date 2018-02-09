@@ -8,8 +8,8 @@ describe Legacy::DatasetImportService do
   let(:non_timeseries_legacy_dataset) { create_dataset_from('non_timeseries_dataset.json') }
 
   let(:orgs_cache) { { legacy_dataset["owner_org"] => 123 } }
-  let(:topics_cache) { { 'Transport' => 12 } }
-  let(:themes_cache) { { 'Transport' => 12 } }
+  let(:topics_cache) { { 'business-and-economy' => 1 } }
+  let(:themes_cache) { { 'business-and-economy' => 1 } }
 
   describe "#run" do
     it "builds a dataset from a legacy dataset" do
@@ -34,8 +34,8 @@ describe Legacy::DatasetImportService do
       expect(imported_dataset.foi_email).to eql(legacy_dataset["foi-email"])
       expect(imported_dataset.foi_phone).to eql(legacy_dataset["foi-phone"])
       expect(imported_dataset.foi_web).to eql(legacy_dataset["foi-web"])
-      expect(imported_dataset.theme_id).to eql(12)
-      expect(imported_dataset.topic_id).to eql(12)
+      expect(imported_dataset.theme_id).to eql(1)
+      expect(imported_dataset.topic_id).to eql(1)
     end
 
     it "creates the datafiles for the imported dataset" do
@@ -147,6 +147,29 @@ describe Legacy::DatasetImportService do
 
       type = described_class.new(legacy_dataset, orgs_cache, themes_cache, topics_cache).build_type
       expect(type).to eql("inspire")
+    end
+  end
+
+  describe "#build_topic_id" do
+    it "returns the correct topic_id if license has a valid topic" do
+      legacy_dataset["theme-primary"] = "Business & Economy"
+      topic_id = described_class.new(legacy_dataset, orgs_cache, themes_cache,  topics_cache).build_topic_id
+      
+      expect(topic_id).to eql(1)
+    end
+
+    it "returns nil if the licence has a missing topic" do
+      legacy_dataset["theme-primary"] = ""
+      topic_id = described_class.new(legacy_dataset, orgs_cache, themes_cache,  topics_cache).build_topic_id
+      
+      expect(topic_id).to eql(nil)
+    end
+
+    it "returns nil if the licence has an invalid topic" do
+      legacy_dataset["theme-primary"] = "Some invalid topic"
+      topic_id = described_class.new(legacy_dataset, orgs_cache, themes_cache,  topics_cache).build_topic_id
+      
+      expect(topic_id).to eql(nil)
     end
   end
 

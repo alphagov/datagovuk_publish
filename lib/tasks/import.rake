@@ -33,8 +33,8 @@ namespace :import do
     # Maps the organisation UUIDs to the organisation IDs
     logger = Logger.new(STDOUT)
     orgs_cache = Organisation.all.pluck(:uuid, :id).to_h
-    topic_cache = Topic.all.pluck(:title, :id).to_h
-    theme_cache = Theme.all.pluck(:title, :id).to_h
+    topic_cache = Topic.all.pluck(:name, :id).to_h
+    theme_cache = Theme.all.pluck(:name, :id).to_h
     counter = 0
 
     logger.info 'Importing legacy datasets'

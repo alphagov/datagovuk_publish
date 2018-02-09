@@ -52,20 +52,47 @@ class Legacy::DatasetImportService
     }
   end
 
+  # Deprecated
   def build_theme_id
-    themes_cache.fetch(legacy_dataset["theme-primary"], nil)
+    return unless legacy_dataset["theme-primary"]
+
+    topic = convert_topic(legacy_dataset["theme-primary"])
+
+    themes_cache.fetch(topic, nil)
   end
 
+  # Deprecated
   def build_secondary_theme_id
-    themes_cache.fetch(legacy_dataset["theme-secondary"], nil)
+    return unless legacy_dataset["theme-secondary"]
+
+    topic = convert_topic(legacy_dataset["theme-secondary"].first)
+
+    themes_cache.fetch(topic, nil)
   end
 
   def build_topic_id
-    topics_cache.fetch(legacy_dataset["theme-primary"], nil)
+    return unless legacy_dataset["theme-primary"]
+
+    topic = convert_topic(legacy_dataset["theme-primary"])
+
+    topics_cache.fetch(topic, nil)
   end
 
   def build_secondary_topic_id
-    topics_cache.fetch(legacy_dataset["theme-secondary"], nil)
+    return unless legacy_dataset["theme-secondary"]
+
+    topic = convert_topic(legacy_dataset["theme-secondary"].first)
+
+    topics_cache.fetch(topic, nil)
+  end
+
+  def convert_topic(legacy_topic)
+    return if legacy_topic.nil?
+
+    legacy_topic
+      .gsub('&', 'and')
+      .tr(' ', '-')
+      .downcase
   end
 
   def create_datafiles
