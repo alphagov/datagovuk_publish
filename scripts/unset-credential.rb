@@ -53,21 +53,21 @@ end
 
 puts "Got application env, detecting credentials service name ..."
 puts "Reading env from '#{APP}' ..."
-puts "Using secrets service '#{secret_service["name"]}'"
+puts "Using secrets service '#{secret_service['name']}'"
 
 if key_not_found?
   puts "Error: no key found for #{KEY}."
   exit
 end
 
-puts "Are you sure you want to delete #{KEY} from #{secret_service["name"]}? [yN]"
+puts "Are you sure you want to delete #{KEY} from #{secret_service['name']}? [yN]"
 
 if user_cancels?
   puts "Aborting ..."
   exit
 end
 
-puts "\nDeleting credential #{KEY} on #{secret_service["name"]}..."
+puts "\nDeleting credential #{KEY} on #{secret_service['name']}..."
 
 delete_cred
 update_user_provided_secrets
