@@ -3,13 +3,15 @@ require "rails_helper"
 describe 'datafiles' do
   let(:land) { FactoryGirl.create(:organisation) }
   let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
-  let(:published_dataset) { FactoryGirl.create(:dataset,
-                                               organisation: land,
-                                               status: "published",
-                                               datafiles: [FactoryGirl.create(:datafile)],
-                                               docs: [FactoryGirl.create(:doc)],
-                                               creator: user,
-                                               owner: user) }
+  let(:published_dataset) do
+    FactoryGirl.create(:dataset,
+                       organisation: land,
+                       status: "published",
+                       datafiles: [FactoryGirl.create(:datafile)],
+                       docs: [FactoryGirl.create(:doc)],
+                       creator: user,
+                       owner: user)
+  end
 
   before(:each) do
     sign_in_user

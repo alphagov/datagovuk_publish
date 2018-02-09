@@ -3,12 +3,14 @@ require "rails_helper"
 describe "Harvested datasets" do
   let(:land) { FactoryGirl.create(:organisation) }
   let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
-  let!(:harvested_dataset) { FactoryGirl.create(:dataset,
-                                                organisation: land,
-                                                harvested: true,
-                                                datafiles: [FactoryGirl.create(:datafile)],
-                                                creator: user,
-                                                owner: user) }
+  let!(:harvested_dataset) do
+    FactoryGirl.create(:dataset,
+                       organisation: land,
+                       harvested: true,
+                       datafiles: [FactoryGirl.create(:datafile)],
+                       creator: user,
+                       owner: user)
+  end
 
   it "should be readonly (no add/edit buttons appear)" do
     sign_in_user
