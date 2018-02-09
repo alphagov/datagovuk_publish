@@ -46,7 +46,7 @@ private
 
   def get_org_type
     return "central-government" if central_government?
-    return  "local-authority" if local_council?
+    return "local-authority" if local_council?
     "other-government-body"
   end
 

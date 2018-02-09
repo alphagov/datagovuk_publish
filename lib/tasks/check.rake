@@ -1,7 +1,7 @@
 require 'util/overduechecker'
 
 namespace :check do
-  namespace :overdue  do
+  namespace :overdue do
     desc "Check overdue datasets in an organisation"
     task :organisation, [:organisation] => :environment do |_, args|
       organisation = Organisation.find_by(name: args.organisation)

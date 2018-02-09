@@ -386,10 +386,10 @@ describe "dataset frequency options" do
     def pick_year(year_type)
       choose option: year_type
       click_button "Save and continue"
-      expect(page).to     have_content('Year')
+      expect(page).to have_content('Year')
       fill_in 'datafile[url]', with: 'https://localhost/doc'
       fill_in 'datafile[name]', with: 'my test doc'
-      fill_in 'datafile[year]',  with: '2015'
+      fill_in 'datafile[year]', with: '2015'
       click_button "Save and continue"
     end
 
