@@ -2,7 +2,7 @@ applications:
 - name: publish-data-beta-worker
   memory: 256M
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.6.47
-  command: bundle exec sidekiq
+  command: sidekiq -C config/sidekiq.yml
   env:
     RAILS_ENV: production
     RACK_ENV: production
