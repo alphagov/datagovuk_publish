@@ -10,21 +10,21 @@
   <div class="column-one-third">
     <div class="data">
       <span class="data-item bold-xlarge"><%= number_with_delimiter(@datasets_count) %></span>
-      <span class="data-item bold-xsmall">total datasets</span>
+      <span class="data-item bold-xsmall"><%= 'dataset'.pluralize(@datasets_count) %> in total</span>
     </div>
   </div>
 
   <div class="column-one-third">
     <div class="data">
       <span class="data-item bold-xlarge"><%= number_with_delimiter(@datasets_published_with_datafiles_count) %></span>
-      <span class="data-item bold-xsmall">datasets published with datafiles</span>
+      <span class="data-item bold-xsmall"><%= 'dataset'.pluralize(@datasets_published_with_datafiles_count) %> published with datafiles</span>
     </div>
   </div>
 
   <div class="column-one-third">
     <div class="data">
       <span class="data-item bold-xlarge"><%= number_with_delimiter(@datasets_published_with_no_datafiles_count) %></span>
-      <span class="data-item bold-xsmall">datasets published with no datafiles</span>
+      <span class="data-item bold-xsmall"><%= 'dataset'.pluralize(@datasets_published_with_no_datafiles_count) %> published with no datafiles</span>
     </div>
   </div>
 </div>
@@ -33,21 +33,21 @@
   <div class="column-one-third">
     <div class="data">
       <span class="data-item bold-xlarge"><%= number_with_delimiter(@datafiles_count) %></span>
-      <span class="data-item bold-xsmall">datafiles</span>
+      <span class="data-item bold-xsmall"><%= 'datafile'.pluralize(@datafiles_count) %> in total</span>
     </div>
   </div>
 
   <div class="column-one-third">
     <div class="data">
       <span class="data-item bold-xlarge"><%= number_with_delimiter(@publishers_count) %></span>
-      <span class="data-item bold-xsmall">publishers</span>
+      <span class="data-item bold-xsmall"><%= 'publisher'.pluralize(@publishers_count) %></span>
     </div>
   </div>
 
   <div class="column-one-third">
     <div class="data">
       <span class="data-item bold-xlarge"><%= number_with_delimiter(@broken_links_count) %></span>
-      <span class="data-item bold-xsmall">broken links</span>
+      <span class="data-item bold-xsmall">broken <%= 'link'.pluralize(@broken_links_count) %></span>
     </div>
   </div>
 </div>
@@ -61,7 +61,7 @@
       <tbody>
         <% @datafiles_count_by_format.each do |format, format_count| %>
           <tr>
-            <th><%= format %></th>
+            <th><%= format.presence || "Not specified" %></th>
             <td><%= format_count %></td>
           </tr>
         <% end %>
