@@ -16,14 +16,14 @@
 
   <div class="column-one-third">
     <div class="data">
-      <span class="data-item bold-xlarge"><%= number_with_delimiter(@published_datasets_count) %></span>
+      <span class="data-item bold-xlarge"><%= number_with_delimiter(@datasets_published_with_datafiles_count) %></span>
       <span class="data-item bold-xsmall">datasets published with datafiles</span>
     </div>
   </div>
 
   <div class="column-one-third">
     <div class="data">
-      <span class="data-item bold-xlarge"><%= number_with_delimiter(@unpublished_datasets_count) %></span>
+      <span class="data-item bold-xlarge"><%= number_with_delimiter(@datasets_published_with_no_datafiles_count) %></span>
       <span class="data-item bold-xsmall">datasets published with no datafiles</span>
     </div>
   </div>
