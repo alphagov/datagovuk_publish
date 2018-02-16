@@ -39,6 +39,7 @@ class Dataset < ApplicationRecord
 
   scope :owned_by, ->(creator_id) { where(creator_id: creator_id) }
   scope :published, ->{ where(status: "published") }
+  scope :with_datafiles, ->{ joins(:datafiles) }
   scope :with_no_datafiles, ->{ left_outer_joins(:datafiles).where(links: { id: nil } ) }
   scope :draft, ->{ where(status: "draft") }
 
