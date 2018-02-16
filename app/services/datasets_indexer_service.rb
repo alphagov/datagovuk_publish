@@ -124,8 +124,11 @@ class DatasetsIndexerService
   end
 
   def bulk_index(datasets)
-    prepared_datasets = prepare_records(datasets)
-    DatasetIndexerWorker.perform_async(prepared_datasets, new_index_name)
+    Dataset.__elasticsearch__.client.bulk(
+      index: index_name,
+      type: ::Dataset.__elasticsearch__.document_type,
+      body: prepare_records(datasets)
+    )
   end
 
   def prepare_records(datasets)
