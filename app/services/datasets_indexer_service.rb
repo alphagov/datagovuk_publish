@@ -125,7 +125,7 @@ class DatasetsIndexerService
 
   def bulk_index(datasets)
     Dataset.__elasticsearch__.client.bulk(
-      index: index_name,
+      index: new_index_name,
       type: ::Dataset.__elasticsearch__.document_type,
       body: prepare_records(datasets)
     )
