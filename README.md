@@ -23,12 +23,21 @@ you can override the value by exporting ES_HOST=http://.... but make sure the UR
 does not end with a slash.
 
 ## Running the application
+
+Open one terminal window and run the following commands:
+
 ```
 $ export SECRET_KEY_BASE=...
 $ bundle install
 $ rake db:create
 $ rake db:migrate
 $ rails s
+```
+
+Open another terminal window and run Sidekiq
+
+```
+$ sidekiq -C config/sidekiq.yml
 ```
 
 ## Add seeds (dev example users, etc - do not use on production)
@@ -55,6 +64,7 @@ rake import:legacy_datasets[filename]
 
 Note: 
 - That organisations need to be imported before datasets.
+- See ./setup.sh to download a dump of data from Legacy.
 
 ## Reindex all datasets
 You can reindex (Elasticsearch) all datasets using the following command:
