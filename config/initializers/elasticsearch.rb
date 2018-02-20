@@ -27,7 +27,9 @@ end
 def es_config_from_vcap
   begin
     vcap = JSON.parse(ELASTIC_CONFIG['vcap_services'])
-    es_server = vcap['elasticsearch'][0]['credentials']['uri'].chomp('/')
+    es_servers = vcap['elasticsearch'][0]['credentials']['uris'].map do |uri|
+      uri.chomp('/')
+    end
     es_cert = Base64.decode64(vcap['elasticsearch'][0]['credentials']['ca_certificate_base64'])
   rescue => e
     Rails.logger.fatal "Failed to extract ES creds from VCAP_SERVICES. Exiting"
@@ -38,7 +40,7 @@ def es_config_from_vcap
   es_cert_file = create_es_cert_file(es_cert)
 
   {
-    host: es_server,
+    host: es_servers,
     transport_options: {
       request: {
         timeout: ELASTIC_CONFIG['elastic_timeout']
