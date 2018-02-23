@@ -9,11 +9,10 @@ describe Legacy::DatasetImportService do
 
   let(:orgs_cache) { { legacy_dataset["owner_org"] => 123 } }
   let(:topics_cache) { { 'business-and-economy' => 1 } }
-  let(:themes_cache) { { 'business-and-economy' => 1 } }
 
   describe "#run" do
     it "builds a dataset from a legacy dataset" do
-      Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, themes_cache, topics_cache).run
+      Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, topics_cache).run
 
       imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
 
@@ -34,12 +33,11 @@ describe Legacy::DatasetImportService do
       expect(imported_dataset.foi_email).to eql(legacy_dataset["foi-email"])
       expect(imported_dataset.foi_phone).to eql(legacy_dataset["foi-phone"])
       expect(imported_dataset.foi_web).to eql(legacy_dataset["foi-web"])
-      expect(imported_dataset.theme_id).to eql(1)
       expect(imported_dataset.topic_id).to eql(1)
     end
 
     it "creates the datafiles for the imported dataset" do
-      Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, themes_cache, topics_cache).run
+      Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, topics_cache).run
       imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
       imported_datafiles = imported_dataset.links
       first_imported_datafile = imported_datafiles.first
@@ -57,7 +55,7 @@ describe Legacy::DatasetImportService do
     it "sets datafile created_at date to resource created date, if present" do
       legacy_dataset['resources'].first['created'] = nil
       dataset_with_resource_without_created_date = legacy_dataset
-      Legacy::DatasetImportService.new(dataset_with_resource_without_created_date, orgs_cache, themes_cache, topics_cache).run
+      Legacy::DatasetImportService.new(dataset_with_resource_without_created_date, orgs_cache, topics_cache).run
       imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
       imported_datafiles = imported_dataset.links
       first_imported_datafile = imported_datafiles.first
@@ -66,13 +64,13 @@ describe Legacy::DatasetImportService do
     end
 
     it "builds a dataset from a non timeseries legacy dataset" do
-      Legacy::DatasetImportService.new(non_timeseries_legacy_dataset, orgs_cache, themes_cache, topics_cache).run
+      Legacy::DatasetImportService.new(non_timeseries_legacy_dataset, orgs_cache, topics_cache).run
       expect(Dataset.last.frequency).to eq('never')
       expect(Dataset.last.docs.count).to eq(1)
     end
 
     it "builds a dataset from a timeseries legacy dataset" do
-      Legacy::DatasetImportService.new(timeseries_legacy_dataset, orgs_cache, themes_cache, topics_cache).run
+      Legacy::DatasetImportService.new(timeseries_legacy_dataset, orgs_cache, topics_cache).run
 
       expect(Dataset.last.frequency).to eq('monthly')
       expect(Dataset.last.datafiles.count).to eq(1)
@@ -82,13 +80,13 @@ describe Legacy::DatasetImportService do
 
   describe "Invalid dates" do
     it "builds a dataset from a daily timeseries legacy dataset with an invalid date" do
-      Legacy::DatasetImportService.new(daily_timeseries_legacy_dataset_with_invalid_date, orgs_cache, themes_cache, topics_cache).run
+      Legacy::DatasetImportService.new(daily_timeseries_legacy_dataset_with_invalid_date, orgs_cache, topics_cache).run
 
       expect(Dataset.last.datafiles.count).to eq(1)
     end
 
     it "builds a dataset from a monthly timeseries legacy dataset with an invalid date" do
-      Legacy::DatasetImportService.new(monthly_timeseries_legacy_dataset_with_invalid_date, orgs_cache, themes_cache, topics_cache).run
+      Legacy::DatasetImportService.new(monthly_timeseries_legacy_dataset_with_invalid_date, orgs_cache, topics_cache).run
 
       expect(Dataset.last.links.count).to eq(1)
     end
@@ -97,35 +95,35 @@ describe Legacy::DatasetImportService do
   describe "#build_frequency" do
     it "returns 'never' if frequency has no value" do
       legacy_dataset["update_frequency"] = nil
-      frequency = described_class.new(legacy_dataset, orgs_cache, themes_cache, topics_cache).build_frequency
+      frequency = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_frequency
 
       expect(frequency).to eql ("never")
     end
 
     it "returns 'never' if frequency has an unknown value" do
       legacy_dataset["update_frequency"] = "bi-foobarly"
-      frequency = described_class.new(legacy_dataset, orgs_cache, themes_cache, topics_cache).build_frequency
+      frequency = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_frequency
 
       expect(frequency).to eql ("never")
     end
 
     it "returns 'annually' if legacy frequency is 'annual'" do
       legacy_dataset["update_frequency"] = "annual"
-      frequency = described_class.new(legacy_dataset, orgs_cache, themes_cache, topics_cache).build_frequency
+      frequency = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_frequency
 
       expect(frequency).to eql ("annually")
     end
 
     it "returns 'monthly' if legacy frequency is 'monthly'" do
       legacy_dataset["update_frequency"] = "monthly"
-      frequency = described_class.new(legacy_dataset, orgs_cache, themes_cache, topics_cache).build_frequency
+      frequency = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_frequency
 
       expect(frequency).to eql ("monthly")
     end
 
     it "returns 'quarterly' if legacy frequency is 'quarterly'" do
       legacy_dataset["update_frequency"] = "quarterly"
-      frequency = described_class.new(legacy_dataset, orgs_cache, themes_cache, topics_cache).build_frequency
+      frequency = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_frequency
 
       expect(frequency).to eql("quarterly")
     end
@@ -133,7 +131,7 @@ describe Legacy::DatasetImportService do
 
   describe "#build_location" do
     it "titleizes and joins location(s)" do
-      location = described_class.new(legacy_dataset, orgs_cache, themes_cache, topics_cache).build_location
+      location = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_location
       expect(location).to eql('Scotland, Wales')
     end
   end
@@ -145,7 +143,7 @@ describe Legacy::DatasetImportService do
         "key": "UKLP",
       }]
 
-      type = described_class.new(legacy_dataset, orgs_cache, themes_cache, topics_cache).build_type
+      type = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_type
       expect(type).to eql("inspire")
     end
   end
@@ -153,21 +151,21 @@ describe Legacy::DatasetImportService do
   describe "#build_topic_id" do
     it "returns the correct topic_id if license has a valid topic" do
       legacy_dataset["theme-primary"] = "Business & Economy"
-      topic_id = described_class.new(legacy_dataset, orgs_cache, themes_cache,  topics_cache).build_topic_id
+      topic_id = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_topic_id
       
       expect(topic_id).to eql(1)
     end
 
     it "returns nil if the licence has a missing topic" do
       legacy_dataset["theme-primary"] = ""
-      topic_id = described_class.new(legacy_dataset, orgs_cache, themes_cache,  topics_cache).build_topic_id
+      topic_id = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_topic_id
       
       expect(topic_id).to eql(nil)
     end
 
     it "returns nil if the licence has an invalid topic" do
       legacy_dataset["theme-primary"] = "Some invalid topic"
-      topic_id = described_class.new(legacy_dataset, orgs_cache, themes_cache,  topics_cache).build_topic_id
+      topic_id = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_topic_id
       
       expect(topic_id).to eql(nil)
     end
@@ -176,13 +174,13 @@ describe Legacy::DatasetImportService do
   describe "#build_licence" do
     it "returns 'no-license' if licence has no value specified" do
       legacy_dataset["license_id"] = ""
-      licence = described_class.new(legacy_dataset, orgs_cache, themes_cache,  topics_cache).build_licence
+      licence = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_licence
       expect(licence).to eql("no-licence")
     end
 
     it "returns 'other' if the licence is anything other than 'uk-ogl'" do
       legacy_dataset["license_id"] = "foo"
-      licence = described_class.new(legacy_dataset, orgs_cache, themes_cache, topics_cache).build_licence
+      licence = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_licence
       expect(licence).to eql("other")
     end
   end
@@ -190,7 +188,7 @@ describe Legacy::DatasetImportService do
   describe "#build_licence_other" do
     it "returns the name of the licence if it is anything other than 'uk-ogl'" do
       legacy_dataset["license_id"] = "foo"
-      licence_other = described_class.new(legacy_dataset, orgs_cache, themes_cache, topics_cache).build_licence_other
+      licence_other = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_licence_other
       expect(licence_other).to eql("foo")
     end
   end
@@ -202,12 +200,12 @@ describe Legacy::DatasetImportService do
         "key": "harvest_object_id",
       }]
 
-      harvested = described_class.new(legacy_dataset, orgs_cache, themes_cache, topics_cache).harvested?
+      harvested = described_class.new(legacy_dataset, orgs_cache, topics_cache).harvested?
       expect(harvested).to be true
     end
 
     it "is false if the legacy dataset has no harvest extra" do
-      harvested = described_class.new(legacy_dataset, orgs_cache, themes_cache, topics_cache).harvested?
+      harvested = described_class.new(legacy_dataset, orgs_cache, topics_cache).harvested?
       expect(harvested).to be false
     end
   end
@@ -297,7 +295,7 @@ describe Legacy::DatasetImportService do
       }
       ]
 
-      described_class.new(legacy_dataset, orgs_cache, themes_cache, topics_cache).run
+      described_class.new(legacy_dataset, orgs_cache, topics_cache).run
 
       imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
       inspire_dataset = InspireDataset.find_by(dataset_id: imported_dataset.id)

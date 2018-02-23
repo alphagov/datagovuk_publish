@@ -6,7 +6,6 @@ class Legacy::BetaSyncService
 
   def initialize(args)
     @orgs_cache = args[:orgs_cache]
-    @theme_cache = args[:theme_cache]
     @topic_cache = args[:topic_cache]
     @logger = args[:logger]
     @legacy_server = args[:legacy_server]
@@ -36,7 +35,7 @@ class Legacy::BetaSyncService
   def import(legacy_dataset)
     legacy_dataset_id = legacy_dataset['id']
     @logger.info "Attempting to save legacy dataset to postgres and elasticsearch - legacy_id: #{legacy_dataset_id}"
-    Legacy::DatasetImportService.new(legacy_dataset,@orgs_cache, @theme_cache, @topic_cache).run
+    Legacy::DatasetImportService.new(legacy_dataset,@orgs_cache, @topic_cache).run
     Legacy::DatasetIndexService.new.index(legacy_dataset['id'])
     @logger.info "Legacy dataset saved - legacy_id: #{legacy_dataset_id}"
     @count += 1

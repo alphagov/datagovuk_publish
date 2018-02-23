@@ -1,10 +1,9 @@
 class Legacy::DatasetImportService
-  attr_reader :legacy_dataset, :orgs_cache, :topics_cache, :themes_cache
+  attr_reader :legacy_dataset, :orgs_cache, :topics_cache
 
-  def initialize(legacy_dataset, orgs_cache, themes_cache, topics_cache)
+  def initialize(legacy_dataset, orgs_cache, topics_cache)
     @legacy_dataset = legacy_dataset
     @orgs_cache = orgs_cache
-    @themes_cache = themes_cache
     @topics_cache = topics_cache
     @logger = Logger.new(STDOUT)
   end
@@ -45,29 +44,9 @@ class Legacy::DatasetImportService
       licence: build_licence,
       licence_other: build_licence_other,
       topic_id: build_topic_id,
-      theme_id: build_theme_id,
       secondary_topic_id: build_secondary_topic_id,
-      secondary_theme_id: build_secondary_theme_id,
       status: "published"
     }
-  end
-
-  # Deprecated
-  def build_theme_id
-    return unless legacy_dataset["theme-primary"]
-
-    topic = convert_topic(legacy_dataset["theme-primary"])
-
-    themes_cache.fetch(topic, nil)
-  end
-
-  # Deprecated
-  def build_secondary_theme_id
-    return unless legacy_dataset["theme-secondary"]
-
-    topic = convert_topic(legacy_dataset["theme-secondary"].first)
-
-    themes_cache.fetch(topic, nil)
   end
 
   def build_topic_id
