@@ -41,6 +41,10 @@ class Dataset < ApplicationRecord
   scope :with_no_datafiles, ->{ left_outer_joins(:datafiles).where(links: { id: nil } ) }
   scope :draft, ->{ where(status: "draft") }
 
+  def self.columns
+    super.reject { |c| c.name == "theme_id" || c.name == "secondary_theme_id" }
+  end
+
   def is_readonly?
     if persisted? && self.harvested?
       errors[:base] << 'Harvested datasets cannot be modified.'
