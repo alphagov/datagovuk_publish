@@ -121,7 +121,7 @@ class Dataset < ApplicationRecord
 
   def set_short_id
     if self.short_id.blank?
-      candidate_short_id = generate_short_id 
+      candidate_short_id = generate_short_id
 
       while Dataset.where(short_id: candidate_short_id).exists? do
         candidate_short_id = generate_short_id

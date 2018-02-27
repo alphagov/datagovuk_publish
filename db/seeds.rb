@@ -9,7 +9,7 @@
 
 require 'csv'
 
-# Add default themes.  This is required before you can import the legacy metadata
+# Add default topics.  This is required before you can import the legacy metadata
 # so that we don't lose data in the migration
 
 if Topic.count == 0
