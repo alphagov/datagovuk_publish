@@ -17,6 +17,45 @@ describe DatasetsIndexerService do
             type: 'keyword',
             index: true,
           },
+          title: {
+            type: 'text',
+            fields: {
+              keyword: {
+                type: 'keyword',
+                index: true,
+              },
+              english: {
+                type: 'text',
+                analyzer: 'english',
+              },
+            },
+          },
+          summary: {
+            type: 'text',
+            fields: {
+              keyword: {
+                type: 'keyword',
+                index: true,
+              },
+              english: {
+                type: 'text',
+                analyzer: 'english',
+              },
+            },
+          },
+          description: {
+            type: 'text',
+            fields: {
+              keyword: {
+                type: 'keyword',
+                index: true,
+              },
+              english: {
+                type: 'text',
+                analyzer: 'english',
+              },
+            },
+          },
           location1: {
             type: 'text',
             fields: {
@@ -35,8 +74,25 @@ describe DatasetsIndexerService do
                   raw: {
                     type: 'keyword',
                     index: true,
-                  }
-                }
+                  },
+                  english: {
+                    type: 'text',
+                    analyzer: 'english',
+                  },
+                },
+              },
+              description: {
+                type: 'text',
+                fields: {
+                  raw: {
+                    type: 'keyword',
+                    index: true,
+                  },
+                  english: {
+                    type: 'text',
+                    analyzer: 'english',
+                  },
+                },
               }
             }
           },
