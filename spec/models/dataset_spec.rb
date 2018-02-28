@@ -112,7 +112,7 @@ describe Dataset do
   end
 
   context 'when creating an imported legacy dataset' do
-    it "generates a unique deterministic short_id based on the legacy UUID" do
+    it "generates a deterministic short_id based on the legacy UUID" do
       legacy_id = 'abcdef123456'
       short_id = Digest::SHA256.hexdigest(legacy_id)[0..6]
 
@@ -124,12 +124,16 @@ describe Dataset do
       expect(imported_dataset.short_id).to eq short_id
     end
 
-    it "continues to generate short_ids until it has found a unique one" do
+    it "will not create duplicate short ids" do
       legacy_id = '123456abcdef'
-      3.times do
-        FactoryGirl.create(:dataset, uuid: legacy_id)
-      end
-      expect(Dataset.distinct.pluck(:short_id).count).to be Dataset.count
+      short_id = Digest::SHA256.hexdigest(legacy_id)[0..6]
+
+      FactoryGirl.create(:dataset, short_id: short_id)
+
+      expect { FactoryGirl.create(:dataset, uuid: legacy_id) }.not_to raise_exception
+      expect(Dataset.first.short_id).to eq short_id
+      expect(Dataset.last.short_id).to be nil
+
     end
   end
 
@@ -139,16 +143,14 @@ describe Dataset do
       expect(new_dataset.short_id).to_not be_nil
     end
 
-    it "continues to generate short_ids until it has found a unique one" do
-      short_id = '123abc'
-      unique_short_id = 'unique'
+    it "will not create duplicate short ids" do
+      allow(SecureRandom).to receive(:urlsafe_base64).and_return('abc123')
 
-      allow(SecureRandom).to receive(:urlsafe_base64).and_return(short_id, short_id, unique_short_id)
+      FactoryGirl.create(:dataset, legacy_name: nil)
 
-      dataset_1 = FactoryGirl.create(:dataset, legacy_name: nil)
-      dataset_2 = FactoryGirl.create(:dataset, legacy_name: nil)
-
-      expect(dataset_2.short_id).to eq unique_short_id
+      expect { FactoryGirl.create(:dataset, legacy_name: nil) }.not_to raise_exception
+      expect(Dataset.first.short_id).to eq 'abc123'
+      expect(Dataset.last.short_id).to be nil
    end
   end
 end

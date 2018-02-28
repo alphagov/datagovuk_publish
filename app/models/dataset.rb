@@ -123,19 +123,21 @@ class Dataset < ApplicationRecord
   def set_short_id
     if self.short_id.blank?
       candidate_short_id = generate_short_id
-      seed = 0
-      while Dataset.where(short_id: candidate_short_id).exists? do
-        candidate_short_id = generate_short_id(seed)
-        seed += 1
+      begin
+        if Dataset.where(short_id: candidate_short_id).exists?
+          raise ArgumentError, "short id exists"
+        else
+          self.short_id = candidate_short_id
+        end
+      rescue => e
+        Logger.new(STDOUT).error("#{e.message}")
       end
-
-      self.short_id = candidate_short_id
     end
   end
 
-  def generate_short_id(seed = nil)
+  def generate_short_id
     if legacy_dataset?
-      Digest::SHA256.hexdigest(self.uuid + seed.to_s)[0..6]
+      Digest::SHA256.hexdigest(self.uuid)[0..6]
     else
       SecureRandom.urlsafe_base64(6, true)
     end
