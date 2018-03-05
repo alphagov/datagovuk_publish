@@ -12,9 +12,10 @@ class Dataset < ApplicationRecord
   document_type "dataset"
 
   after_initialize :set_uuid
-  after_initialize :set_short_id
 
   before_save :set_name
+  before_save :set_short_id
+
   before_destroy :prevent_if_published
 
   belongs_to :organisation
@@ -122,17 +123,28 @@ class Dataset < ApplicationRecord
   def set_short_id
     if self.short_id.blank?
       candidate_short_id = generate_short_id
-
-      while Dataset.where(short_id: candidate_short_id).exists? do
-        candidate_short_id = generate_short_id
+      begin
+        if Dataset.where(short_id: candidate_short_id).exists?
+          raise ArgumentError, "short id exists"
+        else
+          self.short_id = candidate_short_id
+        end
+      rescue => e
+        Logger.new(STDOUT).error("#{e.message}")
       end
-
-      self.short_id = candidate_short_id
     end
   end
 
   def generate_short_id
-    SecureRandom.urlsafe_base64(6, true)
+    if legacy_dataset?
+      Digest::SHA256.hexdigest(self.uuid)[0..6]
+    else
+      SecureRandom.urlsafe_base64(6, true)
+    end
+  end
+
+  def legacy_dataset?
+    self.legacy_name?
   end
 
   def set_name

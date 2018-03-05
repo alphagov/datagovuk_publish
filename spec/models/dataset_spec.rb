@@ -111,22 +111,46 @@ describe Dataset do
     expect(dataset.last_updated_at).to eq last_updated_at
   end
 
-  describe 'after initializing' do
-    it "generates a unique short_id upon initialising" do
-      dataset = Dataset.new
-      expect(dataset.short_id).to_not be_nil 
+  context 'when creating an imported legacy dataset' do
+    it "generates a deterministic short_id based on the legacy UUID" do
+      legacy_id = 'abcdef123456'
+      short_id = Digest::SHA256.hexdigest(legacy_id)[0..6]
+
+      imported_dataset = FactoryGirl.create(:dataset, uuid: legacy_id)
+      expect(imported_dataset.short_id).to eq short_id
+      imported_dataset.destroy
+
+      imported_dataset = FactoryGirl.create(:dataset, uuid: legacy_id)
+      expect(imported_dataset.short_id).to eq short_id
     end
 
-    it "continues to generate short_ids until it has found a unique one" do
-      short_id = '123abc'
-      unique_short_id = 'unique'
+    it "will not create duplicate short ids" do
+      legacy_id = '123456abcdef'
+      short_id = Digest::SHA256.hexdigest(legacy_id)[0..6]
 
-      allow(SecureRandom).to receive(:urlsafe_base64).and_return(short_id, short_id, unique_short_id)
+      FactoryGirl.create(:dataset, short_id: short_id)
 
-      FactoryGirl.create(:dataset)
-      new_dataset = Dataset.new
+      expect { FactoryGirl.create(:dataset, uuid: legacy_id) }.not_to raise_exception
+      expect(Dataset.first.short_id).to eq short_id
+      expect(Dataset.last.short_id).to be nil
 
-      expect(new_dataset.short_id).to eq(unique_short_id)
     end
+  end
+
+  context 'when creating a new dataset' do
+    it "generates a random short_id" do
+      new_dataset = FactoryGirl.create(:dataset, legacy_name: nil)
+      expect(new_dataset.short_id).to_not be_nil
+    end
+
+    it "will not create duplicate short ids" do
+      allow(SecureRandom).to receive(:urlsafe_base64).and_return('abc123')
+
+      FactoryGirl.create(:dataset, legacy_name: nil)
+
+      expect { FactoryGirl.create(:dataset, legacy_name: nil) }.not_to raise_exception
+      expect(Dataset.first.short_id).to eq 'abc123'
+      expect(Dataset.last.short_id).to be nil
+   end
   end
 end
