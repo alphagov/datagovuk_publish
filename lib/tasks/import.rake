@@ -35,6 +35,8 @@ namespace :import do
     logger = Logger.new(STDOUT)
     orgs_cache = Organisation.all.pluck(:uuid, :id).to_h
     topic_cache = Topic.all.pluck(:name, :id).to_h
+    InspireDataset.delete_all
+    Link.delete_all
     Dataset.delete_all
     counter = 0
 

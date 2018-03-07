@@ -21,9 +21,9 @@ class Dataset < ApplicationRecord
   belongs_to :topic, optional: true
   belongs_to :secondary_topic, optional: true
 
-  has_many :datafiles, dependent: :destroy
-  has_many :docs, dependent: :destroy
-  has_one :inspire_dataset, dependent: :destroy
+  has_many :datafiles
+  has_many :docs
+  has_one :inspire_dataset
 
   validates :frequency, inclusion: { in: %w(daily monthly quarterly annually financial-year never irregular) },
     allow_nil: true # To allow creation before setting this value
