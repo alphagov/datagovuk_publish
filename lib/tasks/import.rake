@@ -17,6 +17,7 @@ namespace :import do
   desc "Import organisations from legacy"
   task :legacy_organisations, [:filename] => :environment do |_, args|
     logger = Logger.new(STDOUT)
+    Organisation.delete_all
     organisation_count = 0
 
     json_from_lines(args.filename) do |legacy_org|
@@ -34,6 +35,7 @@ namespace :import do
     logger = Logger.new(STDOUT)
     orgs_cache = Organisation.all.pluck(:uuid, :id).to_h
     topic_cache = Topic.all.pluck(:name, :id).to_h
+    Dataset.delete_all
     counter = 0
 
     logger.info 'Importing legacy datasets'
