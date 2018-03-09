@@ -25,10 +25,9 @@ gem "elasticsearch-rails", "~> 5.0.1"
 gem "ancestry", "~> 3.0.1"
 gem "govuk-lint", "~> 3.3.0"
 gem 'whois-parser'
-gem "sidekiq", "~> 5.0.4"
+gem 'govuk_sidekiq', '~> 3.0'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'iconv', "~> 1.0.4"
-gem 'redis-namespace', "~> 1.5.3"
 gem 'sentry-raven'
 gem 'rubyzip', '~> 1.2'
 gem 'lograge', '~> 0.7'

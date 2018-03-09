@@ -3,12 +3,13 @@ ENV["RAILS_ENV"] = 'test'
 require "simplecov"
 require "factory_girl_rails"
 require "database_cleaner"
-require "sidekiq/testing"
+require "govuk_sidekiq/testing"
 require 'webmock/rspec'
 
 include WebMock::API
 WebMock.disable_net_connect!(allow_localhost: true)
 
+Sidekiq::Logging.logger = Rails.logger
 Sidekiq::Testing.inline!
 
 SimpleCov.start do
