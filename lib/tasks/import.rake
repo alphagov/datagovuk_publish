@@ -16,7 +16,7 @@ namespace :import do
 
   desc "Import organisations from legacy"
   task :legacy_organisations, [:filename] => :environment do |_, args|
-    logger = Logger.new(STDOUT)
+    logger = Rails.logger
     Organisation.delete_all
     organisation_count = 0
 
@@ -32,7 +32,7 @@ namespace :import do
   desc "Import datasets from a data.gov.uk dump"
   task :legacy_datasets, [:filename] => :environment do |_, args|
     # Maps the organisation UUIDs to the organisation IDs
-    logger = Logger.new(STDOUT)
+    logger = Rails.logger
     orgs_cache = Organisation.all.pluck(:uuid, :id).to_h
     topic_cache = Topic.all.pluck(:name, :id).to_h
     InspireDataset.delete_all
