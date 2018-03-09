@@ -35,12 +35,12 @@ describe Legacy::BetaSyncService do
       allow(@legacy_server).to receive(:get).and_return(first_response, second_response)
 
       expect(Legacy::DatasetImportService).to receive(:new)
-                                                .with(first_legacy_dataset, @orgs_cache, @topic_cache)
+                                                .with(first_legacy_dataset, @orgs_cache, @topic_cache, @logger)
                                                 .once
                                                 .and_return(dataset_import_service)
 
       expect(Legacy::DatasetImportService).to receive(:new)
-                                                .with(second_legacy_dataset, @orgs_cache, @topic_cache)
+                                                .with(second_legacy_dataset, @orgs_cache, @topic_cache, @logger)
                                                 .once
                                                 .and_return(dataset_import_service)
 
