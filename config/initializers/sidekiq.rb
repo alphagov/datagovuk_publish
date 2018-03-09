@@ -1,19 +1,4 @@
-REDIS_CONFIG = Rails.application.config_for(:redis)
+REDIS_CONFIG = Rails.application.config_for(:redis).symbolize_keys
 
-Sidekiq.configure_server do |config|
-  config.redis = {
-    url: "redis://#{REDIS_CONFIG['host']}:#{REDIS_CONFIG['port']}/12",
-    password: REDIS_CONFIG['password'],
-    network_timeout: REDIS_CONFIG['network_timeout'],
-    namespace: Rails.env
-  }
-end
-
-Sidekiq.configure_client do |config|
-  config.redis = {
-    url: "redis://#{REDIS_CONFIG['host']}:#{REDIS_CONFIG['port']}/12",
-    password: REDIS_CONFIG['password'],
-    network_timeout: REDIS_CONFIG['network_timeout'],
-    namespace: Rails.env
-  }
-end
+Sidekiq.configure_server { |config| config.redis = REDIS_CONFIG }
+Sidekiq.configure_client { |config| config.redis = REDIS_CONFIG }

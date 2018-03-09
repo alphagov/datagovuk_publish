@@ -1,22 +1,23 @@
-development:
+default: &default
   host: '<%= ENV['REDIS_IP'] || "localhost" %>'
   port: '<%= ENV['REDIS_PORT'] || 6379 %>'
+  db: 12
   network_timeout: 5
+
+development:
+  <<: *default
+  namespace: development
 
 test:
-  host: '<%= ENV['REDIS_IP'] || "localhost" %>'
-  port: '<%= ENV['REDIS_PORT'] || 6379 %>'
-  network_timeout: 5
-
+  <<: *default
+  namespace: test
 
 staging:
-  host: '<%= ENV['REDIS_IP'] %>'
-  port: '<%= ENV['REDIS_PORT'] %>'
+  <<: *default
+  namespace: staging
   password: '<%= ENV['REDIS_PASSWORD'] %>'
-  network_timeout: 5
 
 production:
-  host: '<%= ENV['REDIS_IP'] %>'
-  port: '<%= ENV['REDIS_PORT'] %>'
+  <<: *default
+  namespace: production
   password: '<%= ENV['REDIS_PASSWORD'] %>'
-  network_timeout: 5
