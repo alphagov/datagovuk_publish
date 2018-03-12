@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Usage: deploy.sh <app_name> <manifest_prefix_1> <manifest_prefix_2>
 #
 #   Command-line arguments:
