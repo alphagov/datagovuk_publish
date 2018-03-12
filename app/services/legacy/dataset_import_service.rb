@@ -1,11 +1,11 @@
 class Legacy::DatasetImportService
-  attr_reader :legacy_dataset, :orgs_cache, :topics_cache
+  attr_reader :legacy_dataset, :orgs_cache, :topics_cache, :logger
 
-  def initialize(legacy_dataset, orgs_cache, topics_cache)
+  def initialize(legacy_dataset, orgs_cache, topics_cache, logger = Rails.logger)
     @legacy_dataset = legacy_dataset
     @orgs_cache = orgs_cache
     @topics_cache = topics_cache
-    @logger = Logger.new(STDOUT)
+    @logger = logger
   end
 
   def run
