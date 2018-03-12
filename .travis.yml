@@ -1,8 +1,6 @@
 sudo: false
 language: ruby
 cache: bundler
-rvm:
-- 2.5
 branches:
   only:
   - master
