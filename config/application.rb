@@ -58,6 +58,8 @@ module PublishDataBeta
     end
     config.autoload_paths += %W(#{config.root}/app/workers)
 
+    config.elasticsearch = config_for(:elasticsearch)
+
     config.filter_parameters << :password
     config.filter_parameters << :password_confirmation
 
