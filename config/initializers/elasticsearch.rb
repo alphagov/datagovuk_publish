@@ -1,16 +1,5 @@
 require 'base64'
 
-CONFIG_PATH = Rails.root.join('config', 'elasticsearch.yml')
-TEMPLATE = ERB.new File.new(CONFIG_PATH).read
-
-begin
-  ELASTIC_CONFIG = YAML.load(TEMPLATE.result(binding))[ENV['RAILS_ENV']]
-rescue => e
-  Rails.logger.fatal "Failed to parse elasticsearch yaml configuration. Exiting"
-  Rails.logger.fatal e
-  exit
-end
-
 def create_es_cert_file(cert)
   begin
     es_cert_file = File.new('elasticsearch_cert.pem', 'w')
@@ -26,7 +15,7 @@ end
 
 def es_config_from_vcap
   begin
-    vcap = JSON.parse(ELASTIC_CONFIG['vcap_services'])
+    vcap = JSON.parse(Rails.configuration.elasticsearch['vcap_services'])
     es_servers = vcap['elasticsearch'][0]['credentials']['uris'].map do |uri|
       uri.chomp('/')
     end
@@ -42,7 +31,7 @@ def es_config_from_vcap
     host: es_servers,
     transport_options: {
       request: {
-        timeout: ELASTIC_CONFIG['elastic_timeout']
+        timeout: Rails.configuration.elasticsearch['elastic_timeout']
       },
       ssl: {
         ca_file: es_cert_file.path
@@ -53,19 +42,19 @@ end
 
 def es_config_from_host
   {
-    host: ELASTIC_CONFIG['host'],
+    host: Rails.configuration.elasticsearch['host'],
     transport_options: {
       request: {
-        timeout: ELASTIC_CONFIG['elastic_timeout']
+        timeout: Rails.configuration.elasticsearch['elastic_timeout']
       }
     }
   }
 end
 
 
-if ELASTIC_CONFIG['host']
+if Rails.configuration.elasticsearch['host']
   config = es_config_from_host
-elsif ELASTIC_CONFIG['vcap_services']
+elsif Rails.configuration.elasticsearch['vcap_services']
   config = es_config_from_vcap
 else
   Rails.logger.fatal "No elasticsearch environment variables found"
