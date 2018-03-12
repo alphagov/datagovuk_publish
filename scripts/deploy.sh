@@ -57,14 +57,7 @@ then
   CF_ENV='staging'
 fi
 
-rm manifest.yml || true
-
 cf login -a $CF_API -u $CF_USER -p $CF_PASS -s $CF_SPACE
 cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org
 cf install-plugin autopilot -r CF-Community -f
-
-# For some reason the blue-green deploy breaks if there's no manifest.yml present
-ln -s $CF_ENV-$CF_ROLE-manifest.yml manifest.yml
-
-cf zero-downtime-push $CF_APP -f manifest.yml --show-app-log=true
-rm manifest.yml
+cf zero-downtime-push $CF_APP -f $CF_ENV-$CF_ROLE-manifest.yml --show-app-log=true
