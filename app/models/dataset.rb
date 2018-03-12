@@ -59,6 +59,7 @@ class Dataset < ApplicationRecord
       transaction do
         set_timestamps
         self.published!
+        send_to_publishing_api
         send_to_search_index
       end
     end
@@ -158,6 +159,10 @@ class Dataset < ApplicationRecord
 
   def send_to_search_index
     PublishingWorker.perform_async(self.id)
+  end
+
+  def send_to_publishing_api
+    PublishingApiWorker.perform_async(self.id)
   end
 
   def set_timestamps

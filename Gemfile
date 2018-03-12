@@ -32,6 +32,7 @@ gem 'sentry-raven'
 gem 'rubyzip', '~> 1.2'
 gem 'lograge', '~> 0.7'
 gem 'logstash-event', '~> 1.2'
+gem "gds-api-adapters"
 
 group :development, :test do
   gem 'byebug', '~> 9'

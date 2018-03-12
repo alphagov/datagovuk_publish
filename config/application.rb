@@ -57,6 +57,7 @@ module PublishDataBeta
       end
     end
     config.autoload_paths += %W(#{config.root}/app/workers)
+    config.eager_load_paths += %W(#{config.root}/app/presenters)
 
     config.elasticsearch = config_for(:elasticsearch)
 
