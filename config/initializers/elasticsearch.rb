@@ -33,7 +33,6 @@ def es_config_from_vcap
     es_cert = Base64.decode64(vcap['elasticsearch'][0]['credentials']['ca_certificate_base64'])
   rescue => e
     Rails.logger.fatal "Failed to extract ES creds from VCAP_SERVICES. Exiting"
-    Rails.logger.fatal ELASTIC_CONFIG['vcap_services']
     Rails.logger.fatal e
     exit
   end
@@ -72,8 +71,5 @@ else
   Rails.logger.fatal "No elasticsearch environment variables found"
   config = nil
 end
-
-Rails.logger.info "Elasticsearch config:"
-Rails.logger.info config
 
 Elasticsearch::Model.client = Elasticsearch::Client.new(config)
