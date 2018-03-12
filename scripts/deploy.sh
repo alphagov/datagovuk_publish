@@ -66,5 +66,5 @@ cf install-plugin autopilot -r CF-Community -f
 # For some reason the blue-green deploy breaks if there's no manifest.yml present
 ln -s $CF_ENV-$CF_ROLE-manifest.yml manifest.yml
 
-cf zero-downtime-push $CF_APP -f manifest.yml
+cf zero-downtime-push $CF_APP -f manifest.yml --show-app-log=true
 rm manifest.yml
