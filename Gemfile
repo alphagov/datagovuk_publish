@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby IO.read('.ruby-version').strip
 
 gem 'rails', '~> 5.1.5'
 gem 'pg', '~> 0.18'
@@ -50,6 +51,7 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring', '~> 2.0'
+  gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'guard'
   gem 'guard-rspec'
