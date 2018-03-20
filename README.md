@@ -26,16 +26,10 @@ does not end with a slash.
 ```
 $ export SECRET_KEY_BASE=...
 $ bundle install
-$ rake db:create
-$ rake db:migrate
+$ rake db:setup
 $ rails s
 ```
 
-## Add seeds (dev example users, etc - do not use on production)
-
-```
-$ rake db:seed
-```
 ## Running tests
 ```
 rails spec
@@ -55,6 +49,12 @@ rake import:legacy_datasets[filename]
 
 Note: 
 - That organisations need to be imported before datasets.
+
+There is also a replication script that will import a production snapshot.
+
+```commandline
+$ ./script/replication.sh
+```
 
 ## Reindex all datasets
 You can reindex (Elasticsearch) all datasets using the following command:
