@@ -10,3 +10,4 @@ applications:
   - publish-beta-staging-pg
   - logit-ssl-drain
   - beta-staging-elasticsearch
+  - dgu-prometheus
