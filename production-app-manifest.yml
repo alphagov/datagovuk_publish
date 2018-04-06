@@ -10,3 +10,4 @@ applications:
   - publish-beta-production-pg
   - publish-production-secrets
   - logit-ssl-drain
+  - dgu-prometheus
