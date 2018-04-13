@@ -33,8 +33,7 @@ namespace :import do
   task :legacy_datasets, [:filename] => :environment do |_, args|
     # Maps the organisation UUIDs to the organisation IDs
     logger = Rails.logger
-    orgs_cache = Organisation.all.pluck(:uuid, :id).to_h
-    topic_cache = Topic.all.pluck(:name, :id).to_h
+
     InspireDataset.delete_all
     Link.delete_all
     Dataset.delete_all
@@ -44,10 +43,38 @@ namespace :import do
     json_from_lines(args.filename) do |legacy_dataset|
       counter += 1
       print "Completed #{counter}\r"
-      Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, topic_cache).run
+      Legacy::DatasetImportService.new(legacy_dataset, organisation_cache, topic_cache).run
     end
     logger.info 'Import complete'
   end
+
+  desc "Import a single legacy dataset from the legacy API"
+  task :single_legacy_dataset, [:legacy_shortname] => :environment do |_, args|
+    logger = Rails.logger
+
+    begin
+      api_parameters = { params: { id: args.legacy_shortname } }
+      api_response = RestClient.get 'https://data.gov.uk/api/3/action/package_show', api_parameters
+    rescue RestClient::ExceptionWithResponse => e
+      logger.error "Request to API to retrieve #{args.legacy_shortname} responded with: #{e.response.code}"
+      next
+    end
+
+    legacy_dataset = JSON.parse(api_response).fetch('result')
+    Legacy::DatasetImportService.new(legacy_dataset, organisation_cache, topic_cache).run
+
+    indexer = Legacy::DatasetIndexService.new
+    indexer.remove_from_index(legacy_dataset['id'])
+    indexer.index(legacy_dataset['id'])
+  end
+end
+
+def topic_cache
+  Topic.all.pluck(:name, :id).to_h
+end
+
+def organisation_cache
+  Organisation.all.pluck(:uuid, :id).to_h
 end
 
 # Given a filename, will execute a block on each line

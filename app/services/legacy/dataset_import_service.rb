@@ -126,6 +126,7 @@ class Legacy::DatasetImportService
 
   def create_inspire_dataset(dataset_id)
     inspire = InspireDataset.find_or_create_by(dataset_id: dataset_id)
+    inspire.access_constraints = get_extra('access_constraints')
     inspire.bbox_east_long = get_extra('bbox-east-long')
     inspire.bbox_north_lat = get_extra('bbox-north-lat')
     inspire.bbox_south_lat = get_extra('bbox-south-lat')
