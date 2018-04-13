@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2017071231151258) do
+ActiveRecord::Schema.define(version: 2018041310444200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 2017071231151258) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "uuid"
+    t.text "access_constraints"
     t.index ["dataset_id"], name: "index_inspire_datasets_on_dataset_id"
     t.index ["uuid"], name: "index_inspire_datasets_on_uuid"
   end
