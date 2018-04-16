@@ -19,7 +19,7 @@ class Legacy::DatasetIndexService
                                                 id: dataset.id
                                               })
     rescue Elasticsearch::Transport::Transport::Errors::NotFound => e
-      logger.warn e.message
+      Rails.logger.warn e.message
     end
   end
 end
