@@ -18,7 +18,8 @@ class Legacy::DatasetIndexService
                                                 type: ::Dataset.__elasticsearch__.document_type,
                                                 id: dataset.id
                                               })
-    rescue Elasticsearch::Transport::Transport::Errors::NotFound
+    rescue Elasticsearch::Transport::Transport::Errors::NotFound => e
+      logger.warn e.message
     end
   end
 end

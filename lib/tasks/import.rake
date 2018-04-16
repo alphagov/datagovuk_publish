@@ -3,6 +3,8 @@ require 'csv'
 require 'zip'
 require 'rest-client'
 
+LEGACY_SHOW_API = 'https://data.gov.uk/api/3/action/package_show'
+
 namespace :import do
 
   desc "Import locations from a CSV file"
@@ -54,7 +56,7 @@ namespace :import do
 
     begin
       api_parameters = { params: { id: args.legacy_shortname } }
-      api_response = RestClient.get 'https://data.gov.uk/api/3/action/package_show', api_parameters
+      api_response = RestClient.get LEGACY_SHOW_API, api_parameters
     rescue RestClient::ExceptionWithResponse => e
       logger.error "Request to API to retrieve #{args.legacy_shortname} responded with: #{e.response.code}"
       next
