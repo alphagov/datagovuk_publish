@@ -152,44 +152,43 @@ describe Legacy::DatasetImportService do
     it "returns the correct topic_id if license has a valid topic" do
       legacy_dataset["theme-primary"] = "Business & Economy"
       topic_id = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_topic_id
-      
+
       expect(topic_id).to eql(1)
     end
 
     it "returns nil if the licence has a missing topic" do
       legacy_dataset["theme-primary"] = ""
       topic_id = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_topic_id
-      
+
       expect(topic_id).to eql(nil)
     end
 
-    it "returns nil if the licence has an invalid topic" do
+    it "returns nil if the dataset has an invalid topic" do
       legacy_dataset["theme-primary"] = "Some invalid topic"
       topic_id = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_topic_id
-      
+
       expect(topic_id).to eql(nil)
     end
   end
 
   describe "#build_licence" do
-    it "returns 'no-license' if licence has no value specified" do
+    it "returns '' if licence has no value specified" do
       legacy_dataset["license_id"] = ""
       licence = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_licence
-      expect(licence).to eql("no-licence")
+      expect(licence).to eql("")
     end
 
-    it "returns 'other' if the licence is anything other than 'uk-ogl'" do
-      legacy_dataset["license_id"] = "foo"
+    it "returns 'a value' if licence has a value specified" do
+      legacy_dataset["license_id"] = "uk-ogl"
       licence = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_licence
-      expect(licence).to eql("other")
+      expect(licence).to eql("uk-ogl")
     end
   end
 
   describe "#build_licence_other" do
-    it "returns the name of the licence if it is anything other than 'uk-ogl'" do
-      legacy_dataset["license_id"] = "foo"
+    it "returns a custom licence if one is provided" do
       licence_other = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_licence_other
-      expect(licence_other).to eql("foo")
+      expect(licence_other).to eql("Custom licence")
     end
   end
 

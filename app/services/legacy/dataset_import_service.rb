@@ -158,14 +158,11 @@ class Legacy::DatasetImportService
   end
 
   def build_licence
-    return 'no-licence' if licence.blank?
-    return 'other' if licence != "uk-ogl"
-    licence
+    legacy_dataset["license_id"]
   end
 
   def build_licence_other
-    return nil if licence.blank?
-    return licence if licence != "uk-ogl"
+    get_extra('licence')
   end
 
   # Converts a legacy frequency into a new-style frequency
@@ -262,9 +259,5 @@ class Legacy::DatasetImportService
 
   def extras
     legacy_dataset.fetch("extras", [])
-  end
-
-  def licence
-    legacy_dataset["license_id"]
   end
 end

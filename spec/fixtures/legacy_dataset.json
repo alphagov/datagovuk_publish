@@ -137,6 +137,15 @@
       "id": "fe4df876-6aac-43d7-8fa4-e898504b685c"
     },
     {
+      "package_id": "ed24a0eb-a042-4582-9465-2e09fdb63823",
+      "value": "Custom licence",
+      "revision_timestamp": "2016-08-24T11:19:10.782923",
+      "state": "active",
+      "key": "licence",
+      "revision_id": "643e58ba-3eda-4999-9697-337b50558023",
+      "id": "fe4df876-6aac-43d7-8fa4-e898504b6823"
+    },
+    {
       "package_id": "ed24a0eb-a042-4582-9465-2e09fdb6384a",
       "value": "",
       "revision_timestamp": "2016-08-24T11:19:10.782936",
