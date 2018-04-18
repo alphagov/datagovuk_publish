@@ -73,8 +73,6 @@ Rails.application.routes.draw do
     get 'sync-beta', to: 'sync#beta'
   end
 
-  resources :account, only: :show
-
   get 'tasks', to: 'tasks#my'
   get 'tasks/organisation', to: 'tasks#organisation'
 

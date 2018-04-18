@@ -1,6 +1,4 @@
 class Datasets::LocationsController < ApplicationController
-  before_action :authenticate_user!
-
   def new
     @dataset = current_dataset
   end

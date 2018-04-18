@@ -48,30 +48,11 @@ hmrc.save!
 
 puts 'Seeded organisations'
 
-# Admin
-AdminUser.create!(
-  email: 'admin@example.com',
-  name: 'Administrator',
-  password: 'password',
-  password_confirmation: 'password'
-)
-
 # Land Registry User
 User.create!(
-  email: 'publisher@example.com',
-  name: 'Publisher',
-  password: 'password',
-  password_confirmation: 'password',
-  primary_organisation: land_registry
-)
-
-# HMRC User
-User.create!(
-  email: 'hmrc_publisher@example.com',
-  name: 'HMRC',
-  password: 'password',
-  password_confirmation: 'password',
-  primary_organisation: hmrc
+  name: 'Admin',
+  email: 'admin@example.com',
+  uid: 1
 )
 
 puts 'Seeded users'
