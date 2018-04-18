@@ -183,17 +183,6 @@ ActiveRecord::Schema.define(version: 2018041810194100) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "organisation_statistics", force: :cascade do |t|
-    t.string "organisation_name", limit: 64
-    t.string "dataset_title", limit: 256
-    t.string "subject_title", limit: 64, default: "Downloads"
-    t.integer "value", default: 0
-    t.string "direction", limit: 4
-    t.string "since", limit: 20
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "organisations", force: :cascade do |t|
     t.string "name"
     t.string "title"
@@ -222,21 +211,6 @@ ActiveRecord::Schema.define(version: 2018041810194100) do
   create_table "organisations_users", id: false, force: :cascade do |t|
     t.bigint "organisation_id", null: false
     t.bigint "user_id", null: false
-  end
-
-  create_table "quality_scores", force: :cascade do |t|
-    t.bigint "organisation_id"
-    t.integer "highest", default: 0
-    t.integer "lowest", default: 0
-    t.integer "average", default: 0
-    t.integer "median", default: 0
-    t.integer "total", default: 0
-    t.string "organisation_name"
-    t.string "string"
-    t.string "organisation_title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["organisation_id"], name: "index_quality_scores_on_organisation_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -271,6 +245,5 @@ ActiveRecord::Schema.define(version: 2018041810194100) do
   end
 
   add_foreign_key "inspire_datasets", "datasets"
-  add_foreign_key "quality_scores", "organisations"
   add_foreign_key "tasks", "organisations"
 end
