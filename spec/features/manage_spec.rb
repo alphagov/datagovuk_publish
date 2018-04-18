@@ -11,7 +11,7 @@ describe "managing datasets" do
   end
 
   it "after login" do
-    expect(page).to have_current_path '/tasks'
+    expect(page).to have_current_path '/'
 
     # Don't expect any tables as creator_id not set on dataset
     click_link 'Manage datasets'

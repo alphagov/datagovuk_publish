@@ -9,7 +9,8 @@ describe "viewing tasks" do
 
   it "after login" do
     create_user_and_sign_in
-    expect(page).to have_current_path '/tasks'
+    create_models
+    expect(page).to have_current_path '/'
     click_link 'Land Registry tasks'
     expect(page).to have_selector(%(table), count: 2)
     expect(page).to have_selector 'h2', text: '1 datasets need to be updated'

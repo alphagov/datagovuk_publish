@@ -11,7 +11,7 @@ describe "dataset creation" do
     end
 
     it "navigates to new dataset form" do
-      expect(page).to have_current_path("/tasks")
+      expect(page).to have_current_path("/")
       click_link "Manage datasets"
       click_link "Create a dataset"
       expect(page).to have_current_path("/datasets/new")
