@@ -14,7 +14,7 @@ describe 'datafiles' do
   end
 
   before(:each) do
-    sign_in_user
+    sign_in_as(user)
     visit dataset_path(published_dataset.uuid, published_dataset.name)
   end
 

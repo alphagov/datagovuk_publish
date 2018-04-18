@@ -8,8 +8,7 @@ describe "viewing tasks" do
   let!(:dataset) { FactoryGirl.create(:dataset, name: 'my_dataset', title: 'My  Dataset', summary: 'Some data', organisation: land_registry) }
 
   it "after login" do
-    create_user_and_sign_in
-    create_models
+    sign_in_as(user)
     expect(page).to have_current_path '/'
     click_link 'Land Registry tasks'
     expect(page).to have_selector(%(table), count: 2)

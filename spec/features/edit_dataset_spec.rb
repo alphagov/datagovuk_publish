@@ -23,7 +23,7 @@ describe 'editing datasets' do
   end
 
   before(:each) do
-    sign_in_user
+    sign_in_as(user)
   end
 
   it "should be able to go to datasets's page" do

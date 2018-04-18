@@ -1,11 +1,12 @@
 class User < ApplicationRecord
   include GDS::SSO::User
+  has_and_belongs_to_many :organisations
 
   def primary_organisation
-    @@org || Organisation.first
+    organisations.first
   end
 
   def primary_organisation=(org)
-    @@org = org
+    organisations << org
   end
 end
