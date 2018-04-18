@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 ruby IO.read('.ruby-version').strip
 
-gem 'activeadmin', '~> 1'
 gem 'ancestry', '~> 3.0.1'
 gem 'audited', '~> 4.5'
 gem 'cancancan', '~> 2.0'
