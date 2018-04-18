@@ -4,6 +4,7 @@ describe "dataset creation" do
   let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
   let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
   let!(:dataset) { FactoryGirl.create(:dataset, organisation: land, creator: user, owner: user) }
+  let!(:topic) { FactoryGirl.create(:topic) }
 
   context "when the user goes through entire flow" do
     before(:each) do
@@ -29,13 +30,19 @@ describe "dataset creation" do
 
       expect(Dataset.where(title: "my test dataset").size).to eq(1)
 
-      # PAGE 2: Licence
+      # PAGE 2: Topic
+      choose option: topic.id
+      click_button "Save and continue"
+
+      expect(Dataset.last.topic.title).to eq(topic.title)
+
+      # PAGE 3: Licence
       choose option: "uk-ogl"
       click_button "Save and continue"
 
       expect(Dataset.last.licence).to eq("uk-ogl")
 
-      # Page 3: Location
+      # Page 4: Location
       fill_in "dataset[location1]", with: "Aviation House"
       fill_in "dataset[location2]", with: "London"
       fill_in "dataset[location3]", with: "England"
@@ -45,13 +52,13 @@ describe "dataset creation" do
       expect(Dataset.last.location2).to eq("London")
       expect(Dataset.last.location3).to eq("England")
 
-      # Page 4: Frequency
+      # Page 5: Frequency
       choose option: "never"
       click_button "Save and continue"
 
       expect(Dataset.last.frequency).to eq("never")
 
-      # Page 5: Add Link
+      # Page 6: Add Link
       fill_in 'datafile[url]', with: 'https://localhost'
       fill_in 'datafile[name]', with: 'my test datafile'
       click_button "Save and continue"
@@ -65,7 +72,7 @@ describe "dataset creation" do
       expect(page).to have_content("my test datafile")
       click_link "Save and continue"
 
-      # Page 6: Add Documents
+      # Page 7: Add Documents
       fill_in 'doc[url]', with: 'https://localhost/doc'
       fill_in 'doc[name]', with: 'my test doc'
       click_button "Save and continue"
@@ -80,7 +87,7 @@ describe "dataset creation" do
       expect(page).to have_content("my test doc")
       click_link "Save and continue"
 
-      # Page 9: Publish Page
+      # Page 8: Publish Page
       expect(Dataset.last.published?).to be(false)
 
       expect(page).to have_content(Dataset.last.status)
@@ -88,6 +95,7 @@ describe "dataset creation" do
       expect(page).to have_content(Dataset.last.title)
       expect(page).to have_content(Dataset.last.summary)
       expect(page).to have_content(Dataset.last.description)
+      expect(page).to have_content(Dataset.last.topic.title)
       expect(page).to have_content("Open Government Licence")
       expect(page).to have_content(Dataset.last.location1)
       expect(page).to have_content("One-off")
@@ -103,6 +111,7 @@ describe "dataset creation" do
       client = Dataset.__elasticsearch__.client
       document = client.get(index: Dataset.index_name, id: Dataset.last.id)
       expect(document["_source"]["name"]).to eq(Dataset.last.title.parameterize)
+      expect(document["_source"]["topic"]["name"]).to eq(Dataset.last.topic.name.parameterize)
     end
   end
 
@@ -135,6 +144,7 @@ end
 describe "starting a new draft with invalid inputs" do
   let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
   let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
+  let!(:topic) { FactoryGirl.create(:topic) }
 
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
@@ -155,7 +165,7 @@ describe "starting a new draft with invalid inputs" do
     fill_in "dataset[summary]", with: "my test dataset summary"
     fill_in "dataset[description]", with: "my test dataset description"
     click_button "Save and continue"
-    expect(page).to have_content("Choose a licence")
+    expect(page).to have_content("Choose a topic")
   end
 
   it "missing summary" do
@@ -170,7 +180,7 @@ describe "starting a new draft with invalid inputs" do
     fill_in "dataset[summary]", with: "my test dataset summary"
     fill_in "dataset[description]", with: "my test dataset description"
     click_button "Save and continue"
-    expect(page).to have_content("Choose a licence")
+    expect(page).to have_content("Choose a topic")
   end
 
   it "missing both title and summary" do
@@ -184,13 +194,14 @@ describe "starting a new draft with invalid inputs" do
     fill_in "dataset[summary]", with: "my test dataset summary"
     fill_in "dataset[description]", with: "my test dataset description"
     click_button "Save and continue"
-    expect(page).to have_content("Choose a licence")
+    expect(page).to have_content("Choose a topic")
   end
 end
 
-describe "valid options for licence and area" do
+describe "valid options for topic, licence and area" do
   let(:land_registry) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
   let!(:user) { FactoryGirl.create(:user, primary_organisation: land_registry) }
+  let!(:topic) { FactoryGirl.create(:topic) }
 
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
@@ -203,7 +214,19 @@ describe "valid options for licence and area" do
     click_button "Save and continue"
   end
 
+  context "when selecting topic type" do
+    it "if missing, throw error" do
+      click_button "Save and continue"
+      expect(page).to have_content("Please choose a topic")
+    end
+  end
+
   context "when selecting license type" do
+    before(:each) do
+      choose option: topic.id
+      click_button "Save and continue"
+    end
+
     it "OGL" do
       expect(page).to have_content("Choose a licence")
       choose option: "uk-ogl"
@@ -235,6 +258,8 @@ describe "valid options for licence and area" do
     before(:each) do
       url = "https://test.data.gov.uk/api/3/action/package_patch"
       stub_request(:any, url).to_return(status: 200)
+      choose option: topic.id
+      click_button "Save and continue"
       choose option: "uk-ogl"
       click_button "Save and continue"
     end

@@ -7,6 +7,7 @@ FactoryGirl.define do
     location1 "Westeros"
     frequency "never"
     licence "uk-ogl"
+    topic
     last_updated_at Time.now
   end
 end

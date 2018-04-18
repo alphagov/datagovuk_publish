@@ -7,11 +7,12 @@ def click_change(property)
     title: 0,
     summary: 1,
     additional_info: 2,
-    licence: 3,
-    location: 4,
-    frequency: 5,
-    datalinks: 6,
-    documentation: 7
+    topic: 3,
+    licence: 4,
+    location: 5,
+    frequency: 6,
+    datalinks: 7,
+    documentation: 8
   }
   index = properties[property]
   all(:link, "Change")[index].click

@@ -16,7 +16,6 @@ class Dataset < ApplicationRecord
 
   belongs_to :organisation
   belongs_to :topic, optional: true
-  belongs_to :secondary_topic, optional: true
 
   has_many :datafiles, dependent: :destroy
   has_many :docs, dependent: :destroy
@@ -29,6 +28,7 @@ class Dataset < ApplicationRecord
   validates :frequency, presence: true, if: :published?
   validates :licence, presence: true, if: :published?
   validates :licence_other, presence: true, if: lambda { licence == 'other' }
+  validates :topic, presence: { message: 'Please choose a topic' }, on: :dataset_form
 
   validate  :is_readonly?, on: :update
 
