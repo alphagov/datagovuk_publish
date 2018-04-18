@@ -72,8 +72,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     get 'sync-beta', to: 'sync#beta'
-    get 'locations', to: 'locations#lookup'
-    get 'organisations', to: 'organisations#lookup'
   end
 
   resources :account, only: :show
