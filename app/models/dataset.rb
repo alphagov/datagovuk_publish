@@ -73,6 +73,7 @@ class Dataset < ApplicationRecord
              :contact_name, :contact_email, :contact_phone,
              :location1, :location2, :location3,
              :licence, :licence_other, :frequency,
+             :licence_code, :licence_title, :licence_url, :licence_custom,
              :published_date, :last_updated_at, :created_at,
              :harvested, :uuid],
              include: {

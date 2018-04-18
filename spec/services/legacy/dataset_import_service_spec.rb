@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe Legacy::DatasetImportService do
   let(:legacy_dataset) { create_dataset_from('legacy_dataset.json') }
+  let(:legacy_dataset_without_licence) { create_dataset_from('legacy_dataset_no_licence.json') }
   let(:timeseries_legacy_dataset) { create_dataset_from('timeseries_dataset.json') }
   let(:daily_timeseries_legacy_dataset_with_invalid_date) { create_dataset_from('daily_timeseries_dataset_with_invalid_date.json') }
   let(:monthly_timeseries_legacy_dataset_with_invalid_date) { create_dataset_from('monthly_timeseries_dataset_with_invalid_date.json') }
@@ -23,6 +24,10 @@ describe Legacy::DatasetImportService do
       expect(imported_dataset.description).to eql(legacy_dataset["notes"])
       expect(imported_dataset.organisation_id).to eql(123)
       expect(imported_dataset.status).to eql("published")
+      expect(imported_dataset.licence_code).to eql("uk-ogl")
+      expect(imported_dataset.licence_title).to eql("Open Government Licence")
+      expect(imported_dataset.licence_url).to eql("http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/")
+      expect(imported_dataset.licence_custom).to eql("Custom licence")
       expect(imported_dataset.published_date.to_i).to eql(DateTime.parse(legacy_dataset["metadata_created"]).to_i)
       expect(imported_dataset.created_at.to_i).to eql(DateTime.parse(legacy_dataset["metadata_created"]).to_i)
       expect(imported_dataset.last_updated_at.to_i).to eql(DateTime.parse(legacy_dataset["metadata_modified"]).to_i)
@@ -34,6 +39,17 @@ describe Legacy::DatasetImportService do
       expect(imported_dataset.foi_phone).to eql(legacy_dataset["foi-phone"])
       expect(imported_dataset.foi_web).to eql(legacy_dataset["foi-web"])
       expect(imported_dataset.topic_id).to eql(1)
+    end
+
+    it "correctly sets licence fields where no licence" do
+      Legacy::DatasetImportService.new(legacy_dataset_without_licence, orgs_cache, topics_cache).run
+
+      imported_dataset = Dataset.find_by(uuid: legacy_dataset_without_licence["id"])
+
+      expect(imported_dataset.licence_code).to be_nil
+      expect(imported_dataset.licence_title).to be_nil
+      expect(imported_dataset.licence_url).to be_nil
+      expect(imported_dataset.licence_custom).to be_nil
     end
 
     it "creates the datafiles for the imported dataset" do
@@ -163,7 +179,7 @@ describe Legacy::DatasetImportService do
       expect(topic_id).to eql(nil)
     end
 
-    it "returns nil if the dataset has an invalid topic" do
+    it "returns nil if the licence has an invalid topic" do
       legacy_dataset["theme-primary"] = "Some invalid topic"
       topic_id = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_topic_id
 
@@ -172,23 +188,24 @@ describe Legacy::DatasetImportService do
   end
 
   describe "#build_licence" do
-    it "returns '' if licence has no value specified" do
+    it "returns 'no-license' if licence has no value specified" do
       legacy_dataset["license_id"] = ""
       licence = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_licence
-      expect(licence).to eql("")
+      expect(licence).to eql("no-licence")
     end
 
-    it "returns 'a value' if licence has a value specified" do
-      legacy_dataset["license_id"] = "uk-ogl"
+    it "returns 'other' if the licence is anything other than 'uk-ogl'" do
+      legacy_dataset["license_id"] = "foo"
       licence = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_licence
-      expect(licence).to eql("uk-ogl")
+      expect(licence).to eql("other")
     end
   end
 
   describe "#build_licence_other" do
-    it "returns a custom licence if one is provided" do
+    it "returns the name of the licence if it is anything other than 'uk-ogl'" do
+      legacy_dataset["license_id"] = "foo"
       licence_other = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_licence_other
-      expect(licence_other).to eql("Custom licence")
+      expect(licence_other).to eql("foo")
     end
   end
 

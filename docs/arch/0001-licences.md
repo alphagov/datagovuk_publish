@@ -14,24 +14,13 @@ Publishing users expect that any custom licence information they provide will be
 
 We will simplify the storing of licence information to:
 
-* Store the legacy `licence_id` field in the new `licence` field and only index the short licence identifier, e.g. uk-ogl
-* Store the legacy custom licence field (in the `dataset[extras]` record where `key="licence"`) in `licence_other`
-
-It is expected this will be used by the presentation layer by looking up the `licence` field in a table that contains both the title and the url (if any).
-
-**licence but no licence_other**
-
-The `licence` field will be used to find the title and url of the licence, and this will be displayed.
-
-**licence_other and no licence**
-
-The custom licence in `licence_other` will be displayed, and truncated if it is too long. Some custom licences are just a block of HTML, some are HTML followed by text/markdown and some are just text/markdown.
-
-**licence and licence_other**
-
-The `licence` field will be used to find the title and the url of the licence, and this will be displayed.  The custom licence will also be displayed, but truncated as above.
+* Create new fields `licence_code`, `licence_title`, `licence_url`, and `licence_custom`
+* Publish will continue (temporarily) fill the old fields so we can migrate the frontend
+* We should remove the `licence` and `licence_other` fields once both publish and find apps are using the new fields.
 
 
 ## Consequences
 
 This will introduce some difficulty in deploying changes to a running system, where currently the `licence_other` field contains a legacy licence id.
+
+We will take a staged approach of adding new fields, changing the frontend and then removing the old fields from publish.

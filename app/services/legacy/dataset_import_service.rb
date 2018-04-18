@@ -21,6 +21,8 @@ class Legacy::DatasetImportService
   end
 
   def dataset_attributes
+    licence_info = Licence.lookup(legacy_dataset["license_id"])
+
     {
       legacy_name: legacy_dataset["name"],
       title: legacy_dataset["title"],
@@ -43,6 +45,10 @@ class Legacy::DatasetImportService
       location1: build_location,
       licence: build_licence,
       licence_other: build_licence_other,
+      licence_code: build_licence_code,
+      licence_title: licence_info.title,
+      licence_url: licence_info.url,
+      licence_custom: get_extra("licence", default: nil),
       topic_id: build_topic_id,
       secondary_topic_id: build_secondary_topic_id,
       status: "published"
@@ -158,11 +164,20 @@ class Legacy::DatasetImportService
   end
 
   def build_licence
-    legacy_dataset["license_id"]
+    return 'no-licence' if licence.blank?
+    return 'other' if licence != "uk-ogl"
+    licence
   end
 
   def build_licence_other
-    get_extra('licence')
+    return nil if licence.blank?
+    return licence if licence != "uk-ogl"
+  end
+
+  def build_licence_code
+    code = legacy_dataset["license_id"]
+    return nil if code == ""
+    code
   end
 
   # Converts a legacy frequency into a new-style frequency
@@ -242,8 +257,8 @@ class Legacy::DatasetImportService
     @dataset ||= Dataset.find_or_create_by(uuid: legacy_dataset["id"])
   end
 
-  def get_extra(key)
-    parsed_extras.fetch(key, "")
+  def get_extra(key, default: "")
+    parsed_extras.fetch(key, default)
   end
 
   def parsed_extras
@@ -259,5 +274,9 @@ class Legacy::DatasetImportService
 
   def extras
     legacy_dataset.fetch("extras", [])
+  end
+
+  def licence
+    legacy_dataset["license_id"]
   end
 end
