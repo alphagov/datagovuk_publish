@@ -49,7 +49,7 @@ describe Legacy::DatasetImportService do
       expect(imported_dataset.licence_code).to be_nil
       expect(imported_dataset.licence_title).to be_nil
       expect(imported_dataset.licence_url).to be_nil
-      expect(imported_dataset.licence_custom).to be_nil
+      expect(imported_dataset.licence_custom).to eql("")
     end
 
     it "creates the datafiles for the imported dataset" do

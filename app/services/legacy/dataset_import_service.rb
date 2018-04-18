@@ -48,7 +48,7 @@ class Legacy::DatasetImportService
       licence_code: build_licence_code,
       licence_title: licence_info.title,
       licence_url: licence_info.url,
-      licence_custom: get_extra("licence", default: nil),
+      licence_custom: get_extra("licence"),
       topic_id: build_topic_id,
       secondary_topic_id: build_secondary_topic_id,
       status: "published"
@@ -175,9 +175,7 @@ class Legacy::DatasetImportService
   end
 
   def build_licence_code
-    code = legacy_dataset["license_id"]
-    return nil if code == ""
-    code
+    licence
   end
 
   # Converts a legacy frequency into a new-style frequency
@@ -277,6 +275,6 @@ class Legacy::DatasetImportService
   end
 
   def licence
-    legacy_dataset["license_id"]
+    legacy_dataset["license_id"].presence
   end
 end
