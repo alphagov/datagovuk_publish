@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :organisations
 
   def primary_organisation
-    organisations.first
+    organisations.first || Organisation.first
   end
 
   def primary_organisation=(org)
