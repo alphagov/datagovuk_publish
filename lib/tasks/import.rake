@@ -44,7 +44,9 @@ namespace :import do
     logger.info 'Importing legacy datasets'
     json_from_lines(args.filename) do |legacy_dataset|
       counter += 1
-      print "Completed #{counter}\r"
+      if counter % 10 == 0
+        print "Completed #{counter}\r"
+      end
       Legacy::DatasetImportService.new(legacy_dataset, organisation_cache, topic_cache).run
     end
     logger.info 'Import complete'
@@ -72,11 +74,11 @@ namespace :import do
 end
 
 def topic_cache
-  Topic.all.pluck(:name, :id).to_h
+  @topic_cache ||= Topic.all.pluck(:name, :id).to_h
 end
 
 def organisation_cache
-  Organisation.all.pluck(:uuid, :id).to_h
+  @organisation_cache ||= Organisation.all.pluck(:uuid, :id).to_h
 end
 
 # Given a filename, will execute a block on each line
