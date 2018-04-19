@@ -24,11 +24,10 @@
 <% end %>
 
 <% content_for :content do %>
-  <main role="main" tabindex="-1" id="<%= 'content' unless current_page? root_path %>">
-    <%= render partial: 'layouts/phase_banner' unless current_page? root_path %>
+  <main role="main" tabindex="-1" id="content">
+    <%= render partial: 'layouts/phase_banner' %>
     <%= yield %>
   </main>
-
 
   <div id="global-app-error" class="app-error hidden"></div>
 
