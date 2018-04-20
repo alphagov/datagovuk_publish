@@ -1,29 +1,11 @@
-.DS_Store
-public/data.json
-
-/.bundle
-
-# Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
-/coverage
-
-/node_modules
-/yarn-error.log
-
-.byebug_history
-.tern-port
 .env
+.byebug_history
 
-spec/end-to-end-tests/reports
-spec/end-to-end-tests/screenshots
-spec/end-to-end-tests/selenium-debug.log
+/coverage/
+/vendor/bundle
+/log
+/tmp
+/public/assets
+/node_modules/
 
-.idea/
-
-dump.rdb
-
-.vagrant
-
+.DS_Store
