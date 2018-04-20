@@ -2,12 +2,11 @@ require "rails_helper"
 
 describe "dataset creation" do
   let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
-  let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
-  let(:dataset) { FactoryGirl.create(:dataset, organisation: land, creator: user, owner: user) }
+  let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
+  let!(:dataset) { FactoryGirl.create(:dataset, organisation: land, creator: user, owner: user) }
 
   context "when the user goes through entire flow" do
     before(:each) do
-      user
       sign_in_user
     end
 
@@ -108,9 +107,7 @@ describe "dataset creation" do
   end
 
   context "when the user doesn't complete flow" do
-
     before(:each) do
-      user
       sign_in_user
     end
 
@@ -126,7 +123,6 @@ describe "dataset creation" do
     end
 
     it 'displays drafts' do
-      dataset
       click_link 'Manage datasets'
       expect(page).to have_content(dataset.title)
 
@@ -137,14 +133,12 @@ describe "dataset creation" do
 end
 
 describe "starting a new draft with invalid inputs" do
-
   let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
-  let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
+  let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
 
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
     stub_request(:any, url).to_return(status: 200)
-    user
     sign_in_user
     visit new_dataset_path
   end
@@ -195,14 +189,12 @@ describe "starting a new draft with invalid inputs" do
 end
 
 describe "valid options for licence and area" do
-
   let(:land_registry) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
-  let(:user) { FactoryGirl.create(:user, primary_organisation: land_registry) }
+  let!(:user) { FactoryGirl.create(:user, primary_organisation: land_registry) }
 
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
     stub_request(:any, url).to_return(status: 200)
-    user
     sign_in_user
     visit new_dataset_path
     fill_in "dataset[title]", with: "my test dataset"
@@ -261,17 +253,14 @@ describe "valid options for licence and area" do
 end
 
 describe "dataset frequency options" do
-
   let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
-  let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
-  let(:dataset) { FactoryGirl.create(:dataset, organisation: land, owner: user ) }
+  let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
+  let!(:dataset) { FactoryGirl.create(:dataset, organisation: land, owner: user ) }
 
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
     stub_request(:any, url).to_return(status: 200)
-    user
     sign_in_user
-    dataset
     visit new_dataset_frequency_path(dataset.uuid, dataset.name)
   end
 
@@ -417,16 +406,13 @@ describe "dataset frequency options" do
 end
 
 describe "passing the frequency page" do
-
   let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
-  let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
-  let(:dataset) { FactoryGirl.create(:dataset, organisation: land, owner: user, frequency: nil ) }
+  let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
+  let!(:dataset) { FactoryGirl.create(:dataset, organisation: land, owner: user, frequency: nil ) }
 
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
     stub_request(:any, url).to_return(status: 200)
-    user
-    dataset
     sign_in_user
     visit new_dataset_frequency_path(dataset.uuid, dataset.name)
   end

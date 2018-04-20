@@ -1,13 +1,8 @@
 require 'rails_helper'
 
 describe "logging in" do
-
   let(:land_registry) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
-  let(:user) { FactoryGirl.create(:user, primary_organisation_id: land_registry.id) }
-
-  before :each do
-    user
-  end
+  let!(:user) { FactoryGirl.create(:user, primary_organisation_id: land_registry.id) }
 
   it "can visit the index page" do
     visit '/'

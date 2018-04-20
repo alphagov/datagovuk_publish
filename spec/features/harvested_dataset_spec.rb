@@ -3,16 +3,14 @@ require "rails_helper"
 describe "Harvested datasets" do
   let(:land) { FactoryGirl.create(:organisation) }
   let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
+  let!(:harvested_dataset) { FactoryGirl.create(:dataset,
+                                                organisation: land,
+                                                harvested: true,
+                                                datafiles: [FactoryGirl.create(:datafile)],
+                                                creator: user,
+                                                owner: user) }
 
   it "should be readonly (no add/edit buttons appear)" do
-    harvested_dataset = FactoryGirl.create(:dataset,
-                                           organisation: land,
-                                           harvested: true,
-                                           datafiles: [FactoryGirl.create(:datafile)],
-                                           creator: user,
-                                           owner: user)
-
-    user
     sign_in_user
     click_link 'Manage datasets'
 
