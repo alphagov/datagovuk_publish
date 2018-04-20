@@ -1,6 +1,6 @@
 class Datasets::DocsController < ApplicationController
-  before_action :set_dataset, only: [:index, :new, :create, :edit, :update, :confirm_delete, :destroy]
-  before_action :set_doc,     only: [:edit, :update, :confirm_delete, :destroy]
+  before_action :set_dataset, only: %i[index new create edit update confirm_delete destroy]
+  before_action :set_doc,     only: %i[edit update confirm_delete destroy]
 
   def index
     @docs = @dataset.docs
@@ -20,8 +20,7 @@ class Datasets::DocsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @doc.update(doc_params)
@@ -45,7 +44,7 @@ class Datasets::DocsController < ApplicationController
     redirect_to dataset_docs_path(@dataset.uuid, @dataset.name)
   end
 
-  private
+private
 
   def set_dataset
     @dataset = Dataset.find_by(uuid: params[:uuid])

@@ -49,5 +49,4 @@ Rails.application.configure do
       super || path
     end
   end)
-
 end

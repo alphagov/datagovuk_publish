@@ -1,7 +1,7 @@
 class DatasetsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_dataset, only: [:show, :edit, :update, :destroy,
-                                     :publish, :confirm_delete, :quality]
+  before_action :set_dataset,
+                only: %i[show edit update destroy publish confirm_delete quality]
 
   def show
     authorize!(:read, @dataset)
@@ -41,11 +41,11 @@ class DatasetsController < ApplicationController
 
   def publish
     if @dataset.publishable?
-      if @dataset.published?
-        flash[:success] = I18n.t 'dataset_updated'
-      else
-        flash[:success] = I18n.t 'dataset_published'
-      end
+      flash[:success] = if @dataset.published?
+                          I18n.t 'dataset_updated'
+                        else
+                          I18n.t 'dataset_published'
+                        end
 
       @dataset.publish!
 
@@ -85,7 +85,7 @@ class DatasetsController < ApplicationController
     @reasons = q.reasons
   end
 
-  private
+private
 
   def set_dataset
     @dataset = Dataset.find_by!(uuid: params[:uuid])

@@ -101,8 +101,8 @@ describe "dataset creation" do
 
       # Ensure the dataset is indexed in Elastic
       client = Dataset.__elasticsearch__.client
-      document = client.get({ index: Dataset.index_name, id: Dataset.last.id })
-      expect(document["_source"]["name"]).to eq("#{Dataset.last.title}".parameterize)
+      document = client.get(index: Dataset.index_name, id: Dataset.last.id)
+      expect(document["_source"]["name"]).to eq(Dataset.last.title.parameterize)
     end
   end
 
@@ -148,7 +148,7 @@ describe "starting a new draft with invalid inputs" do
     click_button "Save and continue"
     expect(page).to have_content("There was a problem")
     expect(page).to have_content("Please enter a valid title", count: 2)
-    expect(page).to have_selector("div", :class => "form-group-error")
+    expect(page).to have_selector("div", class: "form-group-error")
     expect(Dataset.where(title: "my test dataset").size).to eq(0)
     # recover
     fill_in "dataset[title]", with: "my test dataset"
@@ -163,7 +163,7 @@ describe "starting a new draft with invalid inputs" do
     click_button "Save and continue"
     expect(page).to have_content("There was a problem")
     expect(page).to have_content("Please provide a summary", count: 2)
-    expect(page).to have_selector("div", :class => "form-group-error")
+    expect(page).to have_selector("div", class: "form-group-error")
     expect(Dataset.where(title: "my test dataset").size).to eq(0)
     # recover
     fill_in "dataset[title]", with: "my test dataset"
@@ -255,7 +255,7 @@ end
 describe "dataset frequency options" do
   let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
   let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
-  let!(:dataset) { FactoryGirl.create(:dataset, organisation: land, owner: user ) }
+  let!(:dataset) { FactoryGirl.create(:dataset, organisation: land, owner: user) }
 
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
@@ -386,10 +386,10 @@ describe "dataset frequency options" do
     def pick_year(year_type)
       choose option: year_type
       click_button "Save and continue"
-      expect(page).to     have_content('Year')
+      expect(page).to have_content('Year')
       fill_in 'datafile[url]', with: 'https://localhost/doc'
       fill_in 'datafile[name]', with: 'my test doc'
-      fill_in 'datafile[year]',  with: '2015'
+      fill_in 'datafile[year]', with: '2015'
       click_button "Save and continue"
     end
 
@@ -408,7 +408,7 @@ end
 describe "passing the frequency page" do
   let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
   let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
-  let!(:dataset) { FactoryGirl.create(:dataset, organisation: land, owner: user, frequency: nil ) }
+  let!(:dataset) { FactoryGirl.create(:dataset, organisation: land, owner: user, frequency: nil) }
 
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"

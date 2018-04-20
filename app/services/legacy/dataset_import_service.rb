@@ -207,7 +207,7 @@ class Legacy::DatasetImportService
     get_extra("harvest_object_id").present?
   end
 
-  private
+private
 
   def get_end_date(date_string)
     # eg "1983"
@@ -215,14 +215,14 @@ class Legacy::DatasetImportService
       return calculate_dates_for_year(date_string.to_i)
     end
      # eg "1983/02/12"
-     parts = date_string.split("/")
-   if parts.length == 3
-     return date_string
-   end
+    parts = date_string.split("/")
+    if parts.length == 3
+      return date_string
+    end
      # eg "1983/02"
-   if parts and parts.length == 2
-     return calculate_dates_for_month(parts[0].to_i, parts[1].to_i)
-   end
+    if parts && (parts.length == 2)
+      return calculate_dates_for_month(parts[0].to_i, parts[1].to_i)
+    end
     ""
   end
 
@@ -236,11 +236,11 @@ class Legacy::DatasetImportService
   end
 
   def legacy_datafiles
-    resources.reject { |resource| resource['resource_type'] == 'documentation'}
+    resources.reject { |resource| resource['resource_type'] == 'documentation' }
   end
 
   def legacy_documents
-    resources.select { |resource| resource['resource_type'] == 'documentation'}
+    resources.select { |resource| resource['resource_type'] == 'documentation' }
   end
 
   def resources
@@ -248,7 +248,7 @@ class Legacy::DatasetImportService
   end
 
   def calculate_quarterly_dates(date_object)
-    Date.new(date_object.year, 1 + (date_object.month -1 ) / 4 * 4)
+    Date.new(date_object.year, 1 + (date_object.month - 1) / 4 * 4)
   end
 
   def dataset

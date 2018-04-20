@@ -16,7 +16,7 @@ class Legacy::OrganisationImportService
       title: legacy_organisation["title"],
       description: legacy_organisation["description"],
       abbreviation: legacy_organisation["abbreviation"],
-      replace_by: "#{legacy_organisation['replaced_by']}",
+      replace_by: legacy_organisation['replaced_by'],
       contact_email: legacy_organisation["contact-email"],
       contact_phone: legacy_organisation["contact-phone"],
       contact_name: legacy_organisation["contact-name"],
@@ -30,7 +30,7 @@ class Legacy::OrganisationImportService
     }
   end
 
-  private
+private
 
   def organisation
     @organisation ||= Organisation.find_or_initialize_by(name: legacy_organisation["name"])
@@ -46,15 +46,15 @@ class Legacy::OrganisationImportService
 
   def get_org_type
     return "central-government" if central_government?
-    return  "local-authority" if local_council?
+    return "local-authority" if local_council?
     "other-government-body"
   end
 
   def central_government?
-    %w("ministerial-department", "non-ministerial-department",
-        "devolved", "executive-ndpb", "advisory-ndpb",
-        "tribunal-ndpb", "executive-agency",
-        "executive-office", "gov-corporation").include? legacy_organisation["category"]
+    %w(ministerial-department non-ministerial-department
+       devolved executive-ndpb advisory-ndpb
+       tribunal-ndpb executive-agency
+       executive-office gov-corporation).include? legacy_organisation["category"]
   end
 
   def local_council?

@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     http_basic_authenticate_with name: ENV["HTTP_USERNAME"], password: ENV["HTTP_PASSWORD"]
   end
 
-  private
+private
 
   def record_not_found
     render plain: '404 Not Found', status: 404

@@ -1,6 +1,6 @@
 class DatasetIndexerWorker
   include Sidekiq::Worker
-  sidekiq_options :queue => :indexer, :retry => false
+  sidekiq_options queue: :indexer, retry: false
 
   def perform(datasets, index_name)
     Dataset.__elasticsearch__.client.bulk(

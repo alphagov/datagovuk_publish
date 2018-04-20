@@ -1,4 +1,5 @@
 # coding: utf-8
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -12,21 +13,21 @@ require 'csv'
 # Add default topics.  This is required before you can import the legacy metadata
 # so that we don't lose data in the migration
 
-if Topic.count == 0
+if Topic.count.zero?
   Topic.create(
     [
-      {name: "business-and-economy", title: "Business and economy"},
-      {name: "environment", title: "Environment"},
-      {name: "mapping", title: "Mapping"},
-      {name: "crime-and-justice", title: "Crime and justice"},
-      {name: "government", title: "Government"},
-      {name: "society", title: "Society"},
-      {name: "defence", title: "Defence"},
-      {name: "government-spending", title: "Government spending"},
-      {name: "towns-and-cities", title: "Towns and cities"},
-      {name: "education", title: "Education"},
-      {name: "health", title: "Health"},
-      {name: "transport", title: "Transport"},
+      { name: "business-and-economy", title: "Business and economy" },
+      { name: "environment", title: "Environment" },
+      { name: "mapping", title: "Mapping" },
+      { name: "crime-and-justice", title: "Crime and justice" },
+      { name: "government", title: "Government" },
+      { name: "society", title: "Society" },
+      { name: "defence", title: "Defence" },
+      { name: "government-spending", title: "Government spending" },
+      { name: "towns-and-cities", title: "Towns and cities" },
+      { name: "education", title: "Education" },
+      { name: "health", title: "Health" },
+      { name: "transport", title: "Transport" },
     ]
   )
 end
@@ -38,12 +39,12 @@ puts 'Seeded topics'
 land_registry = Organisation.new
 land_registry.name = "land-registry"
 land_registry.title = "Land Registry"
-land_registry.save!()
+land_registry.save!
 
 hmrc = Organisation.new
 hmrc.name = "hmrc"
 hmrc.title = "hmrc"
-hmrc.save!()
+hmrc.save!
 
 puts 'Seeded organisations'
 
@@ -77,7 +78,7 @@ puts 'Seeded users'
 
 # Locations
 location_csv_text = File.read('lib/seeds/locations.csv')
-location_csv = CSV.parse(location_csv_text, :headers => true)
+location_csv = CSV.parse(location_csv_text, headers: true)
 location_csv.each do |row|
   Location.create!(row.to_hash)
 end

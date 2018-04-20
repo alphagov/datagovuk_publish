@@ -2,7 +2,6 @@ require 'securerandom'
 require 'validators/url_validator'
 
 class Link < ApplicationRecord
-
   belongs_to :dataset
 
   validates :name, presence: true
@@ -10,7 +9,7 @@ class Link < ApplicationRecord
 
   before_save :set_uuid
 
-  scope :broken, ->{ where(broken: true) }
+  scope :broken, -> { where(broken: true) }
 
   def set_uuid
     if self.uuid.blank?

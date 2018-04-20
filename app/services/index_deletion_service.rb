@@ -1,5 +1,5 @@
 class IndexDeletionService
-  NUMBER_OF_INDEXES_TO_KEEP = 3.freeze
+  NUMBER_OF_INDEXES_TO_KEEP = 3
 
   def initialize(args)
     @index_alias = args[:index_alias]
@@ -11,13 +11,13 @@ class IndexDeletionService
     indexes = client.indices.get_aliases.keys
     indexes_to_be_deleted = select_indexes_for_deletion(indexes)
     delete(indexes_to_be_deleted)
-  rescue => e
+  rescue StandardError => e
     msg = "Failed to delete old indexes.\n#{e.message}"
     logger.error msg
     Raven.capture_error msg
   end
 
-  private
+private
 
   attr_reader :client, :index_alias, :logger
 
@@ -30,7 +30,7 @@ class IndexDeletionService
     # Ensure that the three most recent indexes are not deleted
     indexes_to_keep = ordered_indexes.take(NUMBER_OF_INDEXES_TO_KEEP)
 
-    ordered_indexes - indexes_to_keep 
+    ordered_indexes - indexes_to_keep
   end
 
   def delete(indexes)

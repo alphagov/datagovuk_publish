@@ -8,7 +8,7 @@ class DatasetsIndexerService
         }
       }
     }
-  }
+  }.freeze
 
   INDEX_MAPPINGS = {
     dataset: {
@@ -138,7 +138,7 @@ class DatasetsIndexerService
         }
       }
     }
-  }
+  }.freeze
 
   def initialize(args)
     @batch_size = args[:batch_size]
@@ -161,7 +161,7 @@ class DatasetsIndexerService
     logger.info "Datasets indexed to #{new_index_name}"
   end
 
-  private
+private
 
   attr_reader :date, :new_index_name, :batch_size, :client, :logger
 

@@ -15,14 +15,14 @@ class LinkCheckerService
     end
   end
 
-  private
+private
 
   def check_link
     link.attributes = {
       broken: !working?,
       format: file_format,
       size: file_size,
-      last_check: DateTime.now
+      last_check: Time.now
     }
     link.save(validate: false)
   end
@@ -77,6 +77,6 @@ class LinkCheckerService
   def parse_content_type(content)
     parts = content.split(';')
     mimetype = MIME::Types[parts[0]].first
-    mimetype.preferred_extension.upcase()
+    mimetype.preferred_extension.upcase
   end
 end

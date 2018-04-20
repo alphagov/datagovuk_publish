@@ -53,7 +53,7 @@ module PublishDataBeta
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-        resource '*', :headers => :any, :methods => [:get]
+        resource '*', headers: :any, methods: [:get]
       end
     end
     config.autoload_paths += %W(#{config.root}/app/workers)

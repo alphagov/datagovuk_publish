@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Dataset do
-  let! (:org)  { @org = Organisation.create!(name: "land-registry", title: "Land Registry") }
+  let!(:org) { @org = Organisation.create!(name: "land-registry", title: "Land Registry") }
 
   it "requires a title and a summary" do
     dataset = Dataset.new(title: "", summary: "")
@@ -27,7 +27,7 @@ describe Dataset do
     dataset = FactoryGirl.create(:dataset,
                                  title: "My awesome dataset")
 
-    expect(dataset.name).to eq("#{dataset.title}".parameterize)
+    expect(dataset.name).to eq(dataset.title.parameterize)
   end
 
   it "generates a new slug when the title has changed" do
@@ -45,7 +45,8 @@ describe Dataset do
       title: "dataset",
       summary: "Summary",
       organisation_id: @org.id,
-      status: "published")
+      status: "published"
+    )
 
     dataset.valid?
 
@@ -59,7 +60,8 @@ describe Dataset do
       summary: "Summary",
       organisation_id: @org.id,
       frequency: "never",
-      licence: "uk-ogl")
+      licence: "uk-ogl"
+    )
 
     d.save
 
@@ -74,7 +76,8 @@ describe Dataset do
       summary: "Summary",
       organisation_id: @org.id,
       frequency: "never",
-      licence: "uk-ogl")
+      licence: "uk-ogl"
+    )
 
     d.save
 
@@ -82,7 +85,7 @@ describe Dataset do
 
     d.published!
 
-    expect{ d.destroy }.to raise_exception 'published datasets cannot be deleted'
+    expect { d.destroy }.to raise_exception 'published datasets cannot be deleted'
     expect(Dataset.count).to eq 1
 
     d.draft!

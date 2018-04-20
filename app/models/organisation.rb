@@ -8,7 +8,7 @@ class Organisation < ApplicationRecord
   has_and_belongs_to_many :users
   has_many :tasks, dependent: :destroy
   has_many :datasets
-  friendly_id :slug_candidates, :use => :slugged, :slug_column => :name
+  friendly_id :slug_candidates, use: :slugged, slug_column: :name
 
   before_destroy :deregister_users
   before_save :set_uuid
@@ -21,7 +21,7 @@ class Organisation < ApplicationRecord
     !active?
   end
 
-  private
+private
 
   def set_uuid
     if self.uuid.blank?
@@ -37,7 +37,7 @@ class Organisation < ApplicationRecord
   end
 
   def slug_candidates
-    [:title, :title_and_sequence]
+    %i[title title_and_sequence]
   end
 
   def title_and_sequence
@@ -45,5 +45,4 @@ class Organisation < ApplicationRecord
     sequence = Organisation.where("name like ?", "#{slug}-%").count + 2
     "#{slug}-#{sequence}"
   end
-
 end

@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe Datafile, type: :model do
-  DAILY = 'daily'
-  MONTHLY = 'monthly'
-  ANNUALLY = 'annually'
+  DAILY = 'daily'.freeze
+  MONTHLY = 'monthly'.freeze
+  ANNUALLY = 'annually'.freeze
 
   before do
     @datafile = FactoryGirl.create(:datafile)
@@ -31,16 +31,16 @@ describe Datafile, type: :model do
       end
 
       it 'is not valid' do
-        invalid_year_less_than_1000 = '999'
-        invalid_year_greater_than_5000 = '5001'
+        invalid_year_less_than1000 = '999'
+        invalid_year_greater_than5000 = '5001'
 
-        @datafile.year = invalid_year_less_than_1000
+        @datafile.year = invalid_year_less_than1000
         @datafile.month = '06'
         @datafile.day = '01'
 
         expect(@datafile).to_not be_valid
 
-        @datafile.year = invalid_year_greater_than_5000
+        @datafile.year = invalid_year_greater_than5000
 
         expect(@datafile).to_not be_valid
       end
@@ -62,16 +62,16 @@ describe Datafile, type: :model do
       end
 
       it 'is not valid' do
-        invalid_month_greater_than_12 = 13
-        invalid_month_less_than_1 = 0
+        invalid_month_greater_than12 = 13
+        invalid_month_less_than1 = 0
 
         @datafile.year = '2016'
-        @datafile.month = invalid_month_greater_than_12
+        @datafile.month = invalid_month_greater_than12
         @datafile.day = '12'
 
         expect(@datafile).to_not be_valid
 
-        @datafile.month = invalid_month_less_than_1
+        @datafile.month = invalid_month_less_than1
 
         expect(@datafile).to_not be_valid
       end
@@ -100,7 +100,6 @@ describe Datafile, type: :model do
         @datafile.day = invalid_day
 
         expect(@datafile).to_not be_valid
-
       end
     end
   end

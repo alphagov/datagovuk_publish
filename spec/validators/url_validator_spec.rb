@@ -2,24 +2,22 @@ require 'rails_helper'
 require 'active_model'
 require './lib/validators/url_validator'
 
-RSpec.describe UrlValidator do
-  subject do
-    Class.new do
-      include ActiveModel::Validations
-      validates_with UrlValidator
-      attr_accessor :url
-    end.new
-  end
+UrlValidatable = Struct.new(:url) do
+  include ActiveModel::Validations
 
+  validates_with UrlValidator
+end
+
+RSpec.describe UrlValidator do
+  subject { UrlValidatable.new }
 
   describe 'Url Validator' do
     describe 'Creates validation errors when' do
-
       before(:each) do
-        allow_any_instance_of(UrlValidator).to receive(:validPath?).and_call_original
+        allow_any_instance_of(UrlValidator).to receive(:valid_path?).and_call_original
       end
 
-      EXPECTED_ERROR_MESSAGE = 'Please enter a valid url'
+      EXPECTED_ERROR_MESSAGE = 'Please enter a valid url'.freeze
 
       it 'the field is an empty string' do
         subject.url = ''

@@ -1,7 +1,7 @@
 require 'util/overduechecker'
 
 namespace :check do
-  namespace :overdue  do
+  namespace :overdue do
     desc "Check overdue datasets in an organisation"
     task :organisation, [:organisation] => :environment do |_, args|
       organisation = Organisation.find_by(name: args.organisation)
@@ -22,7 +22,7 @@ namespace :check do
 
   namespace :links  do
     desc "Check for broken links"
-    task :all => :environment do
+    task all: :environment do
       Link.find_each(batch_size: 10) do |link|
         LinkCheckerWorker.perform_async(link.id)
       end
@@ -43,7 +43,7 @@ namespace :check do
     desc "Check for broken links in each dataset of an organisation"
     task :organisation, [:organisation] => :environment do |_, args|
       organisation = Organisation.find_by(name: args.organisation)
-      datasets = Dataset.includes(:organisation_id => organisation.id)
+      datasets = Dataset.includes(organisation_id: organisation.id)
 
       puts "Checking datasets for #{organisation.title}"
 

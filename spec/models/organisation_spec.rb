@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe Organisation do
-
   it "can create a new dataset" do
     o = Organisation.new
     o.title = "A test organisation"
@@ -41,6 +40,4 @@ describe Organisation do
 
     expect(u.primary_organisation).to eq(nil)
   end
-
-
 end

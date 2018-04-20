@@ -10,7 +10,7 @@ module ApplicationHelper
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
     css_class = "dgu-sortable-column__heading__#{direction}"
 
-    link_to title, { sort: column, direction: direction }, { class: css_class }
+    link_to title, { sort: column, direction: direction }, class: css_class
   end
 
   def find_url(dataset_uuid, dataset_name)

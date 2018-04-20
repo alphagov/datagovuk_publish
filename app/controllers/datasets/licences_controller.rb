@@ -31,7 +31,7 @@ class Datasets::LicencesController < ApplicationController
     end
   end
 
-  private
+private
 
   def current_dataset
     Dataset.find_by(uuid: params[:uuid])

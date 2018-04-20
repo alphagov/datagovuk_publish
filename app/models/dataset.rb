@@ -35,10 +35,10 @@ class Dataset < ApplicationRecord
   validate  :is_readonly?, on: :update
 
   scope :owned_by, ->(creator_id) { where(creator_id: creator_id) }
-  scope :published, ->{ where(status: "published") }
-  scope :with_datafiles, ->{ joins(:datafiles) }
-  scope :with_no_datafiles, ->{ left_outer_joins(:datafiles).where(links: { id: nil } ) }
-  scope :draft, ->{ where(status: "draft") }
+  scope :published, -> { where(status: "published") }
+  scope :with_datafiles, -> { joins(:datafiles) }
+  scope :with_no_datafiles, -> { left_outer_joins(:datafiles).where(links: { id: nil }) }
+  scope :draft, -> { where(status: "draft") }
 
   def self.columns
     super.reject { |c| c.name == "theme_id" || c.name == "secondary_theme_id" }
@@ -66,23 +66,44 @@ class Dataset < ApplicationRecord
 
   # What we actually want to index in Elastic, rather than the whole
   # dataset.
-  def as_indexed_json(_options={})
+  def as_indexed_json(_options = {})
     as_json(
-      only: [:name, :legacy_name, :title, :summary, :description,
-             :foi_name, :foi_email, :foi_phone, :foi_web,
-             :contact_name, :contact_email, :contact_phone,
-             :location1, :location2, :location3,
-             :licence, :licence_other, :frequency,
-             :licence_code, :licence_title, :licence_url, :licence_custom,
-             :published_date, :last_updated_at, :created_at,
-             :harvested, :uuid],
-             include: {
-               organisation: {},
-               topic: {},
-               datafiles: {},
-               docs: {},
-               inspire_dataset: {}
-             }
+      only: %i[
+                name
+                legacy_name
+                title
+                summary
+                description
+                foi_name
+                foi_email
+                foi_phone
+                foi_web
+                contact_name
+                contact_email
+                contact_phone
+                location1
+                location2
+                location3
+                licence
+                licence_other
+                licence_code
+                licence_title
+                licence_url
+                licence_custom
+                frequency
+                published_date
+                last_updated_at
+                created_at
+                harvested
+                uuid
+            ],
+      include: {
+        organisation: {},
+        topic: {},
+        datafiles: {},
+        docs: {},
+        inspire_dataset: {}
+      }
     )
   end
 
@@ -104,12 +125,12 @@ class Dataset < ApplicationRecord
 
   def publishable?
     if self.published?
-      return self.valid?
+      self.valid?
     else
       self.status = "published"
       result = self.valid?
       self.status = "draft"
-      return result
+      result
     end
   end
 
@@ -152,10 +173,10 @@ class Dataset < ApplicationRecord
   end
 
   def timeseries?
-    ["annually", "quarterly", "monthly"].include?(frequency)
+    %w[annually quarterly monthly].include?(frequency)
   end
 
-  private
+private
 
   def send_to_search_index
     PublishingWorker.perform_async(self.id)

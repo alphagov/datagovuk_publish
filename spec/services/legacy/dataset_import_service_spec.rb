@@ -28,9 +28,9 @@ describe Legacy::DatasetImportService do
       expect(imported_dataset.licence_title).to eql("Open Government Licence")
       expect(imported_dataset.licence_url).to eql("http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/")
       expect(imported_dataset.licence_custom).to eql("Custom licence")
-      expect(imported_dataset.published_date.to_i).to eql(DateTime.parse(legacy_dataset["metadata_created"]).to_i)
-      expect(imported_dataset.created_at.to_i).to eql(DateTime.parse(legacy_dataset["metadata_created"]).to_i)
-      expect(imported_dataset.last_updated_at.to_i).to eql(DateTime.parse(legacy_dataset["metadata_modified"]).to_i)
+      expect(imported_dataset.published_date).to eq(Time.zone.parse(legacy_dataset["metadata_created"]))
+      expect(imported_dataset.created_at).to eq(Time.zone.parse(legacy_dataset["metadata_created"]))
+      expect(imported_dataset.last_updated_at).to eq(Time.zone.parse(legacy_dataset["metadata_modified"]))
       expect(imported_dataset.contact_name).to eql(legacy_dataset["contact-name"])
       expect(imported_dataset.contact_email).to eql(legacy_dataset["contact-email"])
       expect(imported_dataset.contact_phone).to eql(legacy_dataset["contact-phone"])
@@ -113,28 +113,28 @@ describe Legacy::DatasetImportService do
       legacy_dataset["update_frequency"] = nil
       frequency = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_frequency
 
-      expect(frequency).to eql ("never")
+      expect(frequency).to eql "never"
     end
 
     it "returns 'never' if frequency has an unknown value" do
       legacy_dataset["update_frequency"] = "bi-foobarly"
       frequency = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_frequency
 
-      expect(frequency).to eql ("never")
+      expect(frequency).to eql "never"
     end
 
     it "returns 'annually' if legacy frequency is 'annual'" do
       legacy_dataset["update_frequency"] = "annual"
       frequency = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_frequency
 
-      expect(frequency).to eql ("annually")
+      expect(frequency).to eql "annually"
     end
 
     it "returns 'monthly' if legacy frequency is 'monthly'" do
       legacy_dataset["update_frequency"] = "monthly"
       frequency = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_frequency
 
-      expect(frequency).to eql ("monthly")
+      expect(frequency).to eql "monthly"
     end
 
     it "returns 'quarterly' if legacy frequency is 'quarterly'" do
@@ -155,9 +155,9 @@ describe Legacy::DatasetImportService do
   describe "#build_type" do
     it "returns 'inspire' if dataset has UKLP in extras" do
       legacy_dataset["extras"] = [{
-        "value": "True",
-        "key": "UKLP",
-      }]
+                                    "value": "True",
+                                    "key": "UKLP",
+                                  }]
 
       type = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_type
       expect(type).to eql("inspire")
@@ -212,9 +212,9 @@ describe Legacy::DatasetImportService do
   describe "#harvested?" do
     it "is true if legacy dataset has a harvest_object_id" do
       legacy_dataset["extras"] = [{
-        "value": "123",
-        "key": "harvest_object_id",
-      }]
+                                    "value": "123",
+                                    "key": "harvest_object_id",
+                                  }]
 
       harvested = described_class.new(legacy_dataset, orgs_cache, topics_cache).harvested?
       expect(harvested).to be true
@@ -229,86 +229,86 @@ describe Legacy::DatasetImportService do
   describe "#create_inspire_dataset" do
     it "creates an Inspire dataset for a UKLP imported dataset" do
       legacy_dataset["extras"] = [
-      {
-        "value": "True",
-        "key": "UKLP",
-      },
         {
-        "value": "bbox east long",
-        "key": "bbox-east-long"
-      },
+          "value": "True",
+          "key": "UKLP",
+        },
         {
-        "value": "bbox north lat",
-        "key": "bbox-north-lat"
-      },
+          "value": "bbox east long",
+          "key": "bbox-east-long"
+        },
         {
-        "value": "bbox south lat",
-        "key": "bbox-south-lat"
-      },
+          "value": "bbox north lat",
+          "key": "bbox-north-lat"
+        },
         {
-        "value": "bbox west long",
-        "key": "bbox-west-long"
-      },
+          "value": "bbox south lat",
+          "key": "bbox-south-lat"
+        },
         {
-        "value": "coupled resource",
-        "key": "coupled-resource"
-      },
+          "value": "bbox west long",
+          "key": "bbox-west-long"
+        },
         {
-        "value": "dataset reference date",
-        "key": "dataset-reference-date"
-      },
+          "value": "coupled resource",
+          "key": "coupled-resource"
+        },
         {
-        "value": "frequency of update",
-        "key": "frequency-of-update"
-      },
+          "value": "dataset reference date",
+          "key": "dataset-reference-date"
+        },
         {
-        "value": "harvest object id",
-        "key": "harvest_object_id"
-      },
+          "value": "frequency of update",
+          "key": "frequency-of-update"
+        },
         {
-        "value": "harvest source reference",
-        "key": "harvest_source_reference"
-      },
+          "value": "harvest object id",
+          "key": "harvest_object_id"
+        },
         {
-        "value": "import source",
-        "key": "import_source"
-      },
+          "value": "harvest source reference",
+          "key": "harvest_source_reference"
+        },
         {
-        "value": "metadata date",
-        "key": "metadata-date"
-      },
+          "value": "import source",
+          "key": "import_source"
+        },
         {
-        "value": "metadata language",
-        "key": "metadata-language"
-      },
+          "value": "metadata date",
+          "key": "metadata-date"
+        },
         {
-        "value": "provider",
-        "key": "provider"
-      },
+          "value": "metadata language",
+          "key": "metadata-language"
+        },
         {
-        "value": "resource type",
-        "key": "resource-type"
-      },
+          "value": "provider",
+          "key": "provider"
+        },
         {
-        "value": "responsible party",
-        "key": "responsible-party"
-      },
+          "value": "resource type",
+          "key": "resource-type"
+        },
         {
-        "value": "spatial",
-        "key": "spatial"
-      },
+          "value": "responsible party",
+          "key": "responsible-party"
+        },
         {
-        "value": "spatial data service type",
-        "key": "spatial-data-service-type"
-      },
+          "value": "spatial",
+          "key": "spatial"
+        },
         {
-        "value": "spatial reference system",
-        "key": "spatial-reference-system"
-      },
+          "value": "spatial data service type",
+          "key": "spatial-data-service-type"
+        },
         {
-        "value": "guid",
-        "key": "guid"
-      }
+          "value": "spatial reference system",
+          "key": "spatial-reference-system"
+        },
+        {
+          "value": "guid",
+          "key": "guid"
+        }
       ]
 
       described_class.new(legacy_dataset, orgs_cache, topics_cache).run

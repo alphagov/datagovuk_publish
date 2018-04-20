@@ -3,14 +3,13 @@ require 'csv'
 require 'zip'
 require 'rest-client'
 
-LEGACY_SHOW_API = 'https://data.gov.uk/api/3/action/package_show'
+LEGACY_SHOW_API = 'https://data.gov.uk/api/3/action/package_show'.freeze
 
 namespace :import do
-
   desc "Import locations from a CSV file"
   task :locations, [:filename] => :environment do |_, args|
     csv_text = File.read(args.filename)
-    csv = CSV.parse(csv_text, :headers => true)
+    csv = CSV.parse(csv_text, headers: true)
     csv.each do |row|
       Location.create!(row.to_hash)
     end
@@ -44,9 +43,7 @@ namespace :import do
     logger.info 'Importing legacy datasets'
     json_from_lines(args.filename) do |legacy_dataset|
       counter += 1
-      if counter % 10 == 0
-        print "Completed #{counter}\r"
-      end
+      print "Completed #{counter}\n" if (counter % 10).zero?
       Legacy::DatasetImportService.new(legacy_dataset, organisation_cache, topic_cache).run
     end
     logger.info 'Import complete'

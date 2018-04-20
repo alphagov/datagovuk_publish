@@ -1,7 +1,8 @@
 # coding: utf-8
+
 class Datasets::DatafilesController < ApplicationController
-  before_action :set_dataset, only: [:index, :new, :create, :edit, :update, :confirm_delete, :destroy]
-  before_action :set_datafile, only: [:edit, :update, :confirm_delete, :destroy]
+  before_action :set_dataset, only: %i[index new create edit update confirm_delete destroy]
+  before_action :set_datafile, only: %i[edit update confirm_delete destroy]
 
   def index
     @datafiles = @dataset.datafiles
@@ -21,8 +22,7 @@ class Datasets::DatafilesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @datafile.update(datafile_params)
@@ -46,7 +46,7 @@ class Datasets::DatafilesController < ApplicationController
     redirect_to dataset_datafiles_path(@dataset.uuid, @dataset.name)
   end
 
-  private
+private
 
   def set_dataset
     @dataset = Dataset.find_by(uuid: params[:uuid])

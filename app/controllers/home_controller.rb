@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-
   def index
     home_path_for_user
   end
@@ -18,7 +17,7 @@ class HomeController < ApplicationController
     @broken_links_count = Link.broken.count
   end
 
-  private
+private
 
   def home_path_for_user
     if user_signed_in?

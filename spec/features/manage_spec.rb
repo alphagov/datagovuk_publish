@@ -33,7 +33,7 @@ describe "managing datasets" do
       expect(page).to have_selector(%(th), count: 2)
     end
 
-    fill_in('q', with: "#{dataset_1.title}")
+    fill_in('q', with: dataset_1.title)
     click_button 'Search'
 
     # We expect only a single result now

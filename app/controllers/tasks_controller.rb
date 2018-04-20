@@ -1,6 +1,6 @@
 
 class TasksController < ApplicationController
-  protect_from_forgery prepend: :true
+  protect_from_forgery prepend: true
   before_action :authenticate_user!
   include TasksHelper
 
@@ -12,7 +12,6 @@ class TasksController < ApplicationController
     @update_dataset_tasks = get_tasks(@organisation, 'overdue')
     manage_sort
   end
-
 
   def organisation
     @organisation = current_user.primary_organisation
@@ -27,5 +26,4 @@ private
   def get_tasks(organisation, category)
     Task.where(organisation: organisation.id, category: category)
   end
-
 end

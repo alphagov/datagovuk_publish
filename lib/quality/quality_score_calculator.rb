@@ -12,7 +12,7 @@ class QualityScoreCalculator
     value = 100
 
     methods = QualityScoreCalculator.instance_methods.grep(/.*_score/)
-    methods.each do | f |
+    methods.each do |f|
       value -= self.send(f)
     end
 
@@ -29,7 +29,7 @@ class QualityScoreCalculator
   end
 
   def documentation_score
-    if @dataset.docs.count == 0
+    if @dataset.docs.count.zero?
       @reasons << "There is no documentation for this data"
       5
     else
@@ -41,7 +41,7 @@ class QualityScoreCalculator
     links = @dataset.links.all
 
     # Are there any links at all?
-    current = if links.size == 0
+    current = if links.size.zero?
                 @reasons << "There are no data links in this dataset"
                 20
               else
@@ -49,8 +49,8 @@ class QualityScoreCalculator
               end
 
     # Are any links broken?
-    broken = links.select {|link| link.broken }
-    if broken.size > 0
+    broken = links.select(&:broken)
+    if broken.size.positive?
       @reasons << "There are broken links in this dataset"
       current += 15
     end
@@ -65,7 +65,6 @@ class QualityScoreCalculator
     else
       0
     end
-
   end
 
   def additional_notes_score
@@ -98,6 +97,4 @@ class QualityScoreCalculator
       0
     end
   end
-
-
 end

@@ -6,11 +6,11 @@ class Datafile < Link
   # Validations are skipped when importing, therefore it is possible
   # to save a datafile with no start or end dates
 
-  before_save :set_end_date, unless: ->{ year.nil? }
-  before_save :set_start_date, unless: ->{ year.nil? }
+  before_save :set_end_date, unless: -> { year.nil? }
+  before_save :set_start_date, unless: -> { year.nil? }
 
-  validate  :validate_date_input, unless: ->{ dataset.never? }
-  validates :quarter, presence: true, if: ->{ dataset.quarterly? }
+  validate  :validate_date_input, unless: -> { dataset.never? }
+  validates :quarter, presence: true, if: -> { dataset.quarterly? }
 
   def dates
     {
@@ -28,7 +28,7 @@ class Datafile < Link
     self.start_date = compute_date(:start)
   end
 
-  private
+private
 
   def compute_date(date_type)
     return daily_date                       if dataset.daily?

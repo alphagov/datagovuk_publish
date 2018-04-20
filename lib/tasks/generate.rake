@@ -3,17 +3,16 @@ require 'csv'
 
 namespace :generate do
   desc "Generate a data.json file"
-  task :datajson, [:filename] => :environment do |_, args|
-
+  task :datajson, [:filename] => :environment do |_, _args|
     # We'll export this in blobs so that we don't load the
     # entire database into memory.
     file = File.new("data.json", "w+")
 
-    generate_string().each do | blob |
+    generate_string.each do |blob|
       file.puts blob
     end
 
-    file.close()
+    file.close
     File.rename "data.json", "public/data.json"
   end
 end
@@ -22,7 +21,7 @@ end
 # call which will return the prelude, each successive call will
 # return either a punctuation string, or a string representation
 # of a dataset (as a json object).
-def generate_string()
+def generate_string
   Enumerator.new do |enum|
     enum.yield '{
       "@context"   : "https://project-open-data.cio.gov/v1.1/schema/catalog.jsonld",
@@ -37,7 +36,7 @@ def generate_string()
       enum.yield "," if count != 0
       enum.yield dataset_record(dataset)
 
-      print "Encoded #{count+=1} datasets...\r"
+      print "Encoded #{count += 1} datasets...\r"
     end
 
     enum.yield "\n]}"

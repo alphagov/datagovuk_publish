@@ -2,7 +2,7 @@ class Legacy::BetaSyncService
   ENDPOINTS = {
     modified_datasets: 'api/3/action/package_search?q=metadata_modified:[NOW-1DAY%20TO%20NOW]&rows=5000'.freeze,
     new_datasets: 'api/3/action/package_search?q=metadata_created:[NOW-1DAY%20TO%20NOW]&rows=5000'.freeze
-  }
+  }.freeze
 
   def initialize(args)
     @orgs_cache = args[:orgs_cache]
@@ -22,7 +22,7 @@ class Legacy::BetaSyncService
     @logger.info "Imported #{@count} datasets...\r"
   end
 
-  private
+private
 
   def modified_datasets
     @legacy_server.get ENDPOINTS[:modified_datasets]
@@ -35,7 +35,7 @@ class Legacy::BetaSyncService
   def import(legacy_dataset)
     legacy_dataset_id = legacy_dataset['id']
     @logger.info "Attempting to save legacy dataset to postgres and elasticsearch - legacy_id: #{legacy_dataset_id}"
-    Legacy::DatasetImportService.new(legacy_dataset,@orgs_cache, @topic_cache, @logger).run
+    Legacy::DatasetImportService.new(legacy_dataset, @orgs_cache, @topic_cache, @logger).run
     Legacy::DatasetIndexService.new.index(legacy_dataset['id'])
     @logger.info "Legacy dataset saved - legacy_id: #{legacy_dataset_id}"
     @count += 1
