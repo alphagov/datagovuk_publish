@@ -1,6 +1,4 @@
 require 'rails_helper'
-require 'active_model'
-require './lib/validators/url_validator'
 
 RSpec.describe UrlValidator do
   subject do
@@ -10,7 +8,6 @@ RSpec.describe UrlValidator do
       attr_accessor :url
     end.new
   end
-
 
   describe 'Url Validator' do
     describe 'Creates validation errors when' do
