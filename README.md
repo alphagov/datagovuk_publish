@@ -1,115 +1,38 @@
-# Publish Data
-[![Build Status](https://travis-ci.org/datagovuk/publish_data_beta.svg?branch=master)](https://travis-ci.org/datagovuk/publish_data_beta)
-[![Code Climate](https://codeclimate.com/github/datagovuk/publish_data_beta/badges/gpa.svg)](https://codeclimate.com/github/datagovuk/publish_data_beta)
-[![Stories in Ready](https://badge.waffle.io/datagovuk/publish_data_beta.svg?label=ready&title=Ready)](http://waffle.io/datagovuk/publish_data_beta)
+[![Code Climate](https://codeclimate.com/github/datagovuk/find_data_beta/badges/gpa.svg)](https://codeclimate.com/github/datagovuk/find_data_beta)
+[![Test Coverage](https://codeclimate.com/github/datagovuk/find_data_beta/badges/coverage.svg)](https://codeclimate.com/github/datagovuk/find_data_beta/coverage)
 
-This repository contains the beta-stage data publishing component of data.gov.uk.
+# data.gov.uk Publish
 
-## Usage
+This repository contains the beta-stage publishing component of data.gov.uk
 
-### Ruby version
-This application currently uses ruby v2.4.0. Use [RVM](https://rvm.io/)) or similar to manage your ruby environment and sets of dependencies.
+## Prerequisites
 
-### Installing ruby gems
-To install gems (dependencies) you will need to first install [Bundler](http://bundler.io/)
+You will need to install the following for development.
 
-### Databases
-You will need Postgres and Elasticsearch installed for this to work.
+  * [rbenv](https://github.com/rbenv/rbenv) or similar to manage ruby versions
+  * [bundler](https://rubygems.org/gems/bundler) to manage gems
+  * [elasticsearch](https://www.elastic.co/) search engine
+  * [postgresql](https://www.postgresql.org/) database
 
-On macOS both Postgres and Elasticsearch can be installed using [Homebrew](https://brew.sh/)
+Most of these can be installed with Homebrew on a Mac.
 
-By default elastic is expected to be running on 127.0.0.1:9200 but if it isn't
-you can override the value by exporting ES_HOST=http://.... but make sure the URL
-does not end with a slash.
+## Getting Started
 
-## Running the application
-```
-$ export SECRET_KEY_BASE=...
-$ bundle install
-$ rake db:setup
-$ rails s
-```
+Run the following commands to get started.
 
-## Running tests
-```
-rails spec
-```
+`
+# install dependencies
+bin/setup
 
-## Fake user accounts
-To log in as a fake user, use the credentials in 'seeds.rb' in the 'db' folder.
+# import production data - ctrl-c after ~1000 datasets
+bin/import
 
-## Importing data
-You can import data into Postgres using following commands:
+# start a web server
+rails s
+`
 
-```
-rake import:locations[filename]
-rake import:legacy_organisations[filename]
-rake import:legacy_datasets[filename]
-```
+Then navigate to `http://localhost:3000`.
 
-Note: 
-- That organisations need to be imported before datasets.
+## Documentation
 
-There is also a replication script that will import a production snapshot.
-
-```commandline
-$ ./script/replication.sh
-```
-
-## Reindex all datasets
-You can reindex (Elasticsearch) all datasets using the following command:
-
-```
-rake search:reindex
-```
-
-The reindexing of elasticsearch is done using 'zero deploy' with the aim of minimising downtime for the end user. When running this command:
- - new index is created with the name 'datasets-[ENVIRONMENT]-[TIMESTAMP]'
- - the index alias ('datasets-[ENVIRONMENT]') is pointed to the new index. 
- - A clean up job is then run to delete any old indexes. The most three recent indexes are kept in the event roll-back is required.
-
-
-## Sync data
-
-If you wish to only import datasets that were created or modified in the last
-24 hours, you can run:
-
-```
-rake sync:beta
-```
-
-Note that this will import new / modified datasets into postgres and index in Elasticsearch
-
-
-## Generating 'tasks'.
-
-### Checking for broken links
-
-```
-rake check:links:organisation[org-short-name]
-rake check:links:dataset[dataset-short-name]
-```
-
-### Checking for overdue dataset
-
-```
-rake check:overdue:organisation[org-short-name]
-rake check:overdue:dataset[dataset-short-name]
-```
-
-## Extra ENV vars for production
-```
-$ export PUBLISH_DATA_BETA_DATABASE_PASSWORD=...
-$ export DATABASE_URL=...
-```
-
-
-# Vagrant
-
-To run the app in a local VM with vagrant, install Vagrant and Virtualbox, then:
-```
-$ vagrant up
-$ vagrant ssh -c /vagrant/tools/vagrant-dev-setup.sh
-$ vagrant ssh -c "cd /vagrant && rails s"
-$ vagrant ssh -c "cd /vagrant && bundle exec sidekiq
-```
+See [here](doc/architecture/README.md) for all of our Architecture Decision Records.
