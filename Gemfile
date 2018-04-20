@@ -13,7 +13,6 @@ gem "elasticsearch-model", "~> 5.0.1"
 gem "elasticsearch-rails", "~> 5.0.1"
 gem 'friendly_id', '~> 5.2.1'
 gem 'gds_metrics', '~> 0.0.2'
-gem "govuk-lint"
 gem 'govuk_elements_rails'
 gem 'govuk_sidekiq', '~> 3.0'
 gem 'govuk_template'
@@ -39,6 +38,7 @@ group :development, :test do
   gem 'byebug', '~> 9'
   gem 'dotenv-rails', '~> 2.2'
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'govuk-lint'
   gem 'pry', '~> 0.10'
   gem 'pry-byebug', '~> 3.4'
   gem 'pry-stack_explorer', '~> 0.4.9'
