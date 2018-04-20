@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe "user page" do
-
   let(:land_registry) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
   let(:user) { FactoryGirl.create(:user, primary_organisation_id: land_registry.id) }
 
@@ -22,5 +21,4 @@ describe "user page" do
     visit '/account/boom'
     expect(page.status_code).to be 404
   end
-
 end

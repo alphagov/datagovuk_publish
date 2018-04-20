@@ -2,15 +2,12 @@ require 'rails_helper'
 
 describe "managing datasets" do
   let(:organisation) { FactoryGirl.create(:organisation) }
-  let(:user) { FactoryGirl.create(:user, primary_organisation: organisation) }
-  let(:dataset_1) { FactoryGirl.create(:dataset, title: "Cats per square mile", organisation: organisation) }
-  let(:dataset_2) { FactoryGirl.create(:dataset, title: "Dogs per square mile", organisation: organisation) }
+  let!(:user) { FactoryGirl.create(:user, primary_organisation: organisation) }
+  let!(:dataset_1) { FactoryGirl.create(:dataset, title: "Cats per square mile", organisation: organisation) }
+  let!(:dataset_2) { FactoryGirl.create(:dataset, title: "Dogs per square mile", organisation: organisation) }
 
   before(:each) do
-    user
     sign_in_user
-    dataset_1
-    dataset_2
   end
 
   it "after login" do

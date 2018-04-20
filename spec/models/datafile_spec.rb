@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe Datafile, type: :model do
-
   DAILY = 'daily'
   MONTHLY = 'monthly'
   ANNUALLY = 'annually'
@@ -24,7 +23,7 @@ describe Datafile, type: :model do
 
       it 'is valid' do
         valid_year = '2016'
-        @datafile.year = valid_year 
+        @datafile.year = valid_year
         @datafile.month = '06'
         @datafile.day = '01'
 
@@ -134,10 +133,10 @@ describe Datafile, type: :model do
       # When this occurs the date attributes are not set
       # Validations are skipped when importing, therefore it is possible
       # to save a datafile with no start or end dates
-      
+
       before(:each) do
         @datafile.dataset.frequency = ANNUALLY
-      end      
+      end
 
       it 'does not set an end date if year is nil' do
         @datafile.year = nil

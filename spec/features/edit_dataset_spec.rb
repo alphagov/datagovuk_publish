@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe 'editing datasets' do
   let(:land) { FactoryGirl.create(:organisation) }
-  let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
+  let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
 
   let!(:published_dataset) { FactoryGirl.create(:dataset,
                                                 organisation: land,
@@ -19,8 +19,6 @@ describe 'editing datasets' do
                                                  owner: user ) }
 
   before(:each) do
-    allow_any_instance_of(UrlValidator).to receive(:validPath?).and_return(true)
-    user
     sign_in_user
   end
 
