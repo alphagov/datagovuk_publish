@@ -20,7 +20,7 @@ Most of these can be installed with Homebrew on a Mac.
 
 Run the following commands to get started.
 
-`
+```
 # install dependencies
 bin/setup
 
@@ -29,7 +29,7 @@ bin/import
 
 # start a web server
 rails s
-`
+```
 
 Then navigate to `http://localhost:3000`.
 
