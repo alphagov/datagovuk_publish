@@ -48,8 +48,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'guard'
-  gem 'guard-rspec'
   gem 'launchy'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'pry-rails'
