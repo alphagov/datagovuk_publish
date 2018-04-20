@@ -1,6 +1,5 @@
 require 'rails_helper'
 require 'active_model'
-require './lib/validators/url_validator'
 
 UrlValidatable = Struct.new(:url) do
   include ActiveModel::Validations

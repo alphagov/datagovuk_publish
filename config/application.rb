@@ -56,7 +56,9 @@ module PublishDataBeta
         resource '*', headers: :any, methods: [:get]
       end
     end
-    config.autoload_paths += %W(#{config.root}/app/workers)
+
+    config.autoload_paths += [Rails.root.join("app/workers")]
+    config.autoload_paths += [Rails.root.join("lib/validators")]
 
     config.elasticsearch = config_for(:elasticsearch)
 
