@@ -2,8 +2,8 @@ require 'csv'
 
 namespace :delete do
   desc "Delete datasets with legacy_name (or UUID) listed in CSV from stdin"
-  task :datasets => :environment do |_, args|
-    CSV.parse(STDIN.read, :headers => false) do |row|
+  task datasets: :environment do |_, _|
+    CSV.parse(STDIN.read, headers: false) do |row|
       legacy_name_or_uuid = row[0]
 
       dataset = Dataset.where(legacy_name: legacy_name_or_uuid).
