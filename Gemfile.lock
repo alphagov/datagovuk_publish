@@ -495,7 +495,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.0)
   friendly_id (~> 5.2.1)
   gds_metrics (~> 0.0.2)
-  govuk-lint
+  govuk-lint (~> 3.8.0)
   govuk_elements_rails
   govuk_sidekiq (~> 3.0)
   govuk_template
