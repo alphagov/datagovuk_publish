@@ -6,5 +6,3 @@ task "lint" do
     sh "govuk-lint-ruby --diff --cached --format clang"
   end
 end
-
-Rake::Task[:default].enhance %i(lint)
