@@ -1,3 +1,7 @@
+def last_updated_dataset
+  Dataset.order(:updated_at).last
+end
+
 def click_change(property)
   properties = {
     title: 0,
