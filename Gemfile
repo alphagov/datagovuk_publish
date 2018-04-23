@@ -2,21 +2,21 @@ source 'https://rubygems.org'
 
 ruby IO.read('.ruby-version').strip
 
-gem "ancestry", "~> 3.0.1"
-gem "elasticsearch", "~> 5.0.4"
-gem "elasticsearch-model", "~> 5.0.1"
-gem "elasticsearch-rails", "~> 5.0.1"
 gem 'activeadmin', '~> 1'
+gem 'ancestry', '~> 3.0.1'
 gem 'audited', '~> 4.5'
 gem 'cancancan', '~> 2.0'
 gem 'devise', '~> 4.3'
 gem 'devise_invitable', '~> 1.7.2'
+gem 'elasticsearch', '~> 5.0.4'
+gem 'elasticsearch-model', '~> 5.0.1'
+gem 'elasticsearch-rails', '~> 5.0.1'
 gem 'friendly_id', '~> 5.2.1'
 gem 'gds_metrics', '~> 0.0.2'
 gem 'govuk_elements_rails'
 gem 'govuk_sidekiq', '~> 3.0'
 gem 'govuk_template'
-gem 'iconv', "~> 1.0.4"
+gem 'iconv', '~> 1.0.4'
 gem 'jbuilder', '~> 2.5'
 gem 'kaminari', '~> 1.1.1'
 gem 'lograge', '~> 0.7'
@@ -38,7 +38,7 @@ group :development, :test do
   gem 'byebug', '~> 9'
   gem 'dotenv-rails', '~> 2.2'
   gem 'factory_girl_rails', '~> 4.0'
-  gem "govuk-lint", "~> 3.8.0"
+  gem 'govuk-lint', '~> 3.8.0'
   gem 'pry', '~> 0.10'
   gem 'pry-byebug', '~> 3.4'
   gem 'pry-stack_explorer', '~> 0.4.9'
@@ -54,9 +54,9 @@ group :development do
 end
 
 group :test do
-  gem "capybara"
-  gem "codeclimate-test-reporter", "~> 1.0.0"
-  gem "database_cleaner"
-  gem "simplecov"
+  gem 'capybara'
+  gem 'codeclimate-test-reporter', '~> 1.0.0'
+  gem 'database_cleaner'
+  gem 'simplecov'
   gem 'webmock', '~> 3.1.0'
 end
