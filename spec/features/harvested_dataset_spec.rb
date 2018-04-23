@@ -13,7 +13,7 @@ describe "Harvested datasets" do
   end
 
   it "should be readonly (no add/edit buttons appear)" do
-    sign_in_user
+    sign_in_as(user)
     click_link 'Manage datasets'
 
     expect(page).to have_content(harvested_dataset.title)

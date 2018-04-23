@@ -4,19 +4,13 @@ class DatasetsController < ApplicationController
                 only: %i[show edit update destroy publish confirm_delete quality]
 
   def show
-    authorize!(:read, @dataset)
-
     if request_to_outdated_url?
-      return redirect_to newest_dataset_path, status: :moved_permanently
+      redirect_to newest_dataset_path, status: :moved_permanently
     end
   end
 
   def new
     @dataset = Dataset.new
-  end
-
-  def edit
-    authorize!(:update, @dataset)
   end
 
   def create

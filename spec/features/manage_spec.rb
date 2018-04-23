@@ -7,11 +7,11 @@ describe "managing datasets" do
   let!(:dataset_2) { FactoryGirl.create(:dataset, title: "Dogs per square mile", organisation: organisation) }
 
   before(:each) do
-    sign_in_user
+    sign_in_as(user)
   end
 
   it "after login" do
-    expect(page).to have_current_path '/tasks'
+    expect(page).to have_current_path '/'
 
     # Don't expect any tables as creator_id not set on dataset
     click_link 'Manage datasets'

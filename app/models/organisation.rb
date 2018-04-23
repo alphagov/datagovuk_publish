@@ -5,34 +5,17 @@ class Organisation < ApplicationRecord
   has_ancestry
 
   audited
-  has_and_belongs_to_many :users
   has_many :tasks, dependent: :destroy
   has_many :datasets
   friendly_id :slug_candidates, use: :slugged, slug_column: :name
 
-  before_destroy :deregister_users
   before_save :set_uuid
-
-  def active?
-    active
-  end
-
-  def closed?
-    !active?
-  end
 
 private
 
   def set_uuid
     if self.uuid.blank?
       self.uuid = SecureRandom.uuid
-    end
-  end
-
-  def deregister_users
-    users.where(primary_organisation: self).each do |p|
-      p.primary_organisation = nil
-      p.save!
     end
   end
 
