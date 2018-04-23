@@ -11,7 +11,7 @@ class Organisation < ApplicationRecord
 
   before_save :set_uuid
 
-  private
+private
 
   def set_uuid
     if self.uuid.blank?

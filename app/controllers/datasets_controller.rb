@@ -5,7 +5,7 @@ class DatasetsController < ApplicationController
 
   def show
     if request_to_outdated_url?
-      return redirect_to newest_dataset_path, status: :moved_permanently
+      redirect_to newest_dataset_path, status: :moved_permanently
     end
   end
 
