@@ -9,7 +9,7 @@ class User < ApplicationRecord
   end
 
   def primary_organisation=(organisation)
-    organisations = [organisation]
+    self.organisations = [organisation].compact
   end
 
   def in_organisation?(organisation)

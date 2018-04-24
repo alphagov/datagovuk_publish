@@ -1,7 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  root to: 'tasks#my'
+  root to: 'sessions#new'
 
   get 'quality', to: 'home#quality'
   get 'dashboard', to: 'home#dashboard', as: 'dashboard'
@@ -70,4 +70,6 @@ Rails.application.routes.draw do
 
   get 'manage', to: 'manage#manage_own'
   get 'manage/organisation', to: 'manage#manage_organisation'
+
+  resource :session, only: %i[new create]
 end
