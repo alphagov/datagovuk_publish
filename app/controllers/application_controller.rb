@@ -14,10 +14,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  if Rails.env.production? || Rails.env.staging?
-    http_basic_authenticate_with name: ENV["HTTP_USERNAME"], password: ENV["HTTP_PASSWORD"]
-  end
-
 private
 
   def record_not_found
