@@ -13,14 +13,6 @@ class Organisation < ApplicationRecord
   before_destroy :deregister_users
   before_save :set_uuid
 
-  def active?
-    active
-  end
-
-  def closed?
-    !active?
-  end
-
 private
 
   def set_uuid
