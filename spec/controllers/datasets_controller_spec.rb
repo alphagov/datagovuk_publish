@@ -4,7 +4,7 @@ describe DatasetsController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
 
   before do
-    sign_in(user)
+    sign_in_as(user)
   end
 
   it "prevents harvested datasets from being updated through the user interface" do

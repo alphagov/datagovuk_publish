@@ -7,11 +7,11 @@ describe "dataset creation" do
 
   context "when the user goes through entire flow" do
     before(:each) do
-      sign_in_user
+      sign_in_as(user)
     end
 
     it "navigates to new dataset form" do
-      expect(page).to have_current_path("/tasks")
+      expect(page).to have_current_path("/")
       click_link "Manage datasets"
       click_link "Create a dataset"
       expect(page).to have_current_path("/datasets/new")
@@ -108,7 +108,7 @@ describe "dataset creation" do
 
   context "when the user doesn't complete flow" do
     before(:each) do
-      sign_in_user
+      sign_in_as(user)
     end
 
     it "saves a draft" do
@@ -139,7 +139,7 @@ describe "starting a new draft with invalid inputs" do
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
     stub_request(:any, url).to_return(status: 200)
-    sign_in_user
+    sign_in_as(user)
     visit new_dataset_path
   end
 
@@ -195,7 +195,7 @@ describe "valid options for licence and area" do
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
     stub_request(:any, url).to_return(status: 200)
-    sign_in_user
+    sign_in_as(user)
     visit new_dataset_path
     fill_in "dataset[title]", with: "my test dataset"
     fill_in "dataset[summary]", with: "my test dataset summary"
@@ -260,7 +260,7 @@ describe "dataset frequency options" do
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
     stub_request(:any, url).to_return(status: 200)
-    sign_in_user
+    sign_in_as(user)
     visit new_dataset_frequency_path(dataset.uuid, dataset.name)
   end
 
@@ -413,7 +413,7 @@ describe "passing the frequency page" do
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
     stub_request(:any, url).to_return(status: 200)
-    sign_in_user
+    sign_in_as(user)
     visit new_dataset_frequency_path(dataset.uuid, dataset.name)
   end
 
