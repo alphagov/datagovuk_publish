@@ -1,16 +1,10 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  root to: 'home#index'
+  root to: 'tasks#my'
 
   get 'quality', to: 'home#quality'
   get 'dashboard', to: 'home#dashboard', as: 'dashboard'
-
-  devise_for :users, controllers: {
-    sessions: 'users/sessions',
-    passwords: 'users/passwords',
-    registrations: 'users/registrations'
-  }
 
   mount Sidekiq::Web => '/sidekiq' unless Rails.env.production?
 

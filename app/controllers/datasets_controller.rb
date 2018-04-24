@@ -1,5 +1,4 @@
 class DatasetsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_dataset,
                 only: %i[show edit update destroy publish confirm_delete quality]
 

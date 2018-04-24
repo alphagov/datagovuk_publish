@@ -22,7 +22,7 @@ private
   end
 
   def deregister_users
-    users.where(primary_organisation: self).each do |p|
+    User.all.select { |u| u.primary_organisation == self }.each do |p|
       p.primary_organisation = nil
       p.save!
     end
