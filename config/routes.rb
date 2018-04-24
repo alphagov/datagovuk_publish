@@ -6,8 +6,6 @@ Rails.application.routes.draw do
   get 'quality', to: 'home#quality'
   get 'dashboard', to: 'home#dashboard', as: 'dashboard'
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     passwords: 'users/passwords',

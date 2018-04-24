@@ -8,7 +8,6 @@ AllCops:
 
 Metrics/BlockLength:
   Exclude:
-    - 'app/admin/*.rb'
     - 'config/routes.rb'
     - 'lib/tasks/**/*.rake'
     - 'spec/**/*.rb'

@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 ruby IO.read('.ruby-version').strip
 
-gem 'activeadmin', '~> 1'
 gem 'ancestry', '~> 3.0.1'
 gem 'audited', '~> 4.5'
 gem 'cancancan', '~> 2.0'
@@ -18,6 +17,7 @@ gem 'govuk_sidekiq', '~> 3.0'
 gem 'govuk_template'
 gem 'iconv', '~> 1.0.4'
 gem 'jbuilder', '~> 2.5'
+gem 'jquery-rails'
 gem 'kaminari', '~> 1.1.1'
 gem 'lograge', '~> 0.7'
 gem 'logstash-event', '~> 1.2'
