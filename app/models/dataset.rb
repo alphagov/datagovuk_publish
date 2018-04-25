@@ -84,8 +84,6 @@ class Dataset < ApplicationRecord
                 location1
                 location2
                 location3
-                licence
-                licence_other
                 licence_code
                 licence_title
                 licence_url
