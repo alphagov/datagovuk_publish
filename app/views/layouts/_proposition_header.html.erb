@@ -11,9 +11,6 @@
               <%= link_to "Manage datasets", manage_path =%>
             </li>
             <li>
-              <%= link_to "Performance", tasks_path =%>
-            </li>
-            <li>
               <%= link_to current_user.try(:name), Plek.new.external_url_for('signon') %>
             </li>
             <li>
