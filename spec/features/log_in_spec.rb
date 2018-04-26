@@ -2,40 +2,25 @@ require 'rails_helper'
 
 describe "logging in" do
   let(:land_registry) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
-  let!(:user) { FactoryGirl.create(:user, primary_organisation_id: land_registry.id) }
+  let!(:user) { FactoryGirl.create(:user, primary_organisation: land_registry) }
 
-  it "can visit the index page" do
-    visit '/'
-    expect(page.status_code).to be 200
-  end
-
-  it "redirects logged in users" do
-    visit '/'
-    click_link 'Sign in'
-    fill_in('user_email', with: 'test@localhost.co.uk')
-    fill_in('Password', with: 'password')
-    click_button 'Sign in'
+  it "redirects logged in users to the tasks page" do
+    sign_in_as(user)
     expect(page).to have_current_path '/tasks'
   end
 
-  it "displays an error if credentials are incorrect" do
-    visit '/'
-    click_link 'Sign in'
-    fill_in('user_email', with: 'test@localhost.co.uk')
-    fill_in('Password', with: 'bad_password')
-    click_button 'Sign in'
-    expect(page).to have_content 'There was a problem signing you in'
+  it "requires a user to login to view most pages" do
+    sign_out
+    expect { visit "/tasks" }.to raise_error(/no test user found/)
   end
 
-  it "logs out user successfully" do
-    visit '/'
-    click_link 'Sign in'
-    fill_in('user_email', with: 'test@localhost.co.uk')
-    fill_in('Password', with: 'password')
-    click_button 'Sign in'
-    expect(page).to have_current_path '/tasks'
-    click_link 'Sign out'
-    expect(page).to have_current_path '/'
-    expect(page).to have_content 'Publish and update data for your organisation'
+  it "does not require login for the home page" do
+    sign_out
+    expect { visit "/" }.to_not raise_error
+  end
+
+  it "logs out by redirecting to GOV.UK signon" do
+    sign_in_as(user)
+    expect(find('a', text: 'Sign out')['href']).to eq gds_sign_out_url
   end
 end

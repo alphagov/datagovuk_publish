@@ -1,16 +1,10 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  root to: 'home#index'
+  root to: 'sessions#new'
 
   get 'quality', to: 'home#quality'
   get 'dashboard', to: 'home#dashboard', as: 'dashboard'
-
-  devise_for :users, controllers: {
-    sessions: 'users/sessions',
-    passwords: 'users/passwords',
-    registrations: 'users/registrations'
-  }
 
   mount Sidekiq::Web => '/sidekiq' unless Rails.env.production?
 
@@ -71,11 +65,11 @@ Rails.application.routes.draw do
     get 'sync-beta', to: 'sync#beta'
   end
 
-  resources :account, only: :show
-
   get 'tasks', to: 'tasks#my'
   get 'tasks/organisation', to: 'tasks#organisation'
 
   get 'manage', to: 'manage#manage_own'
   get 'manage/organisation', to: 'manage#manage_organisation'
+
+  resource :session, only: %i[new create]
 end

@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
-  before_action :set_raven_context
+  include GDS::SSO::ControllerMethods
 
+  protect_from_forgery with: :exception
+  before_action :authenticate_user!
+  before_action :set_raven_context
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   rescue_from CanCan::AccessDenied do
@@ -10,10 +12,6 @@ class ApplicationController < ActionController::Base
       format.html { render plain: '403 Forbidden', status: :forbidden }
       format.js   { head :forbidden, content_type: 'text/html' }
     end
-  end
-
-  if Rails.env.production? || Rails.env.staging?
-    http_basic_authenticate_with name: ENV["HTTP_USERNAME"], password: ENV["HTTP_PASSWORD"]
   end
 
 private

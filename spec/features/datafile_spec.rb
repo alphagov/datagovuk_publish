@@ -3,6 +3,7 @@ require "rails_helper"
 describe 'datafiles' do
   let(:land) { FactoryGirl.create(:organisation) }
   let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
+
   let(:published_dataset) do
     FactoryGirl.create(:dataset,
                        organisation: land,
@@ -14,7 +15,7 @@ describe 'datafiles' do
   end
 
   before(:each) do
-    sign_in_user
+    sign_in_as(user)
     visit dataset_path(published_dataset.uuid, published_dataset.name)
   end
 

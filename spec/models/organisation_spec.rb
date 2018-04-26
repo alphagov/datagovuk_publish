@@ -20,9 +20,7 @@ describe Organisation do
 
     u = User.create(email: "test@localhost",
                     name: "Test User",
-                    primary_organisation: o,
-                    password: "password",
-                    password_confirmation: "password")
+                    primary_organisation: o)
 
     o.destroy
     u.reload

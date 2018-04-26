@@ -3,6 +3,7 @@ require "rails_helper"
 describe "Harvested datasets" do
   let(:land) { FactoryGirl.create(:organisation) }
   let(:user) { FactoryGirl.create(:user, primary_organisation: land) }
+
   let!(:harvested_dataset) do
     FactoryGirl.create(:dataset,
                        organisation: land,
@@ -13,7 +14,7 @@ describe "Harvested datasets" do
   end
 
   it "should be readonly (no add/edit buttons appear)" do
-    sign_in_user
+    sign_in_as(user)
     click_link 'Manage datasets'
 
     expect(page).to have_content(harvested_dataset.title)
