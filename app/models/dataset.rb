@@ -4,8 +4,6 @@ require 'securerandom'
 class Dataset < ApplicationRecord
   enum status: { draft: 0, published: 1 }
 
-  TITLE_FORMAT = /([a-z]){3}.*/i
-
   include Elasticsearch::Model
 
   index_name ENV['ES_INDEX'] || "datasets-#{Rails.env}"
@@ -26,7 +24,7 @@ class Dataset < ApplicationRecord
 
   validates :frequency, inclusion: { in: %w(daily monthly quarterly annually financial-year never irregular) },
     allow_nil: true # To allow creation before setting this value
-  validates :title, presence: true, format: { with: TITLE_FORMAT }
+  validate :sluggable_title
   validates :summary, presence: true
   validates :frequency, presence: true, if: :published?
   validates :licence, presence: true, if: :published?
@@ -176,6 +174,12 @@ private
 
   def send_to_search_index
     PublishingWorker.perform_async(self.id)
+  end
+
+  def sluggable_title
+    if title.to_s.parameterize.blank?
+      errors.add(:title, 'Please enter a valid title')
+    end
   end
 
   def set_timestamps

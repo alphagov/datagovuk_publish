@@ -17,10 +17,6 @@ describe Dataset do
 
     dataset.valid?
     expect(dataset.errors[:title]).to include "Please enter a valid title"
-
-    dataset.title = "AB"
-    dataset.valid?
-    expect(dataset.errors[:title]).to include "Please enter a valid title"
   end
 
   it "generates a unique slug and stores it on the name column" do
