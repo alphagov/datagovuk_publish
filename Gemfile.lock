@@ -49,6 +49,7 @@ GEM
       activerecord (>= 4.0, < 5.2)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    brakeman (4.2.1)
     builder (3.2.3)
     byebug (9.0.6)
     cancancan (2.0.0)
@@ -417,6 +418,7 @@ PLATFORMS
 DEPENDENCIES
   ancestry (~> 3.0.1)
   audited (~> 4.5)
+  brakeman (~> 4.2)
   byebug (~> 9)
   cancancan (~> 2.0)
   capybara
