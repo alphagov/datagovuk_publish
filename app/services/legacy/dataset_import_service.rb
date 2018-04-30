@@ -104,7 +104,7 @@ class Legacy::DatasetImportService
       format: resource["format"],
       name: datafile_name(resource),
       created_at: resource["created"] || dataset.created_at,
-      updated_at: dataset.last_updated_at
+      updated_at: resource["last_modified_at"] || resource["created"]
     }
   end
 

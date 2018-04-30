@@ -65,18 +65,20 @@ describe Legacy::DatasetImportService do
     end
 
     it "creates the datafiles for the imported dataset" do
+      first_resource = legacy_dataset["resources"][0]
+      first_resource["last_modified_at"] = "2017-12-14T09:35:25.928982"
+
       Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, topics_cache).run
       imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
       imported_datafiles = imported_dataset.links
       first_imported_datafile = imported_datafiles.first
-      first_resource = legacy_dataset["resources"][0]
 
       expect(imported_datafiles.count).to eql(3)
       expect(first_imported_datafile.uuid).to eql(first_resource["id"])
       expect(first_imported_datafile.format).to eql(first_resource["format"])
       expect(first_imported_datafile.name).to eql(first_resource["description"])
       expect(first_imported_datafile.created_at).to eql(Time.parse(first_resource["created"]))
-      expect(first_imported_datafile.updated_at).to eql(imported_dataset.last_updated_at)
+      expect(first_imported_datafile.updated_at).to eql(Time.parse(first_resource["last_modified_at"]))
       expect(first_imported_datafile.end_date).to eql(Date.parse(first_resource["date"]).end_of_month)
     end
 
