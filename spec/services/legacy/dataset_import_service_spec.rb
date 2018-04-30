@@ -16,6 +16,8 @@ describe Legacy::DatasetImportService do
       Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, topics_cache).run
 
       imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
+      most_recent_datafile = legacy_dataset["resources"].last
+      parsed_datafile_created_date = Time.zone.parse(most_recent_datafile["created"]).utc
 
       expect(imported_dataset.uuid).to eql(legacy_dataset["id"])
       expect(imported_dataset.legacy_name).to eql(legacy_dataset["name"])
@@ -39,6 +41,16 @@ describe Legacy::DatasetImportService do
       expect(imported_dataset.foi_phone).to eql(legacy_dataset["foi-phone"])
       expect(imported_dataset.foi_web).to eql(legacy_dataset["foi-web"])
       expect(imported_dataset.topic_id).to eql(1)
+      expect(imported_dataset.datafile_last_updated_at).to eql(parsed_datafile_created_date)
+    end
+
+    it "sets datafile_last_updated_at so the most recent datafile's last_modified_at when present" do
+      legacy_dataset["resources"].first["last_modified_at"] = "2017-12-14T09:35:25.928982"
+      Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, topics_cache).run
+
+      imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
+      parsed_last_modified_date = Time.zone.parse("2017-12-14T09:35:25.928982").utc
+      expect(imported_dataset.datafile_last_updated_at).to eql(parsed_last_modified_date)
     end
 
     it "correctly sets licence fields where no licence" do
