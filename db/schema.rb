@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2018042510281100) do
     t.string "licence_title"
     t.text "licence_url"
     t.text "licence_custom"
+    t.datetime "datafile_last_updated_at"
     t.index ["short_id"], name: "index_datasets_on_short_id", unique: true
     t.index ["uuid"], name: "index_datasets_on_uuid"
   end
