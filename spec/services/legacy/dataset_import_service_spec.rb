@@ -32,7 +32,7 @@ describe Legacy::DatasetImportService do
       expect(imported_dataset.licence_custom).to eql("Custom licence")
       expect(imported_dataset.published_date).to eq(Time.zone.parse(legacy_dataset["metadata_created"]))
       expect(imported_dataset.created_at).to eq(Time.zone.parse(legacy_dataset["metadata_created"]))
-      expect(imported_dataset.last_updated_at).to eq(Time.zone.parse(legacy_dataset["metadata_modified"]))
+      expect(imported_dataset.public_updated_at).to eq(parsed_datafile_created_date)
       expect(imported_dataset.contact_name).to eql(legacy_dataset["contact-name"])
       expect(imported_dataset.contact_email).to eql(legacy_dataset["contact-email"])
       expect(imported_dataset.contact_phone).to eql(legacy_dataset["contact-phone"])
@@ -52,6 +52,14 @@ describe Legacy::DatasetImportService do
       imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
       parsed_last_modified_date = Time.zone.parse("2017-12-14T09:35:25.928982").utc
       expect(imported_dataset.datafile_last_updated_at).to eql(parsed_last_modified_date)
+    end
+
+    it "sets public_updated_at to metadata_last_updated_at when no datafiles are present" do
+      legacy_dataset["resources"].clear
+      Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, topics_cache).run
+
+      imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
+      expect(imported_dataset.public_updated_at).to eql(imported_dataset.metadata_last_updated_at)
     end
 
     it "correctly sets licence fields where no licence" do
