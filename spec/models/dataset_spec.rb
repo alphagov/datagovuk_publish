@@ -100,13 +100,13 @@ describe Dataset do
     expect(dataset.published_date).to eq publication_date
   end
 
-  it "sets a last_updated_at timestamp when published" do
-    last_updated_at = Time.now
-    allow(Time).to receive(:now).and_return(last_updated_at)
+  it "sets a public_updated_at timestamp when published" do
+    public_updated_at = Time.now
+    allow(Time).to receive(:now).and_return(public_updated_at)
     dataset = FactoryGirl.create(:dataset, datafiles: [FactoryGirl.create(:datafile)])
     dataset.save
     dataset.publish!
 
-    expect(dataset.last_updated_at).to eq last_updated_at
+    expect(dataset.public_updated_at).to eq public_updated_at
   end
 end
