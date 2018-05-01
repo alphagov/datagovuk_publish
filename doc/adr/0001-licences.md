@@ -1,6 +1,10 @@
-# Decision record: Handling licences
+# 1. licences
 
 Date: 2018-04-18
+
+## Status
+
+Accepted
 
 ## Context
 
@@ -17,7 +21,6 @@ We will simplify the storing of licence information to:
 * Create new fields `licence_code`, `licence_title`, `licence_url`, and `licence_custom`
 * Publish will continue (temporarily) fill the old fields so we can migrate the frontend
 * We should remove the `licence` and `licence_other` fields once both publish and find apps are using the new fields.
-
 
 ## Consequences
 
