@@ -53,6 +53,7 @@ class Legacy::DatasetImportService
       secondary_topic_id: build_secondary_topic_id,
       status: "published",
       datafile_last_updated_at: most_recently_updated_datafile_date,
+      metadata_last_updated_at: legacy_dataset["metadata_modified"],
     }
   end
 

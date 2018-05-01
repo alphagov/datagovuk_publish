@@ -42,6 +42,7 @@ describe Legacy::DatasetImportService do
       expect(imported_dataset.foi_web).to eql(legacy_dataset["foi-web"])
       expect(imported_dataset.topic_id).to eql(1)
       expect(imported_dataset.datafile_last_updated_at).to eql(parsed_datafile_created_date)
+      expect(imported_dataset.metadata_last_updated_at).to eql(Time.zone.parse(legacy_dataset["metadata_modified"]))
     end
 
     it "sets datafile_last_updated_at so the most recent datafile's last_modified_at when present" do
