@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2018042510281100) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "uuid"
-    t.datetime "last_updated_at"
+    t.datetime "public_updated_at"
     t.integer "status", default: 0
     t.string "legacy_name"
     t.string "contact_name"
