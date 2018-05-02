@@ -32,7 +32,7 @@ class Legacy::DatasetImportService
       frequency: build_frequency,
       published_date: legacy_dataset["metadata_created"],
       created_at: legacy_dataset["metadata_created"],
-      last_updated_at: legacy_dataset["metadata_modified"],
+      public_updated_at: most_recent_update_date,
       dataset_type: build_type,
       harvested: harvested?,
       contact_name: legacy_dataset["contact-name"],
@@ -51,7 +51,9 @@ class Legacy::DatasetImportService
       licence_custom: get_extra("licence"),
       topic_id: build_topic_id,
       secondary_topic_id: build_secondary_topic_id,
-      status: "published"
+      status: "published",
+      datafile_last_updated_at: most_recently_updated_datafile_date,
+      metadata_last_updated_at: metadata_last_updated_at,
     }
   end
 
@@ -103,7 +105,7 @@ class Legacy::DatasetImportService
       format: resource["format"],
       name: datafile_name(resource),
       created_at: resource["created"] || dataset.created_at,
-      updated_at: dataset.last_updated_at
+      updated_at: resource["last_modified_at"] || resource["created"]
     }
   end
 
@@ -278,5 +280,30 @@ private
 
   def licence
     legacy_dataset["license_id"].presence
+  end
+
+  def most_recently_updated_datafile_date
+    @most_recently_updated_datafile_date ||= datafile_update_dates.last if datafile_update_dates
+  end
+
+  def datafile_update_dates
+    dates = []
+
+    legacy_datafiles.each do |datafile|
+      dates << datafile["last_modified_at"] && next if datafile["last_modified_at"]
+      dates << datafile["created"] if datafile["created"]
+    end
+
+    dates.sort if dates.any?
+  end
+
+  def metadata_last_updated_at
+    @metadata_last_updated_at ||=
+      legacy_dataset["metadata_modified"] || legacy_dataset["metadata_created"]
+  end
+
+  def most_recent_update_date
+    return most_recently_updated_datafile_date if most_recently_updated_datafile_date.present?
+    metadata_last_updated_at
   end
 end

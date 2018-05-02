@@ -88,6 +88,7 @@ class Dataset < ApplicationRecord
                 created_at
                 harvested
                 uuid
+                datafile_last_updated_at
             ],
       include: {
         organisation: {},
@@ -190,6 +191,8 @@ private
   end
 
   def set_last_updated_date
-    self.last_updated_at = Time.now
+    #TO DO: this needs to be set to the most recently updated datafile update date
+    # or the last modified metadata date
+    self.public_updated_at = Time.now
   end
 end
