@@ -35,4 +35,4 @@ Then navigate to `http://localhost:3000`.
 
 ## Documentation
 
-See [here](doc/architecture/README.md) for all of our Architecture Decision Records.
+See [here](doc/adr/README.md) for all of our Architecture Decision Records.
