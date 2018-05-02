@@ -71,6 +71,8 @@ ActiveRecord::Schema.define(version: 2018042510281100) do
     t.string "short_id"
     t.integer "topic_id"
     t.integer "secondary_topic_id"
+    t.datetime "datafile_last_updated_at"
+    t.datetime "metadata_last_updated_at"
     t.string "licence_code"
     t.string "licence_title"
     t.text "licence_url"

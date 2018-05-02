@@ -16,6 +16,8 @@ describe Legacy::DatasetImportService do
       Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, topics_cache).run
 
       imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
+      most_recent_datafile = legacy_dataset["resources"].last
+      parsed_datafile_created_date = Time.zone.parse(most_recent_datafile["created"]).utc
 
       expect(imported_dataset.uuid).to eql(legacy_dataset["id"])
       expect(imported_dataset.legacy_name).to eql(legacy_dataset["name"])
@@ -39,6 +41,17 @@ describe Legacy::DatasetImportService do
       expect(imported_dataset.foi_phone).to eql(legacy_dataset["foi-phone"])
       expect(imported_dataset.foi_web).to eql(legacy_dataset["foi-web"])
       expect(imported_dataset.topic_id).to eql(1)
+      expect(imported_dataset.datafile_last_updated_at).to eql(parsed_datafile_created_date)
+      expect(imported_dataset.metadata_last_updated_at).to eql(Time.zone.parse(legacy_dataset["metadata_modified"]))
+    end
+
+    it "sets datafile_last_updated_at so the most recent datafile's last_modified_at when present" do
+      legacy_dataset["resources"].first["last_modified_at"] = "2017-12-14T09:35:25.928982"
+      Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, topics_cache).run
+
+      imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
+      parsed_last_modified_date = Time.zone.parse("2017-12-14T09:35:25.928982").utc
+      expect(imported_dataset.datafile_last_updated_at).to eql(parsed_last_modified_date)
     end
 
     it "correctly sets licence fields where no licence" do
@@ -53,17 +66,19 @@ describe Legacy::DatasetImportService do
     end
 
     it "creates the datafiles for the imported dataset" do
+      first_resource = legacy_dataset["resources"][0]
+      first_resource["last_modified_at"] = "2017-12-14T09:35:25.928982"
+
       Legacy::DatasetImportService.new(legacy_dataset, orgs_cache, topics_cache).run
       imported_dataset = Dataset.find_by(uuid: legacy_dataset["id"])
       imported_datafiles = imported_dataset.links
       first_imported_datafile = imported_datafiles.first
-      first_resource = legacy_dataset["resources"][0]
 
       expect(imported_datafiles.count).to eql(3)
       expect(first_imported_datafile.uuid).to eql(first_resource["id"])
       expect(first_imported_datafile.format).to eql(first_resource["format"])
       expect(first_imported_datafile.created_at).to eql(Time.parse(first_resource["created"]))
-      expect(first_imported_datafile.updated_at).to eql(imported_dataset.last_updated_at)
+      expect(first_imported_datafile.updated_at).to eql(Time.parse(first_resource["last_modified_at"]))
       expect(first_imported_datafile.end_date).to eql(Date.parse(first_resource["date"]).end_of_month)
 
       expect(imported_datafiles[0].name).to eql("Resource 1 file name")

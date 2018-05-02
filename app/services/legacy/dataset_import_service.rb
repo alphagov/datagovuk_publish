@@ -51,7 +51,9 @@ class Legacy::DatasetImportService
       licence_custom: get_extra("licence"),
       topic_id: build_topic_id,
       secondary_topic_id: build_secondary_topic_id,
-      status: "published"
+      status: "published",
+      datafile_last_updated_at: most_recently_updated_datafile_date,
+      metadata_last_updated_at: legacy_dataset["metadata_modified"],
     }
   end
 
@@ -103,7 +105,7 @@ class Legacy::DatasetImportService
       format: resource["format"],
       name: datafile_name(resource),
       created_at: resource["created"] || dataset.created_at,
-      updated_at: dataset.last_updated_at
+      updated_at: resource["last_modified_at"] || resource["created"]
     }
   end
 
@@ -278,5 +280,15 @@ private
 
   def licence
     legacy_dataset["license_id"].presence
+  end
+
+  def most_recently_updated_datafile_date
+    dates = []
+
+    legacy_datafiles.each do |datafile|
+      dates << datafile["last_modified_at"] && next if datafile["last_modified_at"]
+      dates << datafile["created"] if datafile["created"]
+    end
+    dates.sort.last if dates.any?
   end
 end

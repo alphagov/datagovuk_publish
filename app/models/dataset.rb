@@ -88,6 +88,7 @@ class Dataset < ApplicationRecord
                 created_at
                 harvested
                 uuid
+                datafile_last_updated_at
             ],
       include: {
         organisation: {},
