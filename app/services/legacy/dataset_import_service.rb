@@ -127,7 +127,9 @@ class Legacy::DatasetImportService
   end
 
   def datafile_name(resource)
-    resource['description'].strip == '' ? 'No name specified' : resource['description']
+    name = resource.fetch('name', '').strip
+    name = resource.fetch('description', '').strip if name.blank?
+    name.presence || 'No name specified'
   end
 
   def create_inspire_dataset(dataset_id)
