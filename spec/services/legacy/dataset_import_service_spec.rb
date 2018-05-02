@@ -62,10 +62,13 @@ describe Legacy::DatasetImportService do
       expect(imported_datafiles.count).to eql(3)
       expect(first_imported_datafile.uuid).to eql(first_resource["id"])
       expect(first_imported_datafile.format).to eql(first_resource["format"])
-      expect(first_imported_datafile.name).to eql(first_resource["description"])
       expect(first_imported_datafile.created_at).to eql(Time.parse(first_resource["created"]))
       expect(first_imported_datafile.updated_at).to eql(imported_dataset.last_updated_at)
       expect(first_imported_datafile.end_date).to eql(Date.parse(first_resource["date"]).end_of_month)
+
+      expect(imported_datafiles[0].name).to eql("Resource 1 file name")
+      expect(imported_datafiles[1].name).to eql("No name specified")
+      expect(imported_datafiles[2].name).to eql("Resource 2 description")
     end
 
     it "sets datafile created_at date to resource created date, if present" do
