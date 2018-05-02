@@ -12,19 +12,4 @@ describe Organisation do
 
     expect(o2.name).to eq("a-test-organisation-2")
   end
-
-  it "can register and deregister users" do
-    o = Organisation.new
-    o.title = "A test organisation"
-    expect(o.save).to eq(true)
-
-    u = User.create(email: "test@localhost",
-                    name: "Test User",
-                    primary_organisation: o)
-
-    o.destroy
-    u.reload
-
-    expect(u.primary_organisation).to eq(nil)
-  end
 end

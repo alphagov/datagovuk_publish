@@ -1,19 +1,17 @@
 class User < ApplicationRecord
   include GDS::SSO::User
-
-  has_and_belongs_to_many :organisations
   audited
 
   def primary_organisation
-    organisations.any? ? organisations.first : Organisation.first
+    Organisation.find_by(govuk_content_id: organisation_content_id)
   end
 
   def primary_organisation=(organisation)
-    self.organisations = [organisation].compact
+    update_attribute(:organisation_content_id, organisation.govuk_content_id)
   end
 
   def in_organisation?(organisation)
-    organisations.include?(organisation)
+    organisation.govuk_content_id == organisation_content_id
   end
 
   def creator_of_dataset?(dataset)

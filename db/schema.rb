@@ -169,13 +169,9 @@ ActiveRecord::Schema.define(version: 2018042510281100) do
     t.boolean "active", default: true
     t.string "org_type"
     t.string "ancestry"
+    t.string "govuk_content_id"
     t.index ["ancestry"], name: "index_organisations_on_ancestry"
     t.index ["uuid"], name: "index_organisations_on_uuid"
-  end
-
-  create_table "organisations_users", id: false, force: :cascade do |t|
-    t.bigint "organisation_id", null: false
-    t.bigint "user_id", null: false
   end
 
   create_table "quality_scores", force: :cascade do |t|
