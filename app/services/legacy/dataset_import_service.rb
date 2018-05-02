@@ -127,8 +127,8 @@ class Legacy::DatasetImportService
   end
 
   def datafile_name(resource)
-    name = resource.fetch('name', '').strip
-    name = resource.fetch('description', '').strip if name.blank?
+    name = resource.fetch('name', '').squish
+    name = resource.fetch('description', '').squish if name.blank?
     name.presence || 'No name specified'
   end
 
