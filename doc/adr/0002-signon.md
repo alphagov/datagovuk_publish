@@ -10,11 +10,11 @@ Accepted
 
 Users must authenticate before using the Publish Data app. An authenticated user can belong to many organisations, of which one of these is their primary organisation e.g. for creating datasets.
 
-When a user goes to any page of the app, they are redirected to the home page, which asks them to 'Sign in' or 'Create an account'. Once a user is logged in, they will be redirected to their requested page, or the tasks page.
+When an unauthenticated user goes to any page of the app, they are redirected to the home page, which asks them to 'Sign in' or 'Create an account'. Once a user is logged in, they will be redirected to their requested page, or the tasks page.
 
 Before this work started, we were planning to roll our own internal user management system, for which some initial work was completed. From this initial work we concluded that making our own custom solution would involve a lot of effort.
 
-GOV.UK publishing apps use a single signon service called [GOV.UK Signon](https://github.com/alphagov/signon), which provides a standardised mechanism for user authentication and permission management, including a [rails adapter](https://github.com/alphagov/gds-sso). We think using GOV.UK Signon will be less effort than making our own user management system.
+GOV.UK publishing apps use a single signon service called [GOV.UK Signon](https://github.com/alphagov/signon), which provides a standardised mechanism for user authentication and permission management, including a [rails adapter](https://github.com/alphagov/gds-sso). We think using GOV.UK Signon will require less implementation effort, as well as reduce support issues by re-using an established part of the GOV.UK platform.
 
 ## Decision
 
