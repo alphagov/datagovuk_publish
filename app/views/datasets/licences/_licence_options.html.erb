@@ -1,0 +1,49 @@
+<div class="form-group">
+  <fieldset>
+    <legend class="visually-hidden">Choose a licence for this dataset</legend>
+
+    <%= dataset_field form, @dataset,
+    name: 'licence',
+    input_type: :radio_button,
+    label: 'Open Government Licence',
+    value: 'uk-ogl' %>
+
+    <%= dataset_field form, @dataset,
+    name: 'licence',
+    input_type: :radio_button,
+    label: 'Open Data Commons Attribution License',
+    value: 'odc-by' %>
+
+    <%= dataset_field form, @dataset,
+    name: 'licence',
+    input_type: :radio_button,
+    label: 'Open Data Commons Open Database License (ODbL)',
+    value: 'odc-odbl' %>
+
+    <%= dataset_field form, @dataset,
+    name: 'licence',
+    input_type: :radio_button,
+    label: 'Creative Commons Attribution',
+    value: 'cc-by' %>
+
+    <%= dataset_field form, @dataset,
+    name: 'licence',
+    input_type: :radio_button,
+    label: 'Creative Commons CCZero',
+    value: 'cc-zero' %>
+
+    <%= dataset_field form, @dataset,
+    target: 'other-licence',
+    name: 'licence',
+    input_type: :radio_button,
+    label: 'Other',
+    value: 'other' %>
+
+    <div class="panel panel-border-narrow js-hidden" id="other-licence">
+      <%= dataset_field form, @dataset,
+      input_type: :text_field,
+      name: 'licence_other',
+      label: 'Name of your licence:' %>
+    </div>
+  </fieldset>
+</div>
