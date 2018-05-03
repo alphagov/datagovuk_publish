@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe DatasetsController, type: :controller do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:organisation) { FactoryGirl.create(:organisation) }
+  let(:user) { FactoryGirl.create(:user, primary_organisation: organisation) }
 
   before do
     sign_in_as(user)
@@ -19,7 +20,6 @@ describe DatasetsController, type: :controller do
   end
 
   it "redirects to slugged URL" do
-    organisation = FactoryGirl.create(:organisation, users: [user])
     dataset = FactoryGirl.create(:dataset,
                                  name: "legit-name",
                                  organisation: organisation,
@@ -31,8 +31,6 @@ describe DatasetsController, type: :controller do
   end
 
   it "returns '503 forbidden' error if a user is not allowed to view the requested dataset" do
-    organisation = FactoryGirl.create(:organisation, users: [user])
-
     another_organisation = FactoryGirl.create(:organisation)
 
     _allowed_dataset = FactoryGirl.create(:dataset,
@@ -49,8 +47,6 @@ describe DatasetsController, type: :controller do
   end
 
   it "returns '503 forbidden' error if a user is not allowed to update the requested dataset" do
-    organisation = FactoryGirl.create(:organisation, users: [user])
-
     another_organisation = FactoryGirl.create(:organisation)
 
     _allowed_dataset = FactoryGirl.create(:dataset,
