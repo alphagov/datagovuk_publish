@@ -9,7 +9,7 @@ class AddUserStudyOrgMappings < ActiveRecord::Migration[5.1]
     mappings.each do |govuk_content_id, uuid|
       org = Organisation.find_by(uuid: uuid)
       next unless org
-      org.update_attribute(govuk_content_id: govuk_content_id)
+      org.update_attribute(:govuk_content_id, govuk_content_id)
     end
   end
 end
