@@ -2,7 +2,6 @@ require 'json'
 require 'csv'
 require 'zip'
 require 'rest-client'
-require_relative '../../app/helpers/legacy_helper'
 
 namespace :import do
   desc "Import locations from a CSV file"
@@ -50,7 +49,7 @@ namespace :import do
 
   desc "Import a single legacy dataset from the legacy API"
   task :single_legacy_dataset, [:legacy_shortname] => :environment do |_, args|
-    legacy_dataset = LegacyHelper::LegacyAPI.new.dataset_show(args.legacy_shortname)
+    legacy_dataset = Legacy::LegacyAPIService.new.dataset_show(args.legacy_shortname)
     next if legacy_dataset.nil?
 
     Legacy::DatasetImportService.new(legacy_dataset, organisation_cache, topic_cache).run
@@ -62,7 +61,7 @@ namespace :import do
 
   desc "Import/Update a single legacy organisation from the legacy API"
   task :single_legacy_organisation, %i[legacy_shortname reindex] => :environment do |_, args|
-    legacy_organisation = LegacyHelper::LegacyAPI.new.publisher_show(args.legacy_shortname)
+    legacy_organisation = Legacy::LegacyAPIService.new.publisher_show(args.legacy_shortname)
     next if legacy_organisation.nil?
 
     Legacy::OrganisationImportService.new(legacy_organisation).run
