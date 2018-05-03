@@ -3,6 +3,7 @@ class User < ApplicationRecord
   audited
 
   def primary_organisation
+    return unless organisation_content_id
     Organisation.find_by(govuk_content_id: organisation_content_id)
   end
 
