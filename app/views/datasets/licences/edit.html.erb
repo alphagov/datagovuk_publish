@@ -24,6 +24,7 @@
 
   <%= form_for @dataset, url: update_dataset_licence_path(@dataset.uuid, @dataset.name) do |f| %>
     <%= render partial: 'licence_options', locals: { form: f, dataset: @dataset } %>
+
     <div class="form-group">
       <p><%= f.submit 'Save and continue', class: 'button' %> </br></p>
       <p><%= link_to 'Cancel', dataset_path(@dataset.uuid, @dataset.name) %></p>

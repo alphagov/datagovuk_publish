@@ -40,10 +40,9 @@
     input_class: 'form-control-2-3',
     hint: 'The link name mustn’t be the same as the URL. It should clearly describe the document so users can find it easily.',
     value: @doc.name %>
+
     <div class="form-group">
       <p><%= f.submit 'Save and continue', class: 'button' %></p>
-      <p>
-        <%= link_to 'Cancel', dataset_path(@dataset.uuid, @dataset.name) %>
-      </p>
+      <p><%= link_to 'Cancel', dataset_path(@dataset.uuid, @dataset.name) %></p>
     </div>
   <% end %>
