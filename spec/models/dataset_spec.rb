@@ -109,4 +109,18 @@ describe Dataset do
 
     expect(dataset.last_updated_at).to eq last_updated_at
   end
+
+  describe "#public_updated_at" do
+    it "returns the 'updated_at' timestamp for the most recently updated datafile when the dataset has datafiles" do
+      dataset = FactoryGirl.create(:dataset, datafiles: [FactoryGirl.create(:datafile)])
+      datafile_updated_at = dataset.datafiles.first.updated_at
+
+      expect(dataset.public_updated_at).to eq(datafile_updated_at)
+    end
+
+    it "returns the 'updated_at' timestamp for the dataset when the dataset has no datafiles" do
+      dataset = FactoryGirl.create(:dataset)
+      expect(dataset.public_updated_at).to eq(dataset.updated_at)
+    end
+  end
 end

@@ -89,6 +89,7 @@ class Dataset < ApplicationRecord
                 harvested
                 uuid
             ],
+      methods: :public_updated_at,
       include: {
         organisation: {},
         topic: {},
@@ -168,6 +169,10 @@ class Dataset < ApplicationRecord
     %w[annually quarterly monthly].include?(frequency)
   end
 
+  def public_updated_at
+    most_recently_updated_datafile_timestamp || self.updated_at
+  end
+
 private
 
   def send_to_search_index
@@ -191,5 +196,10 @@ private
 
   def set_last_updated_date
     self.last_updated_at = Time.now
+  end
+
+  def most_recently_updated_datafile_timestamp
+    timestamps = self.datafiles.map(&:updated_at)
+    timestamps.sort.last if timestamps.present?
   end
 end
