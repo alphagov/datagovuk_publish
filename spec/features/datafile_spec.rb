@@ -25,7 +25,7 @@ describe 'datafiles' do
     click_change(:datalinks)
     expect(page).to have_content(datafile.name)
 
-    click_link 'Add another link'
+    click_link 'Add a link'
     fill_in 'datafile[url]', with: 'http://google.com'
     fill_in 'datafile[name]', with: 'my other test file'
     click_button 'Save and continue'
@@ -65,7 +65,7 @@ describe 'datafiles' do
     click_change(:documentation)
     expect(page).to have_content(doc.name)
 
-    click_link 'Add another link'
+    click_link 'Add a link'
     fill_in 'doc[url]', with: 'http://google.com/doc'
     fill_in 'doc[name]', with: 'my other test doc'
     click_button 'Save and continue'
