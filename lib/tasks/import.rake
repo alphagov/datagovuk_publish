@@ -3,9 +3,6 @@ require 'csv'
 require 'zip'
 require 'rest-client'
 
-LEGACY_PACKAGE_SHOW_API = 'https://data.gov.uk/api/3/action/package_show'.freeze
-LEGACY_ORGANISATION_SHOW_API = 'https://data.gov.uk/api/3/action/publisher_show'.freeze
-
 namespace :import do
   desc "Import locations from a CSV file"
   task :locations, [:filename] => :environment do |_, args|
@@ -52,7 +49,7 @@ namespace :import do
 
   desc "Import a single legacy dataset from the legacy API"
   task :single_legacy_dataset, [:legacy_shortname] => :environment do |_, args|
-    legacy_dataset = legacy_api_call(LEGACY_PACKAGE_SHOW_API, args.legacy_shortname)
+    legacy_dataset = Legacy::APIService.new.dataset_show(args.legacy_shortname)
     next if legacy_dataset.nil?
 
     Legacy::DatasetImportService.new(legacy_dataset, organisation_cache, topic_cache).run
@@ -64,7 +61,7 @@ namespace :import do
 
   desc "Import/Update a single legacy organisation from the legacy API"
   task :single_legacy_organisation, %i[legacy_shortname reindex] => :environment do |_, args|
-    legacy_organisation = legacy_api_call(LEGACY_ORGANISATION_SHOW_API, args.legacy_shortname)
+    legacy_organisation = Legacy::APIService.new.publisher_show(args.legacy_shortname)
     next if legacy_organisation.nil?
 
     Legacy::OrganisationImportService.new(legacy_organisation).run
@@ -82,18 +79,6 @@ namespace :import do
       indexer.index(dataset.uuid)
     }
   end
-end
-
-def legacy_api_call(url, id)
-  begin
-    api_parameters = { params: { id: id } }
-    api_response = RestClient.get url, api_parameters
-  rescue RestClient::ExceptionWithResponse => e
-    Rails.logger.error "Request to API to retrieve #{id} responded with: #{e.response.code}"
-    return nil
-  end
-
-  JSON.parse(api_response).fetch('result')
 end
 
 def topic_cache
