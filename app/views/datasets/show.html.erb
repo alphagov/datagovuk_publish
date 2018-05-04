@@ -84,7 +84,7 @@
             <span class="error-message error">You must choose a licence</span>
           </div>
         <% end %>
-        <%= @dataset.licence == 'uk-ogl' ? 'Open Government Licence' : @dataset.licence_other %>
+        <%= I18n.t "dataset.licence_types.#{@dataset.licence}", default: 'Other' %>
       </td>
       <td class="dgu-checklist__actions">
         <% if @dataset.licence %>

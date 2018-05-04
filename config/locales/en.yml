@@ -14,8 +14,15 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  dataset_published: "Your dataset has been published"
-  dataset_updated: "Your dataset has been edited"
+  dataset:
+    published: "Your dataset has been published"
+    updated: "Your dataset has been edited"
+    licence_types:
+      uk-ogl: Open Government Licence
+      odc-by: Open Data Commons Attribution Licence
+      odc-odbl: Open Data Commons Open Database Licence (ODbL)
+      cc-by: Creative Commons Attribution
+      cc-zero: Creative Commons CCZero
   activerecord:
     errors:
       models:
