@@ -1,16 +1,34 @@
 {
   "name": "publish_data_beta",
   "scripts": {
-    "postdeploy": "rake db:migrate ; rake db:seed"
+    "postdeploy": "rake db:migrate; rake db:seed; rake search:reindex"
   },
   "env": {
-    "VCAP_SERVICES": {
-        "required": true
+    "RAILS_ENV": {
+      "required": true
+    },
+    "RACK_ENV": {
+      "required": true
+    },
+    "GDS_SSO_STRATEGY": {
+      "required": true
+    },
+    "FIND_URL": {
+      "required": true
     }
   },
-  "formation": {},
+  "formation": {
+    "web": {
+      "quantity": 1
+    },
+    "worker": {
+      "quantity": 1
+    }
+  },
   "addons": [
-    "heroku-postgresql"
+    "heroku-postgresql",
+    "heroku-redis",
+    "bonsai"
   ],
   "buildpacks": [
     {
