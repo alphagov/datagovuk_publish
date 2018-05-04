@@ -68,21 +68,7 @@
             <span class="error-message error">You must choose a licence</span>
           </div>
         <% end %>
-        <%= case @dataset.licence
-          when 'uk-ogl'
-            'Open Government Licence'
-          when 'odc-by'
-            "Open Data Commons Attribution License"
-          when 'odc-odbl'
-            'Open Data Commons Open Database License (ODbL)'
-          when 'cc-by'
-            'Creative Commons Attribution'
-          when 'cc-zero'
-            'Creative Commons CCZero'
-          else
-            'Other'
-          end
-        %>
+        <%= I18n.t "dataset.licence_types.#{@dataset.licence}", default: 'Other' %>
       </td>
       <td class="dgu-checklist__actions">
         <% if @dataset.licence %>

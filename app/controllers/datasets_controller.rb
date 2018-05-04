@@ -41,9 +41,9 @@ class DatasetsController < ApplicationController
   def publish
     if @dataset.publishable?
       flash[:success] = if @dataset.published?
-                          I18n.t 'dataset_updated'
+                          I18n.t 'dataset.updated'
                         else
-                          I18n.t 'dataset_published'
+                          I18n.t 'dataset.published'
                         end
 
       @dataset.publish!
