@@ -61,6 +61,22 @@
         </td>
     </tr>
     <tr>
+      <tr>
+        <th class="dgu-checklist__heading">Topic</th>
+        <td>
+          <%= @dataset.topic&.title %>
+        </td>
+        <td class="dgu-checklist__actions">
+          <% if @dataset.topic %>
+            <%= link_to 'Change', edit_dataset_topic_path(@dataset.uuid, @dataset.name) %>
+          <% else %>
+            <%= link_to 'Select', edit_dataset_topic_path(@dataset.uuid, @dataset.name) %>
+          <% end %>
+        </td>
+      </tr>
+    </tr>
+
+    <tr>
       <th class="dgu-checklist__heading">Licence</th>
       <td>
         <% if @dataset.errors[:licence].any? %>

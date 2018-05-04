@@ -24,7 +24,7 @@ class DatasetsController < ApplicationController
     @dataset.organisation = current_user.primary_organisation
 
     if @dataset.save
-      redirect_to new_dataset_licence_path(@dataset.uuid, @dataset.name)
+      redirect_to new_dataset_topic_path(@dataset.uuid, @dataset.name)
     else
       render :new
     end

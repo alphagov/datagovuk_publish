@@ -1,0 +1,17 @@
+<% if @dataset.errors.any? %>
+  <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+    <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+      There was a problem
+    </h1>
+    <ul class="error-summary-list">
+      <% @dataset.errors.each do |attr, message| %>
+        <li>
+          <a href="#<%= attr.to_s %>">
+            <%= message %>
+          </a>
+          <span class="visuallyhidden">.</span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

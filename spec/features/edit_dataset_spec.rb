@@ -3,6 +3,7 @@ require "rails_helper"
 describe 'editing datasets' do
   let(:land) { FactoryGirl.create(:organisation) }
   let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
+  let!(:topic) { FactoryGirl.create(:topic) }
 
   let!(:published_dataset) do
     FactoryGirl.create(:dataset,
@@ -11,7 +12,8 @@ describe 'editing datasets' do
                        datafiles: [FactoryGirl.create(:datafile)],
                        docs: [FactoryGirl.create(:doc)],
                        creator: user,
-                       owner: user)
+                       owner: user,
+                       topic: topic)
   end
 
   let!(:unpublished_dataset) do
@@ -63,6 +65,16 @@ describe 'editing datasets' do
 
       expect(page).to have_content('a new description')
       expect(last_updated_dataset.description).to eq('a new description')
+    end
+
+    it "should be able to update topic" do
+      topic = FactoryGirl.create(:topic, title: 'Environment', name: 'environment')
+      click_change(:topic)
+      choose option: topic.id
+      click_button 'Save and continue'
+
+      expect(page).to have_content('Environment')
+      expect(last_updated_dataset.topic.title).to eq('Environment')
     end
 
     it "should be able to update licence" do
