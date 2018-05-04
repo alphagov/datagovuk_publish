@@ -1,4 +1,4 @@
-class Legacy::LegacyAPIService
+class Legacy::APIService
   PACKAGE_SHOW_PATH = '/api/3/action/package_show'.freeze
   PUBLISHER_SHOW_PATH = '/api/3/action/publisher_show'.freeze
 

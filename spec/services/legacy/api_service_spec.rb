@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe Legacy::LegacyAPIService do
-  let(:api_service) { Legacy::LegacyAPIService.new }
+describe Legacy::APIService do
+  let(:api_service) { Legacy::APIService.new }
 
   before(:each) do
     dataset = %{
