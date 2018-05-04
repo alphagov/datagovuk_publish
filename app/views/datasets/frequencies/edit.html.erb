@@ -23,41 +23,7 @@
   <h1 class="heading-large">How frequently is this dataset updated?</h1>
 
   <%= form_for @dataset, url: update_dataset_frequency_path(@dataset.uuid, @dataset.name) do |f| %>
-    <div class="form-group">
-      <fieldset>
-        <legend class="visually-hidden">How frequently is this dataset updated?</legend>
-        <%= dataset_field f, @dataset,
-        name: 'frequency',
-        input_type: :radio_button,
-        label: 'Daily',
-        value: 'daily' %>
-        <%= dataset_field f, @dataset,
-        name: 'frequency',
-        input_type: :radio_button,
-        label: 'Monthly',
-        value: 'monthly' %>
-        <%= dataset_field f, @dataset,
-        name: 'frequency',
-        input_type: :radio_button,
-        label: 'Quarterly',
-        value: 'quarterly' %>
-        <%= dataset_field f, @dataset,
-        name: 'frequency',
-        input_type: :radio_button,
-        label: 'Annually (January to December)',
-        value: 'annually' %>
-        <%= dataset_field f, @dataset,
-        name: 'frequency',
-        input_type: :radio_button,
-        label: 'Annually (financial year April to March)',
-        value: 'financial-year' %>
-        <%= dataset_field f, @dataset,
-        name: 'frequency',
-        input_type: :radio_button,
-        label: 'One-off',
-        value: 'never' %>
-      </fieldset>
-    </div>
+    <%= render partial: 'frequency_options', locals: { form: f, dataset: @dataset } %>
 
     <div class="form-group">
       <p><%= f.submit 'Save and continue', class: 'button' %></p>
