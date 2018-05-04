@@ -24,7 +24,7 @@ private
       api_parameters = { params: parameters }
       api_response = RestClient.get url, api_parameters
     rescue RestClient::ExceptionWithResponse => e
-      Rails.logger.error "Request to API to retrieve #{id} responded with: #{e.response.code}"
+      Rails.logger.error "Request to API to retrieve #{parameters[:id]} responded with: #{e.response.code}"
       return nil
     rescue SocketError => _
       Rails.logger.error "Connection error with #{url}"
