@@ -47,11 +47,8 @@
     </tbody>
   </table>
 
-  <p>
-    <%= link_to 'Add another link', new_dataset_doc_path(@dataset.uuid, @dataset.name), class: "secondary-button" %>
-  </p>
-
-  <p>
-    <%= link_to 'Save and continue', dataset_path(@dataset.uuid, @dataset.name), class: "button" %>
-  </p>
+  <div class="form-group">
+    <p><%= link_to 'Add a link', new_dataset_doc_path(@dataset.uuid, @dataset.name), class: "secondary-button" %></p>
+    <p><%= link_to 'Save and continue', dataset_path(@dataset.uuid, @dataset.name), class: "button" %></p>
+  </div>
 </main>

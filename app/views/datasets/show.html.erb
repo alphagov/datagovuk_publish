@@ -133,11 +133,7 @@
         <% end %>
       </td>
       <td class="dgu-checklist__actions">
-        <% if @dataset.datafiles.any? %>
-          <%= link_to 'Change', dataset_datafiles_path(@dataset.uuid, @dataset.name) %>
-        <% else %>
-          <%= link_to 'Add', new_dataset_datafile_path(@dataset.uuid, @dataset.name) %>
-        <% end %>
+        <%= link_to 'Change', dataset_datafiles_path(@dataset.uuid, @dataset.name) %>
       </td>
     </tr>
     <tr>
@@ -146,11 +142,7 @@
         <%= link_to doc.name, doc.url %>
       <% end %>
       <td class="dgu-checklist__actions">
-        <% if @dataset.docs.any? %>
-          <%= link_to 'Change', dataset_docs_path(@dataset.uuid, @dataset.name) %>
-        <% else %>
-          <%= link_to 'Add', new_dataset_doc_path(@dataset.uuid, @dataset.name) %>
-        <% end %>
+        <%= link_to 'Change', dataset_docs_path(@dataset.uuid, @dataset.name) %>
       </td>
     </tr>
   </tbody>
