@@ -84,7 +84,9 @@
             <span class="error-message error">You must choose a licence</span>
           </div>
         <% end %>
-        <%= I18n.t "dataset.licence_types.#{@dataset.licence}", default: 'Other' %>
+        <% if @dataset.licence %>
+          <%= I18n.t "dataset.licence_types.#{@dataset.licence}", default: 'Other' %>
+        <% end %>
       </td>
       <td class="dgu-checklist__actions">
         <% if @dataset.licence %>
