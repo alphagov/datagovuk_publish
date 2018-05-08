@@ -14,7 +14,7 @@ private
 
   def build_url(path)
     host = ENV.fetch("LEGACY_HOST", "https://data.gov.uk")
-    "#{host}#{path}"
+    URI.join(host, path).to_s
   end
 
   def call_api(path, parameters)
