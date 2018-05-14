@@ -52,12 +52,4 @@
       <span class="dgu-pagination__numbers"><%= paginate @datasets, window: 2 %></span>
     </nav>
   </div>
-
-  <% if @datasets.none? %>
-  <p
-      class="noresults"
-      style="display:<% if @datasets.count %>block<% else %>none<% end %>">
-    No results found
-  </p>
-  <% end %>
 </div>
