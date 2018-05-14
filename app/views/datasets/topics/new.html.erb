@@ -3,7 +3,7 @@
 <% end %>
 
 <div class="datasets">
-  <%= render 'errors' %>
+  <%= render partial: 'datasets/errors', locals: { model: @dataset } %>
 
   <h1 class="heading-large" id="topic_id">Choose a topic for this dataset</h1>
 
