@@ -92,6 +92,8 @@ GEM
       faraday
       multi_json
     erubi (1.7.1)
+    et-orbi (1.1.1)
+      tzinfo
     execjs (2.7.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
@@ -103,6 +105,9 @@ GEM
     ffi (1.9.23)
     friendly_id (5.2.1)
       activerecord (>= 4.0.0)
+    fugit (1.1.1)
+      et-orbi (~> 1.1, >= 1.1.1)
+      raabro (~> 1.1)
     gds-api-adapters (51.4.0)
       addressable
       link_header
@@ -250,6 +255,7 @@ GEM
       pry (>= 0.9.11)
     public_suffix (3.0.2)
     puma (3.9.1)
+    raabro (1.1.5)
     rack (2.0.4)
     rack-cache (1.7.1)
       rack (>= 0.4)
@@ -328,6 +334,8 @@ GEM
     ruby-progressbar (1.9.0)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
+    rufus-scheduler (3.5.0)
+      fugit (~> 1.1, >= 1.1.1)
     safe_yaml (1.0.4)
     sass (3.5.6)
       sass-listen (~> 4.0.0)
@@ -352,6 +360,11 @@ GEM
       redis (>= 3.3.5, < 5)
     sidekiq-logging-json (0.0.18)
       sidekiq (>= 3)
+    sidekiq-scheduler (2.2.2)
+      redis (>= 3, < 5)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 3)
+      tilt (>= 1.4.0)
     sidekiq-statsd (0.1.5)
       activesupport
       sidekiq (>= 2.6)
@@ -458,6 +471,7 @@ DEPENDENCIES
   rubyzip (~> 1.2)
   sass-rails (~> 5.0)
   sentry-raven
+  sidekiq-scheduler
   simplecov
   spring (~> 2.0)
   spring-commands-rspec
