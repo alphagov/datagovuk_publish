@@ -2,47 +2,43 @@
   Add a link to your data -
 <% end %>
 
-<div class="datasets">
-  <%= render partial: 'datasets/errors', locals: { model: @datafile } %>
+<%= render partial: 'datasets/errors', locals: { model: @datafile } %>
 
-  <h1 class="heading-large">Add a link to your data</h1>
+<h1 class="heading-large">Add a link to your data</h1>
 
-  <%= form_for @datafile, url: dataset_datafiles_path(@dataset.uuid, @dataset.name), method: :post do |f| %>
-    <%= dataset_field f, @datafile,
-                      name: 'url',
-                      label: 'URL',
-                      input_type: :text_field,
-                      input_class: 'form-control-2-3',
-                      hint: 'Enter a link (beginning with http:// or https://) to point directly to your data file. The file will usually be uploaded to either your organisation’s website or another website, like GOV.UK or Amazon Web Services (AWS).',
-                      value: @datafile.url %>
+<%= form_for @datafile, url: dataset_datafiles_path(@dataset.uuid, @dataset.name), method: :post do |f| %>
+  <%= dataset_field f, @datafile,
+                    name: 'url',
+                    label: 'URL',
+                    input_type: :text_field,
+                    input_class: 'form-control-2-3',
+                    hint: 'Enter a link (beginning with http:// or https://) to point directly to your data file. The file will usually be uploaded to either your organisation’s website or another website, like GOV.UK or Amazon Web Services (AWS).',
+                    value: @datafile.url %>
 
-    <%= dataset_field f, @datafile,
-                      name: 'name',
-                      label: 'Link name',
-                      input_type: :text_field,
-                      input_class: 'form-control-2-3',
-                      hint: 'The link name mustn’t be the same as the URL. It should clearly describe the data so users can find it easily.',
-                      value: @datafile.name %>
+  <%= dataset_field f, @datafile,
+                    name: 'name',
+                    label: 'Link name',
+                    input_type: :text_field,
+                    input_class: 'form-control-2-3',
+                    hint: 'The link name mustn’t be the same as the URL. It should clearly describe the data so users can find it easily.',
+                    value: @datafile.name %>
 
-    <% if @dataset.daily? %>
-      <%= render 'date_field' %>
-    <% end %>
-
-    <% if @dataset.monthly? %>
-      <%= render 'month_input' %>
-    <% end %>
-
-    <% if @dataset.quarterly? %>
-      <%= render 'quarter_inputs' %>
-    <% end %>
-
-    <% if @dataset.annually? || @dataset.financial_yearly? %>
-      <%= render 'year_input' %>
-    <% end %>
-
-    <div class="form-group">
-      <p><%= f.submit 'Save and continue', class: 'button' %></p>
-      <p><%= link_to 'Skip this step', new_dataset_doc_path(@dataset.uuid, @dataset.name) %></p>
-    </div>
+  <% if @dataset.daily? %>
+    <%= render 'date_field' %>
   <% end %>
-</div>
+
+  <% if @dataset.monthly? %>
+    <%= render 'month_input' %>
+  <% end %>
+
+  <% if @dataset.quarterly? %>
+    <%= render 'quarter_inputs' %>
+  <% end %>
+
+  <% if @dataset.annually? || @dataset.financial_yearly? %>
+    <%= render 'year_input' %>
+  <% end %>
+
+  <p><%= f.submit 'Save and continue', class: 'button' %></p>
+  <p><%= link_to 'Skip this step', new_dataset_doc_path(@dataset.uuid, @dataset.name) %></p>
+<% end %>

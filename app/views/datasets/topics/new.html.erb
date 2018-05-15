@@ -2,37 +2,33 @@
   Add topic -
 <% end %>
 
-<div class="datasets">
-  <%= render partial: 'datasets/errors', locals: { model: @dataset } %>
+<%= render partial: 'datasets/errors', locals: { model: @dataset } %>
 
-  <h1 class="heading-large" id="topic_id">Choose a topic for this dataset</h1>
+<h1 class="heading-large" id="topic_id">Choose a topic for this dataset</h1>
 
-  <%= form_for @dataset, url: create_dataset_topic_path(@dataset.uuid, @dataset.name), method: :post do |f| %>
-    <div class="form-group <% if @dataset.errors.key?('topic') %>form-group-error<%end%>">
-      <fieldset>
-        <legend id="#id_frequency">
-                  <span class="visually-hidden">
-                    Choose a topic for this dataset
+<%= form_for @dataset, url: create_dataset_topic_path(@dataset.uuid, @dataset.name), method: :post do |f| %>
+  <div class="form-group <% if @dataset.errors.key?('topic') %>form-group-error<%end%>">
+    <fieldset>
+      <legend id="#id_frequency">
+                <span class="visually-hidden">
+                  Choose a topic for this dataset
+                </span>
+        <% if @dataset.errors.key?('topic') %>
+                  <span class="error-message">
+                    Please choose a topic for this dataset
                   </span>
-          <% if @dataset.errors.key?('topic') %>
-                    <span class="error-message">
-                      Please choose a topic for this dataset
-                    </span>
-          <% end %>
-        </legend>
-
-        <% @topics.each do |topic| %>
-          <%= dataset_field f, @dataset,
-                            name: 'topic_id',
-                            input_type: :radio_button,
-                            label: topic.title,
-                            value: topic.id %>
         <% end %>
-      </fieldset>
-    </div>
+      </legend>
 
-    <div class="form-group">
-      <p><%= f.submit 'Save and continue', class: 'button' %></p>
-    </div>
-  <% end %>
-</div>
+      <% @topics.each do |topic| %>
+        <%= dataset_field f, @dataset,
+                          name: 'topic_id',
+                          input_type: :radio_button,
+                          label: topic.title,
+                          value: topic.id %>
+      <% end %>
+    </fieldset>
+  </div>
+
+  <p><%= f.submit 'Save and continue', class: 'button' %></p>
+<% end %>

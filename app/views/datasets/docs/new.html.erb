@@ -2,29 +2,28 @@
   Add a link supporting documents -
 <% end %>
 
-<div class="datasets">
-  <%= render partial: 'datasets/errors', locals: { model: @dataset } %>
+<%= render partial: 'datasets/errors', locals: { model: @dataset } %>
 
-  <h1 class="heading-large">Add a link to supporting documents</h1>
+<h1 class="heading-large">Add a link to supporting documents</h1>
 
-  <%= form_for @doc, url: dataset_docs_path(@dataset.uuid, @dataset.name), method: :post do |f| %>
-    <%= dataset_field f, @doc,
-    name: 'url',
-    label: 'URL',
-    input_type: :text_field,
-    input_class: 'form-control-2-3',
-    hint: 'Enter a link (beginning with http:// or https://) to point directly to your document. The file will usually be uploaded to either your organisation’s website or another website, like GOV.UK or Amazon Web Services (AWS).',
-    value: @doc.url %>
+<%= form_for @doc, url: dataset_docs_path(@dataset.uuid, @dataset.name), method: :post do |f| %>
+  <%= dataset_field f, @doc,
+  name: 'url',
+  label: 'URL',
+  input_type: :text_field,
+  input_class: 'form-control-2-3',
+  hint: 'Enter a link (beginning with http:// or https://) to point directly to your document. The file will usually be uploaded to either your organisation’s website or another website, like GOV.UK or Amazon Web Services (AWS).',
+  value: @doc.url %>
 
-    <%= dataset_field f, @doc,
-    name: 'name',
-    label: 'Link name',
-    input_type: :text_field,
-    input_class: 'form-control-2-3',
-    hint: 'The link name mustn’t be the same as the URL. It should clearly describe the document so users can find it easily.',
-    value: @doc.name %>
-    <div class="form-group">
-      <p><%= f.submit 'Save and continue', class: 'button' %></p>
-      <p><%= link_to 'Skip this step', dataset_path(@dataset.uuid, @dataset.name) %></p>
-    </div>
-  <% end %>
+  <%= dataset_field f, @doc,
+  name: 'name',
+  label: 'Link name',
+  input_type: :text_field,
+  input_class: 'form-control-2-3',
+  hint: 'The link name mustn’t be the same as the URL. It should clearly describe the document so users can find it easily.',
+  value: @doc.name %>
+  <div class="form-group">
+    <p><%= f.submit 'Save and continue', class: 'button' %></p>
+    <p><%= link_to 'Skip this step', dataset_path(@dataset.uuid, @dataset.name) %></p>
+  </div>
+<% end %>
