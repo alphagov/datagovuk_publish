@@ -15,7 +15,7 @@ describe "managing datasets" do
 
     # Don't expect any tables as creator_id not set on dataset
     click_link 'Manage datasets'
-    expect(page).to have_content('No results found')
+    expect(page).to have_content('No datasets found')
     expect(page).to have_selector(%(table), count: 0)
 
     # Expect to see the table with datasets in it.
