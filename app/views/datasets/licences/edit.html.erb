@@ -3,23 +3,8 @@
 <% end %>
 
 <div class="datasets">
-  <% if @dataset.errors.any? %>
-    <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
-      <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
-        There was a problem
-      </h1>
-      <ul class="error-summary-list">
-        <% @dataset.errors.each do |attr, message| %>
-          <li>
-            <a href="#<%= attr.to_s %>_form_group">
-              <%= message %>
-            </a>
-            <span class="visuallyhidden">.</span>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render partial: 'datasets/errors', locals: { model: @dataset } %>
+
   <h1 class="heading-large">Choose a licence for this dataset</h1>
 
   <%= form_for @dataset, url: update_dataset_licence_path(@dataset.uuid, @dataset.name) do |f| %>
