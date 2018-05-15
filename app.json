@@ -15,6 +15,15 @@
     },
     "FIND_URL": {
       "required": true
+    },
+    "OAUTH_ID": {
+      "required": false
+    },
+    "OAUTH_SECRET": {
+      "required": false
+    },
+    "PLEK_SERVICE_SIGNON_URI": {
+      "required": false
     }
   },
   "formation": {
