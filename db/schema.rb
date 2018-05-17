@@ -166,7 +166,6 @@ ActiveRecord::Schema.define(version: 2018042510281100) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "uuid"
-    t.boolean "active", default: true
     t.string "org_type"
     t.string "ancestry"
     t.string "govuk_content_id"
