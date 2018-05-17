@@ -79,6 +79,45 @@ namespace :import do
       indexer.index(dataset.uuid)
     }
   end
+
+  desc "Resets all of an organisation's datasets by (optionally) removing the existing ones and rebuilding from legacy API"
+  task :organisation_datasets, %i[legacy_shortname delete] => :environment do |_, args|
+    organisation = Organisation.find_by(name: args.legacy_shortname)
+    if organisation.nil?
+      Rails.logger.error "Unable to find organisation '#{args.legacy_shortname}''"
+      next
+    end
+
+    indexer = Legacy::DatasetIndexService.new
+
+    if args.delete == "true"
+      # Remove all existing datasets
+      organisation.datasets.published.each { |dataset|
+        indexer.remove_from_index(dataset.uuid)
+        dataset.status = "draft"
+        dataset.destroy
+      }
+    end
+
+    search = ->(limit, offset) {
+      Legacy::APIService.new.dataset_search("", "publisher:#{organisation.name}", limit, offset)
+    }
+
+    # We can only fetch 1000 (max) full datasets at a time. So we'll ask for 0, then use the count to work out
+    # how many calls to make
+    total = search.call(0, 0)
+
+    (0..total['count']).step(1000) do |offset|
+      response = search.call(1000, offset)
+      datasets = response['results']
+
+      datasets.each { |dataset|
+        Legacy::DatasetImportService.new(dataset, organisation_cache, topic_cache).run
+        indexer.remove_from_index(dataset['id'])
+        indexer.index(dataset['id'])
+      }
+    end
+  end
 end
 
 def topic_cache
