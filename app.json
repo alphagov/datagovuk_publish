@@ -22,8 +22,8 @@
     "OAUTH_SECRET": {
       "required": false
     },
-    "PLEK_SERVICE_SIGNON_URI": {
-      "required": false
+    "GOVUK_APP_DOMAIN": {
+      "required": true
     }
   },
   "formation": {
