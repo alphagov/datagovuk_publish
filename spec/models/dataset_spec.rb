@@ -123,4 +123,19 @@ describe Dataset do
       expect(dataset.public_updated_at).to eq(dataset.updated_at)
     end
   end
+
+  describe "#released" do
+    it "returns true when there is a link" do
+      dataset = FactoryGirl.create(:dataset, :with_datafile)
+      expect(dataset.released).to be_truthy
+
+      dataset = FactoryGirl.create(:dataset, :with_doc)
+      expect(dataset.released).to be_truthy
+    end
+
+    it "returns false when there is no link" do
+      dataset = FactoryGirl.create(:dataset)
+      expect(dataset.released).to be_falsey
+    end
+  end
 end

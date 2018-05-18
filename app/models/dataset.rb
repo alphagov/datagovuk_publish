@@ -61,8 +61,7 @@ class Dataset < ApplicationRecord
   # What we actually want to index in Elastic, rather than the whole
   # dataset.
   def as_indexed_json(_options = {})
-    as_json(
-      only: %i[
+    as_json(only: %i[
                 name
                 legacy_name
                 title
@@ -89,15 +88,17 @@ class Dataset < ApplicationRecord
                 harvested
                 uuid
             ],
-      methods: :public_updated_at,
-      include: {
-        organisation: {},
-        topic: {},
-        datafiles: {},
-        docs: {},
-        inspire_dataset: {}
-      }
-    )
+          methods: %i[
+            public_updated_at
+            released
+          ],
+          include: {
+            organisation: {},
+            topic: {},
+            datafiles: {},
+            docs: {},
+            inspire_dataset: {}
+          })
   end
 
   def owner
@@ -171,6 +172,10 @@ class Dataset < ApplicationRecord
 
   def public_updated_at
     most_recently_updated_datafile_timestamp || self.updated_at
+  end
+
+  def released
+    links.count.positive?
   end
 
 private
