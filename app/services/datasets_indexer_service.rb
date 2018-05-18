@@ -152,7 +152,7 @@ class DatasetsIndexerService
     number_datasets_processed = 0
 
     create_new_index
-    Dataset.published.find_in_batches(batch_size: batch_size) do |datasets|
+    Dataset.published.includes(:organisation, :topic, :inspire_dataset, :datafiles, :docs).find_in_batches(batch_size: batch_size) do |datasets|
       logger.info "Batching #{datasets.length} datasets"
       bulk_index(datasets)
       number_datasets_processed += batch_size
