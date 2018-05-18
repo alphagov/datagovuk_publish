@@ -6,16 +6,18 @@ branches:
   - master
   - /^v\d+\.\d+\.\d+$/
 services:
-- postgresql
-- elasticsearch
-- redis-server
+  - postgresql
+  - elasticsearch
+  - redis-server
+before_install:
+  - gem install bundler --no-ri --no-rdoc
 before_script:
-- sleep 10
+  - sleep 10
 script:
-- bundle exec rails db:create
-- bundle exec rails db:schema:load
-- bundle exec rake
-- bundle exec codeclimate-test-reporter
+  - bundle exec rails db:create
+  - bundle exec rails db:schema:load
+  - bundle exec rake
+  - bundle exec codeclimate-test-reporter
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
