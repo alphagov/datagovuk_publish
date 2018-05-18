@@ -35,18 +35,27 @@ RSpec.describe UrlValidator do
         expect(subject.errors[:url]).to include EXPECTED_ERROR_MESSAGE
       end
 
-      it 'the host does not exist' do
-        url = "http://thishostdoesnotexist.com/data"
+      it 'the url path does not exist' do
+        url = "http://thispathdoesnotexist.com/data"
         stub_request(:any, url).to_return(status: 404)
         subject.url = url
         subject.validate
         expect(subject.errors[:url]).to include EXPECTED_ERROR_MESSAGE
       end
 
-      it 'the url path does not exist' do
+      it 'the host does not exists' do
         # allow_any_instance_of(UrlValidator).to receive(:validPath?).and_return(false)
         url = "http://thishostdoesnotexist.com/data"
-        stub_request(:any, url).to_return(status: 404)
+        stub_request(:any, url).to_raise(SocketError)
+        subject.url = url
+        subject.validate
+        expect(subject.errors[:url]).to include EXPECTED_ERROR_MESSAGE
+      end
+
+      it 'the host refuses the connection' do
+        # allow_any_instance_of(UrlValidator).to receive(:validPath?).and_return(false)
+        url = "http://flakey.website/data"
+        stub_request(:any, url).to_raise(Errno::ECONNREFUSED)
         subject.url = url
         subject.validate
         expect(subject.errors[:url]).to include EXPECTED_ERROR_MESSAGE
