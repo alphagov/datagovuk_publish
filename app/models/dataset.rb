@@ -70,11 +70,9 @@ class Dataset < ApplicationRecord
                 description
                 foi_name
                 foi_email
-                foi_phone
                 foi_web
                 contact_name
                 contact_email
-                contact_phone
                 location1
                 location2
                 location3
@@ -82,9 +80,6 @@ class Dataset < ApplicationRecord
                 licence_title
                 licence_url
                 licence_custom
-                frequency
-                published_date
-                last_updated_at
                 created_at
                 harvested
                 uuid
