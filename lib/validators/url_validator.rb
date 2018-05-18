@@ -41,12 +41,21 @@ class UrlValidator < ActiveModel::Validator
   end
 
   def valid_path?(record)
+    error = nil
+
     begin
       RestClient.head encoded_url(record.url)
+      return true
     rescue RestClient::ExceptionWithResponse
       error = 'Url path is not valid'
-      create_validation_error(record, error)
+    rescue SocketError
+      error = 'There was a problem connecting to the server'
+    rescue Errno::ECONNREFUSED
+      error = 'The server refused a connection attempt'
     end
+
+    create_validation_error(record, error) if error.present?
+    false
   end
 
   def create_validation_error(record, error)
