@@ -31,12 +31,12 @@ class UrlValidator < ActiveModel::Validator
   end
 
   def encoded?(original_url)
-    decoded = Addressable::URI.unescape(original_url)
+    decoded = Addressable::URI.unencode(original_url)
     decoded != original_url
   end
 
   def encoded_url(url)
-    return Addressable::URI.escape(url) if encoded?(url)
+    return Addressable::URI.encode(url) if encoded?(url)
     url
   end
 
