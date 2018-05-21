@@ -360,11 +360,6 @@ GEM
       redis (>= 3.3.5, < 5)
     sidekiq-logging-json (0.0.18)
       sidekiq (>= 3)
-    sidekiq-scheduler (2.2.2)
-      redis (>= 3, < 5)
-      rufus-scheduler (~> 3.2)
-      sidekiq (>= 3)
-      tilt (>= 1.4.0)
     sidekiq-statsd (0.1.5)
       activesupport
       sidekiq (>= 2.6)
@@ -469,9 +464,9 @@ DEPENDENCIES
   rspec (~> 3.6)
   rspec-rails (~> 3.6)
   rubyzip (~> 1.2)
+  rufus-scheduler
   sass-rails (~> 5.0)
   sentry-raven
-  sidekiq-scheduler
   simplecov
   spring (~> 2.0)
   spring-commands-rspec

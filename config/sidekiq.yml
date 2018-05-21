@@ -6,8 +6,3 @@
   - importer
   - indexer
   - link_checker
-
-:schedule:
-  model_metrics:
-    every: '1m'
-    class: ModelMetricsWorker
