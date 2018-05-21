@@ -9,5 +9,13 @@ FactoryGirl.define do
     licence "uk-ogl"
     topic
     last_updated_at Time.now
+
+    trait :with_datafile do
+      datafiles { create_list(:datafile, 1) }
+    end
+
+    trait :with_doc do
+      docs { create_list(:doc, 1) }
+    end
   end
 end
