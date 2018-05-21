@@ -29,6 +29,12 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+GDS::Metrics.configure do |config|
+  config.mmap_directory = Dir.mktmpdir('metrics')
+end
+
+GDS::Metrics::Mmap.setup
+
 RSpec.configure do |config|
   config.before(:each) do
     stub_request(:post, /sentry.io/).
