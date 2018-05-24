@@ -1,5 +1,5 @@
 applications:
-- name: publish-data-beta-worker
+- name: publish-data-beta-production-worker
   memory: 512M
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.7.14
   command: bundle exec sidekiq
