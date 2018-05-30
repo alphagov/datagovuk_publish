@@ -15,7 +15,7 @@ class Datasets::DatafilesController < ApplicationController
   def create
     @datafile = @dataset.datafiles.build(datafile_params)
 
-    if @datafile.save
+    if @datafile.save(context: :link_form)
       redirect_to dataset_datafiles_path(@dataset.uuid, @dataset.name)
     else
       render :new
@@ -25,7 +25,8 @@ class Datasets::DatafilesController < ApplicationController
   def edit; end
 
   def update
-    if @datafile.update(datafile_params)
+    @datafile.assign_attributes(datafile_params)
+    if @datafile.save(context: :link_form)
       redirect_to dataset_datafiles_path(@dataset.uuid, @dataset.name)
     else
       render :edit

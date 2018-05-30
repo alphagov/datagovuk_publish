@@ -13,7 +13,7 @@ class Datasets::LicencesController < ApplicationController
     @dataset = current_dataset
     @dataset.update_attributes(params.require(:dataset).permit(:licence, :licence_other))
 
-    if @dataset.save
+    if @dataset.save(context: :dataset_form)
       redirect_to new_dataset_location_path(@dataset.uuid, @dataset.name)
     else
       render :new
@@ -24,7 +24,7 @@ class Datasets::LicencesController < ApplicationController
     @dataset = current_dataset
     @dataset.update_attributes(params.require(:dataset).permit(:licence, :licence_other))
 
-    if @dataset.save
+    if @dataset.save(context: :dataset_form)
       redirect_to dataset_path(@dataset.uuid, @dataset.name)
     else
       render :edit
