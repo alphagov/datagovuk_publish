@@ -464,7 +464,6 @@ describe "passing the frequency page" do
     fill_in 'datafile[month]', with: '1'
     fill_in 'datafile[year]',  with: '2020'
     click_button "Save and continue"
-    expect(page).to have_content("Please enter a valid url", count: 2)
     expect(page).to have_content("Please enter a valid name", count: 2)
     fill_in "datafile[url]", with: "http://www.example.com/test.csv"
     fill_in "datafile[name]", with: "Test datafile"
