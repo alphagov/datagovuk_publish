@@ -13,7 +13,7 @@ class Datasets::DocsController < ApplicationController
   def create
     @doc = @dataset.docs.build(doc_params)
 
-    if @doc.save
+    if @doc.save(context: :link_form)
       redirect_to dataset_docs_path(@dataset.uuid, @dataset.name)
     else
       render :new
@@ -23,7 +23,8 @@ class Datasets::DocsController < ApplicationController
   def edit; end
 
   def update
-    if @doc.update(doc_params)
+    @doc.assign_attributes(doc_params)
+    if @doc.save(context: :link_form)
       redirect_to dataset_docs_path(@dataset.uuid, @dataset.name)
     else
       render :edit

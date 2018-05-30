@@ -4,7 +4,7 @@ class Link < ApplicationRecord
   belongs_to :dataset
 
   validates :name, presence: true
-  validates_with UrlValidator
+  validates_with UrlValidator, on: :link_form
 
   before_save :set_uuid
 

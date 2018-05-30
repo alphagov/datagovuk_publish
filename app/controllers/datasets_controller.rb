@@ -31,7 +31,8 @@ class DatasetsController < ApplicationController
   end
 
   def update
-    if @dataset.update(dataset_params)
+    @dataset.assign_attributes(dataset_params)
+    if @dataset.save(context: :dataset_form)
       redirect_to dataset_path(@dataset.uuid, @dataset.name)
     else
       render :edit
