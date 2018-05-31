@@ -1,6 +1,6 @@
 applications:
 - name: publish-data-beta-staging-worker
-  memory: 512M
+  memory: 1G
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.7.14
   command: bundle exec sidekiq
   env:
