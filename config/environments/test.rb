@@ -49,4 +49,6 @@ Rails.application.configure do
       super || path
     end
   end)
+
+  config.ckan_v26_base_url = "http://ckan"
 end
