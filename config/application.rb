@@ -51,6 +51,7 @@ module PublishDataBeta
 
     config.autoload_paths += [Rails.root.join("app/workers")]
     config.autoload_paths += [Rails.root.join("lib/validators")]
+    config.autoload_paths += [Rails.root.join("lib/ckan")]
 
     config.elasticsearch = config_for(:elasticsearch)
 
