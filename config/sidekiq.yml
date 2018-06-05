@@ -6,3 +6,8 @@
   - importer
   - indexer
   - link_checker
+
+:schedule:
+  beta_update:
+    class: BetaUpdateWorker
+    cron: '0 0 * * * *' # Runs every hour
