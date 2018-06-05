@@ -1,4 +1,5 @@
 require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
   root to: 'sessions#new'
@@ -65,10 +66,6 @@ Rails.application.routes.draw do
     post '/', to: 'datasets#create', as: 'datasets'
     patch ':uuid/*name', to: 'datasets#update', as: 'update_dataset'
     delete ':uuid/*name', to: 'datasets#destroy', as: 'delete_dataset'
-  end
-
-  namespace :api do
-    get 'sync-beta', to: 'sync#beta'
   end
 
   get 'tasks', to: 'tasks#my'
