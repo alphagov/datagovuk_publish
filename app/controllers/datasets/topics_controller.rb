@@ -13,7 +13,7 @@ class Datasets::TopicsController < ApplicationController
     @dataset = current_dataset
     @dataset.topic_id = topic_params[:topic_id]
 
-    if @dataset.save(context: :dataset_form)
+    if @dataset.save(context: :dataset_topic_form)
       redirect_to new_dataset_licence_path(@dataset.uuid, @dataset.name)
     else
       @topics = sorted_topics

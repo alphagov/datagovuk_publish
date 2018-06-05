@@ -36,36 +36,6 @@ describe Dataset do
     expect(dataset.name).to eq("my-even-better-dataset")
   end
 
-  it "validates more strictly when publishing" do
-    dataset = Dataset.new(
-      title: "dataset",
-      summary: "Summary",
-      organisation_id: @org.id,
-      status: "published"
-    )
-
-    dataset.valid?
-
-    expect(dataset.errors[:licence_code]).to include("Please select a licence for your dataset")
-    expect(dataset.errors[:frequency]).to include("Please indicate how often this dataset is updated")
-  end
-
-  it "can pass strict validation when publishing" do
-    d = Dataset.new(
-      title: "dataset",
-      summary: "Summary",
-      organisation_id: @org.id,
-      frequency: "never",
-      licence_code: "uk-ogl"
-    )
-
-    d.save
-
-    d.datafiles.create(url: "http://127.0.0.1", name: "Datafile link")
-
-    expect(d.published!).to eq(true)
-  end
-
   it "is not possible to delete a published dataset" do
     d = Dataset.new(
       title: "dataset",

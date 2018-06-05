@@ -21,13 +21,11 @@ class Dataset < ApplicationRecord
   has_many :docs, dependent: :destroy
   has_one :inspire_dataset, dependent: :destroy
 
-  validates :frequency, inclusion: { in: %w(daily monthly quarterly annually financial-year never irregular) },
-    allow_nil: true # To allow creation before setting this value
   validate :sluggable_title
   validates :summary, presence: true
-  validates :frequency, presence: true, if: :published?
-  validates :licence_code, presence: { message: 'Please select a licence for your dataset' }, if: :published?
-  validates :topic, presence: { message: 'Please choose a topic' }, on: :dataset_form
+  validates :frequency, presence: { message: 'Please indicate how often this dataset is updated' }, on: :dataset_frequency_form
+  validates :licence_code, presence: { message: 'Please select a licence for your dataset' }, on: :dataset_licence_form
+  validates :topic, presence: { message: 'Please choose a topic' }, on: :dataset_topic_form
 
   scope :owned_by, ->(creator_id) { where(creator_id: creator_id) }
   scope :published, -> { where(status: "published") }

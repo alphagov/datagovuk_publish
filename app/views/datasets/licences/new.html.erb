@@ -10,5 +10,4 @@
   <%= render partial: 'licence_options', locals: { form: f, dataset: @dataset } %>
 
   <p><%= f.submit 'Save and continue', class: 'button' %> </br></p>
-  <p><%= link_to 'Skip this step', new_dataset_location_path(@dataset.uuid, @dataset.name) %></p>
 <% end %>

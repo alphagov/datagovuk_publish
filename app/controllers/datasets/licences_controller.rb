@@ -9,9 +9,9 @@ class Datasets::LicencesController < ApplicationController
 
   def create
     @dataset = current_dataset
-    @dataset.update_attributes(params.fetch(:dataset, {}).permit(:licence_code))
+    @dataset.licence_code = licence_params[:licence_code]
 
-    if @dataset.save(context: :dataset_form)
+    if @dataset.save(context: :dataset_licence_form)
       redirect_to new_dataset_location_path(@dataset.uuid, @dataset.name)
     else
       render :new
@@ -33,5 +33,9 @@ private
 
   def current_dataset
     Dataset.find_by(uuid: params[:uuid])
+  end
+
+  def licence_params
+    params.fetch(:dataset, {}).permit(:licence_code)
   end
 end

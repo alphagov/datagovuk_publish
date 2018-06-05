@@ -9,16 +9,9 @@ class Datasets::FrequenciesController < ApplicationController
 
   def create
     @dataset = current_dataset
+    @dataset.frequency = frequency_params[:frequency]
 
-    begin
-      @dataset.frequency = params.require(:dataset).permit(:frequency)[:frequency]
-    rescue ActionController::ParameterMissing
-      @dataset.errors.add(:frequency, 'Please indicate how often this dataset is updated')
-      render :new
-      return
-    end
-
-    if @dataset.save
+    if @dataset.save(context: :dataset_frequency_form)
       redirect_to new_dataset_datafile_path(@dataset.uuid, @dataset.name)
     else
       render :new
@@ -40,5 +33,9 @@ private
 
   def current_dataset
     Dataset.find_by(uuid: params[:uuid])
+  end
+
+  def frequency_params
+    params.fetch(:dataset, {}).permit(:frequency)
   end
 end
