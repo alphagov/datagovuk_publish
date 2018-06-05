@@ -192,28 +192,6 @@ describe Legacy::DatasetImportService do
     end
   end
 
-  describe "#build_licence" do
-    it "returns 'no-license' if licence has no value specified" do
-      legacy_dataset["license_id"] = ""
-      licence = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_licence
-      expect(licence).to eql("no-licence")
-    end
-
-    it "returns 'other' if the licence is anything other than 'uk-ogl'" do
-      legacy_dataset["license_id"] = "foo"
-      licence = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_licence
-      expect(licence).to eql("other")
-    end
-  end
-
-  describe "#build_licence_other" do
-    it "returns the name of the licence if it is anything other than 'uk-ogl'" do
-      legacy_dataset["license_id"] = "foo"
-      licence_other = described_class.new(legacy_dataset, orgs_cache, topics_cache).build_licence_other
-      expect(licence_other).to eql("foo")
-    end
-  end
-
   describe "#harvested?" do
     it "is true if legacy dataset has a harvest_object_id" do
       legacy_dataset["extras"] = [{

@@ -11,7 +11,7 @@ class Datasets::LicencesController < ApplicationController
 
   def create
     @dataset = current_dataset
-    @dataset.update_attributes(params.require(:dataset).permit(:licence, :licence_other))
+    @dataset.update_attributes(params.fetch(:dataset, {}).permit(:licence_code))
 
     if @dataset.save(context: :dataset_form)
       redirect_to new_dataset_location_path(@dataset.uuid, @dataset.name)
@@ -22,7 +22,7 @@ class Datasets::LicencesController < ApplicationController
 
   def update
     @dataset = current_dataset
-    @dataset.update_attributes(params.require(:dataset).permit(:licence, :licence_other))
+    @dataset.update_attributes(params.require(:dataset).permit(:licence_code))
 
     if @dataset.save(context: :dataset_form)
       redirect_to dataset_path(@dataset.uuid, @dataset.name)

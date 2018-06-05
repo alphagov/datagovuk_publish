@@ -78,12 +78,12 @@ describe 'editing datasets' do
     end
 
     it "should be able to update licence" do
-      click_change(:licence)
+      click_change(:licence_code)
       choose(option: 'cc-by')
       click_button 'Save and continue'
 
       expect(page).to have_content('Creative Commons Attribution')
-      expect(last_updated_dataset.licence).to eq('cc-by')
+      expect(last_updated_dataset.licence_code).to eq('cc-by')
     end
 
     it "should be able to update location" do

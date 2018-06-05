@@ -79,17 +79,17 @@
     <tr>
       <th class="dgu-checklist__heading">Licence</th>
       <td>
-        <% if @dataset.errors[:licence].any? %>
+        <% if @dataset.errors[:licence_code].any? %>
           <div class="form-group-error" id="licence_form_group">
             <span class="error-message error">You must choose a licence</span>
           </div>
         <% end %>
-        <% if @dataset.licence %>
-          <%= I18n.t "dataset.licence_types.#{@dataset.licence}", default: 'Other' %>
+        <% if @dataset.licence_code %>
+          <%= I18n.t "dataset.licence_types.#{@dataset.licence_code}", default: 'Other' %>
         <% end %>
       </td>
       <td class="dgu-checklist__actions">
-        <% if @dataset.licence %>
+        <% if @dataset.licence_code %>
           <%= link_to 'Change', edit_dataset_licence_path(@dataset.uuid, @dataset.name) %>
         <% else %>
           <%= link_to 'Select', edit_dataset_licence_path(@dataset.uuid, @dataset.name) %>

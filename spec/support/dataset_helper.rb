@@ -8,7 +8,7 @@ def click_change(property)
     summary
     additional_info
     topic
-    licence
+    licence_code
     location
     frequency
     datalinks
