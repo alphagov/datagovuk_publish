@@ -30,19 +30,11 @@ class Dataset < ApplicationRecord
   validates :licence_other, presence: true, if: lambda { licence == 'other' }
   validates :topic, presence: { message: 'Please choose a topic' }, on: :dataset_form
 
-  validate  :is_readonly?, on: :update
-
   scope :owned_by, ->(creator_id) { where(creator_id: creator_id) }
   scope :published, -> { where(status: "published") }
   scope :with_datafiles, -> { joins(:datafiles) }
   scope :with_no_datafiles, -> { left_outer_joins(:datafiles).where(links: { id: nil }) }
   scope :draft, -> { where(status: "draft") }
-
-  def is_readonly?
-    if persisted? && self.harvested?
-      errors[:base] << 'Harvested datasets cannot be modified.'
-    end
-  end
 
   def links
     datafiles + docs
