@@ -1,7 +1,5 @@
 class ManageController < ApplicationController
   protect_from_forgery prepend: true
-  before_action :authenticate_user!
-
   helper_method :sort_column, :sort_direction
 
   def manage_own
