@@ -5,7 +5,7 @@ class CKANImportWorker
 
   def perform(package_id)
     package = client.show_dataset(id: package_id)
-    package["extras"] = hashify(package["extras"])
+    package = CKAN::V26::Package.new(package)
     dataset = Dataset.find_or_initialize_by(uuid: package_id)
 
     CKAN::V26::DatasetImporter.new.call(dataset, package)
@@ -14,12 +14,6 @@ class CKANImportWorker
   end
 
 private
-
-  def hashify(array = [])
-    array.inject({}) do |result, hash|
-      result[hash["key"]] = hash["value"]; result
-    end
-  end
 
   def client
     base_url = Rails.configuration.ckan_v26_base_url

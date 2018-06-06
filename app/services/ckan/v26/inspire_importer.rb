@@ -12,7 +12,7 @@ module CKAN
     private
 
       def inspire?(package)
-        package["extras"]["UKLP"] == "True"
+        package.get_extra("UKLP")
       end
     end
   end
