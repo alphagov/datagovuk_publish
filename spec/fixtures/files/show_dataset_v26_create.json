@@ -1,0 +1,188 @@
+{
+    "help": "http://data.gov.uk/api/3/action/help_show?name=package_show",
+    "success": true,
+    "result": {
+        "license_title": "UK Open Government Licence (OGL)",
+        "maintainer": "City of York Council - Business Intelligence Hub",
+        "relationships_as_object": [],
+        "private": false,
+        "maintainer_email": "business.intelligence@york.gov.uk",
+        "num_tags": 0,
+        "id": "bca22660-dccc-4a37-9cfe-6bc2c0739cff",
+        "metadata_created": "2016-02-16T16:55:24.666566",
+        "metadata_modified": "2018-05-02T19:27:59.746105",
+        "author": "City of York Council - Business Intelligence Hub",
+        "author_email": "business.intelligence@york.gov.uk",
+        "state": "active",
+        "version": "",
+        "archiver": {
+            "status": "Archived successfully",
+            "is_broken": false,
+            "reason": "",
+            "status_id": 0
+        },
+        "license_id": "uk-ogl",
+        "type": "dataset",
+        "resources": [
+            {
+                "hash": "",
+                "description": "",
+                "created": "2016-02-08T15:53:48.857641",
+                "url": "https://data.yorkopendata.org/dataset/bca22660-dccc-4a37-9cfe-6bc2c0739cff/resource/113b39be-e04c-4089-a8ca-a671d9b5076c/download/yoddatasets.xlsx",
+                "format": "XLS",
+                "qa": {
+                    "updated": "2018-05-06T15:06:39.852850",
+                    "openness_score": 2,
+                    "archival_timestamp": "2018-05-05T08:00:15.937760",
+                    "format": "XLS",
+                    "created": "2016-02-16T17:40:21.219615",
+                    "resource_timestamp": null,
+                    "openness_score_reason": "Content of file appeared to be format \"XLS\" which receives openness score: 2."
+                },
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "last_modified": "2018-05-02T11:02:32.313520",
+                "archiver": {
+                    "is_broken_printable": "Downloaded OK",
+                    "updated": "2018-05-05T08:00:15.937760",
+                    "cache_filepath": "/media/hulk/ckan_resource_cache/11/113b39be-e04c-4089-a8ca-a671d9b5076c/yoddatasets.xlsx",
+                    "last_success": "2018-05-05T08:00:15.937760",
+                    "size": "99911",
+                    "is_broken": false,
+                    "failure_count": 0,
+                    "etag": "\"1525258952.0-99911\"",
+                    "status": "Archived successfully",
+                    "url_redirected_to": null,
+                    "hash": "9469b64dd4adeeec6dd1532ffae74f6051211135",
+                    "status_id": 0,
+                    "reason": "",
+                    "last_modified": "Wed, 02 May 2018 11:02:32 GMT",
+                    "resource_timestamp": "2018-05-02T19:27:59.745260",
+                    "mimetype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "cache_url": "http://data.gov.uk/data/resource_cache/11/113b39be-e04c-4089-a8ca-a671d9b5076c/yoddatasets.xlsx",
+                    "created": "2016-02-16T17:05:10.792109",
+                    "first_failure": null
+                },
+                "position": 0,
+                "revision_id": "af57f4a4-4cbc-4d9a-bfca-a79aa26042bb",
+                "id": "113b39be-e04c-4089-a8ca-a671d9b5076c",
+                "name": "Datasets' List"
+            }
+        ],
+        "num_resources": 1,
+        "tags": [],
+        "tracking_summary": {
+            "total": 0,
+            "recent": 0
+        },
+        "groups": [],
+        "creator_user_id": "60e687bf-a6d8-43e2-a50e-efab84b27952",
+        "relationships_as_subject": [],
+        "revision_timestamp": "2016-02-16T16:55:24.666566",
+        "organization": {
+            "description": "Corporate Open Data platform - http://www.yorkopendata.org/\r\n\r\nCorporate map browser - http://maps.york.gov.uk/localviewexternal/sites/lv/",
+            "created": "2013-11-25T13:21:35.161579",
+            "title": "City of York Council",
+            "name": "city-of-york-council",
+            "revision_timestamp": "2016-02-24T11:10:33.373678",
+            "is_organization": true,
+            "state": "active",
+            "image_url": "",
+            "revision_id": "6aa2377e-6fe2-4361-898e-aa396519e0a7",
+            "type": "organization",
+            "id": "21f3491f-5b0f-4395-8bb9-990f9cc4d274",
+            "approval_status": "pending"
+        },
+        "name": "datasets-list",
+        "isopen": true,
+        "url": "",
+        "notes": "List of datasets present on York Open Data, along with their description and links to them. This dataset is updated monthly.",
+        "owner_org": "21f3491f-5b0f-4395-8bb9-990f9cc4d274",
+        "qa": {
+            "openness_score_reason": "Content of file appeared to be format \"XLS\" which receives openness score: 2.",
+            "updated": "2018-05-06T15:06:39.852850",
+            "openness_score": 2
+        },
+        "extras": [
+            {
+                "package_id": "bca22660-dccc-4a37-9cfe-6bc2c0739cff",
+                "value": "Monthly",
+                "revision_timestamp": "2016-02-16T16:55:24.666566",
+                "state": "active",
+                "key": "UpdateFrequency",
+                "revision_id": "23bf7c54-b058-466d-8302-b165242da583",
+                "id": "d12d0841-a8fe-4795-93e2-b403697a0422"
+            },
+            {
+                "package_id": "bca22660-dccc-4a37-9cfe-6bc2c0739cff",
+                "value": "bca22660-dccc-4a37-9cfe-6bc2c0739cff",
+                "revision_timestamp": "2016-02-16T16:55:24.666566",
+                "state": "active",
+                "key": "guid",
+                "revision_id": "23bf7c54-b058-466d-8302-b165242da583",
+                "id": "557d4a90-bee0-48ce-a83e-c44701804e9e"
+            },
+            {
+                "package_id": "bca22660-dccc-4a37-9cfe-6bc2c0739cff",
+                "value": "d2d219f6-1846-4f23-8a4a-b9337b2077e4",
+                "revision_timestamp": "2018-05-02T19:27:59.745260",
+                "state": "active",
+                "key": "harvest_object_id",
+                "revision_id": "af57f4a4-4cbc-4d9a-bfca-a79aa26042bb",
+                "id": "78635ae8-4a2f-41b4-8a90-986a38718e16"
+            },
+            {
+                "package_id": "bca22660-dccc-4a37-9cfe-6bc2c0739cff",
+                "value": "harvest",
+                "revision_timestamp": "2016-02-16T16:55:24.666566",
+                "state": "active",
+                "key": "import_source",
+                "revision_id": "23bf7c54-b058-466d-8302-b165242da583",
+                "id": "2b00b45f-e3fd-4e87-a450-b1740de847a9"
+            },
+            {
+                "package_id": "bca22660-dccc-4a37-9cfe-6bc2c0739cff",
+                "value": "2018-05-02",
+                "revision_timestamp": "2018-05-02T19:27:59.745260",
+                "state": "active",
+                "key": "metadata-date",
+                "revision_id": "af57f4a4-4cbc-4d9a-bfca-a79aa26042bb",
+                "id": "455889fa-442f-48df-98bf-68de684b0679"
+            },
+            {
+                "package_id": "bca22660-dccc-4a37-9cfe-6bc2c0739cff",
+                "value": "[{\"harvest_source_url\": \"https://data.yorkopendata.org/\", \"harvest_source_type\": \"ckan\", \"harvested_metadata_modified\": \"2018-05-02T11:02:32.332603\", \"harvest_source_title\": \"York Open Data\", \"activity_occurred\": \"2018-05-02T19:27:59.708763\", \"activity\": \"harvest\", \"harvested_guid\": \"bca22660-dccc-4a37-9cfe-6bc2c0739cff\"}]",
+                "revision_timestamp": "2018-05-02T19:27:59.745260",
+                "state": "active",
+                "key": "metadata_provenance",
+                "revision_id": "af57f4a4-4cbc-4d9a-bfca-a79aa26042bb",
+                "id": "bfccab5a-a2a0-48c6-bb16-bcb8297493c6"
+            }
+        ],
+        "license_url": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "individual_resources": [
+            {
+                "hash": "",
+                "description": "",
+                "created": "2016-02-08T15:53:48.857641",
+                "url": "https://data.yorkopendata.org/dataset/bca22660-dccc-4a37-9cfe-6bc2c0739cff/resource/113b39be-e04c-4089-a8ca-a671d9b5076c/download/yoddatasets.xlsx",
+                "format": "XLS",
+                "qa": "{'updated': '2018-05-06T15:06:39.852850', 'openness_score': 2, 'archival_timestamp': '2018-05-05T08:00:15.937760', 'format': u'XLS', 'created': '2016-02-16T17:40:21.219615', 'resource_timestamp': None, 'openness_score_reason': u'Content of file appeared to be format \"XLS\" which receives openness score: 2.'}",
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "last_modified": "2018-05-02T11:02:32.313520",
+                "archiver": "{'is_broken_printable': 'Downloaded OK', 'updated': '2018-05-05T08:00:15.937760', 'cache_filepath': u'/media/hulk/ckan_resource_cache/11/113b39be-e04c-4089-a8ca-a671d9b5076c/yoddatasets.xlsx', 'last_success': '2018-05-05T08:00:15.937760', 'size': u'99911', 'is_broken': False, 'failure_count': 0, 'etag': u'\"1525258952.0-99911\"', 'status': 'Archived successfully', 'url_redirected_to': None, 'hash': u'9469b64dd4adeeec6dd1532ffae74f6051211135', 'status_id': 0, 'reason': u'', 'last_modified': u'Wed, 02 May 2018 11:02:32 GMT', 'resource_timestamp': '2018-05-02T19:27:59.745260', 'mimetype': u'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'cache_url': u'http://data.gov.uk/data/resource_cache/11/113b39be-e04c-4089-a8ca-a671d9b5076c/yoddatasets.xlsx', 'created': '2016-02-16T17:05:10.792109', 'first_failure': None}",
+                "position": 0,
+                "revision_id": "af57f4a4-4cbc-4d9a-bfca-a79aa26042bb",
+                "id": "113b39be-e04c-4089-a8ca-a671d9b5076c",
+                "name": "Datasets' List"
+            }
+        ],
+        "title": "Datasets' List",
+        "revision_id": "23bf7c54-b058-466d-8302-b165242da583"
+    }
+}

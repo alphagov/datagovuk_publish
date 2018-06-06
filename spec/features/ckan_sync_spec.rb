@@ -4,6 +4,8 @@ describe 'ckan sync' do
   subject { CKANSyncWorker.new }
   let(:search_dataset_v26_p1) { JSON.parse(file_fixture("search_dataset_v26_p1.json").read) }
   let(:search_dataset_v26_p2) { JSON.parse(file_fixture("search_dataset_v26_p2.json").read) }
+  let(:show_dataset_v26_create) { JSON.parse(file_fixture("show_dataset_v26_create.json").read) }
+  let(:show_dataset_v26_update) { JSON.parse(file_fixture("show_dataset_v26_update.json").read) }
 
   let(:package_for_update) { search_dataset_v26_p1["results"][0] }
   let(:package_not_for_update) { search_dataset_v26_p1["results"][1] }
@@ -25,6 +27,9 @@ describe 'ckan sync' do
   end
 
   before do
+    create(:organisation, uuid: "21f3491f-5b0f-4395-8bb9-990f9cc4d274")
+    create(:organisation, uuid: "d3bb54b5-4289-4ff9-9546-ff95442643fc")
+
     stub_request(:get, "http://ckan/api/3/search/dataset")
       .with(query: { fl: "id,metadata_modified", start: 0, rows: 1000 })
       .to_return(body: search_dataset_v26_p1.to_json)
@@ -32,6 +37,14 @@ describe 'ckan sync' do
     stub_request(:get, "http://ckan/api/3/search/dataset")
       .with(query: { fl: "id,metadata_modified", start: 3, rows: 1000 })
       .to_return(body: search_dataset_v26_p2.to_json)
+
+    stub_request(:get, "http://ckan/api/3/action/package_show")
+      .with(query: { id: "7509bbb5-ce6a-4801-8d77-b72c58d46180" })
+      .to_return(body: show_dataset_v26_update.to_json)
+
+    stub_request(:get, "http://ckan/api/3/action/package_show")
+      .with(query: { id: "bca22660-dccc-4a37-9cfe-6bc2c0739cff" })
+      .to_return(body: show_dataset_v26_create.to_json)
   end
 
   it 'creates new datasets when they appear in ckan' do
@@ -42,7 +55,7 @@ describe 'ckan sync' do
   it 'updates existing datasets when they change in ckan' do
     expect { subject.perform }
       .to change { dataset_to_update.reload.last_updated_at }
-      .to(Time.parse(package_for_update["metadata_modified"]))
+      .to(Time.parse(show_dataset_v26_update["result"]["metadata_modified"]))
   end
 
   it 'preserves existing datasets when they do not change in ckan' do
