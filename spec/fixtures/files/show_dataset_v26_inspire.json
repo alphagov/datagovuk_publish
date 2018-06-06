@@ -1,0 +1,548 @@
+{
+    "help": "http://data.gov.uk/api/3/action/help_show?name=dataset_show",
+    "success": true,
+    "result": {
+        "license_title": "UK Open Government Licence (OGL)",
+        "maintainer": null,
+        "temporal_coverage-from": "[]",
+        "relationships_as_object": [],
+        "private": false,
+        "maintainer_email": null,
+        "num_tags": 5,
+        "id": "cf494c44-05cd-4060-a029-35937970c9c6",
+        "metadata_created": "2015-10-06T11:21:26.185852",
+        "metadata_modified": "2018-06-05T12:40:12.239474",
+        "author": null,
+        "author_email": null,
+        "state": "active",
+        "version": null,
+        "archiver": {
+            "status": "Archived successfully",
+            "is_broken": false,
+            "reason": "",
+            "status_id": 0
+        },
+        "temporal_coverage-to": "[]",
+        "license_id": "uk-ogl",
+        "type": "dataset",
+        "resources": [
+            {
+                "hash": "",
+                "description": "Resource locator",
+                "created": "2016-04-05T09:42:51.431945",
+                "url": "http://environment.data.gov.uk/ds/catalogue/#/86ec354f-d465-11e4-b09e-f0def148f590",
+                "format": "",
+                "qa": {
+                    "updated": "2018-06-03T17:12:50.426714",
+                    "openness_score": 0,
+                    "archival_timestamp": "2018-06-02T12:42:24.675703",
+                    "format": "HTML",
+                    "created": "2016-04-05T09:48:43.146441",
+                    "resource_timestamp": null,
+                    "openness_score_reason": "Content of file appeared to be format \"HTML\" which receives openness score: 0."
+                },
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "resource_locator_function": "",
+                "archiver": {
+                    "is_broken_printable": "Downloaded OK",
+                    "updated": "2018-06-02T12:42:24.675703",
+                    "cache_filepath": "/media/hulk/ckan_resource_cache/6e/6e51d757-b25f-428b-8e56-007eb90fb995/resource",
+                    "last_success": "2018-06-02T12:42:24.675703",
+                    "size": "1199",
+                    "is_broken": false,
+                    "failure_count": 0,
+                    "etag": null,
+                    "status": "Archived successfully",
+                    "url_redirected_to": null,
+                    "hash": "1cba2ddcb4bea27966683d59b81e73dba213db45",
+                    "status_id": 0,
+                    "reason": "",
+                    "last_modified": null,
+                    "resource_timestamp": "2016-04-05T08:42:51.352882",
+                    "mimetype": "text/html",
+                    "cache_url": "http://data.gov.uk/data/resource_cache/6e/6e51d757-b25f-428b-8e56-007eb90fb995/resource",
+                    "created": "2016-04-05T09:45:57.448637",
+                    "first_failure": null
+                },
+                "resource_locator_protocol": "http",
+                "position": 0,
+                "revision_id": "eb0a3dee-1e9e-4e91-9d92-3570428f19cc",
+                "id": "6e51d757-b25f-428b-8e56-007eb90fb995",
+                "name": ""
+            },
+            {
+                "hash": "",
+                "description": "Resource locator",
+                "created": "2016-04-05T09:42:51.431960",
+                "url": "http://environment.data.gov.uk/ds/wms?SERVICE=WMS&INTERFACE=ENVIRONMENT--86ec354f-d465-11e4-b09e-f0def148f590&request=GetCapabilities",
+                "format": "WMS",
+                "qa": {
+                    "updated": "2018-06-03T17:12:50.447187",
+                    "openness_score": 3,
+                    "archival_timestamp": "2018-06-02T12:42:25.428508",
+                    "format": "WMS",
+                    "created": "2016-04-05T09:48:43.155612",
+                    "resource_timestamp": null,
+                    "openness_score_reason": "Content of file appeared to be format \"WMS\" which receives openness score: 3."
+                },
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "resource_locator_function": "",
+                "archiver": {
+                    "is_broken_printable": "Downloaded OK",
+                    "updated": "2018-06-02T12:42:25.428508",
+                    "cache_filepath": "/media/hulk/ckan_resource_cache/92/92d14e57-2711-4c2b-91f9-9f007181fc64/wms",
+                    "last_success": "2018-06-02T12:42:25.428508",
+                    "size": "12207",
+                    "is_broken": false,
+                    "failure_count": 0,
+                    "etag": null,
+                    "status": "Archived successfully",
+                    "url_redirected_to": null,
+                    "hash": "a3da1b368d866282e55cd3e9303f5ea848a8e388",
+                    "status_id": 0,
+                    "reason": "",
+                    "last_modified": null,
+                    "resource_timestamp": "2016-05-24T14:47:42.095379",
+                    "mimetype": "text/xml",
+                    "cache_url": "http://data.gov.uk/data/resource_cache/92/92d14e57-2711-4c2b-91f9-9f007181fc64/wms",
+                    "created": "2016-04-05T09:46:01.211493",
+                    "first_failure": null
+                },
+                "resource_locator_protocol": "OGC:WMS",
+                "position": 1,
+                "revision_id": "85d619b2-0ae0-4c8a-b5d0-d7cfce043a6b",
+                "id": "92d14e57-2711-4c2b-91f9-9f007181fc64",
+                "name": ""
+            },
+            {
+                "hash": "",
+                "description": "Resource locator",
+                "created": "2016-04-05T09:42:51.431966",
+                "url": "http://environment.data.gov.uk/ds/wfs?SERVICE=WFS&INTERFACE=ENVIRONMENTWFS--86ec354f-d465-11e4-b09e-f0def148f590&request=GetCapabilities",
+                "format": "WMS",
+                "qa": {
+                    "updated": "2018-06-03T17:12:50.465328",
+                    "openness_score": 3,
+                    "archival_timestamp": "2018-06-02T12:42:26.064243",
+                    "format": "WFS",
+                    "created": "2016-04-05T09:48:43.164470",
+                    "resource_timestamp": null,
+                    "openness_score_reason": "Content of file appeared to be format \"WFS\" which receives openness score: 3."
+                },
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "resource_locator_function": "",
+                "archiver": {
+                    "is_broken_printable": "Downloaded OK",
+                    "updated": "2018-06-02T12:42:26.064243",
+                    "cache_filepath": "/media/hulk/ckan_resource_cache/f0/f0ee9ed6-3f32-476c-9d32-5af7419216df/wfs",
+                    "last_success": "2018-06-02T12:42:26.064243",
+                    "size": "16801",
+                    "is_broken": false,
+                    "failure_count": 0,
+                    "etag": null,
+                    "status": "Archived successfully",
+                    "url_redirected_to": null,
+                    "hash": "fb2f9f1e7c72c6cac0df2af3e0e48836d38dda23",
+                    "status_id": 0,
+                    "reason": "",
+                    "last_modified": null,
+                    "resource_timestamp": "2016-05-24T14:47:42.095379",
+                    "mimetype": "text/xml",
+                    "cache_url": "http://data.gov.uk/data/resource_cache/f0/f0ee9ed6-3f32-476c-9d32-5af7419216df/wfs",
+                    "created": "2016-04-05T09:46:01.960730",
+                    "first_failure": null
+                },
+                "resource_locator_protocol": "OGC:WFS",
+                "position": 2,
+                "revision_id": "85d619b2-0ae0-4c8a-b5d0-d7cfce043a6b",
+                "id": "f0ee9ed6-3f32-476c-9d32-5af7419216df",
+                "name": ""
+            }
+        ],
+        "num_resources": 3,
+        "contact-email": "data.info@environment-agency.gov.uk",
+        "tags": [
+            {
+                "vocabulary_id": null,
+                "display_name": "flood",
+                "name": "flood",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "id": "5d4165a0-5650-44dd-a871-625fb35062dc"
+            },
+            {
+                "vocabulary_id": null,
+                "display_name": "flood-protection",
+                "name": "flood-protection",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "id": "f5fe64f6-49e5-4726-887e-279c36331e56"
+            },
+            {
+                "vocabulary_id": null,
+                "display_name": "flooding",
+                "name": "flooding",
+                "revision_timestamp": "2016-04-05T08:42:51.352882",
+                "state": "active",
+                "id": "f702bdaa-63e1-4e8f-851c-e53882aade79"
+            },
+            {
+                "vocabulary_id": null,
+                "display_name": "opendata",
+                "name": "opendata",
+                "revision_timestamp": "2016-04-05T08:42:51.352882",
+                "state": "active",
+                "id": "87ca90dc-cd24-4ce2-bc70-889f4c166d3d"
+            },
+            {
+                "vocabulary_id": null,
+                "display_name": "risk-management",
+                "name": "risk-management",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "id": "b0430b20-ad06-4970-bfa1-dbd3ee22580d"
+            }
+        ],
+        "tracking_summary": {
+            "total": 0,
+            "recent": 0
+        },
+        "groups": [],
+        "creator_user_id": "60e687bf-a6d8-43e2-a50e-efab84b27952",
+        "relationships_as_subject": [],
+        "revision_timestamp": "2017-06-01T11:05:13.906883",
+        "organization": {
+            "description": "The Environment Agency (EA) protects and improves the environment and promotes sustainable development. It plays a central role in implementing the government's environmental strategy in England. The Environment Agency plays a lead role in managing flood risk and works to minimise the impact of flooding.\r\n\r\nEA is an executive non-departmental public body of the Department for Environment, Food & Rural Affairs\r\n\r\nhttps://www.gov.uk/government/organisations/environment-agency\r\n",
+            "created": "2012-06-27T14:51:35.391725",
+            "title": "Environment Agency",
+            "name": "environment-agency",
+            "revision_timestamp": "2014-08-05T09:27:21.716035",
+            "is_organization": true,
+            "state": "active",
+            "image_url": "",
+            "revision_id": "6013a4b7-b503-4a0e-9528-7d6d2bd4a253",
+            "type": "organization",
+            "id": "11c51f05-a8bf-4f58-9b95-7ab55f9546d7",
+            "approval_status": "pending"
+        },
+        "name": "flood-map-for-planning-rivers-and-sea-flood-zone-2",
+        "isopen": true,
+        "url": null,
+        "notes": "The Flood Map for Planning (Rivers and Sea) includes several layers of information. This dataset covers Flood Zone 2 and should not be used without Flood Zone 3. It is our best estimate of the areas of land at risk of flooding, when the presence of flood defences are ignored and covers land between Zone 3 and the extent of the flooding from rivers or the sea with a 1 in 1000 (0.1%) chance of flooding each year. This dataset also includes those areas defined in Flood Zone 3. \nThis dataset is designed to support flood risk assessments in line with Planning Practice Guidance ; and raise awareness of the likelihood of flooding to encourage people living and working in areas prone to flooding to find out more and take appropriate action.\nThe information provided is largely based on modelled data and is therefore indicative rather than specific. Locations may also be at risk from other sources of flooding, such as high groundwater levels, overland run off from heavy rain, or failure of infrastructure such as sewers and storm drains.\nThe information indicates the flood risk to areas of land and is not sufficiently detailed to show whether an individual property is at risk of flooding, therefore properties may not always face the same chance of flooding as the areas that surround them. This is because we do not hold details about properties and their floor levels.\nInformation on flood depth, speed or volume of flow is not included. Attribution statement: \u00a9 Environment Agency copyright and/or database right 2017. All rights reserved. Some features of this map are based on digital spatial data from the Centre for Ecology & Hydrology, \u00a9 NERC (CEH). \u00a9 Crown copyright and database rights 2004 Ordnance Survey 100024198",
+        "owner_org": "11c51f05-a8bf-4f58-9b95-7ab55f9546d7",
+        "qa": {
+            "openness_score_reason": "Content of file appeared to be format \"WFS\" which receives openness score: 3.",
+            "updated": "2018-06-03T17:12:50.465328",
+            "openness_score": 3
+        },
+        "theme-secondary": [],
+        "extras": [
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "True",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "UKLP",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "7494e1bb-c6e2-4f3a-933e-0fae44293af8"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "[\"There are no public access constraints to this data. Use of this data is subject to the licence identified.\"]",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "access_constraints",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "f33ee09e-1e23-4128-8f08-3a9154ac28ca"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "2.072",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "bbox-east-long",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "ca497e17-7b1e-4b60-acaa-9cfae36f16c1"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "55.816",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "bbox-north-lat",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "82704e90-9aa2-4aaa-92db-1a1a9b4b9b5f"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "49.943",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "bbox-south-lat",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "4fa5005b-7e1e-4634-8f36-3593b5fac5c0"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "-6.236",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "bbox-west-long",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "0396919f-a654-40d3-bc50-3ff2419e98e2"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "data.info@environment-agency.gov.uk",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "contact-email",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "a5e7bc8d-9c64-43ad-a593-9850e1e3a2cb"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "[]",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "coupled-resource",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "604e4058-5ee7-451d-8667-16cc4949f039"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "[{\"type\": \"creation\", \"value\": \"2004-01-01\"}, {\"type\": \"revision\", \"value\": \"2018-04-30\"}]",
+                "revision_timestamp": "2018-05-10T14:07:50.566227",
+                "state": "active",
+                "key": "dataset-reference-date",
+                "revision_id": "bdf7ee1d-5a62-4036-9ca6-8a4d6c432c20",
+                "id": "1d30d55a-b16a-42e3-a3e9-a706168a5717"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "quarterly",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "frequency-of-update",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "91aba330-7c6b-4b1c-bd9f-78f95989fdc4"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "86ec354f-d465-11e4-b09e-f0def148f590",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "guid",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "7c2b53c8-7ca3-4919-83a8-5f478fed464d"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "d6342552-4ac5-4782-9c68-409d7fa79c0d",
+                "revision_timestamp": "2018-06-05T12:40:12.238573",
+                "state": "active",
+                "key": "harvest_object_id",
+                "revision_id": "ee15fc0f-114c-431b-a2de-0b2361f28e73",
+                "id": "240d059a-fe45-4159-92c1-4e75f329bb7b"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "86ec354f-d465-11e4-b09e-f0def148f590",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "harvest_source_reference",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "9634c52c-d741-45d6-a379-c0d96bf28d40"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "harvest",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "import_source",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "c8aba5d4-850a-466f-882d-92118658406c"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "2018-06-05",
+                "revision_timestamp": "2018-06-05T12:40:12.238573",
+                "state": "active",
+                "key": "metadata-date",
+                "revision_id": "ee15fc0f-114c-431b-a2de-0b2361f28e73",
+                "id": "714bbec1-1c5a-47f9-88c7-d11f35f4fbc1"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "eng",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "metadata-language",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "4d5dfa79-792d-4a40-abf5-03b9fd33837a"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "provider",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "eb0d99c7-4fad-409e-9c57-a3afafb6f74e"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "dataset",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "resource-type",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "59c96544-39b8-40d8-b46e-c0fab5f0cee1"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "Environment Agency (pointOfContact)",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "responsible-party",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "e56330c8-ed64-42db-8be0-8df8301d3d70"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "{\"type\":\"Polygon\",\"coordinates\":[[[2.072, 49.943],[2.072, 55.816], [-6.236, 55.816], [-6.236, 49.943], [2.072, 49.943]]]}",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "spatial",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "f4e06f02-e111-4559-8150-7038f775bae5"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "spatial-data-service-type",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "ec8c4841-90d6-4767-bc34-2a89541da0f8"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "http://www.opengis.net/def/crs/EPSG/0/27700",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "spatial-reference-system",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "b26c1425-1cdf-488e-9adf-3c1d46737978"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "[]",
+                "revision_timestamp": "2016-09-19T11:54:46.715460",
+                "state": "active",
+                "key": "temporal_coverage-from",
+                "revision_id": "9ebd780f-07e5-4d99-afb3-1da4dfea934d",
+                "id": "101665b1-358b-4966-a134-2071ddecae88"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "[]",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "temporal_coverage-to",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "cda07c1c-ad02-40d0-8b18-d2a7eb564383"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "Environment",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "theme-primary",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "cd9874ad-5c92-40f6-8f9e-b50df5d7f928"
+            },
+            {
+                "package_id": "cf494c44-05cd-4060-a029-35937970c9c6",
+                "value": "[]",
+                "revision_timestamp": "2015-10-06T11:21:26.185852",
+                "state": "active",
+                "key": "theme-secondary",
+                "revision_id": "1c2c1a83-9260-4c60-b5a7-4c191759d805",
+                "id": "8352b86d-5c61-4e3a-bdc2-4ea6284fba81"
+            }
+        ],
+        "license_url": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "individual_resources": [
+            {
+                "hash": "",
+                "description": "Resource locator",
+                "created": "2016-04-05T09:42:51.431945",
+                "url": "http://environment.data.gov.uk/ds/catalogue/#/86ec354f-d465-11e4-b09e-f0def148f590",
+                "format": "",
+                "qa": "{'updated': '2018-06-03T17:12:50.426714', 'openness_score': 0, 'archival_timestamp': '2018-06-02T12:42:24.675703', 'format': u'HTML', 'created': '2016-04-05T09:48:43.146441', 'resource_timestamp': None, 'openness_score_reason': u'Content of file appeared to be format \"HTML\" which receives openness score: 0.'}",
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "resource_locator_function": "",
+                "archiver": "{'is_broken_printable': 'Downloaded OK', 'updated': '2018-06-02T12:42:24.675703', 'cache_filepath': u'/media/hulk/ckan_resource_cache/6e/6e51d757-b25f-428b-8e56-007eb90fb995/resource', 'last_success': '2018-06-02T12:42:24.675703', 'size': u'1199', 'is_broken': False, 'failure_count': 0, 'etag': None, 'status': 'Archived successfully', 'url_redirected_to': None, 'hash': u'1cba2ddcb4bea27966683d59b81e73dba213db45', 'status_id': 0, 'reason': u'', 'last_modified': None, 'resource_timestamp': '2016-04-05T08:42:51.352882', 'mimetype': u'text/html', 'cache_url': u'http://data.gov.uk/data/resource_cache/6e/6e51d757-b25f-428b-8e56-007eb90fb995/resource', 'created': '2016-04-05T09:45:57.448637', 'first_failure': None}",
+                "resource_locator_protocol": "http",
+                "position": 0,
+                "revision_id": "eb0a3dee-1e9e-4e91-9d92-3570428f19cc",
+                "id": "6e51d757-b25f-428b-8e56-007eb90fb995",
+                "name": ""
+            },
+            {
+                "hash": "",
+                "description": "Resource locator",
+                "created": "2016-04-05T09:42:51.431960",
+                "url": "http://environment.data.gov.uk/ds/wms?SERVICE=WMS&INTERFACE=ENVIRONMENT--86ec354f-d465-11e4-b09e-f0def148f590&request=GetCapabilities",
+                "format": "WMS",
+                "qa": "{'updated': '2018-06-03T17:12:50.447187', 'openness_score': 3, 'archival_timestamp': '2018-06-02T12:42:25.428508', 'format': u'WMS', 'created': '2016-04-05T09:48:43.155612', 'resource_timestamp': None, 'openness_score_reason': u'Content of file appeared to be format \"WMS\" which receives openness score: 3.'}",
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "resource_locator_function": "",
+                "archiver": "{'is_broken_printable': 'Downloaded OK', 'updated': '2018-06-02T12:42:25.428508', 'cache_filepath': u'/media/hulk/ckan_resource_cache/92/92d14e57-2711-4c2b-91f9-9f007181fc64/wms', 'last_success': '2018-06-02T12:42:25.428508', 'size': u'12207', 'is_broken': False, 'failure_count': 0, 'etag': None, 'status': 'Archived successfully', 'url_redirected_to': None, 'hash': u'a3da1b368d866282e55cd3e9303f5ea848a8e388', 'status_id': 0, 'reason': u'', 'last_modified': None, 'resource_timestamp': '2016-05-24T14:47:42.095379', 'mimetype': u'text/xml', 'cache_url': u'http://data.gov.uk/data/resource_cache/92/92d14e57-2711-4c2b-91f9-9f007181fc64/wms', 'created': '2016-04-05T09:46:01.211493', 'first_failure': None}",
+                "resource_locator_protocol": "OGC:WMS",
+                "position": 1,
+                "revision_id": "85d619b2-0ae0-4c8a-b5d0-d7cfce043a6b",
+                "id": "92d14e57-2711-4c2b-91f9-9f007181fc64",
+                "name": ""
+            },
+            {
+                "hash": "",
+                "description": "Resource locator",
+                "created": "2016-04-05T09:42:51.431966",
+                "url": "http://environment.data.gov.uk/ds/wfs?SERVICE=WFS&INTERFACE=ENVIRONMENTWFS--86ec354f-d465-11e4-b09e-f0def148f590&request=GetCapabilities",
+                "format": "WMS",
+                "qa": "{'updated': '2018-06-03T17:12:50.465328', 'openness_score': 3, 'archival_timestamp': '2018-06-02T12:42:26.064243', 'format': u'WFS', 'created': '2016-04-05T09:48:43.164470', 'resource_timestamp': None, 'openness_score_reason': u'Content of file appeared to be format \"WFS\" which receives openness score: 3.'}",
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "resource_locator_function": "",
+                "archiver": "{'is_broken_printable': 'Downloaded OK', 'updated': '2018-06-02T12:42:26.064243', 'cache_filepath': u'/media/hulk/ckan_resource_cache/f0/f0ee9ed6-3f32-476c-9d32-5af7419216df/wfs', 'last_success': '2018-06-02T12:42:26.064243', 'size': u'16801', 'is_broken': False, 'failure_count': 0, 'etag': None, 'status': 'Archived successfully', 'url_redirected_to': None, 'hash': u'fb2f9f1e7c72c6cac0df2af3e0e48836d38dda23', 'status_id': 0, 'reason': u'', 'last_modified': None, 'resource_timestamp': '2016-05-24T14:47:42.095379', 'mimetype': u'text/xml', 'cache_url': u'http://data.gov.uk/data/resource_cache/f0/f0ee9ed6-3f32-476c-9d32-5af7419216df/wfs', 'created': '2016-04-05T09:46:01.960730', 'first_failure': None}",
+                "resource_locator_protocol": "OGC:WFS",
+                "position": 2,
+                "revision_id": "85d619b2-0ae0-4c8a-b5d0-d7cfce043a6b",
+                "id": "f0ee9ed6-3f32-476c-9d32-5af7419216df",
+                "name": ""
+            }
+        ],
+        "title": "Flood Map for Planning (Rivers and Sea)- Flood Zone 2",
+        "revision_id": "05b97eb7-a990-40e2-b9a8-b85c34dd27dc",
+        "theme-primary": "Environment"
+    }
+}

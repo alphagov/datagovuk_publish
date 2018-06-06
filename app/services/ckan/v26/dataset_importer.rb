@@ -1,11 +1,12 @@
 module CKAN
   module V26
-    class DatasetMapper
+    class DatasetImporter
       def call(dataset, package)
         dataset.title = "title"
         dataset.summary = "summary"
         dataset.last_updated_at = package["metadata_modified"]
         dataset.organisation = find_organisation(package)
+        dataset.save
       end
 
     private

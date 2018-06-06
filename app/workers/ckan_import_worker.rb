@@ -1,18 +1,24 @@
+require 'ckan/v26/client'
+
 class CKANImportWorker
   include Sidekiq::Worker
 
   def perform(package_id)
     package = client.show_dataset(id: package_id)
+    package["extras"] = hashify(package["extras"])
     dataset = Dataset.find_or_initialize_by(uuid: package_id)
 
-    update_dataset_attributes(dataset, package)
+    CKAN::V26::DatasetImporter.new.call(dataset, package)
+    CKAN::V26::InspireImporter.new.call(dataset, package)
+    CKAN::V26::LinkImporter.new.call(dataset, package)
   end
 
 private
 
-  def update_dataset_attributes(dataset, package)
-    CKAN::V26::DatasetMapper.new.call(dataset, package)
-    dataset.save
+  def hashify(array = [])
+    array.inject({}) do |result, hash|
+      result[hash["key"]] = hash["value"]; result
+    end
   end
 
   def client

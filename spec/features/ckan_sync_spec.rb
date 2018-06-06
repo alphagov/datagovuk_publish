@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe 'ckan sync' do
   subject { CKANSyncWorker.new }
+
   let(:search_dataset_v26_p1) { JSON.parse(file_fixture("search_dataset_v26_p1.json").read) }
   let(:search_dataset_v26_p2) { JSON.parse(file_fixture("search_dataset_v26_p2.json").read) }
   let(:show_dataset_v26_create) { JSON.parse(file_fixture("show_dataset_v26_create.json").read) }

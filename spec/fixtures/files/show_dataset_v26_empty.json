@@ -1,0 +1,186 @@
+{
+    "help": "http://data.gov.uk/api/3/action/help_show?name=dataset_show",
+    "success": true,
+    "result": {
+        "license_title": "",
+        "maintainer": null,
+        "groups": [],
+        "relationships_as_object": [],
+        "unpublished": "true",
+        "private": false,
+        "maintainer_email": null,
+        "num_tags": 0,
+        "foi-email": "",
+        "id": "8fda2162-dcd6-4fb3-9835-c85c046ff229",
+        "metadata_created": "2013-11-05T13:39:21.366420",
+        "metadata_modified": "2016-02-10T17:01:59.021672",
+        "author": null,
+        "author_email": null,
+        "state": "active",
+        "version": null,
+        "license_id": "",
+        "foi-web": "",
+        "resources": [],
+        "num_resources": 0,
+        "contact-email": "",
+        "tags": [],
+        "foi-name": "",
+        "release-notes": "",
+        "publish-date": "",
+        "contact-phone": "",
+        "creator_user_id": "5afb8d0f-88d9-40e9-a554-4c2637063259",
+        "relationships_as_subject": [],
+        "revision_timestamp": "2016-02-10T17:01:59.020737",
+        "organization": {
+            "description": "What we do\r\n\r\nWe are the UK\u2019s tax authority. We are responsible for making sure that the money is available to fund the UK\u2019s public services and for helping families and individuals with targeted financial support.\r\n\r\nHMRC is a non-ministerial department, supported by 2 agencies and public bodies.\r\n\r\nhttps://www.gov.uk/government/organisations/hm-revenue-customs\r\n",
+            "created": "2012-06-27T14:48:42.354852",
+            "title": "Her Majesty's Revenue and Customs",
+            "name": "her-majestys-revenue-and-customs",
+            "revision_timestamp": "2013-11-05T07:27:11.456080",
+            "is_organization": true,
+            "state": "active",
+            "image_url": "",
+            "revision_id": "0fc96cb8-c19c-4bbf-890b-34915133f620",
+            "type": "organization",
+            "id": "83cbb68a-814b-4fb5-a7dd-c9ec6c5fe455",
+            "approval_status": "pending"
+        },
+        "contact-name": "",
+        "name": "aggregates-levy",
+        "isopen": false,
+        "url": null,
+        "type": "dataset",
+        "notes": "Administrative datasets on the aggregates levy",
+        "owner_org": "83cbb68a-814b-4fb5-a7dd-c9ec6c5fe455",
+        "tracking_summary": {
+            "total": 0,
+            "recent": 0
+        },
+        "theme-secondary": [
+            "Government"
+        ],
+        "extras": [
+            {
+                "package_id": "8fda2162-dcd6-4fb3-9835-c85c046ff229",
+                "value": "",
+                "revision_timestamp": "2013-11-05T13:39:21.366420",
+                "state": "active",
+                "key": "contact-email",
+                "revision_id": "414370fc-5fec-47bf-b129-158215a6e3db",
+                "id": "67002601-ee0c-4078-89d5-37ae41617f2c"
+            },
+            {
+                "package_id": "8fda2162-dcd6-4fb3-9835-c85c046ff229",
+                "value": "",
+                "revision_timestamp": "2013-11-05T13:39:21.366420",
+                "state": "active",
+                "key": "contact-name",
+                "revision_id": "414370fc-5fec-47bf-b129-158215a6e3db",
+                "id": "7a25aabe-bfbf-47a1-8953-fa544e3a5f6a"
+            },
+            {
+                "package_id": "8fda2162-dcd6-4fb3-9835-c85c046ff229",
+                "value": "",
+                "revision_timestamp": "2013-11-05T13:39:21.366420",
+                "state": "active",
+                "key": "contact-phone",
+                "revision_id": "414370fc-5fec-47bf-b129-158215a6e3db",
+                "id": "910d1141-f3e1-4b97-beb6-223e3b0479e6"
+            },
+            {
+                "package_id": "8fda2162-dcd6-4fb3-9835-c85c046ff229",
+                "value": "",
+                "revision_timestamp": "2013-11-05T13:39:21.366420",
+                "state": "active",
+                "key": "foi-email",
+                "revision_id": "414370fc-5fec-47bf-b129-158215a6e3db",
+                "id": "75ca3d1c-a0b4-4877-8447-4e8d9d783875"
+            },
+            {
+                "package_id": "8fda2162-dcd6-4fb3-9835-c85c046ff229",
+                "value": "",
+                "revision_timestamp": "2013-11-05T13:39:21.366420",
+                "state": "active",
+                "key": "foi-name",
+                "revision_id": "414370fc-5fec-47bf-b129-158215a6e3db",
+                "id": "6d485572-240f-4193-8cda-7d382fa5ac7e"
+            },
+            {
+                "package_id": "8fda2162-dcd6-4fb3-9835-c85c046ff229",
+                "value": "",
+                "revision_timestamp": "2013-11-05T13:39:21.366420",
+                "state": "active",
+                "key": "foi-phone",
+                "revision_id": "414370fc-5fec-47bf-b129-158215a6e3db",
+                "id": "a81433ac-ce2c-4024-a622-876ebb177a39"
+            },
+            {
+                "package_id": "8fda2162-dcd6-4fb3-9835-c85c046ff229",
+                "value": "",
+                "revision_timestamp": "2013-11-05T13:39:21.366420",
+                "state": "active",
+                "key": "foi-web",
+                "revision_id": "414370fc-5fec-47bf-b129-158215a6e3db",
+                "id": "e2b28d1c-5259-4fba-8950-3b54e871b484"
+            },
+            {
+                "package_id": "8fda2162-dcd6-4fb3-9835-c85c046ff229",
+                "value": "unpublished",
+                "revision_timestamp": "2016-02-10T17:01:59.020737",
+                "state": "active",
+                "key": "licence",
+                "revision_id": "a17a7e01-8eda-4985-af2d-2885b8f9ad0a",
+                "id": "be9f939e-ca93-427b-b101-10734ef82b12"
+            },
+            {
+                "package_id": "8fda2162-dcd6-4fb3-9835-c85c046ff229",
+                "value": "",
+                "revision_timestamp": "2013-11-05T13:39:21.366420",
+                "state": "active",
+                "key": "publish-date",
+                "revision_id": "414370fc-5fec-47bf-b129-158215a6e3db",
+                "id": "79ef3478-43c1-4ed5-8292-675e2c8c6e5a"
+            },
+            {
+                "package_id": "8fda2162-dcd6-4fb3-9835-c85c046ff229",
+                "value": "",
+                "revision_timestamp": "2013-11-05T13:39:21.366420",
+                "state": "active",
+                "key": "release-notes",
+                "revision_id": "414370fc-5fec-47bf-b129-158215a6e3db",
+                "id": "e3a64505-3149-414b-b77b-285ed4c4a713"
+            },
+            {
+                "package_id": "8fda2162-dcd6-4fb3-9835-c85c046ff229",
+                "value": "Business & Economy",
+                "revision_timestamp": "2015-03-16T18:10:08.802815",
+                "state": "active",
+                "key": "theme-primary",
+                "revision_id": "fc2b6630-84f8-4c88-8ac7-0ca275b2bc97",
+                "id": "513acd7d-ed98-43f4-8695-75f8ab657297"
+            },
+            {
+                "package_id": "8fda2162-dcd6-4fb3-9835-c85c046ff229",
+                "value": "[\"Government\"]",
+                "revision_timestamp": "2015-01-06T10:13:55.019177",
+                "state": "active",
+                "key": "theme-secondary",
+                "revision_id": "a5807517-bf55-4dd9-92ce-59d29608d1d2",
+                "id": "a7b3ee4d-9aa9-4d75-a344-6fbf1bb14700"
+            },
+            {
+                "package_id": "8fda2162-dcd6-4fb3-9835-c85c046ff229",
+                "value": "true",
+                "revision_timestamp": "2013-11-05T13:39:21.366420",
+                "state": "active",
+                "key": "unpublished",
+                "revision_id": "414370fc-5fec-47bf-b129-158215a6e3db",
+                "id": "9e78a419-78d8-4d4a-82d3-bbc48097389f"
+            }
+        ],
+        "title": "Aggregates levy",
+        "revision_id": "a17a7e01-8eda-4985-af2d-2885b8f9ad0a",
+        "foi-phone": "",
+        "theme-primary": "Business & Economy"
+    }
+}
