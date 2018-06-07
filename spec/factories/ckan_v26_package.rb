@@ -3,8 +3,8 @@ FactoryGirl.define do
     name "Name"
     title "Title"
     notes "Notes"
-    metadata_created Time.now.iso8601
-    metadata_updated Time.now.iso8601
+    metadata_created "2015-10-06T11:21:26.185852"
+    metadata_updated "2018-06-05T12:40:12.239474"
     license_id "uk-ogl"
     geographic_coverage %w[england scotland wales]
     owner_org SecureRandom.uuid
