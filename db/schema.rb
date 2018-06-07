@@ -49,10 +49,8 @@ ActiveRecord::Schema.define(version: 2018042510281100) do
     t.string "location3"
     t.text "frequency"
     t.integer "creator_id"
-    t.integer "owner_id"
     t.datetime "published_date"
     t.boolean "harvested"
-    t.text "legacy_metadata"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "uuid"
@@ -110,21 +108,16 @@ ActiveRecord::Schema.define(version: 2018042510281100) do
     t.string "name"
     t.text "url"
     t.string "format"
-    t.integer "size"
     t.integer "dataset_id"
     t.date "start_date"
     t.date "end_date"
     t.integer "quarter"
     t.boolean "broken"
-    t.datetime "last_check"
-    t.boolean "documentation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "uuid"
     t.datetime "last_modified"
     t.string "type"
-    t.string "short_id"
-    t.index ["short_id"], name: "index_links_on_short_id", unique: true
     t.index ["uuid"], name: "index_links_on_uuid"
   end
 

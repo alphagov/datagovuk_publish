@@ -19,6 +19,7 @@ class Dataset < ApplicationRecord
 
   has_many :datafiles, dependent: :destroy
   has_many :docs, dependent: :destroy
+  has_many :links, dependent: :destroy
   has_one :inspire_dataset, dependent: :destroy
 
   validate :sluggable_title
@@ -31,11 +32,6 @@ class Dataset < ApplicationRecord
   scope :published, -> { where(status: "published") }
   scope :with_datafiles, -> { joins(:datafiles) }
   scope :with_no_datafiles, -> { left_outer_joins(:datafiles).where(links: { id: nil }) }
-  scope :draft, -> { where(status: "draft") }
-
-  def links
-    datafiles + docs
-  end
 
   def publish!
     if publishable?
@@ -88,14 +84,6 @@ class Dataset < ApplicationRecord
             docs: {},
             inspire_dataset: {}
           })
-  end
-
-  def owner
-    User.find(id: self.owner_id)
-  end
-
-  def owner=(user)
-    self.owner_id = user.id
   end
 
   def creator
@@ -153,10 +141,6 @@ class Dataset < ApplicationRecord
 
   def never?
     frequency == 'never'
-  end
-
-  def timeseries?
-    %w[annually quarterly monthly].include?(frequency)
   end
 
   def public_updated_at
