@@ -31,9 +31,14 @@ class Dataset < ApplicationRecord
   scope :with_datafiles, -> { joins(:datafiles) }
   scope :with_no_datafiles, -> { left_outer_joins(:datafiles).where(links: { id: nil }) }
 
-  def publish!
-    self.published!
-    PublishingWorker.perform_async(self.id)
+  def publish
+    published!
+    __elasticsearch__.index_document
+  end
+
+  def unpublish
+    return unless published?
+    __elasticsearch__.delete_document
   end
 
   def as_indexed_json(_options = {})

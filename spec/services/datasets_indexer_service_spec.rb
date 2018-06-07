@@ -137,6 +137,9 @@ describe DatasetsIndexerService do
 
   it "uses a lowercase normalizer to tokenize the datafile format" do
     expected_settings = {
+      blocks: {
+        read_only: false
+      },
       analysis: {
         normalizer: {
           lowercase_normalizer: {
