@@ -46,7 +46,7 @@ describe Dataset do
 
     dataset.valid?
 
-    expect(dataset.errors[:licence]).to include("Please select a licence for your dataset")
+    expect(dataset.errors[:licence_code]).to include("Please select a licence for your dataset")
     expect(dataset.errors[:frequency]).to include("Please indicate how often this dataset is updated")
   end
 
@@ -56,7 +56,7 @@ describe Dataset do
       summary: "Summary",
       organisation_id: @org.id,
       frequency: "never",
-      licence: "uk-ogl"
+      licence_code: "uk-ogl"
     )
 
     d.save
@@ -72,7 +72,7 @@ describe Dataset do
       summary: "Summary",
       organisation_id: @org.id,
       frequency: "never",
-      licence: "uk-ogl"
+      licence_code: "uk-ogl"
     )
 
     d.save

@@ -6,7 +6,7 @@ FactoryGirl.define do
     legacy_name "ye-olde-slug"
     location1 "Westeros"
     frequency "never"
-    licence "uk-ogl"
+    licence_code "uk-ogl"
     topic
     last_updated_at Time.now
 

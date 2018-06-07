@@ -40,7 +40,7 @@ describe "dataset creation" do
       choose option: "uk-ogl"
       click_button "Save and continue"
 
-      expect(Dataset.last.licence).to eq("uk-ogl")
+      expect(Dataset.last.licence_code).to eq("uk-ogl")
 
       # Page 4: Location
       fill_in "dataset[location1]", with: "Aviation House"
@@ -241,15 +241,6 @@ describe "valid options for topic, licence and area" do
 
     it "skips licence" do
       click_link "Skip this step"
-      expect(page).to have_content("Choose a geographical area")
-    end
-
-    it "selected other licence but didn't specify" do
-      choose option: "other"
-      click_button "Save and continue"
-      expect(page).to have_content("Please type the name of your licence", count: 2)
-      fill_in "dataset[licence_other]", with: "MIT"
-      click_button "Save and continue"
       expect(page).to have_content("Choose a geographical area")
     end
   end

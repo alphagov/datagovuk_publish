@@ -26,8 +26,7 @@ class Dataset < ApplicationRecord
   validate :sluggable_title
   validates :summary, presence: true
   validates :frequency, presence: true, if: :published?
-  validates :licence, presence: true, if: :published?
-  validates :licence_other, presence: true, if: lambda { licence == 'other' }
+  validates :licence_code, presence: { message: 'Please select a licence for your dataset' }, if: :published?
   validates :topic, presence: { message: 'Please choose a topic' }, on: :dataset_form
 
   validate  :is_readonly?, on: :update

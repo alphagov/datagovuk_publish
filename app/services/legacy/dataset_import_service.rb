@@ -43,8 +43,6 @@ class Legacy::DatasetImportService
       foi_phone: legacy_dataset["foi-phone"],
       foi_web: legacy_dataset["foi-web"],
       location1: build_location,
-      licence: build_licence,
-      licence_other: build_licence_other,
       licence_code: build_licence_code,
       licence_title: licence_info.title,
       licence_url: licence_info.url,
@@ -163,17 +161,6 @@ class Legacy::DatasetImportService
   def build_summary(notes)
     return notes if notes && notes != ""
     "No description provided"
-  end
-
-  def build_licence
-    return 'no-licence' if licence.blank?
-    return 'other' if licence != "uk-ogl"
-    licence
-  end
-
-  def build_licence_other
-    return nil if licence.blank?
-    return licence if licence != "uk-ogl"
   end
 
   def build_licence_code

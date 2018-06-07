@@ -44,8 +44,6 @@ ActiveRecord::Schema.define(version: 2018042510281100) do
     t.text "description"
     t.string "dataset_type"
     t.integer "organisation_id"
-    t.string "licence"
-    t.text "licence_other"
     t.string "location1"
     t.string "location2"
     t.string "location3"
