@@ -5,6 +5,7 @@ module CKAN
         remove_missing_links(dataset, package)
 
         package.get("resources").each do |resource|
+          resource = CKAN::V26::Resource.new(resource)
           create_or_update_link(dataset, resource)
         end
       end
@@ -12,9 +13,10 @@ module CKAN
     private
 
       def create_or_update_link(dataset, resource)
-        link = Link.find_or_initialize_by(uuid: resource["id"])
-        link.name = "name"
-        link.dataset_id = dataset.id
+        link = Link.find_or_initialize_by(uuid: resource.get("id"))
+        attributes = LinkMapper.new.call(resource, dataset)
+
+        link.assign_attributes(attributes)
         link.save
       end
 
