@@ -107,16 +107,7 @@ describe 'editing datasets' do
       expect(page).to have_selector("input[type=submit][value='Publish changes']")
     end
 
-    it "should not be possible to delete a published dataset" do
-      visit dataset_url(published_dataset.uuid, published_dataset.name)
-      expect(page).to_not have_selector(:css, 'a[href="/datasets/test-title-published/confirm_delete"]')
-      expect(page).to_not have_content('Delete this dataset')
-
-      visit confirm_delete_dataset_path(published_dataset.uuid, published_dataset.name)
-      expect(page).to have_content "Published datasets cannot be deleted"
-    end
-
-    it "should be able to publish a complete dataset" do
+    it "should be able to publish a draft dataset" do
       visit dataset_url(unpublished_dataset.uuid, unpublished_dataset.name)
       expect(unpublished_dataset).not_to be_published
 
@@ -136,17 +127,15 @@ describe 'editing datasets' do
       click_button 'Publish'
       expect(page).to have_content 'Your dataset has been published'
     end
-  end
 
-  context "editing draft datasets from the show page" do
-    it "is possible to delete a draft dataset" do
-      visit dataset_url(unpublished_dataset.uuid, unpublished_dataset.name)
+    it "is possible to delete a dataset" do
+      visit dataset_url(published_dataset.uuid, published_dataset.name)
       click_link 'Delete this dataset'
-      expect(current_path).to eq confirm_delete_dataset_path(unpublished_dataset.uuid, unpublished_dataset.name)
+      expect(current_path).to eq confirm_delete_dataset_path(published_dataset.uuid, published_dataset.name)
       click_link "Yes, delete this dataset"
       expect(current_path).to eq '/manage'
-      expect(page).to have_content "The dataset '#{unpublished_dataset.title}' has been deleted"
-      expect(page).to_not have_selector(:css, 'a[href="/datasets/test-title-unpublished/edit"]')
+      expect(page).to have_content "The dataset '#{published_dataset.title}' has been deleted"
+      expect(page).to_not have_selector(:css, 'a[href="/datasets/test-title-published/edit"]')
     end
   end
 end

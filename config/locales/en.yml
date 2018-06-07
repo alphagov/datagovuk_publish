@@ -16,7 +16,6 @@
 en:
   dataset:
     published: "Your dataset has been published"
-    updated: "Your dataset has been edited"
     licence_types:
       uk-ogl: Open Government Licence
       odc-by: Open Data Commons Attribution Licence

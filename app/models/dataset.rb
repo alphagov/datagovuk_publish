@@ -10,9 +10,7 @@ class Dataset < ApplicationRecord
   document_type "dataset"
 
   after_initialize :set_uuid
-
   before_save :set_name
-  before_destroy :prevent_if_published
 
   belongs_to :organisation
   belongs_to :topic, optional: true
@@ -34,13 +32,8 @@ class Dataset < ApplicationRecord
   scope :with_no_datafiles, -> { left_outer_joins(:datafiles).where(links: { id: nil }) }
 
   def publish!
-    if publishable?
-      transaction do
-        set_timestamps
-        self.published!
-        send_to_search_index
-      end
-    end
+    self.published!
+    PublishingWorker.perform_async(self.id)
   end
 
   # What we actually want to index in Elastic, rather than the whole
@@ -94,17 +87,6 @@ class Dataset < ApplicationRecord
     self.creator_id = user.id
   end
 
-  def publishable?
-    if self.published?
-      self.valid?
-    else
-      self.status = "published"
-      result = self.valid?
-      self.status = "draft"
-      result
-    end
-  end
-
   def set_uuid
     if self.uuid.blank?
       self.uuid = SecureRandom.uuid
@@ -113,10 +95,6 @@ class Dataset < ApplicationRecord
 
   def set_name
     self.name = title.parameterize
-  end
-
-  def prevent_if_published
-    raise 'published datasets cannot be deleted' if published?
   end
 
   def daily?
@@ -153,27 +131,10 @@ class Dataset < ApplicationRecord
 
 private
 
-  def send_to_search_index
-    PublishingWorker.perform_async(self.id)
-  end
-
   def sluggable_title
     if title.to_s.parameterize.blank?
       errors.add(:title, 'Please enter a valid title')
     end
-  end
-
-  def set_timestamps
-    set_first_publication_date
-    set_last_updated_date
-  end
-
-  def set_first_publication_date
-    self.published_date ||= Time.now
-  end
-
-  def set_last_updated_date
-    self.last_updated_at = Time.now
   end
 
   def most_recently_updated_datafile_timestamp
