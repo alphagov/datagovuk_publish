@@ -10,8 +10,7 @@ describe 'datafiles' do
                        status: "published",
                        datafiles: [FactoryGirl.create(:datafile)],
                        docs: [FactoryGirl.create(:doc)],
-                       creator: user,
-                       owner: user)
+                       creator: user)
   end
 
   before(:each) do

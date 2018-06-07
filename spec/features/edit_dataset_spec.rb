@@ -12,7 +12,6 @@ describe 'editing datasets' do
                        datafiles: [FactoryGirl.create(:datafile)],
                        docs: [FactoryGirl.create(:doc)],
                        creator: user,
-                       owner: user,
                        topic: topic)
   end
 
@@ -20,8 +19,7 @@ describe 'editing datasets' do
     FactoryGirl.create(:dataset,
                        organisation: land,
                        status: "draft",
-                       creator: user,
-                       owner: user)
+                       creator: user)
   end
 
   before(:each) do
@@ -130,8 +128,7 @@ describe 'editing datasets' do
 
     it "can publish an incomplete dataset" do
       unfinished_dataset = FactoryGirl.create(:dataset,
-                                               creator: user,
-                                               owner: user)
+                                               creator: user)
 
       visit dataset_url(unfinished_dataset.uuid, unfinished_dataset.name)
       expect(unfinished_dataset).not_to be_published

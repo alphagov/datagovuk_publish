@@ -9,8 +9,7 @@ describe "Harvested datasets" do
                        organisation: land,
                        harvested: true,
                        datafiles: [FactoryGirl.create(:datafile)],
-                       creator: user,
-                       owner: user)
+                       creator: user)
   end
 
   it "should be readonly (no add/edit buttons appear)" do
