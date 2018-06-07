@@ -8,9 +8,11 @@ class CKANImportWorker
     package = CKAN::V26::Package.new(response)
     dataset = Dataset.find_or_initialize_by(uuid: package_id)
 
-    CKAN::V26::DatasetImporter.new.call(dataset, package)
-    CKAN::V26::InspireImporter.new.call(dataset, package)
-    CKAN::V26::LinkImporter.new.call(dataset, package)
+    Dataset.transaction do
+      CKAN::V26::DatasetUpdater.new.call(dataset, package)
+      CKAN::V26::InspireUpdater.new.call(dataset, package)
+      CKAN::V26::LinkUpdater.new.call(dataset, package)
+    end
   end
 
 private

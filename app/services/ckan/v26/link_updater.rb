@@ -1,6 +1,6 @@
 module CKAN
   module V26
-    class LinkImporter
+    class LinkUpdater
       def call(dataset, package)
         remove_missing_links(dataset, package)
 

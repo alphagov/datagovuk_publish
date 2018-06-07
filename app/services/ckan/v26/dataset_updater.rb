@@ -1,6 +1,6 @@
 module CKAN
   module V26
-    class DatasetImporter
+    class DatasetUpdater
       def call(dataset, package)
         attributes = DatasetMapper.new.call(package)
         dataset.assign_attributes(attributes)

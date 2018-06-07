@@ -1,6 +1,6 @@
 module CKAN
   module V26
-    class InspireImporter
+    class InspireUpdater
       def call(dataset, package)
         if inspire?(package)
           create_or_update_inspire_dataset(dataset, package)
