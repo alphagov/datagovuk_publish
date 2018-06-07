@@ -10,13 +10,13 @@ private
 
   def create_new_datasets(packages)
     packages.each do |package|
-      CKANImportWorker.perform_async(package["id"])
+      CKANImportWorker.perform_async(package.get("id"))
     end
   end
 
   def update_existing_datasets(packages)
     packages.each do |package|
-      CKANImportWorker.perform_async(package["id"])
+      CKANImportWorker.perform_async(package.get("id"))
     end
   end
 

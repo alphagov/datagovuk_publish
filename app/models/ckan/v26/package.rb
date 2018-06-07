@@ -14,6 +14,10 @@ module CKAN
         @extras[key]
       end
 
+      def resources
+        @package["resources"].map { |resource| Resource.new(resource) }
+      end
+
     private
 
       def hashify(array)

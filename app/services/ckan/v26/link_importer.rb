@@ -4,8 +4,7 @@ module CKAN
       def call(dataset, package)
         remove_missing_links(dataset, package)
 
-        package.get("resources").each do |resource|
-          resource = CKAN::V26::Resource.new(resource)
+        package.resources.each do |resource|
           create_or_update_link(dataset, resource)
         end
       end
@@ -21,8 +20,8 @@ module CKAN
       end
 
       def remove_missing_links(dataset, package)
-        resource_ids = package.get("resources")
-          .map { |resource| resource["id"] }
+        resource_ids = package.resources
+          .map { |resource| resource.get("id") }
 
         Link.where(dataset_id: dataset.id)
             .where.not(uuid: resource_ids)

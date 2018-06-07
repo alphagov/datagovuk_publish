@@ -4,8 +4,8 @@ class CKANImportWorker
   include Sidekiq::Worker
 
   def perform(package_id)
-    package = client.show_dataset(id: package_id)
-    package = CKAN::V26::Package.new(package)
+    response = client.show_dataset(id: package_id)
+    package = CKAN::V26::Package.new(response)
     dataset = Dataset.find_or_initialize_by(uuid: package_id)
 
     CKAN::V26::DatasetImporter.new.call(dataset, package)
