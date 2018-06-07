@@ -234,14 +234,9 @@ describe "valid options for topic, licence and area" do
       expect(page).to have_content("Choose a geographical area")
     end
 
-    it "missing a licence, continue anyway" do
+    it "if missing, throw error" do
       click_button "Save and continue"
-      expect(page).to have_content("Choose a geographical area")
-    end
-
-    it "skips licence" do
-      click_link "Skip this step"
-      expect(page).to have_content("Choose a geographical area")
+      expect(page).to have_content("Please select a licence for your dataset")
     end
   end
 
