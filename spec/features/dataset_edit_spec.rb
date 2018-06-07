@@ -165,6 +165,6 @@ describe 'editing datasets' do
     click_link "Yes, delete this dataset"
     expect(current_path).to eq '/manage'
     expect(page).to have_content "The dataset '#{dataset.title}' has been deleted"
-    expect(page).to_not have_selector(:css, 'a[href="/datasets/test-title-published/edit"]')
+    expect(page).to_not have_selector(:xpath, "//a[@href='#{dataset_path(dataset.uuid, dataset.name)}']")
   end
 end
