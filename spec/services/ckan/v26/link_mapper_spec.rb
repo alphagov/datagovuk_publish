@@ -13,13 +13,13 @@ describe CKAN::V26::LinkMapper do
       expect(attributes[:name]).to eq resource.get("name")
       expect(attributes[:created_at]).to eq resource.get("created")
       expect(attributes[:updated_at]).to eq resource.get("last_modified_at")
-      expect(attributes[:type]).to eq "datafile"
+      expect(attributes[:type]).to eq "Datafile"
     end
 
     it 'correctly distinguishes between datafiles and docs' do
       resource = build :ckan_v26_resource, resource_type: "documentation"
       attributes = subject.call(resource, dataset)
-      expect(attributes[:type]).to eq "doc"
+      expect(attributes[:type]).to eq "Doc"
     end
 
     it 'uses the resource description if there is not name' do
