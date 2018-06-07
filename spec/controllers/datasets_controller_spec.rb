@@ -8,17 +8,6 @@ describe DatasetsController, type: :controller do
     sign_in_as(user)
   end
 
-  it "prevents harvested datasets from being updated through the user interface" do
-    dataset = FactoryGirl.create(:dataset,
-                                 harvested: true)
-
-    patch :update, params: { uuid: dataset.uuid, name: dataset.name, dataset: { title: "New title" } }
-
-    dataset.valid?
-
-    expect(dataset.errors[:base]).to include("Harvested datasets cannot be modified.")
-  end
-
   it "redirects to slugged URL" do
     dataset = FactoryGirl.create(:dataset,
                                  name: "legit-name",
