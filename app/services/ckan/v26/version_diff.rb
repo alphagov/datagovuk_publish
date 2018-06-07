@@ -24,11 +24,11 @@ module CKAN
       end
 
       def diff_update(packages, datasets)
-        datasets = Hash[datasets.pluck(:uuid, :last_updated_at)]
+        datasets = Hash[datasets.pluck(:uuid, :updated_at)]
 
         packages.to_a.select do |package|
-          last_updated_at = datasets[package["id"]]
-          last_updated_at && package_is_changed?(package, last_updated_at)
+          updated_at = datasets[package["id"]]
+          updated_at && package_is_changed?(package, updated_at)
         end
       end
 
@@ -37,8 +37,8 @@ module CKAN
         datasets.where.not(uuid: package_uuids)
       end
 
-      def package_is_changed?(package, last_updated_at)
-        last_updated_at.iso8601 < package["metadata_modified"]
+      def package_is_changed?(package, updated_at)
+        updated_at.iso8601 < package["metadata_modified"]
       end
 
       def client

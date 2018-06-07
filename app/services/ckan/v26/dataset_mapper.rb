@@ -8,7 +8,7 @@ module CKAN
           legacy_name: package.get("name"),
           organisation_id: lookup_organisation(package),
           created_at: package.get("metadata_created"),
-          last_updated_at: package.get("metadata_modified"),
+          updated_at: package.get("metadata_modified"),
           harvested: harvested?(package),
           contact_name: package.get("contact-name"),
           contact_email: package.get("contact-email"),

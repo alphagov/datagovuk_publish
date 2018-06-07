@@ -18,13 +18,13 @@ describe 'ckan sync' do
   let!(:dataset_to_update) do
     create :dataset, legacy_name: "dataset_to_update",
                      uuid: package_for_update["id"],
-                     last_updated_at: 5.years.ago
+                     updated_at: 5.years.ago
   end
 
   let!(:dataset_not_to_update) do
     create :dataset, legacy_name: "dataset_not_to_update",
                      uuid: package_not_for_update["id"],
-                     last_updated_at: Time.now
+                     updated_at: Time.now
   end
 
   before do
@@ -55,13 +55,13 @@ describe 'ckan sync' do
 
   it 'updates existing datasets when they change in ckan' do
     expect { subject.perform }
-      .to change { dataset_to_update.reload.last_updated_at }
+      .to change { dataset_to_update.reload.updated_at }
       .to(Time.parse(show_dataset_v26_update["result"]["metadata_modified"]))
   end
 
   it 'preserves existing datasets when they do not change in ckan' do
     expect { subject.perform }
-      .to_not(change { dataset_not_to_update.reload.last_updated_at })
+      .to_not(change { dataset_not_to_update.reload.updated_at })
   end
 
   it 'preserves existing datasets when they do not come from ckan' do

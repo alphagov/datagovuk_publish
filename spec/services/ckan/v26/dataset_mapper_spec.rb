@@ -15,7 +15,7 @@ describe CKAN::V26::DatasetMapper do
       expect(attributes[:legacy_name]).to eq package.get("name")
       expect(attributes[:organisation_id]).to eq organisation.id
       expect(attributes[:created_at]).to eq package.get("metadata_created")
-      expect(attributes[:last_updated_at]).to eq package.get("metadata_modified")
+      expect(attributes[:updated_at]).to eq package.get("metadata_modified")
       expect(attributes[:harvested]).to be_falsey
       expect(attributes[:contact_name]).to eq package.get("contact-name")
       expect(attributes[:contact_email]).to eq package.get("contact-email")
