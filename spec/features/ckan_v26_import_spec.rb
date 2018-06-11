@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 describe 'ckan import' do
-  subject { CKANImportWorker.new }
+  subject { CKAN::V26::ImportWorker.new }
 
   let(:empty_package_id) { "8fda2162-dcd6-4fb3-9835-c85c046ff229" }
   let(:create_package_id) { "bca22660-dccc-4a37-9cfe-6bc2c0739cff" }
   let(:inspire_package_id) { "cf494c44-05cd-4060-a029-35937970c9c6" }
   let(:create_datafile_id) { "113b39be-e04c-4089-a8ca-a671d9b5076c" }
 
-  let(:package_v26_inspire) { JSON.parse(file_fixture("show_dataset_v26_inspire.json").read) }
-  let(:package_v26_create) { JSON.parse(file_fixture("show_dataset_v26_create.json").read) }
-  let(:package_v26_empty) { JSON.parse(file_fixture("show_dataset_v26_empty.json").read) }
+  let(:package_v26_inspire) { JSON.parse(file_fixture("ckan/v26/show_dataset_inspire.json").read) }
+  let(:package_v26_create) { JSON.parse(file_fixture("ckan/v26/show_dataset_create.json").read) }
+  let(:package_v26_empty) { JSON.parse(file_fixture("ckan/v26/show_dataset_empty.json").read) }
 
   before do
     create(:organisation, uuid: "11c51f05-a8bf-4f58-9b95-7ab55f9546d7")
