@@ -152,8 +152,5 @@
   <p><%= f.submit @dataset.published? ? "Publish changes" : "Publish", class: 'button' %></p>
 <% end %>
 
-<% unless @dataset.published? %>
-  <p><%= link_to 'Delete this dataset', confirm_delete_dataset_path(@dataset.uuid, @dataset.name), class: 'secondary-button danger' %></p>
-<% end %>
-
+<p><%= link_to 'Delete this dataset', confirm_delete_dataset_path(@dataset.uuid, @dataset.name), class: 'secondary-button danger' %></p>
 <p><%= link_to 'Back to manage your dataset', manage_path, class: 'secondary-button' %></p>

@@ -40,40 +40,22 @@ class DatasetsController < ApplicationController
   end
 
   def publish
-    if @dataset.publishable?
-      flash[:success] = if @dataset.published?
-                          I18n.t 'dataset.updated'
-                        else
-                          I18n.t 'dataset.published'
-                        end
+    flash[:success] = I18n.t 'dataset.published'
+    @dataset.publish!
 
-      @dataset.publish!
-
-      flash[:extra] = @dataset
-      redirect_to manage_path
-    else
-      render :show
-    end
+    flash[:extra] = @dataset
+    redirect_to manage_path
   end
 
   def confirm_delete
-    if @dataset.published?
-      @dataset.errors.add(:delete_prevent, 'Published datasets cannot be deleted')
-    else
-      flash[:alert] = 'Are you sure you want to delete this dataset?'
-    end
+    flash[:alert] = 'Are you sure you want to delete this dataset?'
     render :show
   end
 
   def destroy
-    if @dataset.published?
-      @dataset.errors.add(:delete_prevent, 'Published datasets cannot be deleted')
-      render :show
-    else
-      flash[:deleted] = "The dataset '#{@dataset.title}' has been deleted"
-      @dataset.destroy
-      redirect_to manage_path
-    end
+    flash[:deleted] = "The dataset '#{@dataset.title}' has been deleted"
+    @dataset.destroy
+    redirect_to manage_path
   end
 
   def quality

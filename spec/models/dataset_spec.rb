@@ -36,50 +36,6 @@ describe Dataset do
     expect(dataset.name).to eq("my-even-better-dataset")
   end
 
-  it "is not possible to delete a published dataset" do
-    d = Dataset.new(
-      title: "dataset",
-      summary: "Summary",
-      organisation_id: @org.id,
-      frequency: "never",
-      licence_code: "uk-ogl"
-    )
-
-    d.save
-
-    d.datafiles.create(url: "http://127.0.0.1", name: "Test datafile")
-
-    d.published!
-
-    expect { d.destroy }.to raise_exception 'published datasets cannot be deleted'
-    expect(Dataset.count).to eq 1
-
-    d.draft!
-    d.destroy
-
-    expect(Dataset.count).to eq 0
-  end
-
-  it "sets a published_date timestamp when published" do
-    publication_date = Time.now
-    allow(Time).to receive(:now).and_return(publication_date)
-    dataset = FactoryGirl.create(:dataset, datafiles: [FactoryGirl.create(:datafile)])
-    dataset.save
-    dataset.publish!
-
-    expect(dataset.published_date).to eq publication_date
-  end
-
-  it "sets a last_updated_at timestamp when published" do
-    last_updated_at = Time.now
-    allow(Time).to receive(:now).and_return(last_updated_at)
-    dataset = FactoryGirl.create(:dataset, datafiles: [FactoryGirl.create(:datafile)])
-    dataset.save
-    dataset.publish!
-
-    expect(dataset.last_updated_at).to eq last_updated_at
-  end
-
   describe "#public_updated_at" do
     it "returns the 'updated_at' timestamp for the most recently updated datafile when the dataset has datafiles" do
       dataset = FactoryGirl.create(:dataset, datafiles: [FactoryGirl.create(:datafile)])
