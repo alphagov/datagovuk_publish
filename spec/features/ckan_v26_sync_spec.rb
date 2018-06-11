@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 describe 'ckan sync' do
-  subject { CKANSyncWorker.new }
+  subject { CKAN::V26::SyncWorker.new }
 
-  let(:search_dataset_v26_p1) { JSON.parse(file_fixture("search_dataset_v26_p1.json").read) }
-  let(:search_dataset_v26_p2) { JSON.parse(file_fixture("search_dataset_v26_p2.json").read) }
-  let(:show_dataset_v26_create) { JSON.parse(file_fixture("show_dataset_v26_create.json").read) }
-  let(:show_dataset_v26_update) { JSON.parse(file_fixture("show_dataset_v26_update.json").read) }
+  let(:search_dataset_v26_p1) { JSON.parse(file_fixture("ckan/v26/search_dataset_p1.json").read) }
+  let(:search_dataset_v26_p2) { JSON.parse(file_fixture("ckan/v26/search_dataset_p2.json").read) }
+  let(:show_dataset_v26_create) { JSON.parse(file_fixture("ckan/v26/show_dataset_create.json").read) }
+  let(:show_dataset_v26_update) { JSON.parse(file_fixture("ckan/v26/show_dataset_update.json").read) }
 
   let(:package_for_update) { search_dataset_v26_p1["results"][0] }
   let(:package_not_for_update) { search_dataset_v26_p1["results"][1] }
