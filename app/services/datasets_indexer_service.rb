@@ -1,5 +1,8 @@
 class DatasetsIndexerService
   INDEX_SETTINGS = {
+    blocks: {
+      read_only: false
+    },
     analysis: {
       normalizer: {
         lowercase_normalizer: {
