@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "dataset creation" do
+describe "creating datasets" do
   let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
   let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
   let!(:dataset) { FactoryGirl.create(:dataset, organisation: land, creator: user) }
@@ -106,12 +106,6 @@ describe "dataset creation" do
 
       expect(page).to have_content("Your dataset has been published")
       expect(Dataset.last.published?).to be(true)
-
-      # Ensure the dataset is indexed in Elastic
-      client = Dataset.__elasticsearch__.client
-      document = client.get(index: Dataset.index_name, id: Dataset.last.id)
-      expect(document["_source"]["name"]).to eq(Dataset.last.title.parameterize)
-      expect(document["_source"]["topic"]["name"]).to eq(Dataset.last.topic.name.parameterize)
     end
   end
 

@@ -36,47 +36,18 @@ class Dataset < ApplicationRecord
     PublishingWorker.perform_async(self.id)
   end
 
-  # What we actually want to index in Elastic, rather than the whole
-  # dataset.
   def as_indexed_json(_options = {})
-    as_json(only: %i[
-                name
-                legacy_name
-                title
-                summary
-                description
-                foi_name
-                foi_email
-                foi_phone
-                foi_web
-                contact_name
-                contact_email
-                contact_phone
-                location1
-                location2
-                location3
-                licence_code
-                licence_title
-                licence_url
-                licence_custom
-                frequency
-                published_date
-                last_updated_at
-                created_at
-                harvested
-                uuid
+    as_json(methods: %i[
+              public_updated_at
+              released
             ],
-          methods: %i[
-            public_updated_at
-            released
-          ],
-          include: {
-            organisation: {},
-            topic: {},
-            datafiles: {},
-            docs: {},
-            inspire_dataset: {}
-          })
+            include: {
+              organisation: {},
+              topic: {},
+              datafiles: {},
+              docs: {},
+              inspire_dataset: {}
+            })
   end
 
   def creator
