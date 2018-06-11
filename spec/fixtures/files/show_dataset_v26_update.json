@@ -1,0 +1,350 @@
+{
+    "help": "http://data.gov.uk/api/3/action/help_show?name=package_show",
+    "success": true,
+    "result": {
+        "license_title": "UK Open Government Licence (OGL)",
+        "maintainer": "Durham County Council",
+        "relationships_as_object": [],
+        "private": false,
+        "maintainer_email": "durham.opendata@gmail.com",
+        "num_tags": 6,
+        "id": "7509bbb5-ce6a-4801-8d77-b72c58d46180",
+        "metadata_created": "2017-02-08T17:08:03.773296",
+        "metadata_modified": "2018-03-18T09:03:05.821298",
+        "author": "Durham County Council",
+        "author_email": "durham.opendata@gmail.com",
+        "state": "active",
+        "version": null,
+        "archiver": {
+            "status": "Download error",
+            "is_broken": true,
+            "reason": "Server reported status error: 502 Bad Gateway",
+            "status_id": 12
+        },
+        "license_id": "uk-ogl",
+        "type": "dataset",
+        "resources": [
+            {
+                "hash": "",
+                "description": "Spatial dataset of ford crossings owned and maintained by Durham County Council.",
+                "created": "2017-11-07T11:23:39.022507",
+                "url": "https://files.datapress.com/leeds/dataset/ford-crossings/2017-01-17T11:31:19/Ford_crossings.csv",
+                "format": "CSV",
+                "qa": {
+                    "updated": "2018-05-06T17:00:52.161919",
+                    "openness_score": 3,
+                    "archival_timestamp": "2017-11-07T11:24:32.603253",
+                    "format": "CSV",
+                    "created": "2017-11-07T11:29:39.828261",
+                    "resource_timestamp": null,
+                    "openness_score_reason": "Content of file appeared to be format \"CSV\" which receives openness score: 3."
+                },
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "archiver": {
+                    "is_broken_printable": "Downloaded OK",
+                    "updated": "2017-11-07T11:24:32.603253",
+                    "cache_filepath": "/media/hulk/ckan_resource_cache/7b/7be62a98-c4c1-4c7e-9bcd-a6a2202e1228/Ford_crossings.csv",
+                    "last_success": "2017-11-07T11:24:32.603253",
+                    "size": "327",
+                    "is_broken": false,
+                    "failure_count": 0,
+                    "etag": "\"7d77c7621744c52fb7a2a9f3775d1d7d\"",
+                    "status": "Archived successfully",
+                    "url_redirected_to": null,
+                    "hash": "bc1066698348192d5827d13ccf8b5826807d7422",
+                    "status_id": 0,
+                    "reason": "",
+                    "last_modified": "Tue, 17 Jan 2017 11:31:20 GMT",
+                    "resource_timestamp": "2017-11-07T11:23:38.976128",
+                    "mimetype": "text/csv",
+                    "cache_url": "http://data.gov.uk/data/resource_cache/7b/7be62a98-c4c1-4c7e-9bcd-a6a2202e1228/Ford_crossings.csv",
+                    "created": "2017-11-07T11:24:32.610780",
+                    "first_failure": null
+                },
+                "position": 0,
+                "revision_id": "3098e571-fc2f-4ca3-b643-f8ce6ab6fe0f",
+                "id": "7be62a98-c4c1-4c7e-9bcd-a6a2202e1228",
+                "name": "17/01/2017"
+            },
+            {
+                "hash": "",
+                "description": "",
+                "created": "2017-03-24T22:34:25.275794",
+                "url": "http://datamillnorth.org/dataset/ford-crossings",
+                "format": "HTML",
+                "qa": {
+                    "updated": "2018-05-06T17:00:52.208339",
+                    "openness_score": 0,
+                    "archival_timestamp": "2018-05-05T12:57:05.066752",
+                    "format": "HTML",
+                    "created": "2017-03-24T23:44:50.176960",
+                    "resource_timestamp": null,
+                    "openness_score_reason": "Content of file appeared to be format \"HTML\" which receives openness score: 0."
+                },
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "archiver": {
+                    "is_broken_printable": "Broken",
+                    "updated": "2018-06-02T12:48:51.977841",
+                    "cache_filepath": "/media/hulk/ckan_resource_cache/b7/b7e53746-1154-425d-a85d-5bb03eb3f310/ford-crossings",
+                    "last_success": "2018-05-05T12:57:05.066752",
+                    "size": "79681",
+                    "is_broken": true,
+                    "failure_count": 4,
+                    "etag": null,
+                    "status": "Download error",
+                    "url_redirected_to": null,
+                    "hash": "29210e7c8e5405e9b24b75bb9621ab2f6359d487",
+                    "status_id": 12,
+                    "reason": "Server reported status error: 502 Bad Gateway",
+                    "last_modified": null,
+                    "resource_timestamp": "2017-03-24T22:34:25.229800",
+                    "mimetype": "text/html",
+                    "cache_url": "http://data.gov.uk/data/resource_cache/b7/b7e53746-1154-425d-a85d-5bb03eb3f310/ford-crossings",
+                    "created": "2017-03-24T23:16:22.040813",
+                    "first_failure": "2018-05-12T13:58:31.749673"
+                },
+                "position": 1,
+                "revision_id": "a0372fbf-c991-436c-b0a5-744d499054ee",
+                "id": "b7e53746-1154-425d-a85d-5bb03eb3f310",
+                "resource_type": "documentation",
+                "name": "Landing page"
+            }
+        ],
+        "num_resources": 2,
+        "tags": [
+            {
+                "vocabulary_id": null,
+                "display_name": "flooding",
+                "name": "flooding",
+                "revision_timestamp": "2017-02-08T17:08:03.773296",
+                "state": "active",
+                "id": "f702bdaa-63e1-4e8f-851c-e53882aade79"
+            },
+            {
+                "vocabulary_id": null,
+                "display_name": "fords",
+                "name": "fords",
+                "revision_timestamp": "2017-02-08T17:08:03.773296",
+                "state": "active",
+                "id": "5387462e-1d02-4baa-bd75-72b53ee52ecd"
+            },
+            {
+                "vocabulary_id": null,
+                "display_name": "river",
+                "name": "river",
+                "revision_timestamp": "2017-02-08T17:08:03.773296",
+                "state": "active",
+                "id": "7c724bfb-c875-4882-af39-63c9bc91a10e"
+            },
+            {
+                "vocabulary_id": null,
+                "display_name": "roads",
+                "name": "roads",
+                "revision_timestamp": "2017-02-08T17:08:03.773296",
+                "state": "active",
+                "id": "521b77a1-7a99-477d-b80f-75e8a56450e7"
+            },
+            {
+                "vocabulary_id": null,
+                "display_name": "stream",
+                "name": "stream",
+                "revision_timestamp": "2017-02-08T17:08:03.773296",
+                "state": "active",
+                "id": "95b21602-357e-4f7a-8a2e-4e0097ee4668"
+            },
+            {
+                "vocabulary_id": null,
+                "display_name": "transport",
+                "name": "transport",
+                "revision_timestamp": "2017-02-08T17:08:03.773296",
+                "state": "active",
+                "id": "8b1aa1ca-ae20-4a88-8544-e7f7d432ef50"
+            }
+        ],
+        "tracking_summary": {
+            "total": 0,
+            "recent": 0
+        },
+        "groups": [],
+        "creator_user_id": "60e687bf-a6d8-43e2-a50e-efab84b27952",
+        "additional_resources": [
+            {
+                "hash": "",
+                "description": "",
+                "created": "2017-03-24T22:34:25.275794",
+                "url": "http://datamillnorth.org/dataset/ford-crossings",
+                "format": "HTML",
+                "qa": "{'updated': '2018-05-06T17:00:52.208339', 'openness_score': 0, 'archival_timestamp': '2018-05-05T12:57:05.066752', 'format': u'HTML', 'created': '2017-03-24T23:44:50.176960', 'resource_timestamp': None, 'openness_score_reason': u'Content of file appeared to be format \"HTML\" which receives openness score: 0.'}",
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "archiver": "{'is_broken_printable': 'Downloaded OK', 'updated': '2018-05-05T12:57:05.066752', 'cache_filepath': u'/media/hulk/ckan_resource_cache/b7/b7e53746-1154-425d-a85d-5bb03eb3f310/ford-crossings', 'last_success': '2018-05-05T12:57:05.066752', 'size': u'79681', 'is_broken': False, 'failure_count': 0, 'etag': None, 'status': 'Archived successfully', 'url_redirected_to': u'https://datamillnorth.org/dataset/ford-crossings', 'hash': u'29210e7c8e5405e9b24b75bb9621ab2f6359d487', 'status_id': 0, 'reason': u'', 'last_modified': None, 'resource_timestamp': '2017-03-24T22:34:25.229800', 'mimetype': u'text/html', 'cache_url': u'http://data.gov.uk/data/resource_cache/b7/b7e53746-1154-425d-a85d-5bb03eb3f310/ford-crossings', 'created': '2017-03-24T23:16:22.040813', 'first_failure': None}",
+                "position": 1,
+                "revision_id": "a0372fbf-c991-436c-b0a5-744d499054ee",
+                "id": "b7e53746-1154-425d-a85d-5bb03eb3f310",
+                "resource_type": "documentation",
+                "name": "Landing page"
+            }
+        ],
+        "relationships_as_subject": [],
+        "revision_timestamp": "2017-03-24T22:34:25.229800",
+        "organization": {
+            "description": "",
+            "created": "2013-11-04T10:07:41.896359",
+            "title": "Durham County Council",
+            "name": "durham-county-council",
+            "revision_timestamp": "2013-11-04T10:07:41.846358",
+            "is_organization": true,
+            "state": "active",
+            "image_url": "",
+            "revision_id": "6584f925-48f0-440d-b33f-4b0b665ef251",
+            "type": "organization",
+            "id": "d3bb54b5-4289-4ff9-9546-ff95442643fc",
+            "approval_status": "pending"
+        },
+        "name": "ford-crossings",
+        "isopen": true,
+        "url": "http://datamillnorth.org/dataset/ford-crossings",
+        "notes": "Spatial dataset of ford crossings owned and maintained by Durham County Council.",
+        "owner_org": "d3bb54b5-4289-4ff9-9546-ff95442643fc",
+        "qa": {
+            "openness_score_reason": "Content of file appeared to be format \"CSV\" which receives openness score: 3.",
+            "updated": "2018-05-06T17:00:52.208339",
+            "openness_score": 3
+        },
+        "theme-secondary": [
+            "Transport"
+        ],
+        "extras": [
+            {
+                "package_id": "7509bbb5-ce6a-4801-8d77-b72c58d46180",
+                "value": "2017-01-17T11:22:20.000Z",
+                "revision_timestamp": "2017-03-24T22:34:25.229800",
+                "state": "active",
+                "key": "data_issued",
+                "revision_id": "a0372fbf-c991-436c-b0a5-744d499054ee",
+                "id": "f48d850c-8f5a-4227-8905-a1b789b1c1cc"
+            },
+            {
+                "package_id": "7509bbb5-ce6a-4801-8d77-b72c58d46180",
+                "value": "2017-02-23T10:11:38.000Z",
+                "revision_timestamp": "2017-03-24T22:34:25.229800",
+                "state": "active",
+                "key": "data_modified",
+                "revision_id": "a0372fbf-c991-436c-b0a5-744d499054ee",
+                "id": "d65be29c-f37d-470f-9230-ab671b544f1e"
+            },
+            {
+                "package_id": "7509bbb5-ce6a-4801-8d77-b72c58d46180",
+                "value": "Durham County Council",
+                "revision_timestamp": "2017-03-24T22:34:25.229800",
+                "state": "active",
+                "key": "dcat_publisher_name",
+                "revision_id": "a0372fbf-c991-436c-b0a5-744d499054ee",
+                "id": "f48a096b-a3c3-4c7b-8e50-2a03aac193e0"
+            },
+            {
+                "package_id": "7509bbb5-ce6a-4801-8d77-b72c58d46180",
+                "value": "7509bbb5-ce6a-4801-8d77-b72c58d46180",
+                "revision_timestamp": "2017-02-08T17:08:03.773296",
+                "state": "active",
+                "key": "guid",
+                "revision_id": "e3655563-8b5f-4fdd-98b5-5ea3133ea89f",
+                "id": "02a3002d-8f07-4ba2-85ba-fd772038ce4e"
+            },
+            {
+                "package_id": "7509bbb5-ce6a-4801-8d77-b72c58d46180",
+                "value": "7da35b15-7bca-4603-a9e4-65e14aeabd4c",
+                "revision_timestamp": "2018-03-18T09:03:05.820275",
+                "state": "active",
+                "key": "harvest_object_id",
+                "revision_id": "b035a3cb-c0d4-4d95-9692-d36bdf4ce8d2",
+                "id": "c6647aa0-853b-4bd4-8879-e3a6a96854fc"
+            },
+            {
+                "package_id": "7509bbb5-ce6a-4801-8d77-b72c58d46180",
+                "value": "harvest",
+                "revision_timestamp": "2017-02-08T17:08:03.773296",
+                "state": "active",
+                "key": "import_source",
+                "revision_id": "e3655563-8b5f-4fdd-98b5-5ea3133ea89f",
+                "id": "d9111d68-f64b-4617-98bc-f3eed83df3e5"
+            },
+            {
+                "package_id": "7509bbb5-ce6a-4801-8d77-b72c58d46180",
+                "value": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+                "revision_timestamp": "2017-03-24T22:34:25.229800",
+                "state": "active",
+                "key": "license_url",
+                "revision_id": "a0372fbf-c991-436c-b0a5-744d499054ee",
+                "id": "72ddaa96-f7d4-4d25-a600-923a9d02dcb0"
+            },
+            {
+                "package_id": "7509bbb5-ce6a-4801-8d77-b72c58d46180",
+                "value": "[{\"harvest_source_url\": \"http://datamillnorth.org/data.json?slug=durham-county-council\", \"harvest_source_type\": \"data_json\", \"harvested_metadata_modified\": null, \"harvest_source_title\": \"Datamill North - Durham\", \"activity_occurred\": \"2018-03-18T09:03:05.773850\", \"activity\": \"harvest\", \"harvested_guid\": \"7509bbb5-ce6a-4801-8d77-b72c58d46180\"}]",
+                "revision_timestamp": "2018-03-18T09:03:05.820275",
+                "state": "active",
+                "key": "metadata_provenance",
+                "revision_id": "b035a3cb-c0d4-4d95-9692-d36bdf4ce8d2",
+                "id": "503316f3-4a10-49f5-a5ef-e9f3fb5432f7"
+            },
+            {
+                "package_id": "7509bbb5-ce6a-4801-8d77-b72c58d46180",
+                "value": "",
+                "revision_timestamp": "2017-02-08T17:08:03.773296",
+                "state": "active",
+                "key": "odi-certificate",
+                "revision_id": "e3655563-8b5f-4fdd-98b5-5ea3133ea89f",
+                "id": "be1d20b7-53e2-431e-96af-b1ec9212cb9b"
+            },
+            {
+                "package_id": "7509bbb5-ce6a-4801-8d77-b72c58d46180",
+                "value": "Environment",
+                "revision_timestamp": "2017-02-08T17:08:03.773296",
+                "state": "active",
+                "key": "theme-primary",
+                "revision_id": "e3655563-8b5f-4fdd-98b5-5ea3133ea89f",
+                "id": "3a11f525-0f8b-4735-9731-3bbdede0ed37"
+            },
+            {
+                "package_id": "7509bbb5-ce6a-4801-8d77-b72c58d46180",
+                "value": "[\"Transport\"]",
+                "revision_timestamp": "2017-02-08T17:08:03.773296",
+                "state": "active",
+                "key": "theme-secondary",
+                "revision_id": "e3655563-8b5f-4fdd-98b5-5ea3133ea89f",
+                "id": "ec5d4323-0412-4251-9dca-36625bc2c6c2"
+            }
+        ],
+        "license_url": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "individual_resources": [
+            {
+                "hash": "",
+                "description": "Spatial dataset of ford crossings owned and maintained by Durham County Council.",
+                "created": "2017-11-07T11:23:39.022507",
+                "url": "https://files.datapress.com/leeds/dataset/ford-crossings/2017-01-17T11:31:19/Ford_crossings.csv",
+                "format": "CSV",
+                "qa": "{'updated': '2018-05-06T17:00:52.161919', 'openness_score': 3, 'archival_timestamp': '2017-11-07T11:24:32.603253', 'format': u'CSV', 'created': '2017-11-07T11:29:39.828261', 'resource_timestamp': None, 'openness_score_reason': u'Content of file appeared to be format \"CSV\" which receives openness score: 3.'}",
+                "tracking_summary": {
+                    "total": 0,
+                    "recent": 0
+                },
+                "archiver": "{'is_broken_printable': 'Downloaded OK', 'updated': '2017-11-07T11:24:32.603253', 'cache_filepath': u'/media/hulk/ckan_resource_cache/7b/7be62a98-c4c1-4c7e-9bcd-a6a2202e1228/Ford_crossings.csv', 'last_success': '2017-11-07T11:24:32.603253', 'size': u'327', 'is_broken': False, 'failure_count': 0, 'etag': u'\"7d77c7621744c52fb7a2a9f3775d1d7d\"', 'status': 'Archived successfully', 'url_redirected_to': None, 'hash': u'bc1066698348192d5827d13ccf8b5826807d7422', 'status_id': 0, 'reason': u'', 'last_modified': u'Tue, 17 Jan 2017 11:31:20 GMT', 'resource_timestamp': '2017-11-07T11:23:38.976128', 'mimetype': u'text/csv', 'cache_url': u'http://data.gov.uk/data/resource_cache/7b/7be62a98-c4c1-4c7e-9bcd-a6a2202e1228/Ford_crossings.csv', 'created': '2017-11-07T11:24:32.610780', 'first_failure': None}",
+                "position": 0,
+                "revision_id": "3098e571-fc2f-4ca3-b643-f8ce6ab6fe0f",
+                "id": "7be62a98-c4c1-4c7e-9bcd-a6a2202e1228",
+                "name": "17/01/2017"
+            }
+        ],
+        "title": "Ford Crossings",
+        "revision_id": "a0372fbf-c991-436c-b0a5-744d499054ee",
+        "theme-primary": "Environment"
+    }
+}

@@ -6,8 +6,10 @@ module CKAN
       CKAN_FIELDS = %i[id metadata_modified].freeze
 
       def call
-        packages = client.search_dataset(fl: CKAN_FIELDS)
         datasets = Dataset.where.not(legacy_name: nil)
+
+        packages = client.search_dataset(fl: CKAN_FIELDS)
+          .map { |response| Package.new(response) }
 
         {
           create: diff_create(packages, datasets),
@@ -20,25 +22,28 @@ module CKAN
 
       def diff_create(packages, datasets)
         dataset_uuids = Set[*datasets.pluck(:uuid)]
-        packages.reject { |package| dataset_uuids.include?(package["id"]) }
+
+        packages.reject do |package|
+          dataset_uuids.include?(package.get("id"))
+        end
       end
 
       def diff_update(packages, datasets)
-        datasets = Hash[datasets.pluck(:uuid, :last_updated_at)]
+        datasets = Hash[datasets.pluck(:uuid, :updated_at)]
 
         packages.to_a.select do |package|
-          last_updated_at = datasets[package["id"]]
-          last_updated_at && package_is_changed?(package, last_updated_at)
+          updated_at = datasets[package.get("id")]
+          updated_at && package_is_changed?(package, updated_at)
         end
       end
 
       def diff_delete(packages, datasets)
-        package_uuids = packages.map { |package| package["id"] }
+        package_uuids = packages.map { |package| package.get("id") }
         datasets.where.not(uuid: package_uuids)
       end
 
-      def package_is_changed?(package, last_updated_at)
-        last_updated_at.iso8601 < package["metadata_modified"]
+      def package_is_changed?(package, updated_at)
+        updated_at.iso8601 < package.get("metadata_modified")
       end
 
       def client
