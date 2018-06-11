@@ -20,6 +20,10 @@ RSpec.configure do |config|
   config.order = :random
 
   config.before(:each) do
+    Dataset.__elasticsearch__.client.indices.delete index: "_all"
+  end
+
+  config.before(:each) do
     allow_any_instance_of(UrlValidator).to receive(:valid_path?).and_return(true)
   end
 
