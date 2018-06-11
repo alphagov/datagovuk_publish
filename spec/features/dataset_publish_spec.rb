@@ -49,4 +49,11 @@ describe "publishing datasets" do
     document = get_from_es(dataset.id)
     expect(document["public_updated_at"]).to eq in_es_format(dataset.reload.updated_at)
   end
+
+  it "should be able to unpublish a dataset" do
+    visit dataset_url(dataset.uuid, dataset.name)
+    click_link 'Delete this dataset'
+    click_link "Yes, delete this dataset"
+    expect { get_from_es(dataset.id) }.to raise_error(/404/)
+  end
 end
