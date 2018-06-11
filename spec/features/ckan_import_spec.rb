@@ -30,7 +30,7 @@ describe 'ckan import' do
       .to_return(body: package_v26_empty.to_json)
   end
 
-  describe 'dataset import' do
+  describe 'dataset update' do
     it 'creates a new dataset if it does not exist' do
       expect { subject.perform(create_package_id) }
         .to change { Dataset.count }.by(1)
@@ -44,7 +44,7 @@ describe 'ckan import' do
     end
   end
 
-  describe 'inspire import' do
+  describe 'inspire update' do
     it 'creates an inspire dataset for inspire packages' do
       expect { subject.perform(inspire_package_id) }
         .to change { InspireDataset.count }.by(1)
@@ -67,7 +67,7 @@ describe 'ckan import' do
     end
   end
 
-  describe 'link import' do
+  describe 'link update' do
     it 'creates a new link if it does not exist' do
       expect { subject.perform(create_package_id) }
         .to change { Link.count }.by(1)
@@ -87,6 +87,29 @@ describe 'ckan import' do
 
       expect { subject.perform(empty_package_id) }
         .to change { Link.count }.by(-1)
+    end
+  end
+
+  describe 'dataset publish' do
+    before do
+      subject.perform(create_package_id)
+    end
+
+    it 'publishes a new dataset to elasticsearch' do
+      dataset = Dataset.find_by(uuid: create_package_id)
+      document = get_from_es(dataset.id)
+      expect(document).to eq in_es_format(dataset.as_indexed_json)
+    end
+
+    it 'publishes an existing dataset to elasticsearch' do
+      dataset = Dataset.find_by(uuid: create_package_id)
+      dataset.update(title: "foo")
+
+      dataset.publish
+      expect(get_from_es(dataset.id)["title"]).to eq "foo"
+
+      subject.perform(create_package_id)
+      expect(get_from_es(dataset.id)["title"]).to_not eq "foo"
     end
   end
 end

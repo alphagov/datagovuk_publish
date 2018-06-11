@@ -41,9 +41,9 @@ class DatasetsController < ApplicationController
 
   def publish
     flash[:success] = I18n.t 'dataset.published'
-    @dataset.publish!
-
     flash[:extra] = @dataset
+
+    @dataset.publish
     redirect_to manage_path
   end
 
@@ -54,6 +54,7 @@ class DatasetsController < ApplicationController
 
   def destroy
     flash[:deleted] = "The dataset '#{@dataset.title}' has been deleted"
+    @dataset.unpublish
     @dataset.destroy
     redirect_to manage_path
   end

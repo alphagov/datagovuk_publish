@@ -16,20 +16,21 @@ describe "publishing datasets" do
   it "should be able to publish a draft dataset" do
     visit dataset_url(dataset.uuid, dataset.name)
     click_button 'Publish'
+
     document = get_from_es(dataset.id)
+    expect(document).to eq in_es_format(dataset.reload.as_indexed_json)
+  end
 
-    dataset.reload.attributes.each do |key, value|
-      expect(document[key.to_s]).to eq in_es_format(value)
-    end
+  it "should be able to update a published dataset" do
+    visit dataset_url(dataset.uuid, dataset.name)
 
-    expect(document["topic"]).to eq in_es_format(dataset.topic)
-    expect(document["organisation"]).to eq in_es_format(dataset.organisation)
-    expect(document["docs"]).to eq in_es_format(dataset.docs)
-    expect(document["datafiles"]).to eq in_es_format(dataset.datafiles)
-    expect(document["inspire_dataset"]).to eq in_es_format(dataset.inspire_dataset)
+    click_change(:title)
+    fill_in 'dataset[title]', with: 'a new title'
+    click_button 'Save and continue'
 
-    expect(document["public_updated_at"]).to eq in_es_format(dataset.datafiles.last.updated_at)
-    expect(document["released"]).to be_truthy
+    click_button 'Publish'
+    document = get_from_es(dataset.id)
+    expect(document["title"]).to eq 'a new title'
   end
 
   it 'correctly determines when a dataset has been released' do

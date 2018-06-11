@@ -21,6 +21,7 @@ private
   end
 
   def delete_old_datasets(datasets)
+    datasets.each(&:unpublish)
     datasets.destroy_all
   end
 end

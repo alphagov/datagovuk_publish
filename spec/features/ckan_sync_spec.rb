@@ -70,7 +70,10 @@ describe 'ckan sync' do
   end
 
   it 'deletes datasets when they disappear from ckan' do
+    dataset_to_delete.publish
     subject.perform
+
     expect(Dataset.all).to_not include dataset_to_delete
+    expect { get_from_es(dataset_to_delete.id) }.to raise_error(/404/)
   end
 end
