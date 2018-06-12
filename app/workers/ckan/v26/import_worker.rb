@@ -8,9 +8,7 @@ module CKAN
       def perform(package_id, *_args)
         package = get_package_from_ckan(package_id)
         dataset = Dataset.find_or_initialize_by(uuid: package_id)
-
         update_dataset_from_package(package, dataset)
-        dataset.publish
       end
 
     private
@@ -20,6 +18,7 @@ module CKAN
           CKAN::V26::DatasetUpdater.new.call(dataset, package)
           CKAN::V26::InspireUpdater.new.call(dataset, package)
           CKAN::V26::LinkUpdater.new.call(dataset, package)
+          dataset.publish
         end
       end
 
