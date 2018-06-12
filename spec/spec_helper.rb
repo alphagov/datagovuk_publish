@@ -20,7 +20,10 @@ RSpec.configure do |config|
   config.order = :random
 
   config.before(:each) do
-    Dataset.__elasticsearch__.client.indices.delete index: "_all"
+    IndexDeletionService.new(index_alias: "datasets-test",
+                             client: Dataset.__elasticsearch__.client,
+                             logger: Rails.logger,
+                             indices_to_keep: 0).run
   end
 
   config.before(:each) do
