@@ -16,6 +16,10 @@ FactoryGirl.define do
     add_attribute("foi-email", "mr.foi@example.com")
     add_attribute("foi-web", "http://foi.com")
 
+    extras do
+      [{ "licence" => "Open Government Licence 3.0 (United Kingdom)" }]
+    end
+
     trait :inspire do
       add_attribute("access_constraints", "[\"There are no public access constraints to this data. Use of this data is subject to the licence identified.\"]")
       add_attribute("bbox-east-long", "2.072")
