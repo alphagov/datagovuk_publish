@@ -17,7 +17,7 @@ describe "publishing datasets" do
     visit dataset_url(dataset.uuid, dataset.name)
     click_button 'Publish'
 
-    document = get_from_es(dataset.id)
+    document = get_from_es(dataset.uuid)
     expect(document).to eq in_es_format(dataset.reload.as_indexed_json)
   end
 
@@ -29,7 +29,7 @@ describe "publishing datasets" do
     click_button 'Save and continue'
 
     click_button 'Publish'
-    document = get_from_es(dataset.id)
+    document = get_from_es(dataset.uuid)
     expect(document["title"]).to eq 'a new title'
   end
 
@@ -38,7 +38,7 @@ describe "publishing datasets" do
     visit dataset_url(dataset.uuid, dataset.name)
     click_button 'Publish'
 
-    document = get_from_es(dataset.id)
+    document = get_from_es(dataset.uuid)
     expect(document["released"]).to be_falsey
   end
 
@@ -47,7 +47,7 @@ describe "publishing datasets" do
     visit dataset_url(dataset.uuid, dataset.name)
     click_button 'Publish'
 
-    document = get_from_es(dataset.id)
+    document = get_from_es(dataset.uuid)
     expect(document["public_updated_at"]).to eq in_es_format(dataset.reload.updated_at)
   end
 end

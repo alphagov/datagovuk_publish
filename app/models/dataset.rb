@@ -33,12 +33,12 @@ class Dataset < ApplicationRecord
 
   def publish
     published!
-    __elasticsearch__.index_document
+    __elasticsearch__.index_document(id: uuid)
   end
 
   def unpublish
     return unless published?
-    __elasticsearch__.delete_document
+    __elasticsearch__.delete_document(id: uuid)
   end
 
   def as_indexed_json(_options = {})

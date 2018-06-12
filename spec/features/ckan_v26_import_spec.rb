@@ -106,7 +106,7 @@ describe 'ckan import' do
 
     it 'publishes a new dataset to elasticsearch' do
       dataset = Dataset.find_by(uuid: create_package_id)
-      document = get_from_es(dataset.id)
+      document = get_from_es(dataset.uuid)
       expect(document).to eq in_es_format(dataset.as_indexed_json)
     end
 
@@ -115,10 +115,10 @@ describe 'ckan import' do
       dataset.update(title: "foo")
 
       dataset.publish
-      expect(get_from_es(dataset.id)["title"]).to eq "foo"
+      expect(get_from_es(dataset.uuid)["title"]).to eq "foo"
 
       subject.perform(create_package_id)
-      expect(get_from_es(dataset.id)["title"]).to_not eq "foo"
+      expect(get_from_es(dataset.uuid)["title"]).to_not eq "foo"
     end
   end
 end
