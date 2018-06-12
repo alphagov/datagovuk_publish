@@ -5,7 +5,7 @@ module CKAN
     class ImportWorker
       include Sidekiq::Worker
 
-      def perform(package_id)
+      def perform(package_id, *_args)
         package = get_package_from_ckan(package_id)
         dataset = Dataset.find_or_initialize_by(uuid: package_id)
 
