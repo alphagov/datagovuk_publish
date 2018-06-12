@@ -19,6 +19,7 @@ module CKAN
           licence_code: package.get("license_id"),
           licence_title: Licence.lookup(package.get("license_id")).title,
           licence_url: Licence.lookup(package.get("license_id")).url,
+          licence_custom: package.get_extra("licence"),
           topic_id: lookup_topic(package),
           status: "published"
         }
