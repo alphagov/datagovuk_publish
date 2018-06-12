@@ -1,10 +1,11 @@
 class IndexDeletionService
-  NUMBER_OF_INDEXES_TO_KEEP = 3
+  NUMBER_OF_INDICES_TO_KEEP = 3
 
   def initialize(args)
     @index_alias = args[:index_alias]
     @client = args[:client]
     @logger = args[:logger]
+    @indices_to_keep = args[:indices_to_keep] || NUMBER_OF_INDICES_TO_KEEP
   end
 
   def run
@@ -28,7 +29,7 @@ private
                         .reverse
 
     # Ensure that the three most recent indexes are not deleted
-    indexes_to_keep = ordered_indexes.take(NUMBER_OF_INDEXES_TO_KEEP)
+    indexes_to_keep = ordered_indexes.take(@indices_to_keep)
 
     ordered_indexes - indexes_to_keep
   end
