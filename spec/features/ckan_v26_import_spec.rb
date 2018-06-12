@@ -30,6 +30,15 @@ describe 'ckan import' do
       .to_return(body: package_v26_empty.to_json)
   end
 
+  describe 'govuk sidekiq' do
+    it 'can cope with retries after failure' do
+      context = { "authenticated_user" => nil, "request_id" => nil }
+
+      expect { subject.perform(create_package_id, context) }
+        .to_not raise_error
+    end
+  end
+
   describe 'dataset update' do
     it 'creates a new dataset if it does not exist' do
       expect { subject.perform(create_package_id) }
