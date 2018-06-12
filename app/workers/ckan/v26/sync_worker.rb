@@ -2,7 +2,7 @@ module CKAN
   module V26
     class SyncWorker
       def perform
-        actions = CKAN::V26::VersionDiff.new.call
+        actions = CKAN::V26::PackageDiffer.new.call
         create_new_datasets(actions[:create])
         update_existing_datasets(actions[:update])
         delete_old_datasets(actions[:delete])
