@@ -1,13 +1,14 @@
 ---
 :concurrency: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
 
-:queues:
-  - default
-  - importer
-  - indexer
-  - link_checker
+production:
+  :queues:
+    - default
+    - importer
+    - indexer
+    - link_checker
 
-:schedule:
-  beta_update:
-    class: BetaUpdateWorker
-    cron: '0 0 * * * *' # Runs every hour
+  :schedule:
+    beta_update:
+      class: BetaUpdateWorker
+      cron: '0 0 * * * *' # Runs every hour
