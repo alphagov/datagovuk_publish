@@ -1,6 +1,6 @@
-def get_from_es(id)
+def get_from_es(uuid)
   client = Dataset.__elasticsearch__.client
-  client.get(index: Dataset.index_name, id: id)["_source"]
+  client.get(index: Dataset.index_name, id: uuid)["_source"]
 end
 
 def in_es_format(value)

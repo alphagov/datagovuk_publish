@@ -188,7 +188,7 @@ private
 
   def prepare_records(datasets)
     datasets.map do |dataset|
-      { index: { _id: dataset.id, data: dataset.as_indexed_json } }
+      { index: { _id: dataset.uuid, data: dataset.as_indexed_json } }
     end
   end
 end
