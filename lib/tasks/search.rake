@@ -5,7 +5,7 @@ namespace :search do
     logger = Rails.logger
     client = Dataset.__elasticsearch__.client
     date = Time.now.strftime('%Y%m%d%H%M%S')
-    index_alias = "datasets-#{Rails.env}"
+    index_alias = ENV['ES_INDEX'] || "datasets-#{Rails.env}"
     legacy_index = index_alias
     new_index_name = "#{Dataset.index_name}_#{date}"
 
