@@ -2,7 +2,7 @@ require 'ckan/v26/client'
 
 module CKAN
   module V26
-    class VersionDiff
+    class PackageDiffer
       CKAN_FIELDS = %i[id metadata_modified].freeze
 
       def call
