@@ -3,11 +3,10 @@ require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
   root to: 'sessions#new'
+  mount Sidekiq::Web => '/sidekiq', constraints: { domain: 'localhost' }
 
   get 'quality', to: 'home#quality'
   get 'dashboard', to: 'home#dashboard', as: 'dashboard'
-
-  mount Sidekiq::Web => '/sidekiq' unless Rails.env.production?
 
   scope '/datasets' do
     # datafiles
