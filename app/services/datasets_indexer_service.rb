@@ -39,6 +39,7 @@ class DatasetsIndexerService
             keyword: {
               type: 'keyword',
               index: true,
+              ignore_above: 10000
             },
             english: {
               type: 'text',
