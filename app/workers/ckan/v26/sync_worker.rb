@@ -1,6 +1,8 @@
 module CKAN
   module V26
     class SyncWorker
+      include Sidekiq::Worker
+
       def perform
         actions = CKAN::V26::PackageDiffer.new.call
         create_new_datasets(actions[:create])
