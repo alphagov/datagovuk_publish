@@ -1,8 +1,7 @@
 ---
 :concurrency: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
 
-staging:
-  :schedule:
-    ckan_v26_sync:
-      class: CKAN::V26::SyncWorker
-      cron: '*/10 * * * *'
+:schedule:
+  ckan_v26_sync:
+    class: CKAN::V26::SyncWorker
+    cron: '*/10 * * * *'
