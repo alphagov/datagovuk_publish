@@ -6,15 +6,3 @@ staging:
     ckan_v26_sync:
       class: CKAN::V26::SyncWorker
       cron: '*/10 * * * *'
-
-production:
-  :queues:
-    - default
-    - importer
-    - indexer
-    - link_checker
-
-  :schedule:
-    beta_update:
-      class: BetaUpdateWorker
-      cron: '0 0 * * * *' # Runs every hour
