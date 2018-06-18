@@ -1,15 +1,5 @@
 class Legacy::APIService
-  PACKAGE_SEARCH_PATH = '/api/3/action/package_search'.freeze
-  PACKAGE_SHOW_PATH = '/api/3/action/package_show'.freeze
   PUBLISHER_SHOW_PATH = '/api/3/action/publisher_show'.freeze
-
-  def dataset_show(dataset_id)
-    call_api(PACKAGE_SHOW_PATH, id: dataset_id)
-  end
-
-  def dataset_search(query, field_query = '', limit = 1000, offset = 0)
-    call_api(PACKAGE_SEARCH_PATH, q: query, fq: field_query, rows: limit, start: offset)
-  end
 
   def publisher_show(publisher_id)
     call_api(PUBLISHER_SHOW_PATH, id: publisher_id)

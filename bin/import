@@ -13,10 +13,7 @@ print_error() {
 }
 
 curl -O https://data.gov.uk/data/dumps/data.gov.uk-ckan-meta-data-latest.organizations.jsonl.gz
-curl -O https://data.gov.uk/data/dumps/data.gov.uk-ckan-meta-data-latest.v2.jsonl.gz
-
 gunzip data.gov.uk-ckan-meta-data-latest.organizations.jsonl.gz
-gunzip data.gov.uk-ckan-meta-data-latest.v2.jsonl.gz
 
 print "Adding locations"
 rails import:locations["lib/seeds/locations.csv"]
@@ -24,10 +21,7 @@ rails import:locations["lib/seeds/locations.csv"]
 print "Adding organisations"
 rails import:legacy_organisations["data.gov.uk-ckan-meta-data-latest.organizations.jsonl"]
 
-print "Adding datasets"
-rails import:legacy_datasets["data.gov.uk-ckan-meta-data-latest.v2.jsonl"]
-
 print "Cleaning up"
-rm data.gov.uk-ckan-meta-data-latest.organizations.jsonl data.gov.uk-ckan-meta-data-latest.v2.jsonl
+rm data.gov.uk-ckan-meta-data-latest.organizations.jsonl
 
 print "All done."
