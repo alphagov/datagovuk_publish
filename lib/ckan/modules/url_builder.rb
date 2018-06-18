@@ -6,7 +6,6 @@ module CKAN
         params = Hash[query].merge(params)
 
         url.query = URI.encode_www_form(params)
-        url.fragment = "cache-buster-#{rand(10**6)}"
         url
       end
 
