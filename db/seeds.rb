@@ -27,8 +27,3 @@ puts 'Seeding users'
 User.create(email: 'publisher@example.com',
             name: 'Publisher',
             primary_organisation: org)
-
-puts 'Seeding locations'
-location_csv_text = File.read('lib/seeds/locations.csv')
-location_csv = CSV.parse(location_csv_text, headers: true)
-location_csv.each { |r| Location.create(r.to_hash) }
