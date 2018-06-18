@@ -2,6 +2,8 @@ FactoryGirl.define do
   factory :ckan_v26_ckan_org, class: CKAN::V26::CKANOrg do
     id SecureRandom.uuid
     name "Name"
+    category "Category"
+    title "Title"
 
     add_attribute("contact-name", "Mr. Contact")
     add_attribute("contact-email", "mr.contact@example.com")
