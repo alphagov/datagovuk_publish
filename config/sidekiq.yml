@@ -4,11 +4,11 @@
 staging:
   :schedule:
     ckan_v26_sync:
-      class: CKAN::V26::SyncWorker
+      class: CKAN::V26::PackageSyncWorker
       cron: '*/10 * * * *'
 
 production:
   :schedule:
     ckan_v26_sync:
-      class: CKAN::V26::SyncWorker
+      class: CKAN::V26::PackageSyncWorker
       cron: '*/10 * * * *'
