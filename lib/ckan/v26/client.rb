@@ -1,3 +1,4 @@
+require 'ckan/modules/json_reader'
 require 'ckan/modules/url_builder'
 require 'ckan/modules/pagination'
 require 'open-uri'
@@ -5,6 +6,7 @@ require 'open-uri'
 module CKAN
   module V26
     class Client
+      include CKAN::Modules::JSONReader
       include CKAN::Modules::URLBuilder
       include CKAN::Modules::Pagination
 
@@ -22,7 +24,7 @@ module CKAN
 
       def show_dataset(id:)
         url = build_url(path: SHOW_DATASET_PATH, params: { id: id })
-        JSON.parse(url.read)["result"]
+        read_json(url)["result"]
       end
     end
   end
