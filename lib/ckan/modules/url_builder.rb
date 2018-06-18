@@ -9,7 +9,7 @@ module CKAN
         url
       end
 
-      def build_url(url = @base_url, path:, params:)
+      def build_url(url = @base_url, path:, params: {})
         url = url.clone
         url.path = path
         append_url(url, params: params)

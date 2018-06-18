@@ -1,0 +1,91 @@
+// 20180618150213
+// https://data.gov.uk/api/3/action/organization_show?id=2gether-nhs-foundation-trust
+
+{
+  "help": "http://data.gov.uk/api/3/action/help_show?name=organization_show",
+  "success": true,
+  "result": {
+    "contact-phone": "",
+    "abbreviation": "",
+    "foi-email": "",
+    "id": "f253ec11-900c-45da-86e0-4dd10f5f6b37",
+    "description": "",
+    "category": "nhs",
+    "approval_status": "approved",
+    "title": "2gether NHS Foundation Trust",
+    "foi-web": "http://www.whatdotheyknow.com/body/2gether_nhs_foundation_trust",
+    "users": [
+      {
+        "capacity": "admin",
+        "name": "user_d7180"
+      }
+    ],
+    "contact-email": "",
+    "tags": [
+
+    ],
+    "foi-name": "",
+    "groups": [
+      {
+        "capacity": "public",
+        "name": "national-health-service"
+      }
+    ],
+    "replaced_by": [
+
+    ],
+    "contact-name": "",
+    "name": "2gether-nhs-foundation-trust",
+    "image_display_url": "",
+    "type": "organization",
+    "is_organization": true,
+    "extras": [
+      {
+        "value": "",
+        "key": "abbreviation"
+      },
+      {
+        "value": "nhs",
+        "key": "category"
+      },
+      {
+        "value": "",
+        "key": "contact-email"
+      },
+      {
+        "value": "",
+        "key": "contact-name"
+      },
+      {
+        "value": "",
+        "key": "contact-phone"
+      },
+      {
+        "value": "",
+        "key": "foi-email"
+      },
+      {
+        "value": "",
+        "key": "foi-name"
+      },
+      {
+        "value": "",
+        "key": "foi-phone"
+      },
+      {
+        "value": "http://www.whatdotheyknow.com/body/2gether_nhs_foundation_trust",
+        "key": "foi-web"
+      },
+      {
+        "value": "",
+        "key": "website-name"
+      },
+      {
+        "value": "",
+        "key": "website-url"
+      }
+    ],
+    "image_url": "",
+    "foi-phone": ""
+  }
+}
