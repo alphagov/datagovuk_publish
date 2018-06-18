@@ -8,11 +8,23 @@ module CKAN
       include CKAN::Modules::URLBuilder
       include CKAN::Modules::Pagination
 
+      LIST_ORGANIZATION_PATH = "/api/3/action/organization_list".freeze
+      SHOW_ORGANIZATION_PATH = "/api/3/action/organization_show".freeze
       SEARCH_DATASET_PATH = "/api/3/search/dataset".freeze
       SHOW_DATASET_PATH = "/api/3/action/package_show".freeze
 
       def initialize(base_url:)
         @base_url = URI(base_url)
+      end
+
+      def list_organization
+        url = build_url(path: LIST_ORGANIZATION_PATH)
+        JSON.parse(url.read)["result"]
+      end
+
+      def show_organization(id:)
+        url = build_url(path: SHOW_ORGANIZATION_PATH, params: { id: id })
+        JSON.parse(url.read)["result"]
       end
 
       def search_dataset(fl:)

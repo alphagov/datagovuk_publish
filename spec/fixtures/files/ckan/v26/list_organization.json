@@ -1,0 +1,11 @@
+// 20180618150009
+// https://data.gov.uk/api/3/action/organization_list
+
+{
+  "help": "http://data.gov.uk/api/3/action/help_show?name=organization_list",
+  "success": true,
+  "result": [
+    "2gether-nhs-foundation-trust",
+    "aberdeen-city-council"
+  ]
+}
