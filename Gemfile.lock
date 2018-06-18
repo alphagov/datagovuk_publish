@@ -124,8 +124,6 @@ GEM
       rails (>= 4.2.4)
       warden (~> 1.2)
       warden-oauth2 (~> 0.0.1)
-    gds_metrics (0.1.0)
-      prometheus-client-mmap (= 0.9.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     govuk-lint (3.8.0)
@@ -240,7 +238,6 @@ GEM
     pg (0.21.0)
     plek (2.1.1)
     powerpack (0.1.1)
-    prometheus-client-mmap (0.9.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -444,7 +441,6 @@ DEPENDENCIES
   factory_girl_rails (~> 4.0)
   friendly_id (~> 5.2.1)
   gds-sso
-  gds_metrics (~> 0.1)
   govuk-lint (~> 3.8.0)
   govuk_elements_rails
   govuk_sidekiq (~> 3.0)
