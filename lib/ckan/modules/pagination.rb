@@ -8,7 +8,7 @@ module CKAN
           params = { offset_param => results.count }
           url = append_url(base_url, params: params)
 
-          page = JSON.parse(url.read)[results_key]
+          page = read_json(url)[results_key]
           results += page
 
           break if page.empty?
