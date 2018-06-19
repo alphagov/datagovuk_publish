@@ -9,7 +9,8 @@ module CKAN
           contact_name: ckan_org.get("contact-name"),
           foi_email: ckan_org.get("foi-email"),
           foi_web: ckan_org.get("foi-web"),
-          foi_name: ckan_org.get("foi-name")
+          foi_name: ckan_org.get("foi-name"),
+          category: ckan_org.get("category")
         }
       end
     end
