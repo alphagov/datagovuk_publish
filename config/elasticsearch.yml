@@ -1,24 +1,24 @@
 default: &default
-  elastic_timeout: 5
+  timeout: 5
 
 test:
   <<: *default
-  host: <%= ENV["ES_HOST"] || "http://localhost:9200" %>
+  host: 'http://localhost:9200'
 
 development:
   <<: *default
-  host: <%= ENV["ES_HOST"] || "http://localhost:9200" %>
+  host: 'http://localhost:9200'
 
 integration:
   <<: *default
-  host: <%= ENV["BONSAI_URL"] %>
+  host: '<%= ENV["BONSAI_URL"] %>'
 
 staging:
   <<: *default
-  host: <%= ENV["ES_HOST"] %>
-  vcap_services: '<%= ENV["VCAP_SERVICES"] %>'
+  host: '<%= JSON.parse(ENV["VCAP_SERVICES"] || "{}")
+                 .dig("elasticsearch", 0, "credentials", "uri") %>'
 
 production:
   <<: *default
-  host: <%= ENV["ES_HOST"] %>
-  vcap_services: '<%= ENV["VCAP_SERVICES"] %>'
+  host: '<%= JSON.parse(ENV["VCAP_SERVICES"] || "{}")
+                 .dig("elasticsearch", 0, "credentials", "uri") %>'
