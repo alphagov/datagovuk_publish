@@ -15,19 +15,19 @@ module CKAN
 
       def update_dataset_from_package(package, dataset)
         Dataset.transaction do
-          CKAN::V26::DatasetUpdater.new.call(dataset, package)
-          CKAN::V26::InspireUpdater.new.call(dataset, package)
-          CKAN::V26::LinkUpdater.new.call(dataset, package)
+          DatasetUpdater.new.call(dataset, package)
+          InspireUpdater.new.call(dataset, package)
+          LinkUpdater.new.call(dataset, package)
           dataset.publish
         end
       end
 
       def get_package_from_ckan(package_id)
         base_url = Rails.configuration.ckan_v26_base_url
-        client = CKAN::V26::Client.new(base_url: base_url)
+        client = Client.new(base_url: base_url)
 
         response = client.show_dataset(id: package_id)
-        CKAN::V26::Package.new(response)
+        Package.new(response)
       end
     end
   end

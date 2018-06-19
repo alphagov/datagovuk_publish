@@ -4,7 +4,7 @@ module CKAN
       include Sidekiq::Worker
 
       def perform
-        actions = CKAN::V26::PackageDiffer.new.call
+        actions = PackageDiffer.new.call
         create_new_datasets(actions[:create])
         update_existing_datasets(actions[:update])
         delete_old_datasets(actions[:delete])
