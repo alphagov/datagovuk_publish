@@ -15,8 +15,13 @@ module CKAN
 
       def update_organisation_from_ckan(ckan_org, organisation)
         Organisation.transaction do
-          OrganisationUpdater.new.call(organisation, ckan_org)
+          result = OrganisationUpdater.new.call(organisation, ckan_org)
+          republish_organisation_datasets(organisation) if result
         end
+      end
+
+      def republish_organisation_datasets(organisation)
+        organisation.datasets.select(&:published?).each(&:publish)
       end
 
       def get_organization_from_ckan(organisation_id)

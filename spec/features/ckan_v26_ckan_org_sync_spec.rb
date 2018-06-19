@@ -14,7 +14,11 @@ describe 'ckan organisation sync' do
   let!(:organisation_to_ignore) { create :organisation, name: "organisation_to_ignore" }
   let!(:organisation_to_update) { create :organisation, name: organisation_to_update_id }
 
+  let!(:dataset_to_unpublish) { create :dataset, organisation: organisation_to_delete }
+
   before do
+    dataset_to_unpublish.publish
+
     stub_request(:get, "http://ckan/api/3/action/organization_list")
       .to_return(body: organization_list.to_json)
 
@@ -37,9 +41,18 @@ describe 'ckan organisation sync' do
       .to(change { organisation_to_update.reload.updated_at })
   end
 
+  it 'does not update organisations if they are unchanged' do
+    subject.perform
+    organisation_to_update.update(updated_at: 5.years.ago)
+
+    expect { subject.perform }
+      .to_not(change { organisation_to_update.reload.updated_at })
+  end
+
   it 'deletes organisations when they disappear from ckan' do
     subject.perform
     expect(Organisation.all).to_not include organisation_to_delete
+    expect { get_from_es(dataset_to_unpublish.uuid) }.to raise_error(/404/)
   end
 
   it 'does not delete organisations with a govuk_content_id' do
