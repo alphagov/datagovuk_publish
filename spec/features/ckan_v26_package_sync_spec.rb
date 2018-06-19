@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'ckan package sync' do
-  subject { CKAN::V26::SyncWorker.new }
+  subject { CKAN::V26::PackageSyncWorker.new }
 
   let(:search_dataset_v26_p1) { JSON.parse(file_fixture("ckan/v26/search_dataset_p1.json").read) }
   let(:search_dataset_v26_p2) { JSON.parse(file_fixture("ckan/v26/search_dataset_p2.json").read) }

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'ckan package import' do
-  subject { CKAN::V26::ImportWorker.new }
+  subject { CKAN::V26::PackageImportWorker.new }
 
   let(:empty_package_id) { "8fda2162-dcd6-4fb3-9835-c85c046ff229" }
   let(:create_package_id) { "bca22660-dccc-4a37-9cfe-6bc2c0739cff" }
