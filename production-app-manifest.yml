@@ -9,6 +9,7 @@ applications:
   services:
   - beta-production-elasticsearch
   - publish-beta-production-pg
+  - publish-beta-production-redis
   - publish-production-secrets
   - logit-ssl-drain
   - dgu-prometheus
