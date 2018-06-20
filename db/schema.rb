@@ -121,13 +121,6 @@ ActiveRecord::Schema.define(version: 2018042510281100) do
     t.index ["uuid"], name: "index_links_on_uuid"
   end
 
-  create_table "locations", force: :cascade do |t|
-    t.string "name"
-    t.string "location_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "organisations", force: :cascade do |t|
     t.string "name"
     t.string "title"
@@ -147,8 +140,8 @@ ActiveRecord::Schema.define(version: 2018042510281100) do
     t.datetime "updated_at", null: false
     t.string "uuid"
     t.string "org_type"
-    t.string "ancestry"
     t.string "govuk_content_id"
+    t.string "ancestry"
     t.index ["ancestry"], name: "index_organisations_on_ancestry"
     t.index ["uuid"], name: "index_organisations_on_uuid"
   end
