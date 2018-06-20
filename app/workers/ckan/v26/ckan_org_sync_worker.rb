@@ -18,7 +18,11 @@ module CKAN
       end
 
       def delete_old_organisations(organisation_ids)
-        Organisation.where(name: organisation_ids).destroy_all
+        Organisation.transaction do
+          organisations = Organisation.where(name: organisation_ids)
+          Dataset.where(organisation: organisations).each(&:unpublish)
+          organisations.destroy_all
+        end
       end
     end
   end

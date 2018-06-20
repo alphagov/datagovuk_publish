@@ -6,7 +6,7 @@ class Organisation < ApplicationRecord
 
   audited
   has_many :tasks, dependent: :destroy
-  has_many :datasets
+  has_many :datasets, dependent: :destroy
   friendly_id :slug_candidates, use: :slugged, slug_column: :name
   before_save :set_uuid
 
