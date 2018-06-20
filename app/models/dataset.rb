@@ -39,6 +39,8 @@ class Dataset < ApplicationRecord
   def unpublish
     return unless published?
     __elasticsearch__.delete_document(id: uuid)
+  rescue Elasticsearch::Transport::Transport::Errors::NotFound => e
+    Rails.logger.warn(e)
   end
 
   def as_indexed_json(_options = {})
