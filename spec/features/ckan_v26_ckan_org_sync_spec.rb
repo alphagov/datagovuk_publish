@@ -15,6 +15,7 @@ describe 'ckan organisation sync' do
   let!(:organisation_to_update) { create :organisation, name: organisation_to_update_id }
 
   let!(:dataset_to_unpublish) { create :dataset, organisation: organisation_to_delete }
+  let!(:dataset_not_to_unpublish) { create :dataset, organisation: organisation_to_delete }
 
   before do
     dataset_to_unpublish.publish
@@ -52,6 +53,7 @@ describe 'ckan organisation sync' do
   it 'deletes organisations when they disappear from ckan' do
     subject.perform
     expect(Organisation.all).to_not include organisation_to_delete
+    expect(Dataset.count).to be_zero
     expect { get_from_es(dataset_to_unpublish.uuid) }.to raise_error(/404/)
   end
 
