@@ -1,23 +1,24 @@
 default: &default
-  host: '<%= ENV['REDIS_IP'] || "localhost" %>'
-  port: '<%= ENV['REDIS_PORT'] || 6379 %>'
-  db: 12
   network_timeout: 5
 
 development:
   <<: *default
   namespace: development
+  host: localhost
+  port: 6379
 
 test:
   <<: *default
   namespace: test
+  host: localhost
+  port: 6379
 
 staging:
   <<: *default
-  namespace: staging
-  password: '<%= ENV['REDIS_PASSWORD'] %>'
+  url: '<%= JSON.parse(ENV["VCAP_SERVICES"] || "{}")
+                .dig("redis", 0, "credentials", "uri") %>'
 
 production:
   <<: *default
-  namespace: production
-  password: '<%= ENV['REDIS_PASSWORD'] %>'
+  url: '<%= JSON.parse(ENV["VCAP_SERVICES"] || "{}")
+                .dig("redis", 0, "credentials", "uri") %>'

@@ -9,6 +9,7 @@ applications:
   services:
   - publish-staging-secrets
   - publish-beta-staging-pg
+  - publish-beta-staging-redis
   - logit-ssl-drain
   - beta-staging-elasticsearch
   health-check-type: process
