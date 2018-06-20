@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'ckan package import' do
-  subject { CKAN::V26::ImportWorker.new }
+  subject { CKAN::V26::PackageImportWorker.new }
 
   let(:package_inspire) { JSON.parse(file_fixture("ckan/v26/package_show_inspire.json").read) }
   let(:package_create) { JSON.parse(file_fixture("ckan/v26/package_show_create.json").read) }
