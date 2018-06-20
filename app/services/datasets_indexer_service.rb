@@ -185,6 +185,9 @@ private
       type: ::Dataset.__elasticsearch__.document_type,
       body: prepare_records(datasets)
     )
+  rescue Elasticsearch::Transport::Transport::Error => e
+    logger.warn(e)
+    retry
   end
 
   def prepare_records(datasets)
