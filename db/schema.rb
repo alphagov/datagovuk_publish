@@ -118,25 +118,16 @@ ActiveRecord::Schema.define(version: 2018042510281100) do
   create_table "organisations", force: :cascade do |t|
     t.string "name"
     t.string "title"
-    t.text "description"
-    t.string "abbreviation"
-    t.string "replace_by"
     t.string "contact_email"
-    t.string "contact_phone"
     t.string "contact_name"
     t.string "foi_email"
-    t.string "foi_phone"
     t.string "foi_name"
     t.string "foi_web"
     t.string "category"
-    t.integer "organisation_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "uuid"
-    t.string "org_type"
     t.string "govuk_content_id"
-    t.string "ancestry"
-    t.index ["ancestry"], name: "index_organisations_on_ancestry"
     t.index ["uuid"], name: "index_organisations_on_uuid"
   end
 
