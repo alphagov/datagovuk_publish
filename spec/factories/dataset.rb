@@ -8,7 +8,6 @@ FactoryGirl.define do
     frequency "never"
     licence_code "uk-ogl"
     topic
-    last_updated_at Time.now
 
     trait :with_datafile do
       datafiles { create_list(:datafile, 1) }
