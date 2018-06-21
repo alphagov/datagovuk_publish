@@ -24,9 +24,6 @@ Run the following commands to get started.
 # install dependencies
 bin/setup
 
-# import production data - ctrl-c after ~1000 datasets
-bin/import
-
 # start a web server
 rails s
 ```
