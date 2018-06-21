@@ -41,8 +41,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-    ancestry (3.0.1)
-      activerecord (>= 3.2.0)
     arel (8.0.0)
     ast (2.4.0)
     audited (4.5.0)
@@ -103,8 +101,6 @@ GEM
     faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.23)
-    friendly_id (5.2.1)
-      activerecord (>= 4.0.0)
     fugit (1.1.1)
       et-orbi (~> 1.1, >= 1.1.1)
       raabro (~> 1.1)
@@ -426,7 +422,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ancestry (~> 3.0.1)
   audited (~> 4.5)
   brakeman (~> 4.2)
   byebug (~> 9)
@@ -439,7 +434,6 @@ DEPENDENCIES
   elasticsearch-model (~> 5.0.1)
   elasticsearch-rails (~> 5.0.1)
   factory_girl_rails (~> 4.0)
-  friendly_id (~> 5.2.1)
   gds-sso
   govuk-lint (~> 3.8.0)
   govuk_elements_rails
