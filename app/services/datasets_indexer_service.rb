@@ -185,7 +185,7 @@ private
       type: ::Dataset.__elasticsearch__.document_type,
       body: prepare_records(datasets)
     )
-  rescue Elasticsearch::Transport::Transport::Error => e
+  rescue StandardError => e
     logger.warn(e)
     retry
   end
