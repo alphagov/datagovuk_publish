@@ -1,6 +1,6 @@
 # 2. signon
 
-Date: 2018-05-01
+Date: 2018-06-22
 
 ## Status
 
@@ -28,4 +28,4 @@ When a user navigates to the home page, they will still see the old page prompti
 
 All of the user management features have been removed from the app, including the admin interface and the process for creating new accounts. We can manage who can login to the app using GOV.UK Signon, although every user will have the same level of access. We will fix the permission model in later work.
 
-When a user logs into the app, they will be assigned a random organisation, or one that has been set manually in the database. This is because there is no simple mapping from GOV.UK Signon organisations to our legacy organisations, including the legacy organisation hierarchy. This will be addressed in later work.
+When a user logs in, we attempt to find a legacy organisation with a `govuk_content_id` that matches the one specified by GOV.UK Signon, and raise an error if this fails. This only works for a few organisations, as there is no simple mapping from GOV.UK Signon organisations to our legacy organisations. This and the issue of hierarchy will be addressed in later work.
