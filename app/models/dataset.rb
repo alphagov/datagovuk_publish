@@ -32,15 +32,19 @@ class Dataset < ApplicationRecord
   scope :with_no_datafiles, -> { left_outer_joins(:datafiles).where(links: { id: nil }) }
 
   def publish
-    published!
-    __elasticsearch__.index_document(id: uuid)
+    Dataset.transaction do
+      published!
+      result = __elasticsearch__.index_document(id: uuid)
+      raise "Failed to publish" if result["_shards"]["failed"].positive?
+    end
   end
 
   def unpublish
     return unless published?
-    __elasticsearch__.delete_document(id: uuid)
-  rescue Elasticsearch::Transport::Transport::Errors::NotFound => e
-    Rails.logger.warn(e)
+    result = __elasticsearch__.delete_document(id: uuid)
+
+    raise "Failed to unpublish" if result["_shards"]["failed"].positive?
+    draft!
   end
 
   def as_indexed_json(_options = {})
