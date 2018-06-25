@@ -1,6 +1,6 @@
 class DatasetsController < ApplicationController
   before_action :set_dataset,
-                only: %i[show edit update destroy publish confirm_delete quality]
+                only: %i[show edit update destroy publish confirm_delete]
 
   def show
     authorize!(:read, @dataset)
@@ -57,15 +57,6 @@ class DatasetsController < ApplicationController
     @dataset.unpublish
     @dataset.destroy
     redirect_to manage_path
-  end
-
-  def quality
-    # A temporary page to show why some datasets are low quality
-    require 'quality/quality_score_calculator'
-    q = QualityScoreCalculator.new(@dataset)
-
-    @score = q.score
-    @reasons = q.reasons
   end
 
 private
