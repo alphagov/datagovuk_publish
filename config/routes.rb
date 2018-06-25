@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   root to: 'sessions#new'
   mount Sidekiq::Web => '/sidekiq', constraints: { domain: 'localhost' }
 
-  get 'quality', to: 'home#quality'
   get 'dashboard', to: 'home#dashboard', as: 'dashboard'
 
   scope '/datasets' do
@@ -55,7 +54,6 @@ Rails.application.routes.draw do
 
     # Datasets other
     get ':uuid/*name/confirm_delete', to: 'datasets#confirm_delete', as: 'confirm_delete_dataset'
-    get ':uuid/*name/quality', to: 'datasets#quality', as: 'dataset_quality'
     post ':uuid/*name/publish', to: 'datasets#publish', as: 'publish_dataset'
 
     # Datasets CRUD
