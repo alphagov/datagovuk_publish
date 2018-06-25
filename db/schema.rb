@@ -146,19 +146,6 @@ ActiveRecord::Schema.define(version: 2018042510281100) do
     t.index ["organisation_id"], name: "index_quality_scores_on_organisation_id"
   end
 
-  create_table "tasks", force: :cascade do |t|
-    t.bigint "organisation_id"
-    t.integer "quantity", default: 0
-    t.string "required_permission_name"
-    t.string "description", limit: 128, default: ""
-    t.string "category", limit: 20
-    t.string "owning_organisation", limit: 128
-    t.string "related_object_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["organisation_id"], name: "index_tasks_on_organisation_id"
-  end
-
   create_table "topics", force: :cascade do |t|
     t.string "name"
     t.string "title"
@@ -179,5 +166,4 @@ ActiveRecord::Schema.define(version: 2018042510281100) do
 
   add_foreign_key "inspire_datasets", "datasets"
   add_foreign_key "quality_scores", "organisations"
-  add_foreign_key "tasks", "organisations"
 end
