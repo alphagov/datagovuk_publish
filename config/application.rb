@@ -40,22 +40,10 @@ module PublishDataBeta
       html_tag
     }
 
-    # TODO: replace the origins wildcard to accept requets from find only?
-    # https://github.com/cyu/rack-cors#origin
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins '*'
-        resource '*', headers: :any, methods: [:get]
-      end
-    end
-
     config.autoload_paths += [Rails.root.join("app/workers")]
     config.autoload_paths += [Rails.root.join("lib/validators")]
     config.autoload_paths += [Rails.root.join("lib/ckan")]
 
     config.elasticsearch = config_for(:elasticsearch)
-
-    config.filter_parameters << :password
-    config.filter_parameters << :password_confirmation
   end
 end

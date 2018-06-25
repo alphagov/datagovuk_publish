@@ -252,7 +252,6 @@ GEM
     rack (2.0.4)
     rack-cache (1.7.1)
       rack (>= 0.4)
-    rack-cors (1.0.1)
     rack-protection (2.0.1)
       rack
     rack-test (1.0.0)
@@ -453,7 +452,6 @@ DEPENDENCIES
   pry-rails
   pry-stack_explorer (~> 0.4.9)
   puma (~> 3.7)
-  rack-cors
   rails (~> 5.1.6)
   rest-client (~> 2.0.2)
   rspec (~> 3.6)
