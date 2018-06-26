@@ -16,5 +16,9 @@ FactoryGirl.define do
     trait :with_doc do
       docs { create_list(:doc, 1) }
     end
+
+    trait :inspire do
+      inspire_dataset { build :inspire_dataset }
+    end
   end
 end

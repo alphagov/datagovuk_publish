@@ -60,16 +60,14 @@ describe 'ckan package import' do
     end
 
     it 'updates an inspire dataset if it already exists' do
-      create :dataset, uuid: package_inspire_id,
-                       inspire_dataset: (build :inspire_dataset)
+      create :dataset, :inspire, uuid: package_inspire_id
 
       expect { subject.perform(package_inspire_id) }
         .to_not(change { InspireDataset.count })
     end
 
     it 'removes an inspire dataset if it is not in the package' do
-      create :dataset, uuid: package_create_id,
-                       inspire_dataset: (build :inspire_dataset)
+      create :dataset, :inspire, uuid: package_create_id
 
       expect { subject.perform(package_create_id) }
         .to change { InspireDataset.count }.by(-1)

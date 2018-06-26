@@ -104,11 +104,24 @@ class Dataset < ApplicationRecord
   end
 
   def public_updated_at
-    most_recently_updated_datafile_timestamp || self.updated_at
+    inspire_dataset_reference_date ||
+      most_recently_updated_datafile_timestamp ||
+      self.updated_at
   end
 
   def released
     links.count.positive?
+  end
+
+  def inspire_dataset_reference_date
+    return unless inspire_dataset
+
+    reference_date = inspire_dataset.dataset_reference_date
+    json = JSON.parse(reference_date)
+
+    json.map { |date| Date.parse(date["value"]) }.max
+  rescue ArgumentError
+    nil
   end
 
 private
