@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180621101249) do
+ActiveRecord::Schema.define(version: 20180625130122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,21 +131,6 @@ ActiveRecord::Schema.define(version: 20180621101249) do
     t.index ["uuid"], name: "index_organisations_on_uuid"
   end
 
-  create_table "quality_scores", force: :cascade do |t|
-    t.bigint "organisation_id"
-    t.integer "highest", default: 0
-    t.integer "lowest", default: 0
-    t.integer "average", default: 0
-    t.integer "median", default: 0
-    t.integer "total", default: 0
-    t.string "organisation_name"
-    t.string "string"
-    t.string "organisation_title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["organisation_id"], name: "index_quality_scores_on_organisation_id"
-  end
-
   create_table "topics", force: :cascade do |t|
     t.string "name"
     t.string "title"
@@ -165,5 +150,4 @@ ActiveRecord::Schema.define(version: 20180621101249) do
   end
 
   add_foreign_key "inspire_datasets", "datasets"
-  add_foreign_key "quality_scores", "organisations"
 end
