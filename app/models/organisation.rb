@@ -2,7 +2,6 @@ require 'securerandom'
 
 class Organisation < ApplicationRecord
   audited
-  has_many :tasks, dependent: :destroy
   has_many :datasets, dependent: :destroy
   before_save :set_uuid
 

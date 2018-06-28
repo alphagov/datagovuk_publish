@@ -67,9 +67,6 @@ Rails.application.routes.draw do
     delete ':uuid/*name', to: 'datasets#destroy', as: 'delete_dataset'
   end
 
-  get 'tasks', to: 'tasks#my'
-  get 'tasks/organisation', to: 'tasks#organisation'
-
   get 'manage', to: 'manage#manage_own'
   get 'manage/organisation', to: 'manage#manage_organisation'
 

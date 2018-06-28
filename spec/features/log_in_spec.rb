@@ -4,14 +4,14 @@ describe "logging in" do
   let(:land_registry) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
   let!(:user) { FactoryGirl.create(:user, primary_organisation: land_registry) }
 
-  it "redirects logged in users to the tasks page" do
+  it "redirects logged in users to the manage page" do
     sign_in_as(user)
-    expect(page).to have_current_path '/tasks'
+    expect(page).to have_current_path '/manage'
   end
 
   it "requires a user to login to view most pages" do
     sign_out
-    expect { visit "/tasks" }.to raise_error(/no test user found/)
+    expect { visit "/manage" }.to raise_error(/no test user found/)
   end
 
   it "does not require login for the home page" do
