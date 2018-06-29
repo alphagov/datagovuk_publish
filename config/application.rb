@@ -53,8 +53,6 @@ module PublishDataBeta
     config.autoload_paths += [Rails.root.join("lib/validators")]
     config.autoload_paths += [Rails.root.join("lib/ckan")]
 
-    config.elasticsearch = config_for(:elasticsearch)
-
     config.filter_parameters << :password
     config.filter_parameters << :password_confirmation
   end
