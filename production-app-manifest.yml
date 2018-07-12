@@ -12,4 +12,3 @@ applications:
   - publish-beta-production-redis
   - publish-production-secrets
   - logit-ssl-drain
-  - dgu-prometheus
