@@ -7,7 +7,7 @@ applications:
     RAILS_ENV: production
     RACK_ENV: production
   services:
-  - beta-production-elasticsearch
+  - elasticsearch-beta-production
   - publish-beta-production-pg
   - publish-beta-production-redis
   - publish-production-secrets
