@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180625130122) do
+ActiveRecord::Schema.define(version: 20180814160005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,8 @@ ActiveRecord::Schema.define(version: 20180625130122) do
     t.string "uuid"
     t.datetime "last_modified"
     t.string "type"
+    t.index ["dataset_id"], name: "index_links_on_dataset_id"
+    t.index ["type"], name: "index_links_on_type"
     t.index ["uuid"], name: "index_links_on_uuid"
   end
 
