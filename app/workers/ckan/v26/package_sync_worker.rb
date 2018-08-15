@@ -2,6 +2,7 @@ module CKAN
   module V26
     class PackageSyncWorker
       include Sidekiq::Worker
+      sidekiq_options retry: false
 
       def perform
         actions = PackageDiffer.new.call
