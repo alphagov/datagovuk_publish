@@ -4,6 +4,7 @@ module CKAN
   module V26
     class CKANOrgImportWorker
       include Sidekiq::Worker
+      sidekiq_options queue: :import, retry: 3 # Discarded after ~2 minutes
 
       def perform(organisation_id, *_args)
         ckan_org = get_organization_from_ckan(organisation_id)

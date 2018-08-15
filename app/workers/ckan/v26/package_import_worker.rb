@@ -4,6 +4,7 @@ module CKAN
   module V26
     class PackageImportWorker
       include Sidekiq::Worker
+      sidekiq_options queue: :import, retry: 3 # Discarded after ~2 minutes
 
       def perform(package_id, *_args)
         package = get_package_from_ckan(package_id)

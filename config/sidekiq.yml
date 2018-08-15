@@ -1,5 +1,11 @@
 ---
 :concurrency: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
+:queues:
+  - sync
+  - import
+:limits:
+  sync: 1
+  import: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } - 1 %>
 
 staging:
   :schedule:
