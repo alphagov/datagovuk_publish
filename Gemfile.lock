@@ -352,6 +352,8 @@ GEM
       redis (>= 3.3.5, < 5)
     sidekiq-logging-json (0.0.18)
       sidekiq (>= 3)
+    sidekiq-prometheus-exporter (0.1.1)
+      sidekiq (>= 3.3.1)
     sidekiq-scheduler (3.0.0)
       redis (>= 3, < 5)
       rufus-scheduler (~> 3.2)
@@ -459,6 +461,7 @@ DEPENDENCIES
   rubyzip (~> 1.2)
   sass-rails (~> 5.0)
   sentry-raven
+  sidekiq-prometheus-exporter (~> 0.1.1)
   sidekiq-scheduler
   simplecov
   spring (~> 2.0)
@@ -473,4 +476,4 @@ RUBY VERSION
    ruby 2.5.0p0
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
