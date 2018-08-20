@@ -28,6 +28,10 @@ module CKAN
       def delete_old_datasets(datasets)
         datasets.each(&:unpublish)
         datasets.destroy_all
+        if datasets.length > 100
+          msg = "More than 100 datasets have been unpublished in a single sync run.  This suggests a problem with the response from CKAN."
+          Raven.capture msg
+        end
       end
     end
   end
