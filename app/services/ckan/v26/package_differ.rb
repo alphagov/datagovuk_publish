@@ -29,11 +29,12 @@ module CKAN
       end
 
       def diff_update(packages, datasets)
-        datasets = Hash[datasets.pluck(:uuid, :updated_at)]
+        datasets_modified = Hash[datasets.pluck(:uuid, :updated_at)]
+        datasets_status = Hash[datasets.pluck(:uuid, :status)]
 
         packages.to_a.select do |package|
-          updated_at = datasets[package.get("id")]
-          updated_at && package_is_changed?(package, updated_at)
+          updated_at = datasets_modified[package.get("id")]
+          (updated_at && package_is_changed?(package, updated_at)) || datasets_status[package.get("id")] == 'draft'
         end
       end
 

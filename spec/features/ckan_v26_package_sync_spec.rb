@@ -13,6 +13,8 @@ describe 'ckan package sync' do
   let(:dataset_to_create_id) { search_dataset_p1["results"][2]["id"] }
 
   let!(:dataset_to_delete) { create :dataset, legacy_name: "dataset_to_delete" }
+  let!(:dataset_to_republish_draft) { create :dataset, uuid: "fa37dff7-bbc0-4a84-a146-7eee332c9c1f", status: "draft" }
+  let!(:dataset_to_republish) { create :dataset, uuid: "fa37dff7-bbc0-4a84-a146-7eee332c9c1f" }
   let!(:dataset_to_ignore) { create :dataset, legacy_name: nil }
 
   let!(:dataset_to_update) do
@@ -75,5 +77,12 @@ describe 'ckan package sync' do
 
     expect(Dataset.all).to_not include dataset_to_delete
     expect { get_from_es(dataset_to_delete.uuid) }.to raise_error(/404/)
+  end
+
+  it 'republishes draft datasets when they reappear in ckan' do
+    dataset_to_republish_draft.publish
+    subject.perform
+
+    expect(Dataset.all).to include dataset_to_republish
   end
 end
