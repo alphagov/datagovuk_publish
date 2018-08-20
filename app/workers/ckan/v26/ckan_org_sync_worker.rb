@@ -2,6 +2,7 @@ module CKAN
   module V26
     class CKANOrgSyncWorker
       include Sidekiq::Worker
+      sidekiq_options queue: :sync, retry: 13 # Discarded after ~17 hours
 
       def perform
         actions = CKANOrgDiffer.new.call
