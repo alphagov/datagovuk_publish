@@ -15,6 +15,15 @@ describe 'ckan package sync' do
   let!(:dataset_to_delete) { create :dataset, legacy_name: "dataset_to_delete" }
   let!(:dataset_to_ignore) { create :dataset, legacy_name: nil }
 
+  let!(:dataset_to_reimport) {
+    create(:dataset,
+      legacy_name: "dataset_to_reimport",
+      uuid: search_dataset_p1["results"][3]["id"],
+      status: "draft",
+      updated_at: Time.parse(search_dataset_p1["results"][3]["metadata_modified"]),
+    )
+  }
+
   let!(:dataset_to_update) do
     create :dataset, legacy_name: "dataset_to_update",
                      uuid: dataset_to_update_id,
@@ -36,7 +45,7 @@ describe 'ckan package sync' do
       .to_return(body: search_dataset_p1.to_json)
 
     stub_request(:get, "http://ckan/api/3/search/dataset")
-      .with(query: { fl: "id,metadata_modified", start: 3, rows: 1000 })
+      .with(query: { fl: "id,metadata_modified", start: 4, rows: 1000 })
       .to_return(body: search_dataset_p2.to_json)
 
     stub_request(:get, "http://ckan/api/3/action/package_show")
@@ -46,6 +55,10 @@ describe 'ckan package sync' do
     stub_request(:get, "http://ckan/api/3/action/package_show")
       .with(query: { id: "bca22660-dccc-4a37-9cfe-6bc2c0739cff" })
       .to_return(body: package_show_create.to_json)
+
+    stub_request(:get, "http://ckan/api/3/action/package_show")
+      .with(query: { id: dataset_to_reimport.uuid })
+      .to_return(body: package_show_update.to_json.gsub(dataset_to_update_id, dataset_to_reimport.uuid))
   end
 
   it 'creates new datasets when they appear in ckan' do
@@ -57,6 +70,14 @@ describe 'ckan package sync' do
     expect { subject.perform }
       .to change { dataset_to_update.reload.updated_at }
       .to(Time.parse(package_show_update["result"]["metadata_modified"]))
+  end
+
+  it "updates existing datasets when they're draft but appear in CKAN" do
+    subject.perform
+    dataset_to_reimport.reload
+
+    expect(dataset_to_reimport.updated_at).to eq(Time.parse(package_show_update["result"]["metadata_modified"]))
+    expect(dataset_to_reimport.status).to eq("published")
   end
 
   it 'preserves existing datasets when they do not change in ckan' do
