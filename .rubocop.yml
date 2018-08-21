@@ -5,9 +5,13 @@ AllCops:
     - config.ru
     - db/schema.rb
     - vendor/**/*
+    - lib/ckan/v26/depaginator.rb
 
 Metrics/BlockLength:
   Exclude:
     - 'config/routes.rb'
     - 'lib/tasks/**/*.rake'
     - 'spec/**/*.rb'
+
+Layout/MultilineMethodCallBraceLayout:
+  Enabled: false

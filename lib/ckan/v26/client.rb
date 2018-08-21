@@ -1,12 +1,11 @@
 require 'ckan/modules/url_builder'
-require 'ckan/modules/pagination'
+require 'ckan/v26/depaginator'
 require 'open-uri'
 
 module CKAN
   module V26
     class Client
       include CKAN::Modules::URLBuilder
-      include CKAN::Modules::Pagination
 
       LIST_ORGANIZATION_PATH = "/api/3/action/organization_list".freeze
       SHOW_ORGANIZATION_PATH = "/api/3/action/organization_show".freeze
@@ -27,9 +26,9 @@ module CKAN
         JSON.parse(url.read)["result"]
       end
 
-      def search_dataset(fl:)
-        depaginate(build_url(path: SEARCH_DATASET_PATH,
-                             params: { rows: 1000, fl: fl.join(",") }))
+      def search_dataset(fl:, existing_total:)
+        url = build_url(path: SEARCH_DATASET_PATH, params: { rows: 1000, fl: fl.join(",") })
+        Depaginator.depaginate(url, existing_total: existing_total)
       end
 
       def show_dataset(id:)

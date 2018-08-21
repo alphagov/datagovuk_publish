@@ -8,7 +8,7 @@ module CKAN
       def call
         datasets = Dataset.where.not(legacy_name: nil)
 
-        packages = client.search_dataset(fl: CKAN_FIELDS)
+        packages = client.search_dataset(fl: CKAN_FIELDS, existing_total: datasets.size)
           .map { |response| Package.new(response) }
 
         {
