@@ -46,10 +46,13 @@ describe 'ckan package import' do
     end
 
     it 'updates an existing dataset if already exists' do
-      create :dataset, uuid: package_create_id
+      dataset = Dataset.new(uuid: package_create_id, title: "")
+      dataset.save(validate: false)
 
       expect { subject.perform(package_create_id) }
         .to_not(change { Dataset.count })
+
+      expect(dataset.reload.title).to eq package_create["result"]["title"]
     end
   end
 
@@ -60,10 +63,16 @@ describe 'ckan package import' do
     end
 
     it 'updates an inspire dataset if it already exists' do
-      create :dataset, :inspire, uuid: package_inspire_id
+      dataset = Dataset.new(uuid: package_inspire_id, title: "")
+      dataset.save(validate: false)
+
+      inspire_dataset = InspireDataset.new(dataset: dataset)
+      inspire_dataset.save(validate: false)
 
       expect { subject.perform(package_inspire_id) }
         .to_not(change { InspireDataset.count })
+
+      expect(inspire_dataset.reload.import_source).to eq "harvest"
     end
 
     it 'removes an inspire dataset if it is not in the package' do
@@ -81,11 +90,17 @@ describe 'ckan package import' do
     end
 
     it 'updates a link if it already exists' do
-      datafile = create :datafile, uuid: datafile_create_id
-      create :dataset, uuid: package_create_id, datafiles: [datafile]
+      dataset = Dataset.new(uuid: package_create_id, title: "")
+      dataset.save(validate: false)
+
+      datafile = Datafile.new(dataset: dataset, uuid: datafile_create_id)
+      datafile.save(validate: false)
 
       expect { subject.perform(package_create_id) }
         .to_not(change { Link.count })
+
+      expect(datafile.reload.name)
+        .to eq package_create["result"]["resources"][0]["name"]
     end
 
     it 'removes a link if it is not in the package' do

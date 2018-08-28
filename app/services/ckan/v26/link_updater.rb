@@ -16,7 +16,7 @@ module CKAN
         attributes = LinkMapper.new.call(resource, dataset)
 
         link.assign_attributes(attributes)
-        link.save
+        link.save(validate: false)
       end
 
       def remove_missing_links(dataset, package)
