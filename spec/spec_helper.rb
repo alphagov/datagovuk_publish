@@ -11,7 +11,7 @@ WebMock.disable_net_connect!(allow_localhost: true)
 Sidekiq::Logging.logger = Rails.logger
 Sidekiq::Testing.inline!
 
-SimpleCov.start
+SimpleCov.start unless ENV["NO_RCOV"]
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods

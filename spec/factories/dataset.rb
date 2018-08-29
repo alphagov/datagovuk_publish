@@ -8,6 +8,11 @@ FactoryGirl.define do
     frequency "never"
     licence_code "uk-ogl"
     topic
+    status "published"
+
+    after(:create) do |dataset, _|
+      dataset.publish if dataset.published? # Make sure it's in Elasticsearch
+    end
 
     trait :with_datafile do
       datafiles { create_list(:datafile, 1) }

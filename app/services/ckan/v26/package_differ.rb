@@ -8,7 +8,7 @@ module CKAN
       def call
         datasets = Dataset.where.not(legacy_name: nil)
 
-        packages = client.search_dataset(fl: CKAN_FIELDS)
+        packages = client.search_dataset(fl: CKAN_FIELDS, existing_total: datasets.size)
           .map { |response| Package.new(response) }
 
         {
@@ -29,11 +29,14 @@ module CKAN
       end
 
       def diff_update(packages, datasets)
-        datasets = Hash[datasets.pluck(:uuid, :updated_at)]
+        dataset_fields = datasets.pluck(:uuid, :updated_at, :status)
+        dataset_info = dataset_fields.each_with_object({}) { |(uuid, updated_at, status), hash|
+          hash[uuid] = { updated_at: updated_at, status: status }
+        }
 
-        packages.to_a.select do |package|
-          updated_at = datasets[package.get("id")]
-          updated_at && package_is_changed?(package, updated_at)
+        packages.select do |package|
+          dataset = dataset_info[package.get("id")]
+          dataset && package_changed?(package, dataset)
         end
       end
 
@@ -42,8 +45,9 @@ module CKAN
         datasets.where.not(uuid: package_uuids)
       end
 
-      def package_is_changed?(package, updated_at)
-        updated_at.iso8601 < package.get("metadata_modified")
+      def package_changed?(package, dataset)
+        dataset[:status] == "draft" ||
+          dataset[:updated_at].iso8601 < package.get("metadata_modified")
       end
 
       def client

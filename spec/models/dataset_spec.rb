@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Dataset do
-  subject { create :dataset, organisation: (create :organisation) }
+  subject { create :dataset, organisation: (create :organisation), status: "draft" }
 
   it "requires a title and a summary" do
     dataset = Dataset.new(title: "", summary: "")
