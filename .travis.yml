@@ -48,5 +48,3 @@ deploy:
     on:
       repo: alphagov/datagovuk_publish
       tags: true
-notifications:
-  irc: "chat.freenode.net#datagovuk"
