@@ -28,6 +28,7 @@ describe CKAN::V26::DatasetMapper do
       expect(attributes[:licence_url]).to eq Licence.lookup("uk-ogl").url
       expect(attributes[:licence_custom]).to eq package.get_extra("licence")
       expect(attributes[:topic_id]).to eq topic.id
+      expect(attributes[:schema_id]).to eq("d3c0b23f-6979-45e4-88ed-d2ab59b005d0")
       expect(attributes[:status]).to eq "published"
     end
 

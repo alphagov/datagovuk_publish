@@ -15,6 +15,11 @@ FactoryGirl.define do
     add_attribute("foi-name", "Mr. FOI")
     add_attribute("foi-email", "mr.foi@example.com")
     add_attribute("foi-web", "http://foi.com")
+    add_attribute("schema", [{
+      "url" => "https://github.com/datagovuk/schemas/tree/master/organogram",
+      "id" => "d3c0b23f-6979-45e4-88ed-d2ab59b005d0",
+      "title" => "Organisation structure including senior roles & salaries (org chart / organogram for central government departments and agencies)",
+    }])
 
     extras do
       [{ "licence" => "Open Government Licence 3.0 (United Kingdom)" }]
