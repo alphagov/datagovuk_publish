@@ -11,7 +11,7 @@ module CKAN
           coupled_resource: package.get_extra('coupled-resource'),
           dataset_reference_date: package.get_extra('dataset-reference-date'),
           frequency_of_update: package.get_extra('frequency-of-update'),
-          harvest_object_id: package.get_extra('harvest_object_id'),
+          harvest_object_id: package.get_extra('harvest_object_id') || package.get_harvest('harvest_object_id'),
           harvest_source_reference: package.get_extra('harvest_source_reference'),
           import_source: package.get_extra('import_source'),
           metadata_date: package.get_extra('metadata-date'),

@@ -42,7 +42,7 @@ module CKAN
       end
 
       def harvested?(package)
-        package.get_extra("harvest_object_id").present?
+        package.get_extra("harvest_object_id").present? || package.get_harvest("harvest_object_id").present?
       end
 
       def build_location(package)
