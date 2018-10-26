@@ -53,6 +53,8 @@ describe 'ckan package import' do
         .to_not(change { Dataset.count })
 
       expect(dataset.reload.title).to eq package_create["result"]["title"]
+
+      expect(dataset.reload.harvested?).to be(true)
     end
   end
 
