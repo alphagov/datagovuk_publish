@@ -14,6 +14,11 @@ module CKAN
         @extras[key]
       end
 
+      def get_harvest(key)
+        @harvest ||= hashify(@package["harvest"] || [])
+        @harvest[key]
+      end
+
       def resources
         @package["resources"].map { |resource| Resource.new(resource) }
       end

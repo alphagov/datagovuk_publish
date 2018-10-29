@@ -1,0 +1,183 @@
+{
+	"help": "http://192.168.10.10/api/3/action/help_show?name=package_show",
+	"success": true,
+	"result": {
+		"license_title": null,
+		"maintainer": null,
+		"relationships_as_object": [],
+		"private": false,
+		"maintainer_email": null,
+		"num_tags": 2,
+		"id": "24af6104-b326-40a5-88e3-e0ce7477a97d",
+		"metadata_created": "2018-10-25T13:32:44.370113",
+		"metadata_modified": "2018-10-25T13:32:44.370122",
+		"author": null,
+		"author_email": null,
+		"state": "active",
+		"version": null,
+		"creator_user_id": "3bac7bb7-f793-4bbd-8874-205da573fde3",
+		"type": "dataset",
+		"resources": [{
+				"mimetype": null,
+				"cache_url": null,
+				"hash": "",
+				"description": "",
+				"name": "INSPIRE View Service",
+				"format": "",
+				"url": "http://inspire.misoportal.com/geoserver/ashfield_district_council_adc_smoke_control_orders/wms?request=getCapabilities",
+				"cache_last_updated": null,
+				"package_id": "24af6104-b326-40a5-88e3-e0ce7477a97d",
+				"created": "2018-10-25T13:32:44.378736",
+				"state": "active",
+				"mimetype_inner": null,
+				"resource_locator_function": "information",
+				"last_modified": null,
+				"resource_locator_protocol": "",
+				"position": 0,
+				"revision_id": "bbe580b1-3a44-4e5c-9e2e-e648d04ee4dc",
+				"url_type": null,
+				"id": "da543aa8-74c3-41e1-8df5-bb4f15955edc",
+				"resource_type": null,
+				"size": null
+			}
+		],
+		"num_resources": 1,
+		"contact-email": "lpg@ashfield-dc.gov.uk",
+		"tags": [{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "Area management/restriction/regulation zones and reporting units",
+				"id": "c647433c-9d6c-4b1a-96e1-6ad9ea75c373",
+				"name": "Area management/restriction/regulation zones and reporting units"
+			},
+			{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "Smoke Control",
+				"id": "2350b08d-04e5-4493-8d34-9cbf278a1dd1",
+				"name": "Smoke Control"
+			}
+		],
+		"groups": [],
+		"license_id": null,
+		"harvest": [{
+				"value": "a3640d45-afa4-464d-ab5d-f17a7e8e58e2",
+				"key": "harvest_object_id"
+			},
+			{
+				"value": "3fd31aa8-6e10-4953-9900-a6a8c85c1a06",
+				"key": "harvest_source_id"
+			},
+			{
+				"value": "INSPIRE Test Harvest",
+				"key": "harvest_source_title"
+			}
+		],
+		"relationships_as_subject": [],
+		"organization": {
+			"description": "",
+			"created": "2018-10-24T15:33:05.841732",
+			"title": "Second publisher",
+			"name": "second-publisher",
+			"is_organization": true,
+			"state": "active",
+			"image_url": "",
+			"revision_id": "ffdacab3-eed0-4ba3-8038-2ace8e3a7842",
+			"type": "organization",
+			"id": "18a301ec-573d-45cf-8e20-3379137ba4ea",
+			"approval_status": "approved"
+		},
+		"name": "ashfield-district-smoke-control-areas",
+		"isopen": false,
+		"url": null,
+		"notes": "Smoke control areas declared under the Clean Air Acts within Ashfield District as polygons. In accordance with Inspire Phase 2",
+		"owner_org": "18a301ec-573d-45cf-8e20-3379137ba4ea",
+		"extras": [{
+				"key": "access_constraints",
+				"value": "[\"No restriction on public access.\"]"
+			},
+			{
+				"key": "bbox-east-long",
+				"value": "-1.16"
+			},
+			{
+				"key": "bbox-north-lat",
+				"value": "53.18"
+			},
+			{
+				"key": "bbox-south-lat",
+				"value": "53.00"
+			},
+			{
+				"key": "bbox-west-long",
+				"value": "-1.35"
+			},
+			{
+				"key": "coupled-resource",
+				"value": "[]"
+			},
+			{
+				"key": "dataset-reference-date",
+				"value": "[{\"type\": \"publication\", \"value\": \"2013-12-12\"}]"
+			},
+			{
+				"key": "frequency-of-update",
+				"value": "asNeeded"
+			},
+			{
+				"key": "guid",
+				"value": "5b0b57e7-e505-4454-9988-a4340e5cb1f8"
+			},
+			{
+				"key": "licence",
+				"value": "[\"Use subject to PSMA licensing. See http://www.ordnancesurvey.co.uk/business-and-government/public-sector/mapping-agreements/psma-licensing.html\"]"
+			},
+			{
+				"key": "metadata-date",
+				"value": "2017-04-03T11:23:11"
+			},
+			{
+				"key": "metadata-language",
+				"value": "eng"
+			},
+			{
+				"key": "progress",
+				"value": ""
+			},
+			{
+				"key": "resource-type",
+				"value": "dataset"
+			},
+			{
+				"key": "responsible-party",
+				"value": "[{\"name\": \"Ashfield District Council\", \"roles\": [\"distributor\"]}]"
+			},
+			{
+				"key": "spatial",
+				"value": "{\"type\": \"Polygon\", \"coordinates\": [[[-1.35, 53.0], [-1.16, 53.0], [-1.16, 53.18], [-1.35, 53.18], [-1.35, 53.0]]]}"
+			},
+			{
+				"key": "spatial-data-service-type",
+				"value": ""
+			},
+			{
+				"key": "spatial-reference-system",
+				"value": "http://www.opengis.net/def/crs/EPSG/0/27700"
+			},
+			{
+				"key": "spatial_harvester",
+				"value": "true"
+			},
+			{
+				"key": "temporal-extent-begin",
+				"value": "2002-01-14"
+			},
+			{
+				"key": "temporal-extent-end",
+				"value": "2020-03-31"
+			}
+		],
+		"title": "Ashfield District Smoke Control Areas",
+		"revision_id": "bbe580b1-3a44-4e5c-9e2e-e648d04ee4dc"
+	}
+}

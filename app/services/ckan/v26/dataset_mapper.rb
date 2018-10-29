@@ -21,7 +21,7 @@ module CKAN
           licence_url: Licence.lookup(package.get("license_id")).url,
           licence_custom: package.get_extra("licence"),
           topic_id: lookup_topic(package),
-          schema_id: package.get("schema")&.first&.fetch("id"),
+          schema_id: package.get("schema")&.first&.fetch("id") || package.get("schema-vocabulary"),
           status: "published",
         }
       end
@@ -42,7 +42,7 @@ module CKAN
       end
 
       def harvested?(package)
-        package.get_extra("harvest_object_id").present?
+        package.get_extra("harvest_object_id").present? || package.get_harvest("harvest_object_id").present?
       end
 
       def build_location(package)
