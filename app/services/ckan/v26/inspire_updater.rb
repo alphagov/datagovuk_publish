@@ -24,7 +24,7 @@ module CKAN
       end
 
       def inspire?(package)
-        package.get_extra("UKLP")
+        package.get_extra("UKLP") || package.get_extra("spatial_harvester")
       end
     end
   end
