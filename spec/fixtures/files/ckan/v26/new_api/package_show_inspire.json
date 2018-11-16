@@ -1,0 +1,258 @@
+{
+	"help": "http://192.168.10.10/api/3/action/help_show?name=package_show",
+	"success": true,
+	"result": {
+		"license_title": null,
+		"maintainer": null,
+		"relationships_as_object": [],
+		"private": false,
+		"maintainer_email": null,
+		"num_tags": 14,
+		"id": "3586e7f0-ca18-4db1-b3e6-59121dbba351",
+		"metadata_created": "2018-11-16T09:57:09.158821",
+		"metadata_modified": "2018-11-16T09:57:09.158830",
+		"author": null,
+		"author_email": null,
+		"state": "active",
+		"version": null,
+		"creator_user_id": "ec453ac3-4f3d-489f-8ce9-e7021938197d",
+		"type": "dataset",
+		"resources": [{
+			"mimetype": null,
+			"cache_url": null,
+			"hash": "",
+			"description": "",
+			"name": "HM Land Registry INSPIRE View Service",
+			"format": "WMS",
+			"url": "http://inspire.landregistry.gov.uk/inspire/ows?Service=WMS&Request=Getcapabilities",
+			"cache_last_updated": null,
+			"package_id": "3586e7f0-ca18-4db1-b3e6-59121dbba351",
+			"created": "2018-11-16T09:57:09.189298",
+			"state": "active",
+			"mimetype_inner": null,
+			"resource_locator_function": "",
+			"last_modified": null,
+			"resource_locator_protocol": "",
+			"position": 0,
+			"revision_id": "3cb11dee-e1aa-4bd2-a598-ff65b90f7922",
+			"url_type": null,
+			"id": "432ee66e-77d6-4db7-b467-70b238b5cd5e",
+			"resource_type": null,
+			"size": null
+		}],
+		"num_resources": 1,
+		"contact-email": "commercial.services@landregistry.gov.uk",
+		"tags": [{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "Cadastral",
+				"id": "220f8bd2-fd7f-4e28-b029-adcb1b6c31a8",
+				"name": "Cadastral"
+			},
+			{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "Cadastral Parcels",
+				"id": "40f1996e-81ac-4ca9-86fd-00b6f2c922a2",
+				"name": "Cadastral Parcels"
+			},
+			{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "Cadastre",
+				"id": "d425168d-796a-447c-a444-38a0414aaea0",
+				"name": "Cadastre"
+			},
+			{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "Easement",
+				"id": "3ebfd1f6-943b-4656-8fa2-e93bf84069cf",
+				"name": "Easement"
+			},
+			{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "Index Map",
+				"id": "26d40368-f707-40e5-815a-4e584ebb58b0",
+				"name": "Index Map"
+			},
+			{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "Indexing",
+				"id": "2b4da3c9-fca4-4edd-985c-7b03383e352e",
+				"name": "Indexing"
+			},
+			{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "Land",
+				"id": "17903d99-7748-4b9f-99ea-160c48433014",
+				"name": "Land"
+			},
+			{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "Law",
+				"id": "29b2bd62-9fe5-46de-9d7c-f68c8b6eb0cf",
+				"name": "Law"
+			},
+			{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "Ownership",
+				"id": "ca0a2558-b32a-45b3-9567-c54a650513d7",
+				"name": "Ownership"
+			},
+			{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "Parcels",
+				"id": "19ef9724-019b-4691-ae73-aa3acb733bee",
+				"name": "Parcels"
+			},
+			{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "Property",
+				"id": "285f9b07-e998-4040-9fc9-d0ea56bde746",
+				"name": "Property"
+			},
+			{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "Property protection",
+				"id": "c58fca0e-c85d-44b4-a6f9-80d55990f714",
+				"name": "Property protection"
+			},
+			{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "Registration",
+				"id": "6aaa4733-759b-4464-ad64-f4d0d0fd3ca0",
+				"name": "Registration"
+			},
+			{
+				"vocabulary_id": null,
+				"state": "active",
+				"display_name": "humanGeographicViewer",
+				"id": "e352235d-0add-4d25-85e3-c249be994e5a",
+				"name": "humanGeographicViewer"
+			}
+		],
+		"groups": [],
+		"license_id": null,
+		"harvest": [{
+				"value": "52154f7f-096f-4282-9d35-8f4d07eebf06",
+				"key": "harvest_object_id"
+			},
+			{
+				"value": "188a6f09-6a58-4beb-bc86-59d295f84170",
+				"key": "harvest_source_id"
+			},
+			{
+				"value": "Land Registry",
+				"key": "harvest_source_title"
+			}
+		],
+		"relationships_as_subject": [],
+		"organization": {
+			"description": "",
+			"created": "2018-10-24T15:33:05.841732",
+			"title": "Second publisher",
+			"name": "second-publisher",
+			"is_organization": true,
+			"state": "active",
+			"image_url": "",
+			"revision_id": "ffdacab3-eed0-4ba3-8038-2ace8e3a7842",
+			"type": "organization",
+			"id": "18a301ec-573d-45cf-8e20-3379137ba4ea",
+			"approval_status": "approved"
+		},
+		"name": "hm-land-registry-inspire-view-service-metadata",
+		"isopen": false,
+		"url": null,
+		"notes": "HM Land Registry INSPIRE View Service is a Web Mapping Service (WMS) which provides map images of HM Land Registry's INSPIRE index polygons. The INSPIRE Index polygons are a sub-set of the HM Land Registry Index Map dataset, structured to meet the requirements of the INSPIRE Cadastral Parcel data specification. Index polygons indicate the location of registered land, an index polygon may not show the extent of land comprised in the registered title. Not all land in England and Wales is registered. INSPIRE Index Polygons contain freehold title registrations. To ensure the index map is clear and uncluttered, small polygons may be exaggerated in size whilst registrations within buildings may be shown to the footprint of the building. General guidance about property boundaries is available on GOV.UK http://bit.ly/1kCBpxq while Practice guide 40 http://bit.ly/QBM7YP provides more detailed information about plans records. Index polygons at the same location but at different vertical heights may show more than one polygon label, representing the number of polygons at that location. Each polygon is labelled with a unique number, called the HM Land Registry INSPIRE-ID. You can use the HM Land Registry INSPIRE-ID to search for related services via the Land Registry Find a Property service http://bit.ly/203PXIo Here you can purchase the Title Register, Title Plan and the Flood Risk Indicator associated to the registered parcel. \nPre-populated pots of INSPIRE Index Polygons can be downloaded from GOV.UK http://bit.ly/1UTVzRZ \nThe data supplied through this service is subject to PSMA licence terms http://bit.ly/OaJ4Vs “Published by HM Land Registry.   Licensed under “By using or accessing the data in this service the user accepts the terms of INSPIRE End User Licence: www.bit.ly/wmseul”      \n",
+		"owner_org": "18a301ec-573d-45cf-8e20-3379137ba4ea",
+		"extras": [{
+				"key": "access_constraints",
+				"value": "[\"The data supplied through this service is subject to PSMA licence terms : http://bit.ly/OaJ4Vs\"]"
+			},
+			{
+				"key": "bbox-east-long",
+				"value": "1.74944"
+			},
+			{
+				"key": "bbox-north-lat",
+				"value": "60.8433"
+			},
+			{
+				"key": "bbox-south-lat",
+				"value": "49.9553"
+			},
+			{
+				"key": "bbox-west-long",
+				"value": "-8.17167"
+			},
+			{
+				"key": "coupled-resource",
+				"value": "[{\"href\": [\"http://www1.landregistry.gov.uk/inspire/CadastralParcels.xml\"], \"uuid\": [], \"title\": []}]"
+			},
+			{
+				"key": "dataset-reference-date",
+				"value": "[{\"type\": \"revision\", \"value\": \"2017-07-17\"}]"
+			},
+			{
+				"key": "frequency-of-update",
+				"value": "monthly"
+			},
+			{
+				"key": "guid",
+				"value": "e218d303-6bcf-4bf3-921a-08a6001fef36"
+			},
+			{
+				"key": "licence",
+				"value": "[\"The data supplied through this service is subject to PSMA licence terms : http://bit.ly/OaJ4Vs \\\"Use of this data is subject to terms and conditions located at www.bit.ly/wmseul,\\nc Crown copyright and database rights 2017 Ordnance Survey 100026316\\\"\", \"The data supplied through this service is subject to PSMA licence terms : http://bit.ly/OaJ4Vs\"]"
+			},
+			{
+				"key": "metadata-date",
+				"value": "2017-08-01T10:59:10"
+			},
+			{
+				"key": "metadata-language",
+				"value": "eng"
+			},
+			{
+				"key": "progress",
+				"value": ""
+			},
+			{
+				"key": "resource-type",
+				"value": "service"
+			},
+			{
+				"key": "responsible-party",
+				"value": "[{\"name\": \"HM Land Registry\", \"roles\": [\"pointOfContact\"]}]"
+			},
+			{
+				"key": "spatial",
+				"value": "{\"type\": \"Polygon\", \"coordinates\": [[[-8.17167, 49.9553], [1.74944, 49.9553], [1.74944, 60.8433], [-8.17167, 60.8433], [-8.17167, 49.9553]]]}"
+			},
+			{
+				"key": "spatial-data-service-type",
+				"value": "view"
+			},
+			{
+				"key": "spatial-reference-system",
+				"value": ""
+			},
+			{
+				"key": "spatial_harvester",
+				"value": "true"
+			}
+		],
+		"title": "HM Land Registry INSPIRE View Service Metadata",
+		"revision_id": "3cb11dee-e1aa-4bd2-a598-ff65b90f7922"
+	}
+}

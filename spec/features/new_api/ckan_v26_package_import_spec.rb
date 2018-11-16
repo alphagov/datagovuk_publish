@@ -5,10 +5,12 @@ describe 'ckan package import' do
 
   let(:package_create) { JSON.parse(file_fixture("ckan/v26/new_api/package_show_create.json").read) }
   let(:package_empty) { JSON.parse(file_fixture("ckan/v26/new_api/package_show_empty.json").read) }
+  let(:package_inspire) { JSON.parse(file_fixture("ckan/v26/new_api/package_show_inspire.json").read) }
 
   let(:package_empty_id) { package_empty["result"]["id"] }
   let(:package_create_id) { package_create["result"]["id"] }
   let(:datafile_create_id) { package_create["result"]["resources"][0]["id"] }
+  let(:package_inspire_id) { package_inspire["result"]["id"] }
 
   before do
     create(:organisation, uuid: package_create["result"]["owner_org"])
@@ -21,6 +23,10 @@ describe 'ckan package import' do
     stub_request(:get, "http://ckan/api/3/action/package_show")
       .with(query: { id: package_empty_id })
       .to_return(body: package_empty.to_json)
+
+    stub_request(:get, "http://ckan/api/3/action/package_show")
+      .with(query: { id: package_inspire_id })
+      .to_return(body: package_inspire.to_json)
   end
 
   describe 'govuk sidekiq' do
@@ -48,6 +54,24 @@ describe 'ckan package import' do
       expect(dataset.reload.title).to eq package_create["result"]["title"]
 
       expect(dataset.reload.harvested?).to be(true)
+    end
+  end
+
+  describe 'inspire update' do
+    it 'creates an inspire dataset for inspire packages' do
+      expect { subject.perform(package_inspire_id) }
+        .to change { InspireDataset.count }.by(1)
+    end
+
+    it 'updates an inspire dataset if it already exists' do
+      dataset = Dataset.new(uuid: package_inspire_id, title: "")
+      dataset.save(validate: false)
+
+      inspire_dataset = InspireDataset.new(dataset: dataset)
+      inspire_dataset.save(validate: false)
+
+      expect { subject.perform(package_inspire_id) }
+        .to_not(change { InspireDataset.count })
     end
   end
 
