@@ -41,7 +41,7 @@ class Dataset < ApplicationRecord
 
   def unpublish
     return unless published?
-    result = __elasticsearch__.delete_document(id: uuid)
+    result = __elasticsearch__.delete_document(id: uuid, ignore: 404)
 
     raise "Failed to unpublish" if result["_shards"]["failed"].positive?
     draft!
