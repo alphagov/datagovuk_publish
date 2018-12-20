@@ -61,6 +61,23 @@ describe "publishing datasets" do
     expect(document["public_updated_at"]).to eq in_es_format(date)
   end
 
+  it 'determines the public_updated_at with datafiles' do
+    visit dataset_url(dataset.uuid, dataset.name)
+    click_button 'Publish'
+
+    document = get_from_es(dataset.uuid)
+    expect(document["public_updated_at"]).to eq in_es_format(dataset.datafiles.first.updated_at)
+  end
+
+  it 'determines the public_updated_at for inspire datasets with datafiles' do
+    dataset = create :dataset, :with_datafile, :inspire, creator: user, organisation: land
+    visit dataset_url(dataset.uuid, dataset.name)
+    click_button 'Publish'
+
+    document = get_from_es(dataset.uuid)
+    expect(document["public_updated_at"]).to eq in_es_format(dataset.datafiles.first.updated_at)
+  end
+
   it 'copes with invalid inspire dataset reference dates' do
     dataset = create :dataset, inspire_dataset: (build :inspire_dataset, :invalid),
       creator: user, organisation: land
