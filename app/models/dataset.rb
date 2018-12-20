@@ -104,9 +104,11 @@ class Dataset < ApplicationRecord
   end
 
   def public_updated_at
-    inspire_dataset_reference_date ||
-      most_recently_updated_datafile_timestamp ||
-      self.updated_at
+    timestamps = [inspire_dataset_reference_date,
+                  most_recently_updated_datafile_timestamp].compact
+
+    return self.updated_at if timestamps.none?
+    timestamps.max
   end
 
   def released
