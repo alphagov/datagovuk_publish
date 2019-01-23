@@ -87,5 +87,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.ckan_v26_base_url = "https://data.gov.uk"
+  config.ckan_v26_base_url = "https://ckan.publishing.service.gov.uk"
 end
