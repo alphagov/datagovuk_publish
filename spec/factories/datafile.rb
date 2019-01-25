@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :datafile do
     dataset
     url 'http://google.com'

@@ -1,10 +1,10 @@
 require "rails_helper"
 
 describe "creating datasets" do
-  let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
-  let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
-  let!(:dataset) { FactoryGirl.create(:dataset, organisation: land, creator: user) }
-  let!(:topic) { FactoryGirl.create(:topic) }
+  let(:land) { FactoryBot.create(:organisation, name: 'land-registry', title: 'Land Registry') }
+  let!(:user) { FactoryBot.create(:user, primary_organisation: land) }
+  let!(:dataset) { FactoryBot.create(:dataset, organisation: land, creator: user) }
+  let!(:topic) { FactoryBot.create(:topic) }
 
   context "when the user goes through entire flow" do
     before(:each) do
@@ -135,9 +135,9 @@ describe "creating datasets" do
 end
 
 describe "starting a new draft with invalid inputs" do
-  let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
-  let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
-  let!(:topic) { FactoryGirl.create(:topic) }
+  let(:land) { FactoryBot.create(:organisation, name: 'land-registry', title: 'Land Registry') }
+  let!(:user) { FactoryBot.create(:user, primary_organisation: land) }
+  let!(:topic) { FactoryBot.create(:topic) }
 
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
@@ -192,9 +192,9 @@ describe "starting a new draft with invalid inputs" do
 end
 
 describe "valid options for topic, licence and area" do
-  let(:land_registry) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
-  let!(:user) { FactoryGirl.create(:user, primary_organisation: land_registry) }
-  let!(:topic) { FactoryGirl.create(:topic) }
+  let(:land_registry) { FactoryBot.create(:organisation, name: 'land-registry', title: 'Land Registry') }
+  let!(:user) { FactoryBot.create(:user, primary_organisation: land_registry) }
+  let!(:topic) { FactoryBot.create(:topic) }
 
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
@@ -257,9 +257,9 @@ describe "valid options for topic, licence and area" do
 end
 
 describe "dataset frequency options" do
-  let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
-  let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
-  let!(:dataset) { FactoryGirl.create(:dataset, organisation: land) }
+  let(:land) { FactoryBot.create(:organisation, name: 'land-registry', title: 'Land Registry') }
+  let!(:user) { FactoryBot.create(:user, primary_organisation: land) }
+  let!(:dataset) { FactoryBot.create(:dataset, organisation: land) }
 
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"
@@ -410,9 +410,9 @@ describe "dataset frequency options" do
 end
 
 describe "passing the frequency page" do
-  let(:land) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
-  let!(:user) { FactoryGirl.create(:user, primary_organisation: land) }
-  let!(:dataset) { FactoryGirl.create(:dataset, organisation: land, frequency: nil) }
+  let(:land) { FactoryBot.create(:organisation, name: 'land-registry', title: 'Land Registry') }
+  let!(:user) { FactoryBot.create(:user, primary_organisation: land) }
+  let!(:dataset) { FactoryBot.create(:dataset, organisation: land, frequency: nil) }
 
   before(:each) do
     url = "https://test.data.gov.uk/api/3/action/package_patch"

@@ -6,7 +6,7 @@ describe Datafile, type: :model do
   ANNUALLY = 'annually'.freeze
 
   before do
-    @datafile = FactoryGirl.create(:datafile)
+    @datafile = FactoryBot.create(:datafile)
   end
 
   describe 'creation' do

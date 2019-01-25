@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :ckan_v26_resource, class: CKAN::V26::Resource do
     url "http://environment.data.gov.uk/ds/wms?SERVICE=WMS&INTERFACE=ENVIRONMENT--86ec354f-d465-11e4-b09e-f0def148f590&request=GetCapabilities"
     format "WMS"

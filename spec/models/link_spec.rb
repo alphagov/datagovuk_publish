@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Link, type: :model do
   before do
-    @link = FactoryGirl.create(:link)
+    @link = FactoryBot.create(:link)
   end
 
   describe 'creation' do
