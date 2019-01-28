@@ -41,11 +41,11 @@ describe 'ckan package sync' do
     create(:organisation, uuid: "d3bb54b5-4289-4ff9-9546-ff95442643fc")
 
     stub_request(:get, "http://ckan/api/3/search/dataset")
-      .with(query: { fl: "id,metadata_modified", start: 0, rows: 1000 })
+      .with(query: { fl: "id,metadata_modified", q: "type:dataset", start: 0, rows: 1000 })
       .to_return(body: search_dataset_p1.to_json)
 
     stub_request(:get, "http://ckan/api/3/search/dataset")
-      .with(query: { fl: "id,metadata_modified", start: 4, rows: 1000 })
+      .with(query: { fl: "id,metadata_modified", q: "type:dataset", start: 4, rows: 1000 })
       .to_return(body: search_dataset_p2.to_json)
 
     stub_request(:get, "http://ckan/api/3/action/package_show")
