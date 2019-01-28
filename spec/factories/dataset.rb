@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :dataset do
     organisation
     title "Price paid for dragon glass"

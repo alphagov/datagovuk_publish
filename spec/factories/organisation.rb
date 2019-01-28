@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :organisation do
     name "land-registry"
     title "Land Registry"

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe "logging in" do
-  let(:land_registry) { FactoryGirl.create(:organisation, name: 'land-registry', title: 'Land Registry') }
-  let!(:user) { FactoryGirl.create(:user, primary_organisation: land_registry) }
+  let(:land_registry) { FactoryBot.create(:organisation, name: 'land-registry', title: 'Land Registry') }
+  let!(:user) { FactoryBot.create(:user, primary_organisation: land_registry) }
 
   it "redirects logged in users to the manage page" do
     sign_in_as(user)

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :ckan_v26_package, class: CKAN::V26::Package do
     name "Name"
     title "Title"

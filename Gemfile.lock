@@ -93,10 +93,10 @@ GEM
     et-orbi (1.1.2)
       tzinfo
     execjs (2.7.0)
-    factory_girl (4.8.0)
+    factory_bot (4.11.1)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.8.0)
-      factory_girl (~> 4.8.0)
+    factory_bot_rails (4.11.1)
+      factory_bot (~> 4.11.1)
       railties (>= 3.0.0)
     faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
@@ -434,7 +434,7 @@ DEPENDENCIES
   elasticsearch (~> 5.0.4)
   elasticsearch-model (~> 5.0.1)
   elasticsearch-rails (~> 5.0.1)
-  factory_girl_rails (~> 4.0)
+  factory_bot_rails (~> 4.0)
   gds-sso
   govuk-lint (~> 3.8.0)
   govuk_elements_rails
@@ -476,4 +476,4 @@ RUBY VERSION
    ruby 2.5.0p0
 
 BUNDLED WITH
-   1.16.3
+   1.16.6

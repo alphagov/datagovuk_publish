@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :ckan_v26_ckan_org, class: CKAN::V26::CKANOrg do
     id SecureRandom.uuid
     name "Name"
