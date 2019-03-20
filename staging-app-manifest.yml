@@ -3,6 +3,7 @@ applications:
   command: bundle exec rake db:migrate db:seed && bin/rails server -b 0.0.0.0 -p $PORT -e $RAILS_ENV
   memory: 512M
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.7.14
+  stack: cflinuxfs3
   env:
     RAILS_ENV: staging
     RACK_ENV: staging
