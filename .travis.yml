@@ -10,7 +10,7 @@ services:
   - elasticsearch
   - redis-server
 before_install:
-  - gem install bundler --no-ri --no-rdoc
+  - gem install bundler
 before_script:
   - sleep 10
 script:

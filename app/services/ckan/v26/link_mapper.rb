@@ -18,6 +18,7 @@ module CKAN
       def build_created_at(resource, dataset)
         created = resource.get("created")
         return created if created.present?
+
         dataset.created_at
       end
 
@@ -27,6 +28,7 @@ module CKAN
 
         return name if name.present?
         return description if description.present?
+
         "No name specified"
       end
 

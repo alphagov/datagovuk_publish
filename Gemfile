@@ -37,7 +37,7 @@ group :development, :test do
   gem 'byebug', '~> 9'
   gem 'dotenv-rails', '~> 2.2'
   gem 'factory_bot_rails', '~> 4.0'
-  gem 'govuk-lint', '~> 3.8.0'
+  gem 'govuk-lint', '~> 3.11'
   gem 'pry', '~> 0.10'
   gem 'pry-byebug', '~> 3.4'
   gem 'pry-stack_explorer', '~> 0.4.9'
@@ -57,5 +57,5 @@ group :test do
   gem 'codeclimate-test-reporter', '~> 1.0.0'
   gem 'database_cleaner'
   gem 'simplecov'
-  gem 'webmock', '~> 3.1.0'
+  gem 'webmock', '~> 3.5'
 end

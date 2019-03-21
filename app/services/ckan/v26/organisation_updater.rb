@@ -6,6 +6,7 @@ module CKAN
         organisation.assign_attributes(attributes)
 
         return unless organisation.changed?
+
         organisation.save
       end
     end

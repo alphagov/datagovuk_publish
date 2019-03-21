@@ -37,6 +37,7 @@ class UrlValidator < ActiveModel::Validator
 
   def encoded_url(url)
     return Addressable::URI.encode(url) if encoded?(url)
+
     url
   end
 

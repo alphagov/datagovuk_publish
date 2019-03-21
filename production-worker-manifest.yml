@@ -1,7 +1,8 @@
 applications:
 - name: publish-data-beta-production-worker
   memory: 1G
-  buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.7.14
+  buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.7.34
+  stack: cflinuxfs3
   command: bundle exec sidekiq
   env:
     RAILS_ENV: production

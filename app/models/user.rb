@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   def primary_organisation
     return unless organisation_content_id
+
     Organisation.find_by(govuk_content_id: organisation_content_id)
   end
 
