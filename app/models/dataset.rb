@@ -41,9 +41,10 @@ class Dataset < ApplicationRecord
 
   def unpublish
     return unless published?
-    result = __elasticsearch__.delete_document(id: uuid, ignore: 404)
 
+    result = __elasticsearch__.delete_document(id: uuid, ignore: 404)
     raise "Failed to unpublish" if result["_shards"]["failed"].positive?
+
     draft!
   end
 
@@ -108,6 +109,7 @@ class Dataset < ApplicationRecord
                   most_recently_updated_datafile_timestamp].compact
 
     return self.updated_at if timestamps.none?
+
     timestamps.max
   end
 
@@ -136,6 +138,6 @@ private
 
   def most_recently_updated_datafile_timestamp
     timestamps = self.datafiles.map(&:updated_at)
-    timestamps.sort.last if timestamps.present?
+    timestamps.max if timestamps.present?
   end
 end

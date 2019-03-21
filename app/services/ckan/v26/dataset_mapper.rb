@@ -51,6 +51,7 @@ module CKAN
 
       def build_notes(package)
         return "No description provided" if package.get("notes").blank?
+
         package.get("notes")
       end
     end
