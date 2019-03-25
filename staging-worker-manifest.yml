@@ -12,5 +12,5 @@ applications:
   - publish-beta-staging-pg
   - publish-beta-staging-redis
   - logit-ssl-drain
-  - elasticsearch-beta-staging
+  - elasticsearch-6-beta-staging
   health-check-type: process
