@@ -8,8 +8,8 @@ applications:
     RAILS_ENV: production
     RACK_ENV: production
   services:
-  - elasticsearch-beta-production
+  - publish-production-secrets
   - publish-beta-production-pg
   - publish-beta-production-redis
-  - publish-production-secrets
   - logit-ssl-drain
+  - elasticsearch-6-beta-production
