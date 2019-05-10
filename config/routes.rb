@@ -67,4 +67,8 @@ Rails.application.routes.draw do
   get 'manage/organisation', to: 'manage#manage_organisation'
 
   resource :session, only: %i[new create]
+
+  get "/healthcheck", to: GovukHealthcheck.rack_response(
+    Healthcheck::RecurringJobs::PackageSync.new
+  )
 end
