@@ -51,16 +51,14 @@ RSpec.describe 'Healthcheck', type: :request do
     get "/healthcheck"
 
     expect(data.fetch(:checks)).to include(
-      package_sync:  { :critical => when_package_sync_last_run,
-                       :warning => when_package_sync_last_run,
-                       :status => 'ok',
-                       :message => "The job 'ckan_v26_package_sync' should run every 10 minutes. It was last run #{when_package_sync_last_run}."
-                     },
-      CKAN_org_sync: { :critical => when_ckan_org_sync_last_run,
-                       :warning => when_ckan_org_sync_last_run,
-                       :status => 'ok',
-                       :message => "The job 'ckan_v26_ckan_org_sync' should run every 1 day. It was last run #{when_ckan_org_sync_last_run}."
-                     }
+      package_sync:  { critical: when_package_sync_last_run,
+                       warning: when_package_sync_last_run,
+                       status: 'ok',
+                       message: "The job 'ckan_v26_package_sync' should run every 10 minutes. It was last run #{when_package_sync_last_run}." },
+      CKAN_org_sync: { critical: when_ckan_org_sync_last_run,
+                       warning: when_ckan_org_sync_last_run,
+                       status: 'ok',
+                       message: "The job 'ckan_v26_ckan_org_sync' should run every 1 day. It was last run #{when_ckan_org_sync_last_run}." }
     )
   end
 end
