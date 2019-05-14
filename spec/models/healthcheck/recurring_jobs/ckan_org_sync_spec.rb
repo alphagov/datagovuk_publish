@@ -39,7 +39,7 @@ RSpec.describe Healthcheck::RecurringJobs::CKANOrgSync do
   end
 
   describe '#details' do
-    let(:when_last_run) { String(Time.now) } # any time is ok for this test
+    let(:when_last_run) { String(Time.zone.now) } # any time is ok for this test
 
     before do
       allow(sidekiq_redis).to receive(:get_job_last_time).and_return(when_last_run)
@@ -54,8 +54,8 @@ RSpec.describe Healthcheck::RecurringJobs::CKANOrgSync do
   end
 
   describe '#message' do
-    let(:when_last_run) { String(Time.new(2019, 4, 16, 1, 00)) } # any time is ok for this test
-    let(:message) { "The job 'ckan_v26_ckan_org_sync' should run every 1 day. It was last run 2019-04-16 01:00:00 +0100." }
+    let(:when_last_run) { String(Time.zone.local(2019, 4, 16, 1, 00)) } # any time is ok for this test
+    let(:message) { "The job 'ckan_v26_ckan_org_sync' should run every 1 day. It was last run 2019-04-16 01:00:00 UTC." }
 
     before do
       allow(sidekiq_redis).to receive(:get_job_last_time).and_return(when_last_run)
