@@ -252,7 +252,7 @@ GEM
       pry (>= 0.9.11)
     psych (3.1.0)
     public_suffix (3.0.2)
-    puma (3.9.1)
+    puma (3.12.1)
     raabro (1.1.5)
     rack (2.0.6)
     rack-cache (1.7.1)
@@ -461,7 +461,7 @@ DEPENDENCIES
   pry-byebug (~> 3.4)
   pry-rails
   pry-stack_explorer (~> 0.4.9)
-  puma (~> 3.7)
+  puma (~> 3.12)
   rails (~> 5.1.6.2)
   rest-client (~> 2.0.2)
   rspec (~> 3.6)
