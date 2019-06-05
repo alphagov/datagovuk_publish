@@ -43,8 +43,8 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
     ast (2.4.0)
-    audited (4.5.0)
-      activerecord (>= 4.0, < 5.2)
+    audited (4.8.0)
+      activerecord (>= 4.0, < 5.3)
     aws-xray-sdk (0.10.2)
       oj (~> 3.0)
     binding_of_caller (0.7.2)
@@ -430,7 +430,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  audited (~> 4.5)
+  audited (~> 4.8)
   brakeman (~> 4.2)
   byebug (~> 9)
   cancancan (~> 2.0)
