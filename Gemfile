@@ -34,7 +34,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'whois-parser'
 
 group :development, :test do
-  gem 'brakeman', '~> 4.2'
+  gem 'brakeman', '~> 4.5'
   gem 'byebug', '~> 9'
   gem 'dotenv-rails', '~> 2.7'
   gem 'factory_bot_rails', '~> 4.0'
