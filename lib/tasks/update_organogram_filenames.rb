@@ -8,9 +8,8 @@ class UpdateOrganogramFilenames
     csv_file = "./lib/tasks/old_new_urls.csv"
 
     parse_csv(csv_file)
-    msg = replace_urls()
+    msg = replace_urls
     puts msg
-
   end
 
   def parse_csv(csv_file)
@@ -37,7 +36,7 @@ class UpdateOrganogramFilenames
             puts "From dataset: " + link.dataset.name
             puts "Replace url '" + link.url + "' with '" + @new_urls[index] + "'"
             link.url = @new_urls[index]
-            link.save(validate:false)
+            link.save(validate: false)
 
             if Link.where(url: @new_urls[index]).empty?
               puts "Url replacement failed"
