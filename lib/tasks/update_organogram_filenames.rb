@@ -1,3 +1,5 @@
+require 'csv'
+
 class UpdateOrganogramFilenames
   def initialize
     @old_urls = []
@@ -14,12 +16,9 @@ class UpdateOrganogramFilenames
 
   def parse_csv(csv_file)
     puts "Parsing CSV '#{csv_file}'"
-    File.open(csv_file).readlines.each do |line|
-      urls = line.split(', ')
-      urls.last.delete! "\n"
-
-      @old_urls << urls.first
-      @new_urls << urls.last
+    CSV.foreach(csv_file) do |row|
+      @old_urls << row.first
+      @new_urls << row.last.strip
     end
   end
 

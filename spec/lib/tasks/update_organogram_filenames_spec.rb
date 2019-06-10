@@ -9,9 +9,11 @@ describe UpdateOrganogramFilenames do
   end
 
   context "when parsing a CSV file" do
-    it "should return an array if it contains data" do
+    it "should set old_urls and new_urls array if it contains data" do
       update_organogram_filenames = UpdateOrganogramFilenames.new
-      expect(update_organogram_filenames.parse_csv("sample_urls.csv")).to be_an_instance_of(Array)
+      update_organogram_filenames.parse_csv("sample_urls.csv")
+      expect(update_organogram_filenames.instance_eval { @old_urls }.length).to be(2)
+      expect(update_organogram_filenames.instance_eval { @new_urls }.length).to be(2)
     end
 
     it "should abort and return a message if it's empty" do
