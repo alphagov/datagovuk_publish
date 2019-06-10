@@ -8,7 +8,8 @@ class UpdateOrganogramFilenames
     csv_file = "./lib/tasks/old_new_urls.csv"
 
     parse_csv(csv_file)
-    replace_urls()
+    msg = replace_urls()
+    puts msg
 
   end
 
@@ -27,25 +28,29 @@ class UpdateOrganogramFilenames
     puts "Searching for urls containing '-posts-'..."
 
     if @old_urls.empty?
-      abort "No urls to process"
+      "No urls to process"
     else
       Link.all.each do |link|
         if link.url.include? "-posts-"
           index = @old_urls.index(link.url)
+          if index != nil
+            puts "From dataset: " + link.dataset.name
+            puts "Replace url '" + link.url + "' with '" + @new_urls[index] + "'"
+            link.url = @new_urls[index]
+            link.save(validate:false)
 
-          puts "From dataset: " + link.dataset.name
-          puts "Replace url '" + link.url + "' with '" + @new_urls[index] + "'"
-          link.url = @new_urls[index]
-          link.save(validate:false)
-
-          if Link.where(url: @new_urls[index]).empty?
-            puts "Url replacement failed"
+            if Link.where(url: @new_urls[index]).empty?
+              puts "Url replacement failed"
+            else
+              puts "Url successfully replaced"
+            end
           else
-            puts "Url successfully replaced"
+            puts "WARNING: " + link.url + " not found"
           end
           puts "==============="
         end
       end
+      "Update complete"
     end
   end
 end
