@@ -28,7 +28,7 @@ class UpdateOrganogramFilenames
     if @old_urls.empty?
       "No urls to process"
     else
-      Link.all.each do |link|
+      Link.where("url LIKE 'https://s3-eu-west-1.amazonaws.com%'").each do |link|
         if link.url.include? "-posts-"
           index = @old_urls.index(link.url)
           if index != nil
