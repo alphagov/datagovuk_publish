@@ -3,9 +3,9 @@ require_relative '../../../lib/tasks/update_organogram_filenames.rb'
 
 describe UpdateOrganogramFilenames do
   before do
-    @link1 = FactoryBot.create(:link, url: "https://amazonaws.com/datagovuk/dataset/resources/organogram-senior-posts-2019-06-06T11-18-26Z.csv")
-    @link2 = FactoryBot.create(:link, url: "https://amazonaws.com/datagovuk/dataset/resources/organogram-junior-posts-2019-06-06T11-18-30Z.csv")
-    File.write("sample_urls.csv", "https://amazonaws.com/datagovuk/dataset/resources/organogram-senior-posts-2019-06-06T11-18-26Z.csv, https://amazonaws.com/datagovuk/dataset/resources/2019-06-06T11-18-26Z-organogram-senior.csv\nhttps://amazonaws.com/datagovuk/dataset/resources/organogram-junior-posts-2019-06-06T11-18-30Z.csv, https://amazonaws.com/datagovuk/dataset/resources/2019-06-06T11-18-26Z-organogram-junior.csv")
+    FactoryBot.create(:link, url: "https://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/organogram-senior-posts-2019-06-06T11-18-26Z.csv")
+    FactoryBot.create(:link, url: "https://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/organogram-junior-posts-2019-06-06T11-18-30Z.csv")
+    File.write("sample_urls.csv", "https://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/organogram-senior-posts-2019-06-06T11-18-26Z.csv, https://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/2019-06-06T11-18-26Z-organogram-senior.csv\nhttps://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/organogram-junior-posts-2019-06-06T11-18-30Z.csv, https://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/2019-06-06T11-18-26Z-organogram-junior.csv")
   end
 
   context "when parsing a CSV file" do
@@ -31,8 +31,8 @@ describe UpdateOrganogramFilenames do
 
       update_organogram_filenames.replace_urls
 
-      expect(Link.all[0].url).to eql("https://amazonaws.com/datagovuk/dataset/resources/2019-06-06T11-18-26Z-organogram-senior.csv")
-      expect(Link.all[1].url).to eql("https://amazonaws.com/datagovuk/dataset/resources/2019-06-06T11-18-26Z-organogram-junior.csv")
+      expect(Link.all[0].url).to eql("https://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/2019-06-06T11-18-26Z-organogram-senior.csv")
+      expect(Link.all[1].url).to eql("https://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/2019-06-06T11-18-26Z-organogram-junior.csv")
     end
   end
 end
