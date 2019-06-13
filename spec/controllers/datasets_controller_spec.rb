@@ -9,10 +9,12 @@ describe DatasetsController, type: :controller do
   end
 
   it "redirects to slugged URL" do
-    dataset = FactoryBot.create(:dataset,
-                                 name: "legit-name",
-                                 organisation: organisation,
-                                 datafiles: [FactoryBot.create(:datafile)])
+    dataset = FactoryBot.create(
+      :dataset,
+      name: "legit-name",
+      organisation: organisation,
+      datafiles: [FactoryBot.create(:datafile)]
+    )
 
     get :show, params: { uuid: dataset.uuid, name: "absolute-nonsense-name" }
 
@@ -22,13 +24,17 @@ describe DatasetsController, type: :controller do
   it "returns '503 forbidden' error if a user is not allowed to view the requested dataset" do
     another_organisation = FactoryBot.create(:organisation)
 
-    _allowed_dataset = FactoryBot.create(:dataset,
-                                          organisation: organisation,
-                                          datafiles: [FactoryBot.create(:datafile)])
+    _allowed_dataset = FactoryBot.create(
+      :dataset,
+      organisation: organisation,
+      datafiles: [FactoryBot.create(:datafile)]
+    )
 
-    forbidden_dataset = FactoryBot.create(:dataset,
-                                           organisation: another_organisation,
-                                           datafiles: [FactoryBot.create(:datafile)])
+    forbidden_dataset = FactoryBot.create(
+      :dataset,
+      organisation: another_organisation,
+      datafiles: [FactoryBot.create(:datafile)]
+    )
 
     get :show, params: { uuid: forbidden_dataset.uuid, name: forbidden_dataset.name }
 
@@ -38,13 +44,17 @@ describe DatasetsController, type: :controller do
   it "returns '503 forbidden' error if a user is not allowed to update the requested dataset" do
     another_organisation = FactoryBot.create(:organisation)
 
-    _allowed_dataset = FactoryBot.create(:dataset,
-                                          organisation: organisation,
-                                          datafiles: [FactoryBot.create(:datafile)])
+    _allowed_dataset = FactoryBot.create(
+      :dataset,
+      organisation: organisation,
+      datafiles: [FactoryBot.create(:datafile)]
+    )
 
-    forbidden_dataset = FactoryBot.create(:dataset,
-                                           organisation: another_organisation,
-                                           datafiles: [FactoryBot.create(:datafile)])
+    forbidden_dataset = FactoryBot.create(
+      :dataset,
+      organisation: another_organisation,
+      datafiles: [FactoryBot.create(:datafile)]
+    )
 
     get :edit, params: { uuid: forbidden_dataset.uuid, name: forbidden_dataset.name }
 

@@ -16,7 +16,8 @@ describe 'ckan package sync' do
   let!(:dataset_to_ignore) { create :dataset, legacy_name: nil }
 
   let!(:dataset_to_reimport) {
-    create(:dataset,
+    create(
+      :dataset,
       legacy_name: "dataset_to_reimport",
       uuid: search_dataset_p1["results"][3]["id"],
       status: "draft",
