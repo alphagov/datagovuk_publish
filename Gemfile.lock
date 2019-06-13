@@ -51,7 +51,7 @@ GEM
       debug_inspector (>= 0.0.1)
     brakeman (4.5.1)
     builder (3.2.3)
-    byebug (9.0.6)
+    byebug (11.0.1)
     cancancan (2.0.0)
     capybara (2.14.3)
       addressable
@@ -242,8 +242,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-byebug (3.4.3)
-      byebug (>= 9.0, < 9.1)
+    pry-byebug (3.7.0)
+      byebug (~> 11.0)
       pry (~> 0.10)
     pry-rails (0.3.6)
       pry (>= 0.10.4)
@@ -432,7 +432,7 @@ PLATFORMS
 DEPENDENCIES
   audited (~> 4.8)
   brakeman (~> 4.5)
-  byebug (~> 9)
+  byebug (~> 11)
   cancancan (~> 2.0)
   capybara
   codeclimate-test-reporter (~> 1.0.0)
@@ -458,7 +458,7 @@ DEPENDENCIES
   pg (~> 0.18)
   plek
   pry (~> 0.10)
-  pry-byebug (~> 3.4)
+  pry-byebug (~> 3.7)
   pry-rails
   pry-stack_explorer (~> 0.4.9)
   puma (~> 3.12)
