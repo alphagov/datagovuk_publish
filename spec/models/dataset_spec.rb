@@ -20,16 +20,13 @@ describe Dataset do
   end
 
   it "generates a unique slug and stores it on the name column" do
-    dataset = FactoryBot.create(:dataset,
-                                 title: "My awesome dataset")
+    dataset = FactoryBot.create(:dataset, title: "My awesome dataset")
 
     expect(dataset.name).to eq(dataset.title.parameterize)
   end
 
   it "generates a new slug when the title has changed" do
-    dataset = FactoryBot.create(:dataset,
-                                 uuid: 1234,
-                                 title: "My awesome dataset")
+    dataset = FactoryBot.create(:dataset, uuid: 1234, title: "My awesome dataset")
 
     dataset.update(title: "My Even Better Dataset")
 

@@ -5,8 +5,7 @@ describe "publishing datasets" do
   let(:user) { create(:user, primary_organisation: land) }
 
   let!(:dataset) do
-    create :dataset, :with_datafile, :with_doc,
-                     creator: user, organisation: land
+    create(:dataset, :with_datafile, :with_doc, creator: user, organisation: land)
   end
 
   before do
