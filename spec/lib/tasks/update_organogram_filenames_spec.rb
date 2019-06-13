@@ -8,6 +8,8 @@ describe UpdateOrganogramFilenames do
     File.write("sample_urls.csv", "https://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/organogram-senior-posts-2019-06-06T11-18-26Z.csv, https://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/2019-06-06T11-18-26Z-organogram-senior.csv\nhttps://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/organogram-junior-posts-2019-06-06T11-18-30Z.csv, https://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/2019-06-06T11-18-26Z-organogram-junior.csv")
   end
 
+  after { File.delete("sample_urls.csv") }
+
   context "when parsing a CSV file" do
     it "should set old_urls and new_urls array if it contains data" do
       update_organogram_filenames = UpdateOrganogramFilenames.new
