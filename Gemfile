@@ -42,8 +42,8 @@ group :development, :test do
   gem 'pry', '~> 0.10'
   gem 'pry-byebug', '~> 3.7'
   gem 'pry-stack_explorer', '~> 0.4.9'
-  gem 'rspec', '~> 3.6'
-  gem 'rspec-rails', '~> 3.6'
+  gem 'rspec', '~> 3.8'
+  gem 'rspec-rails', '~> 3.8'
 end
 
 group :development do
