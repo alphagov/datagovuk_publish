@@ -55,7 +55,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'codeclimate-test-reporter', '~> 1.0.0'
+  gem 'codeclimate-test-reporter', '~> 1.0.9'
   gem 'database_cleaner'
   gem 'simplecov'
   gem 'webmock', '~> 3.6'
