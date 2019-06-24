@@ -247,7 +247,7 @@ GEM
     pry-byebug (3.7.0)
       byebug (~> 11.0)
       pry (~> 0.10)
-    pry-rails (0.3.6)
+    pry-rails (0.3.9)
       pry (>= 0.10.4)
     pry-stack_explorer (0.4.9.3)
       binding_of_caller (>= 0.7)
