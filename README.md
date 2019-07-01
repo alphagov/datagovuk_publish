@@ -98,6 +98,14 @@ bin/rails search:reindex
 
 ## Troubleshooting
 
+### Running commands on PaaS
+
+If you need to run commands on Staging or Production PaaS you will need to run this command first - 
+
+`/tmp/lifecycle/shell`
+
+Further information can be found here - https://docs.cloud.service.gov.uk/troubleshooting.html#connecting-with-ssh
+
 ### Flush Redis
 
 This may be necessary if you're having issues trying to completely reset your CKAN stack and start over with no data. See the next section below as an example.
