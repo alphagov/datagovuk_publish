@@ -13,9 +13,9 @@ module Healthcheck
       end
 
       def status
-        if Time.parse(when_last_run) <= critical_latency
+        if Time.zone.parse(when_last_run) <= critical_latency
           :critical
-        elsif Time.parse(when_last_run) <= warning_latency
+        elsif Time.zone.parse(when_last_run) <= warning_latency
           :warning
         else
           :ok

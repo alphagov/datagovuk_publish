@@ -361,28 +361,28 @@ describe "dataset frequency options" do
       fill_in 'datafile[url]', with: 'https://localhost/doc'
       fill_in 'datafile[name]', with: 'my test doc'
       choose option: quarter.to_s
-      fill_in "datafile[year]", with: Date.today.year
+      fill_in "datafile[year]", with: Time.zone.today.year
       click_button "Save and continue"
     end
 
     it "calculates correct dates for Q1" do
       pick_quarter(1)
-      expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Date.today.year, 6).end_of_month)
+      expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Time.zone.today.year, 6).end_of_month)
     end
 
     it "calculates correct dates for Q2" do
       pick_quarter(2)
-      expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Date.today.year, 9).end_of_month)
+      expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Time.zone.today.year, 9).end_of_month)
     end
 
     it "calculates correct dates for Q3" do
       pick_quarter(3)
-      expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Date.today.year, 12).end_of_month)
+      expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Time.zone.today.year, 12).end_of_month)
     end
 
     it "calculates correct dates for Q4" do
       pick_quarter(4)
-      expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Date.today.year, 3).end_of_month + 1.year)
+      expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(Time.zone.today.year, 3).end_of_month + 1.year)
     end
   end
 

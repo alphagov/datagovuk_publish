@@ -21,7 +21,7 @@ describe 'ckan package sync' do
       legacy_name: "dataset_to_reimport",
       uuid: search_dataset_p1["results"][3]["id"],
       status: "draft",
-      updated_at: Time.parse(search_dataset_p1["results"][3]["metadata_modified"]),
+      updated_at: Time.zone.parse(search_dataset_p1["results"][3]["metadata_modified"]),
     )
   }
 
@@ -34,7 +34,7 @@ describe 'ckan package sync' do
   let!(:dataset_not_to_update) do
     create :dataset, legacy_name: "dataset_not_to_update",
                      uuid: dataset_not_to_update_id,
-                     updated_at: Time.now
+                     updated_at: Time.zone.now
   end
 
   before do
@@ -70,14 +70,14 @@ describe 'ckan package sync' do
   it 'updates existing datasets when they change in ckan' do
     expect { subject.perform }
       .to change { dataset_to_update.reload.updated_at }
-      .to(Time.parse(package_show_update["result"]["metadata_modified"]))
+      .to(Time.zone.parse(package_show_update["result"]["metadata_modified"]))
   end
 
   it "updates existing datasets when they're draft but appear in CKAN" do
     subject.perform
     dataset_to_reimport.reload
 
-    expect(dataset_to_reimport.updated_at).to eq(Time.parse(package_show_update["result"]["metadata_modified"]))
+    expect(dataset_to_reimport.updated_at).to eq(Time.zone.parse(package_show_update["result"]["metadata_modified"]))
     expect(dataset_to_reimport.status).to eq("published")
   end
 

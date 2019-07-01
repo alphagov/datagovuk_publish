@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 private
 
   def record_not_found
-    render plain: '404 Not Found', status: 404
+    render plain: '404 Not Found', status: :not_found
   end
 
   def set_raven_context
