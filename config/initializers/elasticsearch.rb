@@ -6,7 +6,7 @@ def es_config_from_vcap
     Rails.logger.fatal "Failed to extract ES creds from VCAP_SERVICES. Exiting"
     Rails.logger.fatal Rails.configuration.elasticsearch['vcap_services']
     Rails.logger.fatal e
-    exit
+    return
   end
 
   es_config_from_host(es_server)

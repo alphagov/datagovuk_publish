@@ -4,6 +4,7 @@ AllCops:
     - bin/**/*
     - config.ru
     - db/schema.rb
+    - db/migrate/*
     - vendor/**/*
     - lib/ckan/v26/depaginator.rb
 

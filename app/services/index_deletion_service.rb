@@ -25,7 +25,7 @@ private
   def select_indexes_for_deletion(indexes)
     ordered_indexes = indexes
                         .select { |index_name| index_name.include? "#{index_alias}_" }
-                        .sort_by { |index_name| Time.parse(index_name.gsub(/"#{index_alias}_"/, '')) }
+                        .sort_by { |index_name| Time.zone.parse(index_name.gsub(/"#{index_alias}_"/, '')) }
                         .reverse
 
     # Ensure that the three most recent indexes are not deleted

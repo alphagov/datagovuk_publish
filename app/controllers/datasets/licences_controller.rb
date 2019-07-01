@@ -20,7 +20,7 @@ class Datasets::LicencesController < ApplicationController
 
   def update
     @dataset = current_dataset
-    @dataset.update_attributes(params.require(:dataset).permit(:licence_code))
+    @dataset.update(params.require(:dataset).permit(:licence_code))
 
     if @dataset.save(context: :dataset_form)
       redirect_to dataset_path(@dataset.uuid, @dataset.name)

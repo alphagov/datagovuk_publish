@@ -1,10 +1,4 @@
 module ApplicationHelper
-  def url_contains(action)
-    url = request.path
-    url.gsub(@dataset.title, '') if @dataset.title
-    url.include?(action)
-  end
-
   def sortable(column, title = nil)
     title ||= column.titleize
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
