@@ -132,7 +132,7 @@ GEM
       rubocop-rails (~> 2)
       rubocop-rspec (~> 1.28)
       scss_lint
-    govuk_app_config (1.20.0)
+    govuk_app_config (1.20.1)
       aws-xray-sdk (~> 0.10.0)
       logstasher (>= 1.2.2, < 1.4.0)
       sentry-raven (>= 2.7.1, < 2.10.0)
@@ -449,7 +449,7 @@ DEPENDENCIES
   factory_bot_rails (~> 5.0)
   gds-sso
   govuk-lint (~> 3.11)
-  govuk_app_config (~> 1.20.0)
+  govuk_app_config (~> 1.20.1)
   govuk_elements_rails
   govuk_sidekiq (~> 3.0)
   govuk_template
