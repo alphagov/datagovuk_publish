@@ -6,6 +6,7 @@ module CKAN
       CKAN_FIELDS = %i[id metadata_modified].freeze
 
       def call
+        logger.info(">>> call CKAN PackageDiffer")
         datasets = Dataset.where.not(legacy_name: nil)
 
         packages = client.search_dataset(fl: CKAN_FIELDS, existing_total: datasets.published.size)

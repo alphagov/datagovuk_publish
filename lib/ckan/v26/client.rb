@@ -28,11 +28,14 @@ module CKAN
 
       def search_dataset(fl:, existing_total:) # rubocop:disable Naming/UncommunicativeMethodParamName
         url = build_url(path: SEARCH_DATASET_PATH, params: { q: 'type:dataset', rows: 1000, fl: fl.join(",") })
+        logger.info(">>> lib/ckan/v26/client.rb - search_dataset, url: #{url}")
         Depaginator.depaginate(url, existing_total: existing_total)
+        # logger.info(">>> search_dataset finished #{url}")
       end
 
       def show_dataset(id:)
         url = build_url(path: SHOW_DATASET_PATH, params: { id: id })
+        logger.info(">>> lib/ckan/v26/client.rb - show_dataset, url: #{url}")
         JSON.parse(url.read)["result"]
       end
     end

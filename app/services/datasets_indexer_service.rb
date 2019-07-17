@@ -170,6 +170,7 @@ private
   attr_reader :date, :new_index_name, :batch_size, :client, :logger
 
   def create_new_index
+    logger.info ">>> app/services/datasets_indexer_service.rb - create_new_index"
     client.indices.create(
       index: new_index_name,
       body: {
@@ -177,20 +178,24 @@ private
         mappings: INDEX_MAPPINGS
       }
     )
+    logger.info ">>> app/services/datasets_indexer_service.rb - end of create_new_index"
   end
 
   def bulk_index(datasets)
+    logger.info ">>> app/services/datasets_indexer_service.rb - bulk_index"
     Dataset.__elasticsearch__.client.bulk(
       index: new_index_name,
       type: ::Dataset.__elasticsearch__.document_type,
       body: prepare_records(datasets)
     )
+    logger.info ">>> app/services/datasets_indexer_service.rb - end of bulk_index"
   rescue StandardError => e
     logger.warn(e)
     retry
   end
 
   def prepare_records(datasets)
+    logger.info(">>> app/services/datasets_indexer_service.rb - prepare_records")
     datasets.map do |dataset|
       { index: { _id: dataset.uuid, data: dataset.as_indexed_json } }
     end

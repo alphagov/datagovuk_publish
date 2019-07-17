@@ -9,7 +9,7 @@ class ReindexService
   end
 
   def run
-    logger.info "Indexing #{published_datasets_count} datasets"
+    logger.info ">>> Indexing app/services/reindex_service.rb - run >  #{published_datasets_count} datasets"
     indexer.run
     alias_updater.run
     index_deleter.run
