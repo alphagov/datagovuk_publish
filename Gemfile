@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby IO.read('.ruby-version').strip
 
-gem 'audited', '~> 4.8'
+gem 'audited', '~> 4.9'
 gem 'cancancan', '~> 3.0'
 gem 'elasticsearch', '~> 5.0.5'
 gem 'elasticsearch-model', '~> 6.0.0'
