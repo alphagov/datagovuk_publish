@@ -52,7 +52,7 @@ GEM
       oj (~> 3.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    brakeman (4.5.1)
+    brakeman (4.6.0)
     builder (3.2.3)
     byebug (11.0.1)
     cancancan (3.0.1)
@@ -436,7 +436,7 @@ PLATFORMS
 
 DEPENDENCIES
   audited (~> 4.8)
-  brakeman (~> 4.5)
+  brakeman (~> 4.6)
   byebug (~> 11)
   cancancan (~> 3.0)
   capybara
