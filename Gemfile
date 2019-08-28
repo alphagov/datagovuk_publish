@@ -58,5 +58,5 @@ group :test do
   gem 'codeclimate-test-reporter', '~> 1.0.9'
   gem 'database_cleaner'
   gem 'simplecov'
-  gem 'webmock', '~> 3.6'
+  gem 'webmock', '~> 3.7'
 end
