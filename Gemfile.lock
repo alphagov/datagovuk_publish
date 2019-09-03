@@ -102,7 +102,7 @@ GEM
       activesupport (> 3)
       elasticsearch (> 1)
       hashie
-    elasticsearch-rails (6.0.0)
+    elasticsearch-rails (7.0.0)
     elasticsearch-transport (5.0.5)
       faraday
       multi_json
@@ -462,7 +462,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.7)
   elasticsearch (~> 5.0.5)
   elasticsearch-model (~> 6.0.0)
-  elasticsearch-rails (~> 6.0.0)
+  elasticsearch-rails (~> 7.0.0)
   factory_bot_rails (~> 5.0)
   gds-sso
   govuk-lint (~> 3.11)
