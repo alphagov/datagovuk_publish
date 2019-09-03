@@ -61,8 +61,6 @@ GEM
     ast (2.4.0)
     audited (4.9.0)
       activerecord (>= 4.2, < 6.1)
-    aws-xray-sdk (0.10.2)
-      oj (~> 3.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
     brakeman (4.6.1)
@@ -145,8 +143,7 @@ GEM
       rubocop-rails (~> 2)
       rubocop-rspec (~> 1.28)
       scss_lint
-    govuk_app_config (1.20.2)
-      aws-xray-sdk (~> 0.10.0)
+    govuk_app_config (2.0.0)
       logstasher (>= 1.2.2, < 1.4.0)
       sentry-raven (>= 2.7.1, < 2.12.0)
       statsd-ruby (~> 1.4.0)
@@ -240,7 +237,6 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    oj (3.8.1)
     omniauth (1.9.0)
       hashie (>= 3.4.6, < 3.7.0)
       rack (>= 1.6.2, < 3)
@@ -470,7 +466,7 @@ DEPENDENCIES
   factory_bot_rails (~> 5.0)
   gds-sso
   govuk-lint (~> 3.11)
-  govuk_app_config (~> 1.20.2)
+  govuk_app_config (~> 2.0.0)
   govuk_elements_rails
   govuk_sidekiq (~> 3.0)
   govuk_template
