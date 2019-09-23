@@ -3,7 +3,7 @@ module Healthcheck
     class PackageSync
       include ActionView::Helpers::DateHelper
 
-      JOB_NAME = 'ckan_v26_package_sync'.freeze
+      JOB_NAME = "ckan_v26_package_sync".freeze
       JOB_FREQUENCY = 10.minutes
       WARNING_DELAY = 2.minutes
       CRITICAL_DELAY = 1.hour
@@ -25,7 +25,7 @@ module Healthcheck
       def details
         {
           critical: when_last_run,
-          warning: when_last_run
+          warning: when_last_run,
         }
       end
 

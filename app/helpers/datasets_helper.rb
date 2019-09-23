@@ -1,10 +1,10 @@
 module DatasetsHelper
   def dataset_field(f, dataset, options) # rubocop:disable Naming/UncommunicativeMethodParamName
-    render '/datasets/dataset_field', f: f, dataset: dataset, field: options
+    render "/datasets/dataset_field", f: f, dataset: dataset, field: options
   end
 
   FRIENDLY_FREQUENCIES = {
-    'never' => 'One-off'
+    "never" => "One-off",
   }.freeze
 
   def friendly_frequency(frequency)

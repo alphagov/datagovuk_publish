@@ -9,7 +9,7 @@ module CKAN
           created_at: build_created_at(resource, dataset),
           updated_at: build_created_at(resource, dataset),
           type: build_type(resource),
-          dataset_id: dataset.id
+          dataset_id: dataset.id,
         }
       end
 

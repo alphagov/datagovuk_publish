@@ -4,8 +4,8 @@ namespace :search do
     batch_size = args.batch_size.nil? ? 50 : args.batch_size.to_i
     logger = Rails.logger
     client = Dataset.__elasticsearch__.client
-    date = Time.zone.now.strftime('%Y%m%d%H%M%S')
-    index_alias = ENV['ES_INDEX'] || "datasets-#{Rails.env}"
+    date = Time.zone.now.strftime("%Y%m%d%H%M%S")
+    index_alias = ENV["ES_INDEX"] || "datasets-#{Rails.env}"
     legacy_index = index_alias
     new_index_name = "#{Dataset.index_name}_#{date}"
 
@@ -14,20 +14,20 @@ namespace :search do
       date: date,
       new_index_name: new_index_name,
       client: client,
-      logger: logger
+      logger: logger,
     }
 
     alias_updater_args = {
       new_index_name: new_index_name,
       index_alias: index_alias,
       client: client,
-      logger: logger
+      logger: logger,
     }
 
     index_deleter_args = {
       index_alias: index_alias,
       client: client,
-      logger: logger
+      logger: logger,
     }
 
     indexer = DatasetsIndexerService.new(indexer_args)

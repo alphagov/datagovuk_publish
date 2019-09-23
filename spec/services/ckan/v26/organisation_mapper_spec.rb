@@ -1,11 +1,11 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe CKAN::V26::OrganisationMapper do
   let(:ckan_org) { build :ckan_v26_ckan_org }
   let!(:organisation) { create :organisation, name: ckan_org.get("name") }
 
-  describe '#call' do
-    it 'returns the mapped organization attributes for a CKAN org' do
+  describe "#call" do
+    it "returns the mapped organization attributes for a CKAN org" do
       attributes = subject.call(ckan_org)
 
       expect(attributes[:uuid]).to eq ckan_org.get("id")

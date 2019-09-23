@@ -36,7 +36,7 @@ module CKAN
         return unless package.get("theme-primary")
 
         name = package.get("theme-primary")
-          .gsub('&', 'and').tr(' ', '-').downcase
+          .gsub("&", "and").tr(" ", "-").downcase
 
         Topic.find_by(name: name)&.id
       end
@@ -46,7 +46,7 @@ module CKAN
       end
 
       def build_location(package)
-        Array(package.get("geographic_coverage")).map(&:titleize).join(', ')
+        Array(package.get("geographic_coverage")).map(&:titleize).join(", ")
       end
 
       def build_notes(package)

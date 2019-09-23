@@ -1,4 +1,4 @@
-require_relative 'boot'
+require_relative "boot"
 
 require "rails"
 require "active_record/railtie"
@@ -15,10 +15,10 @@ Bundler.require(*Rails.groups)
 if ENV["VCAP_SERVICES"]
   services = JSON.parse(ENV["VCAP_SERVICES"])
 
-  if services.key?('user-provided')
+  if services.key?("user-provided")
     # Extract UPSes and pull out secrets configs
-    user_provided_services = services['user-provided'].select { |s| s['name'].include?('secrets') }
-    credentials = user_provided_services.map { |s| s['credentials'] }.reduce(:merge)
+    user_provided_services = services["user-provided"].select { |s| s["name"].include?("secrets") }
+    credentials = user_provided_services.map { |s| s["credentials"] }.reduce(:merge)
 
     # Take each credential and assign to ENV
     credentials.each do |k, v|

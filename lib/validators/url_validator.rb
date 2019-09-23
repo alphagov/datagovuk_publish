@@ -1,7 +1,7 @@
-require 'addressable/uri'
-require 'whois-parser'
-require 'rest-client'
-require 'logger'
+require "addressable/uri"
+require "whois-parser"
+require "rest-client"
+require "logger"
 
 
 class UrlValidator < ActiveModel::Validator
@@ -12,7 +12,7 @@ class UrlValidator < ActiveModel::Validator
   end
 
   def url_present?(record)
-    error = 'Url was not present'
+    error = "Url was not present"
 
     record.url.blank? ? create_validation_error(record, error) : true
   end
@@ -21,7 +21,7 @@ class UrlValidator < ActiveModel::Validator
     uri = Addressable::URI.parse(record.url)
     return false if uri.blank?
 
-    error = 'Url does not start with http, https, or ftp'
+    error = "Url does not start with http, https, or ftp"
 
     if %w(http https ftp).exclude? uri.scheme
       create_validation_error(record, error)
@@ -48,11 +48,11 @@ class UrlValidator < ActiveModel::Validator
       RestClient.head encoded_url(record.url)
       return true
     rescue RestClient::ExceptionWithResponse
-      error = 'Url path is not valid'
+      error = "Url path is not valid"
     rescue SocketError
-      error = 'There was a problem connecting to the server'
+      error = "There was a problem connecting to the server"
     rescue Errno::ECONNREFUSED
-      error = 'The server refused a connection attempt'
+      error = "The server refused a connection attempt"
     end
 
     create_validation_error(record, error) if error.present?
@@ -60,8 +60,8 @@ class UrlValidator < ActiveModel::Validator
   end
 
   def create_validation_error(record, error)
-    Rails.logger.debug('Validation error: ' + error)
-    record.errors[:url] << 'Please enter a valid url'
+    Rails.logger.debug("Validation error: " + error)
+    record.errors[:url] << "Please enter a valid url"
     false
   end
 end

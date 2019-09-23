@@ -1,10 +1,10 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe CKAN::V26::InspireMapper do
   let(:package) { build :ckan_v26_package, :inspire }
 
-  describe '#call' do
-    it 'returns the mapped inspire attributes for a package' do
+  describe "#call" do
+    it "returns the mapped inspire attributes for a package" do
       attributes = subject.call(package)
 
       expect(attributes[:access_constraints]).to eq package.get_extra("access_constraints")
