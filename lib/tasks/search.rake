@@ -14,20 +14,20 @@ namespace :search do
       date: date,
       new_index_name: new_index_name,
       client: client,
-      logger: logger
+      logger: logger,
     }
 
     alias_updater_args = {
       new_index_name: new_index_name,
       index_alias: index_alias,
       client: client,
-      logger: logger
+      logger: logger,
     }
 
     index_deleter_args = {
       index_alias: index_alias,
       client: client,
-      logger: logger
+      logger: logger,
     }
 
     indexer = DatasetsIndexerService.new(indexer_args)

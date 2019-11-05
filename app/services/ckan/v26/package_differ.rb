@@ -14,7 +14,7 @@ module CKAN
         {
           create: diff_create(packages, datasets),
           update: diff_update(packages, datasets),
-          delete: diff_delete(packages, datasets)
+          delete: diff_delete(packages, datasets),
         }
       end
 

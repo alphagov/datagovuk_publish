@@ -22,7 +22,7 @@ module CKAN
           spatial: package.get_extra("spatial"),
           spatial_data_service_type: package.get_extra("spatial-data-service-type"),
           spatial_reference_system: package.get_extra("spatial-reference-system"),
-          guid: package.get_extra("guid")
+          guid: package.get_extra("guid"),
         }
       end
     end

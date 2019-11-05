@@ -12,7 +12,7 @@ describe ReindexService do
       indexer: indexer_double,
       alias_updater: alias_updater_double,
       index_deleter: index_deleter_double,
-      logger: logger_double
+      logger: logger_double,
     }
 
     reindex_service = ReindexService.new(reindexer_service_args)

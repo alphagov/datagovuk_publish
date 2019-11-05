@@ -1,16 +1,16 @@
 class DatasetsIndexerService
   INDEX_SETTINGS = {
     blocks: {
-      read_only: false
+      read_only: false,
     },
     analysis: {
       normalizer: {
         lowercase_normalizer: {
           type: "custom",
-          filter: "lowercase"
-        }
-      }
-    }
+          filter: "lowercase",
+        },
+      },
+    },
   }.freeze
 
   INDEX_MAPPINGS = {
@@ -39,7 +39,7 @@ class DatasetsIndexerService
             keyword: {
               type: "keyword",
               index: true,
-              ignore_above: 10000
+              ignore_above: 10000,
             },
             english: {
               type: "text",
@@ -105,8 +105,8 @@ class DatasetsIndexerService
                   analyzer: "english",
                 },
               },
-            }
-          }
+            },
+          },
         },
         topic: {
           type: "nested",
@@ -117,31 +117,31 @@ class DatasetsIndexerService
                 raw: {
                   type: "keyword",
                   index: true,
-                }
-              }
-            }
-          }
+                },
+              },
+            },
+          },
         },
         datafiles: {
           type: "nested",
           properties: {
             format: {
               type: "keyword",
-              normalizer: "lowercase_normalizer"
-            }
-          }
+              normalizer: "lowercase_normalizer",
+            },
+          },
         },
         docs: {
           type: "nested",
           properties: {
             format: {
               type: "keyword",
-              normalizer: "lowercase_normalizer"
-            }
-          }
-        }
-      }
-    }
+              normalizer: "lowercase_normalizer",
+            },
+          },
+        },
+      },
+    },
   }.freeze
 
   def initialize(args)
@@ -174,7 +174,7 @@ private
       index: new_index_name,
       body: {
         settings: INDEX_SETTINGS,
-        mappings: INDEX_MAPPINGS
+        mappings: INDEX_MAPPINGS,
       }
     )
   end

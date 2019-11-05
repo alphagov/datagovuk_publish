@@ -4,7 +4,7 @@ module DatasetsHelper
   end
 
   FRIENDLY_FREQUENCIES = {
-    "never" => "One-off"
+    "never" => "One-off",
   }.freeze
 
   def friendly_frequency(frequency)

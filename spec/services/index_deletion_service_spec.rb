@@ -13,7 +13,7 @@ describe IndexDeletionService do
     index_deleter_args = {
       index_alias: "datasets-#{ENV['RAILS_ENV']}",
       client: @client_double,
-      logger: logger_double
+      logger: logger_double,
     }
 
     @index_deleter = IndexDeletionService.new(index_deleter_args)

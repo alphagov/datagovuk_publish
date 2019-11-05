@@ -8,7 +8,7 @@ module CKAN
 
         {
           create_update: organisation_ids,
-          delete: diff_delete(organisation_ids)
+          delete: diff_delete(organisation_ids),
         }
       end
 

@@ -58,7 +58,7 @@ class Dataset < ApplicationRecord
               topic: {},
               datafiles: {},
               docs: {},
-              inspire_dataset: {}
+              inspire_dataset: {},
             })
   end
 

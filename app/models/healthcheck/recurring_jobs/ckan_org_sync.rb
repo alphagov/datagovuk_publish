@@ -25,7 +25,7 @@ module Healthcheck
       def details
         {
           critical: when_last_run,
-          warning: when_last_run
+          warning: when_last_run,
         }
       end
 

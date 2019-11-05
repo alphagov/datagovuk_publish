@@ -15,7 +15,7 @@ private
 
   def assign_alias_to_new_index
     @client.indices.update_aliases body: {
-      actions: remove_index_actions + add_index_actions
+      actions: remove_index_actions + add_index_actions,
     }
   rescue StandardError => e
     msg = "Could not update alias.\n #{e.message}"

@@ -24,7 +24,7 @@ describe AliasUpdaterService do
         actions: [
           { remove: { index: "current_index", alias: "my_alias" } },
           { add: { index: "new_index", alias: "my_alias" } }
-        ]
+        ],
       } }
 
       expect(client).to receive_message_chain("indices.update_aliases")

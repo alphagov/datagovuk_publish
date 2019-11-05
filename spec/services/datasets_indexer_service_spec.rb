@@ -36,7 +36,7 @@ describe DatasetsIndexerService do
               keyword: {
                 type: "keyword",
                 index: true,
-                ignore_above: 10000
+                ignore_above: 10000,
               },
               english: {
                 type: "text",
@@ -63,8 +63,8 @@ describe DatasetsIndexerService do
               raw: {
                 type: "keyword",
                 index: true,
-              }
-            }
+              },
+            },
           },
           organisation: {
             type: "nested",
@@ -94,8 +94,8 @@ describe DatasetsIndexerService do
                     analyzer: "english",
                   },
                 },
-              }
-            }
+              },
+            },
           },
           topic: {
             type: "nested",
@@ -106,31 +106,31 @@ describe DatasetsIndexerService do
                   raw: {
                     type: "keyword",
                     index: true,
-                  }
-                }
-              }
-            }
+                  },
+                },
+              },
+            },
           },
           datafiles: {
             type: "nested",
             properties: {
               format: {
                 type: "keyword",
-                normalizer: "lowercase_normalizer"
-              }
-            }
+                normalizer: "lowercase_normalizer",
+              },
+            },
           },
           docs: {
             type: "nested",
             properties: {
               format: {
                 type: "keyword",
-                normalizer: "lowercase_normalizer"
-              }
-            }
-          }
-        }
-      }
+                normalizer: "lowercase_normalizer",
+              },
+            },
+          },
+        },
+      },
     }
 
     expect(DatasetsIndexerService::INDEX_MAPPINGS).to eql(expected_mappings)
@@ -139,16 +139,16 @@ describe DatasetsIndexerService do
   it "uses a lowercase normalizer to tokenize the datafile format" do
     expected_settings = {
       blocks: {
-        read_only: false
+        read_only: false,
       },
       analysis: {
         normalizer: {
           lowercase_normalizer: {
             type: "custom",
-            filter: "lowercase"
-          }
-        }
-      }
+            filter: "lowercase",
+          },
+        },
+      },
     }
 
     expect(DatasetsIndexerService::INDEX_SETTINGS).to eql(expected_settings)
