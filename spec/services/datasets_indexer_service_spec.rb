@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe DatasetsIndexerService do
   it "indexes with the correct index mappings" do
@@ -6,105 +6,105 @@ describe DatasetsIndexerService do
       dataset: {
         properties: {
           name: {
-            type: 'keyword',
+            type: "keyword",
             index: true,
           },
           legacy_name: {
-            type: 'keyword',
+            type: "keyword",
             index: true,
           },
           uuid: {
-            type: 'keyword',
+            type: "keyword",
             index: true,
           },
           title: {
-            type: 'text',
+            type: "text",
             fields: {
               keyword: {
-                type: 'keyword',
+                type: "keyword",
                 index: true,
               },
               english: {
-                type: 'text',
-                analyzer: 'english',
+                type: "text",
+                analyzer: "english",
               },
             },
           },
           summary: {
-            type: 'text',
+            type: "text",
             fields: {
               keyword: {
-                type: 'keyword',
+                type: "keyword",
                 index: true,
                 ignore_above: 10000
               },
               english: {
-                type: 'text',
-                analyzer: 'english',
+                type: "text",
+                analyzer: "english",
               },
             },
           },
           description: {
-            type: 'text',
+            type: "text",
             fields: {
               keyword: {
-                type: 'keyword',
+                type: "keyword",
                 index: true,
               },
               english: {
-                type: 'text',
-                analyzer: 'english',
+                type: "text",
+                analyzer: "english",
               },
             },
           },
           location1: {
-            type: 'text',
+            type: "text",
             fields: {
               raw: {
-                type: 'keyword',
+                type: "keyword",
                 index: true,
               }
             }
           },
           organisation: {
-            type: 'nested',
+            type: "nested",
             properties: {
               title: {
-                type: 'text',
+                type: "text",
                 fields: {
                   raw: {
-                    type: 'keyword',
+                    type: "keyword",
                     index: true,
                   },
                   english: {
-                    type: 'text',
-                    analyzer: 'english',
+                    type: "text",
+                    analyzer: "english",
                   },
                 },
               },
               description: {
-                type: 'text',
+                type: "text",
                 fields: {
                   raw: {
-                    type: 'keyword',
+                    type: "keyword",
                     index: true,
                   },
                   english: {
-                    type: 'text',
-                    analyzer: 'english',
+                    type: "text",
+                    analyzer: "english",
                   },
                 },
               }
             }
           },
           topic: {
-            type: 'nested',
+            type: "nested",
             properties: {
               title: {
-                type: 'text',
+                type: "text",
                 fields: {
                   raw: {
-                    type: 'keyword',
+                    type: "keyword",
                     index: true,
                   }
                 }

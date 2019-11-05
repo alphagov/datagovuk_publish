@@ -1,13 +1,13 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe CKAN::V26::DatasetMapper do
   let(:package) { build :ckan_v26_package }
 
   let!(:organisation) { create :organisation, uuid: package.get("owner_org") }
-  let!(:topic) { create :topic, name: 'environment-and-fisheries' }
+  let!(:topic) { create :topic, name: "environment-and-fisheries" }
 
-  describe '#call' do
-    it 'returns the mapped dataset attributes for a package' do
+  describe "#call" do
+    it "returns the mapped dataset attributes for a package" do
       attributes = subject.call(package)
 
       expect(attributes[:title]).to eq package.get("title")
@@ -32,25 +32,25 @@ describe CKAN::V26::DatasetMapper do
       expect(attributes[:status]).to eq "published"
     end
 
-    it 'copes when a topic cannot be found for the package' do
+    it "copes when a topic cannot be found for the package" do
       topic.destroy
       attributes = subject.call(package)
       expect(attributes[:topic_id]).to be_nil
     end
 
-    it 'copes when an organisation cannot be found for the package' do
+    it "copes when an organisation cannot be found for the package" do
       organisation.destroy
       attributes = subject.call(package)
       expect(attributes[:organisation_id]).to be_nil
     end
 
-    it 'accurately determines when a dataset is harvested' do
+    it "accurately determines when a dataset is harvested" do
       package = build :ckan_v26_package, :harvested
       attributes = subject.call(package)
       expect(attributes[:harvested]).to be_truthy
     end
 
-    it 'uses a default string when the package has no notes' do
+    it "uses a default string when the package has no notes" do
       package = build :ckan_v26_package, notes: ""
       attributes = subject.call(package)
       expect(attributes[:summary]).to eq "No description provided"

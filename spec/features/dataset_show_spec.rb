@@ -11,7 +11,7 @@ describe "show datasets" do
 
   it "should disable editing for harvested datasets" do
     dataset.update(harvested: true)
-    click_link 'Manage datasets'
+    click_link "Manage datasets"
 
     expect(page).to have_content(dataset.title)
     expect(page).not_to have_content("Add Data")
@@ -19,7 +19,7 @@ describe "show datasets" do
   end
 
   it "should provide links to edit a manual dataset" do
-    click_link 'Manage datasets'
+    click_link "Manage datasets"
     expect(page).to have_content(dataset.title)
     expect(page).to have_content("Add Data")
     expect(page).to have_content("Edit")

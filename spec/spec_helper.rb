@@ -1,10 +1,10 @@
-ENV["RAILS_ENV"] = 'test'
+ENV["RAILS_ENV"] = "test"
 
 require "simplecov"
 require "factory_bot_rails"
 require "database_cleaner"
 require "govuk_sidekiq/testing"
-require 'webmock/rspec'
+require "webmock/rspec"
 
 WebMock.disable_net_connect!(allow_localhost: true)
 

@@ -1,4 +1,4 @@
-require 'ckan/v26/client'
+require "ckan/v26/client"
 
 module CKAN
   module V26

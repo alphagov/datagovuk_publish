@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe "managing datasets" do
   let(:organisation) { FactoryBot.create(:organisation) }
@@ -11,8 +11,8 @@ describe "managing datasets" do
   end
 
   it "after login" do
-    click_link 'Manage datasets'
-    expect(page).to have_content('No datasets found')
+    click_link "Manage datasets"
+    expect(page).to have_content("No datasets found")
     expect(page).to have_selector(%(table), count: 0)
 
     # Expect to see the table with datasets in it.
@@ -22,27 +22,27 @@ describe "managing datasets" do
   end
 
   it "can do a search" do
-    click_link 'Manage datasets'
+    click_link "Manage datasets"
     click_link "#{organisation.title} datasets"
 
     # expect 2 datasets to be displayed
-    within('#dataset-list') do
+    within("#dataset-list") do
       expect(page).to have_selector(%(th), count: 2)
     end
 
-    fill_in('q', with: dataset_1.title)
-    click_button 'Search'
+    fill_in("q", with: dataset_1.title)
+    click_button "Search"
 
     # We expect only a single result now
-    within('#dataset-list') do
+    within("#dataset-list") do
       expect(page).to have_selector(%(th), count: 1)
     end
 
-    click_link 'My datasets'
-    expect(page).not_to have_content('Find data here')
+    click_link "My datasets"
+    expect(page).not_to have_content("Find data here")
 
-    fill_in('q', with: "cats")
-    click_button 'Search'
+    fill_in("q", with: "cats")
+    click_button "Search"
     # No results, no table.
     expect(page).to have_selector(%(th), count: 0)
   end
@@ -52,12 +52,12 @@ describe "managing datasets" do
     datasets_per_page = 2
 
     visit manage_organisation_path(per: datasets_per_page)
-    within('#dataset-list') do
+    within("#dataset-list") do
       expect(page).to have_selector(%(th), count: 2)
     end
 
-    click_link '2'
-    within('#dataset-list') do
+    click_link "2"
+    within("#dataset-list") do
       expect(page).to have_selector(%(th), count: 1)
     end
   end

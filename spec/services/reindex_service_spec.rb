@@ -1,11 +1,11 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe ReindexService do
-  it 'Reindexes' do
-    logger_double = double('logger', info: '')
-    indexer_double = double('indexer', run: true)
-    alias_updater_double = double('alias_updater', run: true)
-    index_deleter_double = double('index_deleter', run: true)
+  it "Reindexes" do
+    logger_double = double("logger", info: "")
+    indexer_double = double("indexer", run: true)
+    alias_updater_double = double("alias_updater", run: true)
+    index_deleter_double = double("index_deleter", run: true)
 
     reindexer_service_args = {
       batch_size: 50,

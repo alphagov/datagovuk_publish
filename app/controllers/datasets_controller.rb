@@ -40,7 +40,7 @@ class DatasetsController < ApplicationController
   end
 
   def publish
-    flash[:success] = I18n.t 'dataset.published'
+    flash[:success] = I18n.t "dataset.published"
     flash[:extra] = @dataset
 
     @dataset.publish
@@ -48,7 +48,7 @@ class DatasetsController < ApplicationController
   end
 
   def confirm_delete
-    flash[:alert] = 'Are you sure you want to delete this dataset?'
+    flash[:alert] = "Are you sure you want to delete this dataset?"
     render :show
   end
 

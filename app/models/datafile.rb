@@ -91,19 +91,19 @@ private
 
   def validate_date
     if (daily_date rescue ArgumentError) == ArgumentError
-      errors.add(:date, 'Please enter a valid date')
+      errors.add(:date, "Please enter a valid date")
     end
   end
 
   def validate_month
     if month.to_i < 1 || month.to_i > 12
-      errors.add(:month, 'Please enter a valid month')
+      errors.add(:month, "Please enter a valid month")
     end
   end
 
   def validate_year
     if year.to_i < 1000 || year.to_i > 5000
-      errors.add(:year, 'Please enter a valid year')
+      errors.add(:year, "Please enter a valid year")
     end
   end
 end

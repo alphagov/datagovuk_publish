@@ -3,7 +3,7 @@ module Healthcheck
     class CKANOrgSync
       include ActionView::Helpers::DateHelper
 
-      JOB_NAME = 'ckan_v26_ckan_org_sync'.freeze
+      JOB_NAME = "ckan_v26_ckan_org_sync".freeze
       JOB_FREQUENCY = 24.hours
       WARNING_DELAY = 3.hours # After 11 retries
       CRITICAL_DELAY = 6.hours # After 13 retries and Sidekiq stops retrying

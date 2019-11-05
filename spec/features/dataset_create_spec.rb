@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "creating datasets" do
-  let(:land) { FactoryBot.create(:organisation, name: 'land-registry', title: 'Land Registry') }
+  let(:land) { FactoryBot.create(:organisation, name: "land-registry", title: "Land Registry") }
   let!(:user) { FactoryBot.create(:user, primary_organisation: land) }
   let!(:dataset) { FactoryBot.create(:dataset, organisation: land, creator: user) }
   let!(:topic) { FactoryBot.create(:topic) }
@@ -58,13 +58,13 @@ describe "creating datasets" do
       expect(Dataset.last.frequency).to eq("never")
 
       # Page 6: Add Link
-      fill_in 'datafile[url]', with: 'https://localhost'
-      fill_in 'datafile[name]', with: 'my test datafile'
+      fill_in "datafile[url]", with: "https://localhost"
+      fill_in "datafile[name]", with: "my test datafile"
       click_button "Save and continue"
 
       expect(Dataset.last.datafiles.size).to eq(1)
-      expect(Dataset.last.datafiles.last.url).to eq('https://localhost')
-      expect(Dataset.last.datafiles.last.name).to eq('my test datafile')
+      expect(Dataset.last.datafiles.last.url).to eq("https://localhost")
+      expect(Dataset.last.datafiles.last.name).to eq("my test datafile")
 
       # Files page
       expect(page).to have_content("Links to your data")
@@ -72,13 +72,13 @@ describe "creating datasets" do
       click_link "Save and continue"
 
       # Page 7: Add Documents
-      fill_in 'doc[url]', with: 'https://localhost/doc'
-      fill_in 'doc[name]', with: 'my test doc'
+      fill_in "doc[url]", with: "https://localhost/doc"
+      fill_in "doc[name]", with: "my test doc"
       click_button "Save and continue"
 
       expect(Dataset.last.docs.size).to eq(1)
-      expect(Dataset.last.docs.last.url).to eq('https://localhost/doc')
-      expect(Dataset.last.docs.last.name).to eq('my test doc')
+      expect(Dataset.last.docs.last.url).to eq("https://localhost/doc")
+      expect(Dataset.last.docs.last.name).to eq("my test doc")
       expect(Dataset.last.status).to eq("draft")
 
       # Documents page
@@ -124,8 +124,8 @@ describe "creating datasets" do
       expect(Dataset.find_by(title: "my test dataset").creator_id).to eq(user.id)
     end
 
-    it 'displays drafts' do
-      click_link 'Manage datasets'
+    it "displays drafts" do
+      click_link "Manage datasets"
       expect(page).to have_content(dataset.title)
 
       visit dataset_path(dataset.uuid, dataset.name)
@@ -135,7 +135,7 @@ describe "creating datasets" do
 end
 
 describe "starting a new draft with invalid inputs" do
-  let(:land) { FactoryBot.create(:organisation, name: 'land-registry', title: 'Land Registry') }
+  let(:land) { FactoryBot.create(:organisation, name: "land-registry", title: "Land Registry") }
   let!(:user) { FactoryBot.create(:user, primary_organisation: land) }
   let!(:topic) { FactoryBot.create(:topic) }
 
@@ -192,7 +192,7 @@ describe "starting a new draft with invalid inputs" do
 end
 
 describe "valid options for topic, licence and area" do
-  let(:land_registry) { FactoryBot.create(:organisation, name: 'land-registry', title: 'Land Registry') }
+  let(:land_registry) { FactoryBot.create(:organisation, name: "land-registry", title: "Land Registry") }
   let!(:user) { FactoryBot.create(:user, primary_organisation: land_registry) }
   let!(:topic) { FactoryBot.create(:topic) }
 
@@ -257,7 +257,7 @@ describe "valid options for topic, licence and area" do
 end
 
 describe "dataset frequency options" do
-  let(:land) { FactoryBot.create(:organisation, name: 'land-registry', title: 'Land Registry') }
+  let(:land) { FactoryBot.create(:organisation, name: "land-registry", title: "Land Registry") }
   let!(:user) { FactoryBot.create(:user, primary_organisation: land) }
   let!(:dataset) { FactoryBot.create(:dataset, organisation: land) }
 
@@ -270,13 +270,13 @@ describe "dataset frequency options" do
 
   context "when Never" do
     it "selecting NEVER hides fields and dates" do
-      choose option: 'never'
+      choose option: "never"
       click_button "Save and continue"
 
-      expect(page).to_not have_content('Year')
+      expect(page).to_not have_content("Year")
 
-      fill_in 'datafile[url]', with: 'https://localhost/doc'
-      fill_in 'datafile[name]', with: 'my test doc'
+      fill_in "datafile[url]", with: "https://localhost/doc"
+      fill_in "datafile[name]", with: "my test doc"
       click_button "Save and continue"
 
       expect(Dataset.last.links.last.end_date).to be_nil
@@ -287,19 +287,19 @@ describe "dataset frequency options" do
     before(:each) do
       url = "https://test.data.gov.uk/api/3/action/package_patch"
       stub_request(:any, url).to_return(status: 200)
-      choose option: 'daily'
+      choose option: "daily"
       click_button "Save and continue"
-      fill_in 'datafile[url]', with: 'https://localhost/doc'
-      fill_in 'datafile[name]', with: 'my test doc'
+      fill_in "datafile[url]", with: "https://localhost/doc"
+      fill_in "datafile[name]", with: "my test doc"
     end
 
     it "shows date fields and sets end date" do
-      expect(page).to     have_content('Month')
-      expect(page).to     have_content('Year')
+      expect(page).to     have_content("Month")
+      expect(page).to     have_content("Year")
 
-      fill_in "datafile[day]", with: '15'
-      fill_in 'datafile[month]', with: '1'
-      fill_in 'datafile[year]',  with: '2020'
+      fill_in "datafile[day]", with: "15"
+      fill_in "datafile[month]", with: "1"
+      fill_in "datafile[year]",  with: "2020"
 
       click_button "Save and continue"
 
@@ -320,18 +320,18 @@ describe "dataset frequency options" do
     before(:each) do
       url = "https://test.data.gov.uk/api/3/action/package_patch"
       stub_request(:any, url).to_return(status: 200)
-      choose option: 'monthly'
+      choose option: "monthly"
       click_button "Save and continue"
-      fill_in 'datafile[url]', with: 'https://localhost/doc'
-      fill_in 'datafile[name]', with: 'my test doc'
+      fill_in "datafile[url]", with: "https://localhost/doc"
+      fill_in "datafile[name]", with: "my test doc"
     end
 
     it "shows date fields and sets end date" do
-      expect(page).to     have_content('Month')
-      expect(page).to     have_content('Year')
+      expect(page).to     have_content("Month")
+      expect(page).to     have_content("Year")
 
-      fill_in 'datafile[month]', with: '1'
-      fill_in 'datafile[year]',  with: '2020'
+      fill_in "datafile[month]", with: "1"
+      fill_in "datafile[year]",  with: "2020"
 
       click_button "Save and continue"
 
@@ -351,15 +351,15 @@ describe "dataset frequency options" do
     before(:each) do
       url = "https://test.data.gov.uk/api/3/action/package_patch"
       stub_request(:any, url).to_return(status: 200)
-      choose option: 'quarterly'
+      choose option: "quarterly"
       click_button "Save and continue"
     end
 
     def pick_quarter(quarter)
-      expect(page).to     have_content('Year')
-      expect(page).to     have_content('Quarter')
-      fill_in 'datafile[url]', with: 'https://localhost/doc'
-      fill_in 'datafile[name]', with: 'my test doc'
+      expect(page).to     have_content("Year")
+      expect(page).to     have_content("Quarter")
+      fill_in "datafile[url]", with: "https://localhost/doc"
+      fill_in "datafile[name]", with: "my test doc"
       choose option: quarter.to_s
       fill_in "datafile[year]", with: Time.zone.today.year
       click_button "Save and continue"
@@ -390,27 +390,27 @@ describe "dataset frequency options" do
     def pick_year(year_type)
       choose option: year_type
       click_button "Save and continue"
-      expect(page).to have_content('Year')
-      fill_in 'datafile[url]', with: 'https://localhost/doc'
-      fill_in 'datafile[name]', with: 'my test doc'
-      fill_in 'datafile[year]', with: '2015'
+      expect(page).to have_content("Year")
+      fill_in "datafile[url]", with: "https://localhost/doc"
+      fill_in "datafile[name]", with: "my test doc"
+      fill_in "datafile[year]", with: "2015"
       click_button "Save and continue"
     end
 
     it "shows year field and sets end date" do
-      pick_year('annually')
+      pick_year("annually")
       expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(2015).end_of_year)
     end
 
     it "shows financial year and sets end date" do
-      pick_year('financial-year')
+      pick_year("financial-year")
       expect(Dataset.last.datafiles.last.end_date).to eq(Date.new(2016).end_of_quarter)
     end
   end
 end
 
 describe "passing the frequency page" do
-  let(:land) { FactoryBot.create(:organisation, name: 'land-registry', title: 'Land Registry') }
+  let(:land) { FactoryBot.create(:organisation, name: "land-registry", title: "Land Registry") }
   let!(:user) { FactoryBot.create(:user, primary_organisation: land) }
   let!(:dataset) { FactoryBot.create(:dataset, organisation: land, frequency: nil) }
 
@@ -439,9 +439,9 @@ describe "passing the frequency page" do
     choose option: "daily"
     click_button "Save and continue"
     expect(page).to have_content("Add a link to your data")
-    fill_in "datafile[day]", with: '15'
-    fill_in 'datafile[month]', with: '1'
-    fill_in 'datafile[year]',  with: '2020'
+    fill_in "datafile[day]", with: "15"
+    fill_in "datafile[month]", with: "1"
+    fill_in "datafile[year]",  with: "2020"
     click_button "Save and continue"
     expect(page).to have_content("Please enter a valid url", count: 2)
     expect(page).to have_content("Please enter a valid name", count: 2)

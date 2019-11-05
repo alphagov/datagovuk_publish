@@ -1,4 +1,4 @@
-RSpec.describe 'Healthcheck', type: :request do
+RSpec.describe "Healthcheck", type: :request do
   def data(body = response.body)
     JSON.parse(body).deep_symbolize_keys
   end
@@ -24,8 +24,8 @@ RSpec.describe 'Healthcheck', type: :request do
     end
 
     it "returns a status of 'warning'" do
-      get '/healthcheck'
-      expect(data.fetch(:status)).to eq('warning')
+      get "/healthcheck"
+      expect(data.fetch(:status)).to eq("warning")
     end
   end
 
@@ -36,8 +36,8 @@ RSpec.describe 'Healthcheck', type: :request do
     end
 
     it "returns a status of 'critical'" do
-      get '/healthcheck'
-      expect(data.fetch(:status)).to eq('critical')
+      get "/healthcheck"
+      expect(data.fetch(:status)).to eq("critical")
     end
   end
 
@@ -45,19 +45,19 @@ RSpec.describe 'Healthcheck', type: :request do
   let(:when_ckan_org_sync_last_run) { String(24.hours.ago) }
 
   it "includes useful information about each check" do
-    allow(sidekiq_redis).to receive(:get_job_last_time).with('ckan_v26_package_sync').and_return(when_package_sync_last_run)
-    allow(sidekiq_redis).to receive(:get_job_last_time).with('ckan_v26_ckan_org_sync').and_return(when_ckan_org_sync_last_run)
+    allow(sidekiq_redis).to receive(:get_job_last_time).with("ckan_v26_package_sync").and_return(when_package_sync_last_run)
+    allow(sidekiq_redis).to receive(:get_job_last_time).with("ckan_v26_ckan_org_sync").and_return(when_ckan_org_sync_last_run)
 
     get "/healthcheck"
 
     expect(data.fetch(:checks)).to include(
       package_sync:  { critical: when_package_sync_last_run,
                        warning: when_package_sync_last_run,
-                       status: 'ok',
+                       status: "ok",
                        message: "The job 'ckan_v26_package_sync' should run every 10 minutes. It was last run #{when_package_sync_last_run}." },
       CKAN_org_sync: { critical: when_ckan_org_sync_last_run,
                        warning: when_ckan_org_sync_last_run,
-                       status: 'ok',
+                       status: "ok",
                        message: "The job 'ckan_v26_ckan_org_sync' should run every 1 day. It was last run #{when_ckan_org_sync_last_run}." }
     )
   end
