@@ -13,7 +13,7 @@ describe DatasetsController, type: :controller do
       :dataset,
       name: "legit-name",
       organisation: organisation,
-      datafiles: [FactoryBot.create(:datafile)]
+      datafiles: [FactoryBot.create(:datafile)],
     )
 
     get :show, params: { uuid: dataset.uuid, name: "absolute-nonsense-name" }
@@ -27,13 +27,13 @@ describe DatasetsController, type: :controller do
     _allowed_dataset = FactoryBot.create(
       :dataset,
       organisation: organisation,
-      datafiles: [FactoryBot.create(:datafile)]
+      datafiles: [FactoryBot.create(:datafile)],
     )
 
     forbidden_dataset = FactoryBot.create(
       :dataset,
       organisation: another_organisation,
-      datafiles: [FactoryBot.create(:datafile)]
+      datafiles: [FactoryBot.create(:datafile)],
     )
 
     get :show, params: { uuid: forbidden_dataset.uuid, name: forbidden_dataset.name }
@@ -47,13 +47,13 @@ describe DatasetsController, type: :controller do
     _allowed_dataset = FactoryBot.create(
       :dataset,
       organisation: organisation,
-      datafiles: [FactoryBot.create(:datafile)]
+      datafiles: [FactoryBot.create(:datafile)],
     )
 
     forbidden_dataset = FactoryBot.create(
       :dataset,
       organisation: another_organisation,
-      datafiles: [FactoryBot.create(:datafile)]
+      datafiles: [FactoryBot.create(:datafile)],
     )
 
     get :edit, params: { uuid: forbidden_dataset.uuid, name: forbidden_dataset.name }

@@ -48,7 +48,7 @@ RSpec.describe Healthcheck::RecurringJobs::PackageSync do
     it "returns the currect values" do
       expect(subject.details).to eq(
         critical: when_last_run,
-        warning: when_last_run
+        warning: when_last_run,
       )
     end
   end

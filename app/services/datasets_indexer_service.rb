@@ -175,7 +175,7 @@ private
       body: {
         settings: INDEX_SETTINGS,
         mappings: INDEX_MAPPINGS,
-      }
+      },
     )
   end
 
@@ -183,7 +183,7 @@ private
     Dataset.__elasticsearch__.client.bulk(
       index: new_index_name,
       type: ::Dataset.__elasticsearch__.document_type,
-      body: prepare_records(datasets)
+      body: prepare_records(datasets),
     )
   rescue StandardError => e
     logger.warn(e)
