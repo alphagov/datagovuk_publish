@@ -25,7 +25,7 @@ describe IndexDeletionService do
         INDEX_CREATED_THIS_MORNING,
         INDEX_CREATED_YESTERDAY,
         INDEX_CREATED_LAST_WEEK,
-        INDEX_CREATED_LAST_MONTH
+        INDEX_CREATED_LAST_MONTH,
       ]
 
       allow(@client_double).to receive_message_chain(:indices, :get_aliases, :keys) { indexes }

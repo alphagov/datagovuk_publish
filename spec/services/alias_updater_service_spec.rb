@@ -23,7 +23,7 @@ describe AliasUpdaterService do
       expected = { body: {
         actions: [
           { remove: { index: "current_index", alias: "my_alias" } },
-          { add: { index: "new_index", alias: "my_alias" } }
+          { add: { index: "new_index", alias: "my_alias" } },
         ],
       } }
 
