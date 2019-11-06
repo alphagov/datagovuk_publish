@@ -1,4 +1,4 @@
-require 'ckan/v26/client'
+require "ckan/v26/client"
 
 module CKAN
   module V26
@@ -14,7 +14,7 @@ module CKAN
         {
           create: diff_create(packages, datasets),
           update: diff_update(packages, datasets),
-          delete: diff_delete(packages, datasets)
+          delete: diff_delete(packages, datasets),
         }
       end
 

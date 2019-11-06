@@ -1,4 +1,4 @@
-require 'securerandom'
+require "securerandom"
 
 class Link < ApplicationRecord
   belongs_to :dataset

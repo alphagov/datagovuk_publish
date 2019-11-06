@@ -1,4 +1,4 @@
-desc "Run govuk-lint on all files"
+desc "Run govuk-lint"
 task "lint" do
-  sh "govuk-lint-ruby --format clang"
+  sh "govuk-lint-ruby --format clang app lib spec test Gemfile"
 end

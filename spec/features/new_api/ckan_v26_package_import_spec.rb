@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-describe 'ckan package import' do
+describe "ckan package import" do
   subject { CKAN::V26::PackageImportWorker.new }
 
   let(:package_create) { JSON.parse(file_fixture("ckan/v26/new_api/package_show_create.json").read) }
@@ -29,8 +29,8 @@ describe 'ckan package import' do
       .to_return(body: package_inspire.to_json)
   end
 
-  describe 'govuk sidekiq' do
-    it 'can cope with retries after failure' do
+  describe "govuk sidekiq" do
+    it "can cope with retries after failure" do
       context = { "authenticated_user" => nil, "request_id" => nil }
 
       expect { subject.perform(package_create_id, context) }
@@ -38,13 +38,13 @@ describe 'ckan package import' do
     end
   end
 
-  describe 'dataset update' do
-    it 'creates a new dataset if it does not exist' do
+  describe "dataset update" do
+    it "creates a new dataset if it does not exist" do
       expect { subject.perform(package_create_id) }
         .to change { Dataset.count }.by(1)
     end
 
-    it 'updates an existing dataset if already exists' do
+    it "updates an existing dataset if already exists" do
       dataset = Dataset.new(uuid: package_create_id, title: "")
       dataset.save(validate: false)
 
@@ -57,13 +57,13 @@ describe 'ckan package import' do
     end
   end
 
-  describe 'inspire update' do
-    it 'creates an inspire dataset for inspire packages' do
+  describe "inspire update" do
+    it "creates an inspire dataset for inspire packages" do
       expect { subject.perform(package_inspire_id) }
         .to change { InspireDataset.count }.by(1)
     end
 
-    it 'updates an inspire dataset if it already exists' do
+    it "updates an inspire dataset if it already exists" do
       dataset = Dataset.new(uuid: package_inspire_id, title: "")
       dataset.save(validate: false)
 
@@ -75,13 +75,13 @@ describe 'ckan package import' do
     end
   end
 
-  describe 'link update' do
-    it 'creates a new link if it does not exist' do
+  describe "link update" do
+    it "creates a new link if it does not exist" do
       expect { subject.perform(package_create_id) }
         .to change { Link.count }.by(1)
     end
 
-    it 'updates a link if it already exists' do
+    it "updates a link if it already exists" do
       dataset = Dataset.new(uuid: package_create_id, title: "")
       dataset.save(validate: false)
 
@@ -95,7 +95,7 @@ describe 'ckan package import' do
         .to eq package_create["result"]["resources"][0]["name"]
     end
 
-    it 'removes a link if it is not in the package' do
+    it "removes a link if it is not in the package" do
       create :dataset, uuid: package_empty_id,
                        datafiles: (build_list :datafile, 1)
 
@@ -104,18 +104,18 @@ describe 'ckan package import' do
     end
   end
 
-  describe 'dataset publish' do
+  describe "dataset publish" do
     before do
       subject.perform(package_create_id)
     end
 
-    it 'publishes a new dataset to elasticsearch' do
+    it "publishes a new dataset to elasticsearch" do
       dataset = Dataset.find_by(uuid: package_create_id)
       document = get_from_es(dataset.uuid)
       expect(document).to eq in_es_format(dataset.as_indexed_json)
     end
 
-    it 'publishes an existing dataset to elasticsearch' do
+    it "publishes an existing dataset to elasticsearch" do
       dataset = Dataset.find_by(uuid: package_create_id)
       dataset.update(title: "foo")
 

@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-describe 'ckan package sync' do
+describe "ckan package sync" do
   subject { CKAN::V26::PackageSyncWorker.new }
 
   let(:search_dataset_p1) { JSON.parse(file_fixture("ckan/v26/search_dataset_p1.json").read) }
@@ -62,12 +62,12 @@ describe 'ckan package sync' do
       .to_return(body: package_show_update.to_json.gsub(dataset_to_update_id, dataset_to_reimport.uuid))
   end
 
-  it 'creates new datasets when they appear in ckan' do
+  it "creates new datasets when they appear in ckan" do
     subject.perform
     expect(Dataset.pluck(:uuid)).to include dataset_to_update_id
   end
 
-  it 'updates existing datasets when they change in ckan' do
+  it "updates existing datasets when they change in ckan" do
     expect { subject.perform }
       .to change { dataset_to_update.reload.updated_at }
       .to(Time.zone.parse(package_show_update["result"]["metadata_modified"]))
@@ -81,17 +81,17 @@ describe 'ckan package sync' do
     expect(dataset_to_reimport.status).to eq("published")
   end
 
-  it 'preserves existing datasets when they do not change in ckan' do
+  it "preserves existing datasets when they do not change in ckan" do
     expect { subject.perform }
       .to_not(change { dataset_not_to_update.reload.updated_at })
   end
 
-  it 'preserves existing datasets when they do not come from ckan' do
+  it "preserves existing datasets when they do not come from ckan" do
     expect { subject.perform }
       .to_not(change { dataset_to_ignore.reload.updated_at })
   end
 
-  it 'deletes datasets when they disappear from ckan' do
+  it "deletes datasets when they disappear from ckan" do
     dataset_to_delete.publish
     subject.perform
 

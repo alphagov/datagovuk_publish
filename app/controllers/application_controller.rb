@@ -8,23 +8,23 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do
     respond_to do |format|
-      format.json { head :forbidden, content_type: 'text/html' }
-      format.html { render plain: '403 Forbidden', status: :forbidden }
-      format.js   { head :forbidden, content_type: 'text/html' }
+      format.json { head :forbidden, content_type: "text/html" }
+      format.html { render plain: "403 Forbidden", status: :forbidden }
+      format.js   { head :forbidden, content_type: "text/html" }
     end
   end
 
 private
 
   def record_not_found
-    render plain: '404 Not Found', status: :not_found
+    render plain: "404 Not Found", status: :not_found
   end
 
   def set_raven_context
     Raven.extra_context(params: params.to_unsafe_h,
                         url: request.url,
                         environment: Rails.env,
-                        app_environment: ENV['VCAP_APPLICATION'])
+                        app_environment: ENV["VCAP_APPLICATION"])
 
     return unless current_user
 

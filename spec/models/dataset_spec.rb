@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe Dataset do
   subject { create :dataset, organisation: (create :organisation), status: "draft" }
@@ -33,18 +33,18 @@ describe Dataset do
     expect(dataset.name).to eq("my-even-better-dataset")
   end
 
-  describe '#publish' do
-    it 'changes the dataset status to published' do
+  describe "#publish" do
+    it "changes the dataset status to published" do
       subject.publish
       expect(subject.published?).to be_truthy
     end
 
-    it 'indexes the document into Elasticsearch' do
+    it "indexes the document into Elasticsearch" do
       subject.publish
       expect { get_from_es(subject.uuid) }.to_not raise_error
     end
 
-    it 'raises an error when the ES index fails' do
+    it "raises an error when the ES index fails" do
       allow(subject.__elasticsearch__).to receive(:index_document)
         .and_return("_shards" => { "failed" => 1 })
 
@@ -53,24 +53,24 @@ describe Dataset do
     end
   end
 
-  describe '#unpublish' do
+  describe "#unpublish" do
     before do
       subject.publish
     end
 
-    it 'changes the dataset status to draft' do
+    it "changes the dataset status to draft" do
       subject.unpublish
       expect(subject.draft?).to be_truthy
     end
 
-    it 'deletes the document from Elasticsearch' do
+    it "deletes the document from Elasticsearch" do
       subject.unpublish
 
       expect { get_from_es(subject.uuid) }
         .to raise_error(Elasticsearch::Transport::Transport::Errors::NotFound)
     end
 
-    it 'raises an error when the ES delete fails' do
+    it "raises an error when the ES delete fails" do
       allow(subject.__elasticsearch__).to receive(:delete_document)
         .and_return("_shards" => { "failed" => 1 })
 

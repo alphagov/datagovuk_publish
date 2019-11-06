@@ -1,147 +1,147 @@
 class DatasetsIndexerService
   INDEX_SETTINGS = {
     blocks: {
-      read_only: false
+      read_only: false,
     },
     analysis: {
       normalizer: {
         lowercase_normalizer: {
           type: "custom",
-          filter: "lowercase"
-        }
-      }
-    }
+          filter: "lowercase",
+        },
+      },
+    },
   }.freeze
 
   INDEX_MAPPINGS = {
     dataset: {
       properties: {
         name: {
-          type: 'keyword',
+          type: "keyword",
           index: true,
         },
         title: {
-          type: 'text',
+          type: "text",
           fields: {
             keyword: {
-              type: 'keyword',
+              type: "keyword",
               index: true,
             },
             english: {
-              type: 'text',
-              analyzer: 'english',
+              type: "text",
+              analyzer: "english",
             },
           },
         },
         summary: {
-          type: 'text',
+          type: "text",
           fields: {
             keyword: {
-              type: 'keyword',
+              type: "keyword",
               index: true,
-              ignore_above: 10000
+              ignore_above: 10000,
             },
             english: {
-              type: 'text',
-              analyzer: 'english',
+              type: "text",
+              analyzer: "english",
             },
           },
         },
         description: {
-          type: 'text',
+          type: "text",
           fields: {
             keyword: {
-              type: 'keyword',
+              type: "keyword",
               index: true,
             },
             english: {
-              type: 'text',
-              analyzer: 'english',
+              type: "text",
+              analyzer: "english",
             },
           },
         },
         legacy_name: {
-          type: 'keyword',
+          type: "keyword",
           index: true,
         },
         uuid: {
-          type: 'keyword',
+          type: "keyword",
           index: true,
         },
         location1: {
-          type: 'text',
+          type: "text",
           fields: {
             raw: {
-              type: 'keyword',
+              type: "keyword",
               index: true,
             },
           },
         },
         organisation: {
-          type: 'nested',
+          type: "nested",
           properties: {
             title: {
-              type: 'text',
+              type: "text",
               fields: {
                 raw: {
-                  type: 'keyword',
+                  type: "keyword",
                   index: true,
                 },
                 english: {
-                  type: 'text',
-                  analyzer: 'english',
+                  type: "text",
+                  analyzer: "english",
                 },
               },
             },
             description: {
-              type: 'text',
+              type: "text",
               fields: {
                 raw: {
-                  type: 'keyword',
+                  type: "keyword",
                   index: true,
                 },
                 english: {
-                  type: 'text',
-                  analyzer: 'english',
+                  type: "text",
+                  analyzer: "english",
                 },
               },
-            }
-          }
+            },
+          },
         },
         topic: {
-          type: 'nested',
+          type: "nested",
           properties: {
             title: {
-              type: 'text',
+              type: "text",
               fields: {
                 raw: {
-                  type: 'keyword',
+                  type: "keyword",
                   index: true,
-                }
-              }
-            }
-          }
+                },
+              },
+            },
+          },
         },
         datafiles: {
           type: "nested",
           properties: {
             format: {
               type: "keyword",
-              normalizer: "lowercase_normalizer"
-            }
-          }
+              normalizer: "lowercase_normalizer",
+            },
+          },
         },
         docs: {
           type: "nested",
           properties: {
             format: {
               type: "keyword",
-              normalizer: "lowercase_normalizer"
-            }
-          }
-        }
-      }
-    }
+              normalizer: "lowercase_normalizer",
+            },
+          },
+        },
+      },
+    },
   }.freeze
 
   def initialize(args)
@@ -174,8 +174,8 @@ private
       index: new_index_name,
       body: {
         settings: INDEX_SETTINGS,
-        mappings: INDEX_MAPPINGS
-      }
+        mappings: INDEX_MAPPINGS,
+      },
     )
   end
 
@@ -183,7 +183,7 @@ private
     Dataset.__elasticsearch__.client.bulk(
       index: new_index_name,
       type: ::Dataset.__elasticsearch__.document_type,
-      body: prepare_records(datasets)
+      body: prepare_records(datasets),
     )
   rescue StandardError => e
     logger.warn(e)

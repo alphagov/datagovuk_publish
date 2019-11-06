@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-describe 'ckan organisation sync' do
+describe "ckan organisation sync" do
   subject { CKAN::V26::CKANOrgSyncWorker.new }
 
   let(:organization_list) { JSON.parse(file_fixture("ckan/v26/organization_list.json").read) }
@@ -32,17 +32,17 @@ describe 'ckan organisation sync' do
       .to_return(body: organization_show_update.to_json)
   end
 
-  it 'creates new organisations when they appear in ckan' do
+  it "creates new organisations when they appear in ckan" do
     subject.perform
     expect(Organisation.pluck(:name)).to include organisation_to_create_id
   end
 
-  it 'updates existing organisations when they change in ckan' do
+  it "updates existing organisations when they change in ckan" do
     expect { subject.perform }
       .to(change { organisation_to_update.reload.updated_at })
   end
 
-  it 'does not update organisations if they are unchanged' do
+  it "does not update organisations if they are unchanged" do
     subject.perform
     organisation_to_update.update(updated_at: 5.years.ago)
 
@@ -50,14 +50,14 @@ describe 'ckan organisation sync' do
       .to_not(change { organisation_to_update.reload.updated_at })
   end
 
-  it 'deletes organisations when they disappear from ckan' do
+  it "deletes organisations when they disappear from ckan" do
     subject.perform
     expect(Organisation.all).to_not include organisation_to_delete
     expect(Dataset.count).to be_zero
     expect { get_from_es(dataset_to_unpublish.uuid) }.to raise_error(/404/)
   end
 
-  it 'does not delete organisations with a govuk_content_id' do
+  it "does not delete organisations with a govuk_content_id" do
     subject.perform
     expect(Organisation.all).to include organisation_to_ignore
   end

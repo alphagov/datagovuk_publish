@@ -1,4 +1,4 @@
-require 'ckan/v26/client'
+require "ckan/v26/client"
 
 module CKAN
   module V26
@@ -8,7 +8,7 @@ module CKAN
 
         {
           create_update: organisation_ids,
-          delete: diff_delete(organisation_ids)
+          delete: diff_delete(organisation_ids),
         }
       end
 

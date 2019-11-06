@@ -1,6 +1,6 @@
-require 'ckan/modules/url_builder'
-require 'ckan/v26/depaginator'
-require 'open-uri'
+require "ckan/modules/url_builder"
+require "ckan/v26/depaginator"
+require "open-uri"
 
 module CKAN
   module V26
@@ -27,7 +27,7 @@ module CKAN
       end
 
       def search_dataset(fl:, existing_total:) # rubocop:disable Naming/UncommunicativeMethodParamName
-        url = build_url(path: SEARCH_DATASET_PATH, params: { q: 'type:dataset', rows: 1000, fl: fl.join(",") })
+        url = build_url(path: SEARCH_DATASET_PATH, params: { q: "type:dataset", rows: 1000, fl: fl.join(",") })
         Depaginator.depaginate(url, existing_total: existing_total)
       end
 
