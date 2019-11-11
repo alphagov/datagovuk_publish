@@ -38,12 +38,12 @@ group :development, :test do
   gem "byebug", "~> 11"
   gem "dotenv-rails", "~> 2.7"
   gem "factory_bot_rails", "~> 5.1"
-  gem "govuk-lint", "~> 4.2"
   gem "pry", "~> 0.12"
   gem "pry-byebug", "~> 3.7"
   gem "pry-stack_explorer", "~> 0.4.9"
   gem "rspec", "~> 3.9"
   gem "rspec-rails", "~> 3.9"
+  gem "rubocop-govuk"
 end
 
 group :development do

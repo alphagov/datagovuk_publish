@@ -1,4 +1,4 @@
-desc "Run govuk-lint"
+desc "Run rubocop"
 task "lint" do
-  sh "govuk-lint-ruby --format clang app lib spec test Gemfile"
+  sh "rubocop --format clang app lib spec test Gemfile"
 end
