@@ -63,7 +63,7 @@ GEM
       activerecord (>= 4.2, < 6.1)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    brakeman (4.7.1)
+    brakeman (4.7.2)
     builder (3.2.3)
     byebug (11.0.1)
     cancancan (3.0.1)
