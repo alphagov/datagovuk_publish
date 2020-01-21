@@ -14,6 +14,10 @@ if defined?(Bundler)
   Bundler.require(:default, :assets, Rails.env)
 end
 
+config.assets.precompile += %w(
+  application.css
+)
+
 if ENV["VCAP_SERVICES"]
   services = JSON.parse(ENV["VCAP_SERVICES"])
 
