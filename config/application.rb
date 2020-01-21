@@ -8,9 +8,11 @@ require "action_view/railtie"
 require "action_cable/engine"
 require "sprockets/railtie"
 
-# Require the gems listed in Gemfile, including any gems
-# you've limited to :test, :development, or :production.
-Bundler.require(*Rails.groups)
+if defined?(Bundler)
+  # If you want your assets lazily compiled in production, use this line
+  Bundler.require(*Rails.groups)
+  Bundler.require(:default, :assets, Rails.env)
+end
 
 if ENV["VCAP_SERVICES"]
   services = JSON.parse(ENV["VCAP_SERVICES"])
