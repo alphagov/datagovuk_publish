@@ -137,6 +137,12 @@ When running this sidekiq job it returns errors in the terminal such as:
 4. [Clear the Publish database](#clear-the-database)
 5. Then re-run sidekiq jobs - see [Run sidekiq jobs](#run-sidekiq-jobs)
 
+## Deployment
+
+See the developer documents here: 
+
+https://docs.publishing.service.gov.uk/manual/data-gov-uk-deployment.html#paas-staging-and-production-environments
+
 ## Documentation
 
 See [here](doc/adr/README.md) for all of our Architecture Decision Records.
