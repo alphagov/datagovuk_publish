@@ -1,5 +1,5 @@
 <% if flash[:success] %>
-<div class="govuk-box-highlight">
+<div>
   <h1 class="bold-large"><%= flash[:success] %></h1>
   <h2>
     <%= link_to "View it", find_url(flash['extra']['uuid'], flash['extra']['name']) %>
