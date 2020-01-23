@@ -22,7 +22,6 @@
     width: 12em;
   }
   &__actions {
-    @include actions;
     width: 5em;
   }
 }
@@ -36,7 +35,6 @@
     padding-right: .3em
   }
   &__actions {
-    @include actions;
     width: 8em;
     a + a {
       margin-left: .7em;
@@ -167,20 +165,10 @@
   }
 
   &__button-get-started {
-    @include bold-24;
     background-image: url(asset-path("icon-pointer-green.png"));
     background-repeat: no-repeat;
     background-position: 95% 50%;
     padding: em(5) em(41) em(6) em(16);
-
-    @include device-pixel-ratio {
-      background-image: url(asset-path("icon-pointer-green-2x.png"));
-      background-size: 30px 19px;
-    }
-
-    @include ie(6) {
-      background-image: url(asset-path("icon-pointer-green-2x.png"));
-    }
   }
 
   &__inner, &__contact {
@@ -235,7 +223,6 @@
   }
 
   &__actions-column {
-    @include actions;
     width: 10%;
   }
 

@@ -17,7 +17,6 @@
     }
   }
   .phase-tag-logo {
-    @include phase-tag();
     margin-top: 7px;
   }
   .header-proposition {
@@ -76,10 +75,6 @@ div#global-header-bar {
 
 .form-hint {
   width: 100%;
-
-  @include media(tablet) {
-    width: 66.66%;
-  }
 }
 
 // govuk-* additions
@@ -87,10 +82,6 @@ div#global-header-bar {
 span.error.error-message {
   display: inline-block;
   padding-left: .5em;
-}
-
-.column-three-quarters {
-  @include grid-column(3 / 4);
 }
 
 span.separator::before {
