@@ -16,6 +16,7 @@ before_script:
 script:
   - bundle exec rails db:create
   - bundle exec rails db:schema:load
+  - bundle exec rubocop app spec lib Gemfile
   - bundle exec rake
   - bundle exec codeclimate-test-reporter
 env:
