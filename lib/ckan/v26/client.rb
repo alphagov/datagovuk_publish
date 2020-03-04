@@ -26,7 +26,7 @@ module CKAN
         JSON.parse(url.read)["result"]
       end
 
-      def search_dataset(fl:, existing_total:) # rubocop:disable Naming/UncommunicativeMethodParamName
+      def search_dataset(fl:, existing_total:) # rubocop:disable Naming/MethodParameterName
         url = build_url(path: SEARCH_DATASET_PATH, params: { q: "type:dataset", rows: 1000, fl: fl.join(",") })
         Depaginator.depaginate(url, existing_total: existing_total)
       end
