@@ -353,7 +353,7 @@ GEM
       rubocop (>= 0.68.1)
     ruby-progressbar (1.10.1)
     ruby_dep (1.5.0)
-    rubyzip (2.2.0)
+    rubyzip (2.3.0)
     rufus-scheduler (3.5.0)
       fugit (~> 1.1, >= 1.1.1)
     safe_yaml (1.0.5)
@@ -487,7 +487,7 @@ DEPENDENCIES
   rspec (~> 3.9)
   rspec-rails (~> 3.9)
   rubocop-govuk
-  rubyzip (~> 2.2)
+  rubyzip (~> 2.3)
   sass-rails (~> 6.0)
   sentry-raven
   sidekiq-limit_fetch
