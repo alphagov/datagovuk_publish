@@ -38,7 +38,7 @@ group :development, :test do
   gem "byebug", "~> 11"
   gem "dotenv-rails", "~> 2.7"
   gem "factory_bot_rails", "~> 5.1"
-  gem "pry", "~> 0.12"
+  gem "pry", "~> 0.13"
   gem "pry-byebug", "~> 3.8"
   gem "pry-stack_explorer", "~> 0.4.9"
   gem "rspec", "~> 3.9"
