@@ -42,7 +42,7 @@ group :development, :test do
   gem "pry-byebug", "~> 3.8"
   gem "pry-stack_explorer", "~> 0.4.9"
   gem "rspec", "~> 3.9"
-  gem "rspec-rails", "~> 3.9"
+  gem "rspec-rails", "~> 4.0"
   gem "rubocop-govuk"
 end
 
