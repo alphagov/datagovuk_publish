@@ -1,5 +1,5 @@
 #!/usr/local/bin/ruby -w
-require 'json'
+require "json"
 
 APP = ARGV[0]
 KEY = ARGV[1]
@@ -9,7 +9,7 @@ def app_env
 end
 
 def sys_env_json
-  app_env.split('System-Provided:').last.split("{\n \"VCAP_APP").first.chomp
+  app_env.split("System-Provided:").last.split("{\n \"VCAP_APP").first.chomp
 end
 
 def sys_env
