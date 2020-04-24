@@ -6,8 +6,6 @@ require "database_cleaner"
 require "govuk_sidekiq/testing"
 require "webmock/rspec"
 
-WebMock.disable_net_connect!(allow_localhost: true)
-
 Sidekiq::Logging.logger = Rails.logger
 Sidekiq::Testing.inline!
 
