@@ -94,18 +94,18 @@ GEM
       dotenv (= 2.7.5)
       railties (>= 3.2, < 6.1)
     e2mmap (0.1.0)
-    elasticsearch (5.0.5)
-      elasticsearch-api (= 5.0.5)
-      elasticsearch-transport (= 5.0.5)
-    elasticsearch-api (5.0.5)
+    elasticsearch (7.5.0)
+      elasticsearch-api (= 7.5.0)
+      elasticsearch-transport (= 7.5.0)
+    elasticsearch-api (7.5.0)
       multi_json
     elasticsearch-model (6.0.0)
       activesupport (> 3)
       elasticsearch (> 1)
       hashie
     elasticsearch-rails (6.0.0)
-    elasticsearch-transport (5.0.5)
-      faraday
+    elasticsearch-transport (7.5.0)
+      faraday (>= 0.14, < 1)
       multi_json
     erubi (1.9.0)
     et-orbi (1.2.3)
@@ -464,7 +464,7 @@ DEPENDENCIES
   codeclimate-test-reporter (~> 1.0.9)
   database_cleaner
   dotenv-rails (~> 2.7)
-  elasticsearch (~> 5.0.5)
+  elasticsearch (~> 7.5.0)
   elasticsearch-model (~> 6.0.0)
   elasticsearch-rails (~> 6.0.0)
   factory_bot_rails (~> 5.2)

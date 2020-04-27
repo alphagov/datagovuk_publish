@@ -4,7 +4,7 @@ ruby IO.read(".ruby-version").strip
 
 gem "audited", "~> 4.9"
 gem "cancancan", "~> 3.1"
-gem "elasticsearch", "~> 5.0.5"
+gem "elasticsearch", "~> 7.5.0"
 gem "elasticsearch-model", "~> 6.0.0"
 gem "elasticsearch-rails", "~> 6.0.0"
 gem "gds-sso"
