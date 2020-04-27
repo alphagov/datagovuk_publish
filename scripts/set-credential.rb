@@ -1,5 +1,5 @@
 #!/usr/local/bin/ruby -w
-require 'json'
+require "json"
 
 app = ARGV[0]
 key = ARGV[1]
@@ -8,7 +8,7 @@ value = ARGV[2]
 puts "Reading env from '#{app}'..."
 app_env = `cf env #{app}`
 
-sys_env = app_env.split('System-Provided:').last.split("{\n \"VCAP_APP").first.delete("\n")
+sys_env = app_env.split("System-Provided:").last.split("{\n \"VCAP_APP").first.delete("\n")
 sys_env = JSON.parse(sys_env)
 
 puts "Got application env, detecting credentials service name..."

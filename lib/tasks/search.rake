@@ -41,11 +41,6 @@ namespace :search do
       logger: logger,
     )
 
-    check_for_legacy_index(client, legacy_index)
-    reindex_service.run
-  end
-
-  def check_for_legacy_index(client, legacy_index)
     indexes = client.indices.get_aliases.keys
 
     if indexes.include?(legacy_index)
@@ -53,5 +48,7 @@ namespace :search do
       Raven.capture_exception msg
       raise msg
     end
+
+    reindex_service.run
   end
 end
