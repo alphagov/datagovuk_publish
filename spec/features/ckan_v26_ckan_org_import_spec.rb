@@ -36,10 +36,11 @@ describe "ckan organisation import" do
 
     it "does not update organisations if they are unchanged" do
       subject.perform(organisation_id)
-      Organisation.first.update(updated_at: 5.years.ago)
+      organisation = Organisation.find_by(name: organisation_id)
+      organisation.update(updated_at: 5.years.ago)
 
-      expect { subject.perform(Organisation.first.name) }
-        .to_not(change { Organisation.first.updated_at })
+      expect { subject.perform(organisation_id) }
+        .to_not(change { organisation.reload.updated_at })
     end
   end
 
