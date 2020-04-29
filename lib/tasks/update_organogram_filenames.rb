@@ -31,7 +31,7 @@ class UpdateOrganogramFilenames
       Link.where("url LIKE 'https://s3-eu-west-1.amazonaws.com%'").each do |link|
         if link.url.include? "-posts-"
           index = @old_urls.index(link.url)
-          if index != nil
+          if !index.nil?
             puts "From dataset: " + link.dataset.name
             puts "Replace url '" + link.url + "' with '" + @new_urls[index] + "'"
             link.url = @new_urls[index]

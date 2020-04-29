@@ -23,7 +23,6 @@ def es_config_from_host(host)
   }
 end
 
-
 if Rails.configuration.elasticsearch["host"]
   config = es_config_from_host(Rails.configuration.elasticsearch["host"])
 elsif Rails.configuration.elasticsearch["vcap_services"]
