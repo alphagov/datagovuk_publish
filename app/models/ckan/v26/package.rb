@@ -26,8 +26,8 @@ module CKAN
     private
 
       def hashify(array)
-        array.inject({}) do |result, hash|
-          result[hash["key"]] = hash["value"]; result
+        array.each_with_object({}) do |hash, result|
+          result[hash["key"]] = hash["value"]
         end
       end
     end

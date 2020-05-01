@@ -36,7 +36,7 @@ module PublishDataBeta
 
     # Don't add a div with field_with_errors class
     # as it breaks the gov.uk elements error styling
-    config.action_view.field_error_proc = Proc.new { |html_tag, _|
+    config.action_view.field_error_proc = proc { |html_tag, _|
       html_tag
     }
 

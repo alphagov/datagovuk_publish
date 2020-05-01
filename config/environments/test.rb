@@ -40,7 +40,6 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-
   # make our tests fast by avoiding asset compilation
   # but do not raise when assets are not compiled either
   Rails.application.config.assets.compile = false

@@ -40,7 +40,7 @@ def user_response
 end
 
 def user_cancels?
-  !%w(y yes).include?(user_response)
+  !%w[y yes].include?(user_response)
 end
 
 def creds_dump

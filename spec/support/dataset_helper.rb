@@ -3,7 +3,7 @@ def last_updated_dataset
 end
 
 def click_change(property)
-  properties = %i(
+  properties = %i[
     title
     summary
     additional_info
@@ -13,7 +13,7 @@ def click_change(property)
     frequency
     datalinks
     documentation
-  )
+  ]
 
   all(:link, "Change")[properties.index(property)].click
 end

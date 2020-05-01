@@ -63,7 +63,7 @@ class Dataset < ApplicationRecord
   end
 
   def creator
-    User.find(id: self.creator_id)
+    User.find(id: creator_id)
   end
 
   def creator=(user)
@@ -71,7 +71,7 @@ class Dataset < ApplicationRecord
   end
 
   def set_uuid
-    if self.uuid.blank?
+    if uuid.blank?
       self.uuid = SecureRandom.uuid
     end
   end
@@ -108,7 +108,7 @@ class Dataset < ApplicationRecord
     timestamps = [inspire_dataset_reference_date,
                   most_recently_updated_datafile_timestamp].compact
 
-    return self.updated_at if timestamps.none?
+    return updated_at if timestamps.none?
 
     timestamps.max
   end
@@ -137,7 +137,7 @@ private
   end
 
   def most_recently_updated_datafile_timestamp
-    timestamps = self.datafiles.map(&:updated_at)
+    timestamps = datafiles.map(&:updated_at)
     timestamps.max if timestamps.present?
   end
 end

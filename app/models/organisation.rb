@@ -8,6 +8,6 @@ class Organisation < ApplicationRecord
 private
 
   def set_uuid
-    self.uuid = SecureRandom.uuid if self.uuid.blank?
+    self.uuid = SecureRandom.uuid if uuid.blank?
   end
 end

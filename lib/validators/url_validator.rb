@@ -3,7 +3,6 @@ require "whois-parser"
 require "rest-client"
 require "logger"
 
-
 class UrlValidator < ActiveModel::Validator
   def validate(record)
     url_present?(record) &&
@@ -23,7 +22,7 @@ class UrlValidator < ActiveModel::Validator
 
     error = "Url does not start with http, https, or ftp"
 
-    if %w(http https ftp).exclude? uri.scheme
+    if %w[http https ftp].exclude? uri.scheme
       create_validation_error(record, error)
     else
       true

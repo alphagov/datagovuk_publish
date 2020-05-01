@@ -14,9 +14,9 @@ class Datafile < Link
 
   def dates
     {
-      day:   day   || end_date&.day,
+      day: day || end_date&.day,
       month: month || end_date&.month,
-      year:  year  || end_date&.year,
+      year: year || end_date&.year,
     }.with_indifferent_access
   end
 
@@ -90,7 +90,11 @@ private
   end
 
   def validate_date
-    if (daily_date rescue ArgumentError) == ArgumentError
+    if (begin
+          daily_date
+        rescue StandardError
+          ArgumentError
+        end) == ArgumentError
       errors.add(:date, "Please enter a valid date")
     end
   end

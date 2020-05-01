@@ -45,7 +45,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    stub_request(:post, /sentry.io/).
-      to_return(status: 200, body: "stubbed response", headers: {})
+    stub_request(:post, /sentry.io/)
+      .to_return(status: 200, body: "stubbed response", headers: {})
   end
 end

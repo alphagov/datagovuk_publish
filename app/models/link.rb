@@ -11,7 +11,7 @@ class Link < ApplicationRecord
   scope :broken, -> { where(broken: true) }
 
   def set_uuid
-    if self.uuid.blank?
+    if uuid.blank?
       self.uuid = SecureRandom.uuid
     end
   end
