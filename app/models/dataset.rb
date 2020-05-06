@@ -50,9 +50,9 @@ class Dataset < ApplicationRecord
 
   def as_indexed_json(_options = {})
     as_json(methods: %i[
-              public_updated_at
-              released
-            ],
+      public_updated_at
+      released
+    ],
             include: {
               organisation: {},
               topic: {},
