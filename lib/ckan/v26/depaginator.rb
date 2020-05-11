@@ -76,7 +76,7 @@ module CKAN
           end
         end
 
-        results
+        results.reject { |h| h["organization"] == Rails.configuration.test_publisher }
       end
 
     private

@@ -88,4 +88,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.ckan_v26_base_url = "https://ckan.publishing.service.gov.uk"
+  config.test_publisher = "test-valley-borough-council"
 end

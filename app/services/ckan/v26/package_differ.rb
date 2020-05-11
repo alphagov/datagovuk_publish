@@ -3,7 +3,7 @@ require "ckan/v26/client"
 module CKAN
   module V26
     class PackageDiffer
-      CKAN_FIELDS = %i[id metadata_modified].freeze
+      CKAN_FIELDS = %i[id metadata_modified organization].freeze
 
       def call
         datasets = Dataset.where.not(legacy_name: nil)
