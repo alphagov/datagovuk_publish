@@ -2,7 +2,7 @@ applications:
 - name: publish-data-beta-production
   command: bundle exec rake db:migrate db:seed && bin/rails server -b 0.0.0.0 -p $PORT -e $RAILS_ENV
   memory: 1G
-  buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.7.40
+  buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.8.17
   stack: cflinuxfs3
   env:
     RAILS_ENV: production
