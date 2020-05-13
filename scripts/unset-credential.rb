@@ -28,7 +28,7 @@ def creds
 end
 
 def key_not_found?
-  !creds.has_key?(KEY)
+  !creds.key?(KEY)
 end
 
 def delete_cred

@@ -30,9 +30,9 @@ module CKAN
 
       def diff_update(packages, datasets)
         dataset_fields = datasets.pluck(:uuid, :updated_at, :status)
-        dataset_info = dataset_fields.each_with_object({}) { |(uuid, updated_at, status), hash|
+        dataset_info = dataset_fields.each_with_object({}) do |(uuid, updated_at, status), hash|
           hash[uuid] = { updated_at: updated_at, status: status }
-        }
+        end
 
         packages.select do |package|
           dataset = dataset_info[package.get("id")]

@@ -15,7 +15,7 @@ describe "ckan package sync" do
   let!(:dataset_to_delete) { create :dataset, legacy_name: "dataset_to_delete" }
   let!(:dataset_to_ignore) { create :dataset, legacy_name: nil }
 
-  let!(:dataset_to_reimport) {
+  let!(:dataset_to_reimport) do
     create(
       :dataset,
       legacy_name: "dataset_to_reimport",
@@ -23,7 +23,7 @@ describe "ckan package sync" do
       status: "draft",
       updated_at: Time.zone.parse(search_dataset_p1["results"][3]["metadata_modified"]),
     )
-  }
+  end
 
   let!(:dataset_to_update) do
     create :dataset, legacy_name: "dataset_to_update",
