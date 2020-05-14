@@ -26,15 +26,17 @@ describe "ckan package sync" do
   end
 
   let!(:dataset_to_update) do
-    create :dataset, legacy_name: "dataset_to_update",
-                     uuid: dataset_to_update_id,
-                     updated_at: 5.years.ago
+    create :dataset,
+           legacy_name: "dataset_to_update",
+           uuid: dataset_to_update_id,
+           updated_at: 5.years.ago
   end
 
   let!(:dataset_not_to_update) do
-    create :dataset, legacy_name: "dataset_not_to_update",
-                     uuid: dataset_not_to_update_id,
-                     updated_at: Time.zone.now
+    create :dataset,
+           legacy_name: "dataset_not_to_update",
+           uuid: dataset_not_to_update_id,
+           updated_at: Time.zone.now
   end
 
   before do

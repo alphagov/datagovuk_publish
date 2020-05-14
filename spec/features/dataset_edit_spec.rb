@@ -5,8 +5,12 @@ describe "editing datasets" do
   let!(:user) { create(:user, primary_organisation: land) }
 
   let!(:dataset) do
-    create(:dataset, :with_datafile, :with_doc, organisation: land,
-                                                creator: user)
+    create(
+      :dataset,
+      :with_datafile,
+      :with_doc,
+      organisation: land,
+      creator: user)
   end
 
   before(:each) do

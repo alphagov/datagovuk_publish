@@ -68,8 +68,9 @@ Rails.application.routes.draw do
 
   resource :session, only: %i[new create]
 
-  get "/healthcheck", to: GovukHealthcheck.rack_response(
-    Healthcheck::RecurringJobs::PackageSync.new,
-    Healthcheck::RecurringJobs::CKANOrgSync.new,
-  )
+  get "/healthcheck",
+      to: GovukHealthcheck.rack_response(
+        Healthcheck::RecurringJobs::PackageSync.new,
+        Healthcheck::RecurringJobs::CKANOrgSync.new,
+      )
 end

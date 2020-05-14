@@ -4,10 +4,11 @@ describe AliasUpdaterService do
   let(:client) { double :client }
 
   subject do
-    described_class.new(new_index_name: "new_index",
-                        index_alias: "my_alias",
-                        client: client,
-                        logger: Rails.logger)
+    described_class.new(
+      new_index_name: "new_index",
+      index_alias: "my_alias",
+      client: client,
+      logger: Rails.logger)
   end
 
   describe "#run" do
