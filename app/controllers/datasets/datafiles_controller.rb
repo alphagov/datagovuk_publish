@@ -59,9 +59,11 @@ private
     params.require(:datafile).permit(
       :url,
       :name,
-      :day, :month, :year,
+      :day,
+      :month,
       :year,
-      :quarter
+      :year,
+      :quarter,
     )
   end
 end

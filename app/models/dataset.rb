@@ -49,17 +49,18 @@ class Dataset < ApplicationRecord
   end
 
   def as_indexed_json(_options = {})
-    as_json(methods: %i[
-      public_updated_at
-      released
-    ],
-            include: {
-              organisation: {},
-              topic: {},
-              datafiles: {},
-              docs: {},
-              inspire_dataset: {},
-            })
+    as_json(
+      methods: %i[
+        public_updated_at
+        released
+      ],
+      include: {
+        organisation: {},
+        topic: {},
+        datafiles: {},
+        docs: {},
+        inspire_dataset: {},
+      })
   end
 
   def creator

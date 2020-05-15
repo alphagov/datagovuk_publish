@@ -78,8 +78,10 @@ describe "publishing datasets" do
   end
 
   it "copes with invalid inspire dataset reference dates" do
-    dataset = create :dataset, inspire_dataset: (build :inspire_dataset, :invalid),
-                               creator: user, organisation: land
+    dataset = create :dataset,
+                     inspire_dataset: (build :inspire_dataset, :invalid),
+                     creator: user,
+                     organisation: land
 
     visit dataset_url(dataset.uuid, dataset.name)
     click_button "Publish"

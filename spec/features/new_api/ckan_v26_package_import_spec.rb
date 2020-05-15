@@ -96,8 +96,9 @@ describe "ckan package import" do
     end
 
     it "removes a link if it is not in the package" do
-      create :dataset, uuid: package_empty_id,
-                       datafiles: (build_list :datafile, 1)
+      create :dataset,
+             uuid: package_empty_id,
+             datafiles: (build_list :datafile, 1)
 
       expect { subject.perform(package_empty_id) }
         .to change { Link.count }.by(-1)
