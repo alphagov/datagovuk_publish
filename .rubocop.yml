@@ -6,22 +6,3 @@ inherit_gem:
 inherit_mode:
   merge:
     - Exclude
-
-AllCops:
-  TargetRubyVersion: 2.5
-  Exclude:
-    - bin/**/*
-    - config.ru
-    - db/schema.rb
-    - db/migrate/*
-    - vendor/**/*
-    - lib/ckan/v26/depaginator.rb
-
-Metrics/BlockLength:
-  Exclude:
-    - 'config/routes.rb'
-    - 'lib/tasks/**/*.rake'
-    - 'spec/**/*.rb'
-
-Layout/MultilineMethodCallBraceLayout:
-  Enabled: false
