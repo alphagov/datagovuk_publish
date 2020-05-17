@@ -10,7 +10,8 @@ describe "editing datasets" do
       :with_datafile,
       :with_doc,
       organisation: land,
-      creator: user)
+      creator: user,
+    )
   end
 
   before(:each) do

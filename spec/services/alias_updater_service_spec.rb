@@ -8,7 +8,8 @@ describe AliasUpdaterService do
       new_index_name: "new_index",
       index_alias: "my_alias",
       client: client,
-      logger: Rails.logger)
+      logger: Rails.logger,
+    )
   end
 
   describe "#run" do

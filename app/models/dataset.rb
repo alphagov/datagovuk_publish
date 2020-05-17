@@ -60,7 +60,8 @@ class Dataset < ApplicationRecord
         datafiles: {},
         docs: {},
         inspire_dataset: {},
-      })
+      },
+    )
   end
 
   def creator
