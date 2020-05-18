@@ -54,5 +54,5 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.ckan_v26_base_url = "https://data.gov.uk"
+  config.ckan_v26_base_url = ENV.fetch("CKAN_URL") { "https://data.gov.uk" }
 end
