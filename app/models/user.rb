@@ -9,7 +9,7 @@ class User < ApplicationRecord
   end
 
   def primary_organisation=(organisation)
-    update_attribute(:organisation_content_id, organisation.govuk_content_id)
+    update(organisation_content_id: organisation.govuk_content_id)
   end
 
   def in_organisation?(organisation)
