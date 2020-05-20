@@ -29,24 +29,24 @@ class UpdateOrganogramFilenames
       "No urls to process"
     else
       Link.where("url LIKE 'https://s3-eu-west-1.amazonaws.com%'").each do |link|
-        if link.url.include? "-posts-"
-          index = @old_urls.index(link.url)
-          if !index.nil?
-            puts "From dataset: " + link.dataset.name
-            puts "Replace url '" + link.url + "' with '" + @new_urls[index] + "'"
-            link.url = @new_urls[index]
-            link.save(validate: false)
+        next unless link.url.include? "-posts-"
 
-            if Link.where(url: @new_urls[index]).empty?
-              puts "Url replacement failed"
-            else
-              puts "Url successfully replaced"
-            end
+        index = @old_urls.index(link.url)
+        if !index.nil?
+          puts "From dataset: " + link.dataset.name
+          puts "Replace url '" + link.url + "' with '" + @new_urls[index] + "'"
+          link.url = @new_urls[index]
+          link.save(validate: false)
+
+          if Link.where(url: @new_urls[index]).empty?
+            puts "Url replacement failed"
           else
-            puts "WARNING: " + link.url + " not found"
+            puts "Url successfully replaced"
           end
-          puts "==============="
+        else
+          puts "WARNING: " + link.url + " not found"
         end
+        puts "==============="
       end
       "Update complete"
     end
