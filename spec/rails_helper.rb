@@ -34,7 +34,8 @@ RSpec.configure do |config|
       index_alias: "datasets-test",
       client: Dataset.__elasticsearch__.client,
       logger: Rails.logger,
-      indices_to_keep: 0).run
+      indices_to_keep: 0,
+    ).run
   end
 
   config.before(:each) do

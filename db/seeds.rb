@@ -17,7 +17,8 @@ Topic.find_or_create_by(name: "transport", title: "Transport")
 puts "Seeding organisations"
 org = Organisation.find_or_create_by(
   uuid: "90aefa0d-0e92-4895-a7fd-c1adb2b3f14f",
-  name: "government-digital-service")
+  name: "government-digital-service",
+)
 
 org.update_attribute(:govuk_content_id, "af07d5a5-df63-4ddc-9383-6a666845ebe9")
 org.update_attribute(:title, "Government Digital Service")
@@ -26,4 +27,5 @@ puts "Seeding users"
 User.find_or_create_by(
   email: "publisher@example.com",
   name: "Publisher",
-  organisation_content_id: org.govuk_content_id)
+  organisation_content_id: org.govuk_content_id,
+)
