@@ -40,7 +40,7 @@ group :development, :test do
   gem "factory_bot_rails", "~> 5.2"
   gem "pry", "~> 0.13"
   gem "pry-byebug", "~> 3.9"
-  gem "pry-stack_explorer", "~> 0.4.9"
+  gem "pry-stack_explorer", "~> 0.5.0"
   gem "rspec", "~> 3.9"
   gem "rspec-rails", "~> 4.0"
   gem "rubocop-govuk"
