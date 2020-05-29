@@ -50,4 +50,5 @@ Rails.application.configure do
   end)
 
   config.ckan_v26_base_url = "http://ckan"
+  config.test_publisher = "test-publisher"
 end

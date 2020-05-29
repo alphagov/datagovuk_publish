@@ -11,6 +11,7 @@ describe "ckan package sync" do
   let(:dataset_to_update_id) { search_dataset_p1["results"][0]["id"] }
   let(:dataset_not_to_update_id) { search_dataset_p1["results"][1]["id"] }
   let(:dataset_to_create_id) { search_dataset_p1["results"][2]["id"] }
+  let(:dataset_from_test_publisher_id) { search_dataset_p1["results"][4]["id"] }
 
   let!(:dataset_to_delete) { create :dataset, legacy_name: "dataset_to_delete" }
   let!(:dataset_to_ignore) { create :dataset, legacy_name: nil }
@@ -44,11 +45,11 @@ describe "ckan package sync" do
     create(:organisation, uuid: "d3bb54b5-4289-4ff9-9546-ff95442643fc")
 
     stub_request(:get, "http://ckan/api/3/search/dataset")
-      .with(query: { fl: "id,metadata_modified", q: "type:dataset", start: 0, rows: 1000 })
+      .with(query: { fl: "id,metadata_modified,organization", q: "type:dataset", start: 0, rows: 1000 })
       .to_return(body: search_dataset_p1.to_json)
 
     stub_request(:get, "http://ckan/api/3/search/dataset")
-      .with(query: { fl: "id,metadata_modified", q: "type:dataset", start: 4, rows: 1000 })
+      .with(query: { fl: "id,metadata_modified,organization", q: "type:dataset", start: 5, rows: 1000 })
       .to_return(body: search_dataset_p2.to_json)
 
     stub_request(:get, "http://ckan/api/3/action/package_show")
@@ -99,5 +100,10 @@ describe "ckan package sync" do
 
     expect(Dataset.all).to_not include dataset_to_delete
     expect { get_from_es(dataset_to_delete.uuid) }.to raise_error(/404/)
+  end
+
+  it "rejects data from the test publisher specified in the config" do
+    subject.perform
+    expect(Dataset.pluck(:uuid)).to_not include dataset_from_test_publisher_id
   end
 end
