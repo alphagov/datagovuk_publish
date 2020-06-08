@@ -448,7 +448,7 @@ GEM
       hashdiff (>= 0.4.0, < 2.0.0)
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.4)
+    websocket-extensions (0.1.5)
     whois (4.1.0)
     whois-parser (1.2.0)
       activesupport (>= 4)
