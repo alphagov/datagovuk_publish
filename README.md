@@ -145,4 +145,4 @@ https://docs.publishing.service.gov.uk/manual/data-gov-uk-deployment.html#paas-s
 
 ## Documentation
 
-See [here](doc/adr/README.md) for all of our Architecture Decision Records.
+See [here](docs/adr/README.md) for all of our Architecture Decision Records.
