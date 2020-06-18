@@ -23,4 +23,13 @@ done
 
 bin/rails search:reindex
 mkdir -p /var/log/sidekiq
+
+until [ "$health" = 'OK' ]; do
+    health="$(curl -fsSL "$CKAN_URL/healthcheck")"
+    if [ "$health" != 'OK' ]; then
+        echo "CKAN is unavailable - sleeping"
+        sleep 10
+    fi
+done
+
 bundle exec sidekiq 2>&1 | tee /var/log/sidekiq/sidekiq.log
