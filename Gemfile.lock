@@ -111,11 +111,11 @@ GEM
     et-orbi (1.2.3)
       tzinfo
     execjs (2.7.0)
-    factory_bot (5.2.0)
-      activesupport (>= 4.2.0)
-    factory_bot_rails (5.2.0)
-      factory_bot (~> 5.2.0)
-      railties (>= 4.2.0)
+    factory_bot (6.0.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.0.0)
+      factory_bot (~> 6.0.0)
+      railties (>= 5.0.0)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.11.1)
@@ -472,7 +472,7 @@ DEPENDENCIES
   elasticsearch (~> 5.0.5)
   elasticsearch-model (~> 7.1.0)
   elasticsearch-rails (~> 7.1.0)
-  factory_bot_rails (~> 5.2)
+  factory_bot_rails (~> 6.0)
   gds-sso
   govuk_app_config (~> 2.2.0)
   govuk_elements_rails
