@@ -33,8 +33,10 @@ describe UpdateOrganogramFilenames do
 
       update_organogram_filenames.replace_urls
 
-      expect(Link.all[0].url).to eql("https://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/2019-06-06T11-18-26Z-organogram-senior.csv")
-      expect(Link.all[1].url).to eql("https://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/2019-06-06T11-18-26Z-organogram-junior.csv")
+      expect(Link.all.length).to be(2)
+      expect(Link.all.map(&:url)).to include(
+        "https://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/2019-06-06T11-18-26Z-organogram-senior.csv", "https://s3-eu-west-1.amazonaws.com/datagovuk/dataset/resources/2019-06-06T11-18-26Z-organogram-junior.csv"
+      )
     end
   end
 end
