@@ -37,7 +37,7 @@ group :development, :test do
   gem "brakeman", "~> 4.8"
   gem "byebug", "~> 11"
   gem "dotenv-rails", "~> 2.7"
-  gem "factory_bot_rails", "~> 6.0"
+  gem "factory_bot_rails", "~> 6.1"
   gem "pry", "~> 0.13"
   gem "pry-byebug", "~> 3.9"
   gem "pry-stack_explorer", "~> 0.4.9"
