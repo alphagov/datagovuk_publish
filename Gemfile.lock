@@ -139,7 +139,7 @@ GEM
       warden-oauth2 (~> 0.0.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    govuk_app_config (2.2.0)
+    govuk_app_config (2.2.1)
       logstasher (>= 1.2.2, < 1.4.0)
       sentry-raven (>= 2.7.1, < 3.1.0)
       statsd-ruby (~> 1.4.0)
@@ -165,7 +165,7 @@ GEM
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (1.8.3)
+    i18n (1.8.4)
       concurrent-ruby (~> 1.0)
     iconv (1.0.8)
     jbuilder (2.10.0)
@@ -455,7 +455,7 @@ GEM
       whois (>= 4.0.7)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.3.1)
+    zeitwerk (2.4.0)
 
 PLATFORMS
   ruby
@@ -474,7 +474,7 @@ DEPENDENCIES
   elasticsearch-rails (~> 7.1.0)
   factory_bot_rails (~> 6.0)
   gds-sso
-  govuk_app_config (~> 2.2.0)
+  govuk_app_config (~> 2.2.1)
   govuk_elements_rails
   govuk_sidekiq (~> 3.0)
   govuk_template
