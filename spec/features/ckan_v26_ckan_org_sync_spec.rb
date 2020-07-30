@@ -44,7 +44,7 @@ describe "ckan organisation sync" do
 
   it "does not update organisations if they are unchanged" do
     subject.perform
-    organisation_to_update.update(updated_at: 5.years.ago)
+    organisation_to_update.update!(updated_at: 5.years.ago)
 
     expect { subject.perform }
       .to_not(change { organisation_to_update.reload.updated_at })

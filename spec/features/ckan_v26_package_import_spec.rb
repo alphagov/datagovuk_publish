@@ -47,7 +47,7 @@ describe "ckan package import" do
 
     it "updates an existing dataset if already exists" do
       dataset = Dataset.new(uuid: package_create_id, title: "")
-      dataset.save(validate: false)
+      dataset.save!(validate: false)
 
       expect { subject.perform(package_create_id) }
         .to_not(change { Dataset.count })
@@ -66,10 +66,10 @@ describe "ckan package import" do
 
     it "updates an inspire dataset if it already exists" do
       dataset = Dataset.new(uuid: package_inspire_id, title: "")
-      dataset.save(validate: false)
+      dataset.save!(validate: false)
 
       inspire_dataset = InspireDataset.new(dataset: dataset)
-      inspire_dataset.save(validate: false)
+      inspire_dataset.save!(validate: false)
 
       expect { subject.perform(package_inspire_id) }
         .to_not(change { InspireDataset.count })
@@ -93,10 +93,10 @@ describe "ckan package import" do
 
     it "updates a link if it already exists" do
       dataset = Dataset.new(uuid: package_create_id, title: "")
-      dataset.save(validate: false)
+      dataset.save!(validate: false)
 
       datafile = Datafile.new(dataset: dataset, uuid: datafile_create_id)
-      datafile.save(validate: false)
+      datafile.save!(validate: false)
 
       expect { subject.perform(package_create_id) }
         .to_not(change { Link.count })
@@ -128,7 +128,7 @@ describe "ckan package import" do
 
     it "publishes an existing dataset to elasticsearch" do
       dataset = Dataset.find_by(uuid: package_create_id)
-      dataset.update(title: "foo")
+      dataset.update!(title: "foo")
 
       dataset.publish
       expect(get_from_es(dataset.uuid)["title"]).to eq "foo"

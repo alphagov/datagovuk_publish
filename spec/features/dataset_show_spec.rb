@@ -10,7 +10,7 @@ describe "show datasets" do
   end
 
   it "should disable editing for harvested datasets" do
-    dataset.update(harvested: true)
+    dataset.update!(harvested: true)
     click_link "Manage datasets"
 
     expect(page).to have_content(dataset.title)

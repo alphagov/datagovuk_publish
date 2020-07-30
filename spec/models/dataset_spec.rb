@@ -28,7 +28,7 @@ describe Dataset do
   it "generates a new slug when the title has changed" do
     dataset = FactoryBot.create(:dataset, uuid: 1234, title: "My awesome dataset")
 
-    dataset.update(title: "My Even Better Dataset")
+    dataset.update!(title: "My Even Better Dataset")
 
     expect(dataset.name).to eq("my-even-better-dataset")
   end

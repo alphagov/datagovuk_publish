@@ -37,7 +37,7 @@ describe "ckan organisation import" do
     it "does not update organisations if they are unchanged" do
       subject.perform(organisation_id)
       organisation = Organisation.find_by(name: organisation_id)
-      organisation.update(updated_at: 5.years.ago)
+      organisation.update!(updated_at: 5.years.ago)
 
       expect { subject.perform(organisation_id) }
         .to_not(change { organisation.reload.updated_at })
@@ -64,7 +64,7 @@ describe "ckan organisation import" do
     end
 
     it "does not publish datasets when the organisation is unchanged" do
-      dataset_to_republish.update(title: "Old")
+      dataset_to_republish.update!(title: "Old")
       dataset_to_republish.publish
 
       subject.perform(organisation_id)

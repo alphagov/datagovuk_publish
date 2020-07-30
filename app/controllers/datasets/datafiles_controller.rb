@@ -40,7 +40,7 @@ class Datasets::DatafilesController < ApplicationController
 
   def destroy
     flash[:deleted] = "Your link ‘#{@datafile.name}’ has been deleted"
-    @datafile.destroy
+    @datafile.destroy!
 
     redirect_to dataset_datafiles_path(@dataset.uuid, @dataset.name)
   end

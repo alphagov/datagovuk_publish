@@ -33,13 +33,13 @@ describe CKAN::V26::DatasetMapper do
     end
 
     it "copes when a topic cannot be found for the package" do
-      topic.destroy
+      topic.destroy!
       attributes = subject.call(package)
       expect(attributes[:topic_id]).to be_nil
     end
 
     it "copes when an organisation cannot be found for the package" do
-      organisation.destroy
+      organisation.destroy!
       attributes = subject.call(package)
       expect(attributes[:organisation_id]).to be_nil
     end

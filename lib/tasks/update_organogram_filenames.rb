@@ -36,7 +36,7 @@ class UpdateOrganogramFilenames
           puts "From dataset: " + link.dataset.name
           puts "Replace url '" + link.url + "' with '" + @new_urls[index] + "'"
           link.url = @new_urls[index]
-          link.save(validate: false)
+          link.save!(validate: false)
 
           if Link.where(url: @new_urls[index]).empty?
             puts "Url replacement failed"

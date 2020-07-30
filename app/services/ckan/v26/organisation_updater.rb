@@ -7,7 +7,7 @@ module CKAN
 
         return unless organisation.changed?
 
-        organisation.save
+        organisation.save!
       end
     end
   end
