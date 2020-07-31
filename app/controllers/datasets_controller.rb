@@ -55,7 +55,7 @@ class DatasetsController < ApplicationController
   def destroy
     flash[:deleted] = "The dataset '#{@dataset.title}' has been deleted"
     @dataset.unpublish
-    @dataset.destroy
+    @dataset.destroy!
     redirect_to manage_path
   end
 

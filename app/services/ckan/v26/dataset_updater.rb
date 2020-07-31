@@ -4,7 +4,7 @@ module CKAN
       def call(dataset, package)
         attributes = DatasetMapper.new.call(package)
         dataset.assign_attributes(attributes)
-        dataset.save
+        dataset.save!
       end
     end
   end

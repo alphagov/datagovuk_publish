@@ -141,7 +141,7 @@ describe Datafile, type: :model do
         @datafile.year = nil
         @datafile.end_date = nil
 
-        @datafile.save(validate: false)
+        @datafile.save!(validate: false)
 
         expect(Datafile.last.end_date).to be_nil
       end
@@ -150,7 +150,7 @@ describe Datafile, type: :model do
         @datafile.year = nil
         @datafile.start_date = nil
 
-        @datafile.save(validate: false)
+        @datafile.save!(validate: false)
 
         expect(Datafile.last.start_date).to be_nil
       end

@@ -10,7 +10,7 @@ class Datasets::LocationsController < ApplicationController
   def create
     @dataset = current_dataset
     location_params = params.require(:dataset).permit(:location1, :location2, :location3)
-    @dataset.update(location_params)
+    @dataset.update!(location_params)
 
     if @dataset.save
       redirect_to new_dataset_frequency_path(@dataset.uuid, @dataset.name)
@@ -22,7 +22,7 @@ class Datasets::LocationsController < ApplicationController
   def update
     @dataset = current_dataset
     location_params = params.require(:dataset).permit(:location1, :location2, :location3)
-    @dataset.update(location_params)
+    @dataset.update!(location_params)
 
     if @dataset.save
       redirect_to dataset_path(@dataset.uuid, @dataset.name)

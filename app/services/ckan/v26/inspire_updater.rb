@@ -16,7 +16,7 @@ module CKAN
         attributes = InspireMapper.new.call(package)
 
         inspire_dataset.assign_attributes(attributes)
-        inspire_dataset.save
+        inspire_dataset.save!
       end
 
       def destroy_inspire_dataset(dataset)
