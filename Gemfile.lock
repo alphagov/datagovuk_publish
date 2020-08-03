@@ -122,12 +122,11 @@ GEM
     fugit (1.3.3)
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.1)
-    gds-api-adapters (67.0.0)
+    gds-api-adapters (67.0.1)
       addressable
       link_header
       null_logger
       plek (>= 1.9.0)
-      rack-cache
       rest-client (~> 2.0)
     gds-sso (15.0.1)
       multi_json (~> 1.0)
@@ -151,7 +150,7 @@ GEM
     govuk_frontend_toolkit (8.2.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_sidekiq (3.0.5)
+    govuk_sidekiq (4.0.0)
       gds-api-adapters (>= 19.1.0)
       govuk_app_config (>= 1.1)
       redis-namespace (~> 1.6)
@@ -263,8 +262,6 @@ GEM
       nio4r (~> 2.0)
     raabro (1.1.6)
     rack (2.2.3)
-    rack-cache (1.12.0)
-      rack (>= 0.4)
     rack-protection (2.0.8.1)
       rack
     rack-test (1.1.0)
@@ -476,7 +473,7 @@ DEPENDENCIES
   gds-sso
   govuk_app_config (~> 2.2.1)
   govuk_elements_rails
-  govuk_sidekiq (~> 3.0)
+  govuk_sidekiq (~> 4.0)
   govuk_template
   iconv (~> 1.0.8)
   jbuilder (~> 2.10)
