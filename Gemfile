@@ -6,7 +6,7 @@ gem "rails", "6.0.3.2"
 
 gem "audited"
 gem "cancancan"
-gem "elasticsearch"
+gem "elasticsearch", "~> 5.0" # gem's major must match db's
 gem "elasticsearch-model"
 gem "elasticsearch-rails"
 gem "gds-sso"
@@ -17,7 +17,7 @@ gem "govuk_template"
 gem "iconv"
 gem "jbuilder"
 gem "jquery-rails"
-gem "kaminari"
+gem "kaminari", "< 1.2" # do not upgrade this unless elasticsearch is also upgraded
 gem "lograge"
 gem "logstash-event"
 gem "mime-types"
@@ -56,7 +56,12 @@ end
 
 group :test do
   gem "capybara"
-  gem "codeclimate-test-reporter"
+  # Gem codeclimate-test-reporter pinned to ~> 1.0.9 because simplecov >= 0.13
+  # causes it to be downgraded to 1.0.7, which doesn't work.
+  #
+  # Also note that the gem was deprecated in favour of a new tool:
+  # https://docs.codeclimate.com/docs/configuring-test-coverage
+  gem "codeclimate-test-reporter", "~> 1.0.9"
   gem "database_cleaner"
   gem "simplecov"
   gem "webmock"
