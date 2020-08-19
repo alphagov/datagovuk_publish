@@ -5,7 +5,7 @@ module CKAN
     class Depaginator
       include CKAN::Modules::URLBuilder
 
-      MAX_DELETIONS = 500
+      MAX_DELETIONS = 1000
 
       def self.depaginate(*args)
         new(*args).depaginate
@@ -83,6 +83,7 @@ module CKAN
 
       attr_reader(:base_url, :existing_total, :results)
 
+      class DeletionTooLargeError < StandardError; end
       class ExpectedTotalChangedError < StandardError; end
       class MoreResultsThanExpectedError < StandardError; end
       class EarlyEmptyPageError < StandardError; end
