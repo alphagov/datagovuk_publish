@@ -5,7 +5,7 @@ module CKAN
     class Depaginator
       include CKAN::Modules::URLBuilder
 
-      MAX_DELETIONS = 1000
+      MAX_DELETIONS = 10000
 
       def self.depaginate(*args)
         new(*args).depaginate
