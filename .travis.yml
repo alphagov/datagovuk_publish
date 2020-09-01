@@ -13,15 +13,21 @@ before_install:
   - gem install bundler
 before_script:
   - sleep 10
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
   - bundle exec rails db:create
   - bundle exec rails db:schema:load
   - bundle exec rake
-  - bundle exec codeclimate-test-reporter
+after_script:
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
   - RAILS_ENV=test
+  # FIXME: update on travis env
+  - CC_TEST_REPORTER_ID=$CODECLIMATE_REPO_TOKEN
 after_success:
   - wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
   - echo "deb http://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list

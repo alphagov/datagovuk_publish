@@ -86,6 +86,7 @@ module CKAN
       class DeletionTooLargeError < StandardError; end
       class ExpectedTotalChangedError < StandardError; end
       class MoreResultsThanExpectedError < StandardError; end
+      class DeletionTooLargeError < StandardError; end
       class EarlyEmptyPageError < StandardError; end
     end
   end
