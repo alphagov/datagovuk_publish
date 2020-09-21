@@ -15,7 +15,7 @@ gem "govuk_template"
 gem "iconv"
 gem "jbuilder"
 gem "jquery-rails"
-gem "kaminari", "< 1.2" # do not upgrade this unless elasticsearch is also upgraded
+gem "kaminari", "< 1.3" # do not upgrade this unless elasticsearch is also upgraded
 gem "lograge"
 gem "logstash-event"
 gem "mime-types"
