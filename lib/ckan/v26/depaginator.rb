@@ -7,8 +7,8 @@ module CKAN
       # temp increase to 10000, should normally be 100
       MAX_DELETIONS = 10_000
 
-      def self.depaginate(*args)
-        new(*args).depaginate
+      def self.depaginate(*args, **kwargs)
+        new(*args, **kwargs).depaginate
       end
 
       def initialize(base_url, existing_total:)
