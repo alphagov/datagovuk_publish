@@ -1,5 +1,3 @@
-require "ckan/v26/client"
-
 module CKAN
   module V26
     class CKANOrgImportWorker
@@ -27,7 +25,7 @@ module CKAN
 
       def get_organization_from_ckan(organisation_id)
         base_url = Rails.configuration.ckan_v26_base_url
-        client = Client.new(base_url: base_url)
+        client = CKAN::V26::Client.new(base_url: base_url)
 
         response = client.show_organization(id: organisation_id)
         CKANOrg.new(response)
