@@ -1,5 +1,3 @@
-require "ckan/v26/client"
-
 module CKAN
   module V26
     class CKANOrgDiffer
@@ -25,7 +23,7 @@ module CKAN
 
       def client
         base_url = Rails.configuration.ckan_v26_base_url
-        Client.new(base_url: base_url)
+        CKAN::V26::Client.new(base_url: base_url)
       end
     end
   end

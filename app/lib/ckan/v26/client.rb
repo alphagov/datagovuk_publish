@@ -1,5 +1,3 @@
-require "ckan/modules/url_builder"
-require "ckan/v26/depaginator"
 require "open-uri"
 
 module CKAN
