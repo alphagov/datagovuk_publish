@@ -41,7 +41,7 @@ namespace :search do
       logger: logger,
     )
 
-    indexes = client.indices.get_aliases.keys
+    indexes = client.indices.get_alias.keys
 
     if indexes.include?(legacy_index)
       msg = "An alias can not be assigned to index of the same name. Please delete index '#{legacy_index}' before continuing."

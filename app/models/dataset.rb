@@ -7,7 +7,7 @@ class Dataset < ApplicationRecord
   include Elasticsearch::Model
 
   index_name ENV["ES_INDEX"] || "datasets-#{Rails.env}"
-  document_type "dataset"
+  document_type "_doc"
 
   after_initialize :set_uuid
   before_save :set_name

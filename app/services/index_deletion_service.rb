@@ -9,7 +9,7 @@ class IndexDeletionService
   end
 
   def run
-    indexes = client.indices.get_aliases.keys
+    indexes = client.indices.get_alias.keys
     indexes_to_be_deleted = select_indexes_for_deletion(indexes)
     delete(indexes_to_be_deleted)
   rescue StandardError => e

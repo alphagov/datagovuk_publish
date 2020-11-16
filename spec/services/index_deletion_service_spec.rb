@@ -28,7 +28,7 @@ describe IndexDeletionService do
         INDEX_CREATED_LAST_MONTH,
       ]
 
-      allow(@client_double).to receive_message_chain(:indices, :get_aliases, :keys) { indexes }
+      allow(@client_double).to receive_message_chain(:indices, :get_alias, :keys) { indexes }
       allow(@client_double).to receive_message_chain(:indices, :delete)
 
       expect(@client_double.indices)
@@ -46,7 +46,7 @@ describe IndexDeletionService do
         INDEX_CREATED_LAST_WEEK,
       ]
 
-      allow(@client_double).to receive_message_chain("indices.get_aliases.keys") { indexes }
+      allow(@client_double).to receive_message_chain("indices.get_alias.keys") { indexes }
       allow(@client_double).to receive_message_chain("indices.delete") { true }
 
       expect(@client_double)
