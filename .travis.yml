@@ -10,6 +10,10 @@ services:
   - elasticsearch
   - redis-server
 before_install:
+  - curl https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.9.1-amd64.deb -o elasticsearch.deb
+  - sudo dpkg -i --force-confnew elasticsearch.deb
+  - sudo chown -R elasticsearch:elasticsearch /etc/default/elasticsearch
+  - sudo service elasticsearch restart
   - gem install bundler
 before_script:
   - sleep 10
@@ -36,12 +40,12 @@ after_success:
 deploy:
   # To Staging
   - provider: script
-    script: scripts/deploy.sh publish-data-beta-staging-worker staging worker
+    script: scripts/deploy.sh publish-beta-staging-worker staging worker
     on:
       repo: alphagov/datagovuk_publish
   # To Production
   - provider: script
-    script: scripts/deploy.sh publish-data-beta-production-worker production worker
+    script: scripts/deploy.sh publish-beta-production-worker production worker
     on:
       repo: alphagov/datagovuk_publish
       tags: true
