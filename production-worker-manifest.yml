@@ -1,5 +1,5 @@
 applications:
-- name: publish-data-beta-production-worker
+- name: publish-beta-production-worker
   memory: 1G
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.8.17
   stack: cflinuxfs3
@@ -12,5 +12,5 @@ applications:
   - publish-beta-production-pg
   - publish-beta-production-redis
   - logit-ssl-drain
-  - elasticsearch-6-beta-production
+  - elasticsearch-7-production
   health-check-type: process
