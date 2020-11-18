@@ -146,6 +146,7 @@ describe DatasetsIndexerService do
       blocks: {
         read_only: false,
       },
+      max_result_window: 10_000_000,
       analysis: {
         normalizer: {
           lowercase_normalizer: {
