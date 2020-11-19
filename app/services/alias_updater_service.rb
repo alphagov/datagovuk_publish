@@ -34,7 +34,7 @@ private
   end
 
   def active_indices
-    @client.indices.get_aliases.select do |_, results|
+    @client.indices.get_alias.select do |_, results|
       results["aliases"].key? @index_alias
     end
   end

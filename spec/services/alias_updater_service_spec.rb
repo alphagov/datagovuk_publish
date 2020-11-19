@@ -14,7 +14,7 @@ describe AliasUpdaterService do
 
   describe "#run" do
     before do
-      allow(client).to receive_message_chain("indices.get_aliases") do
+      allow(client).to receive_message_chain("indices.get_alias") do
         { "other_index" => { "aliases" => {} },
           "current_index" => { "aliases" => { "my_alias" => {} } },
           "other_alias" => { "aliases" => { "other_alias" => {} } } }
