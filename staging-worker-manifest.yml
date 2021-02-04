@@ -9,7 +9,7 @@ applications:
     RACK_ENV: staging
   services:
   - publish-staging-secrets
-  - publish-beta-staging-pg
+  - publish-beta-staging-pg-12
   - publish-beta-staging-redis
   - logit-ssl-drain
   - elasticsearch-7-staging

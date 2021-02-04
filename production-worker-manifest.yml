@@ -9,7 +9,7 @@ applications:
     RACK_ENV: production
   services:
   - publish-production-secrets
-  - publish-beta-production-pg
+  - publish-beta-production-pg-12
   - publish-beta-production-redis
   - logit-ssl-drain
   - elasticsearch-7-production
