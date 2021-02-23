@@ -12,6 +12,8 @@ Topic.find_or_create_by!(name: "towns-and-cities", title: "Towns and cities")
 Topic.find_or_create_by!(name: "education", title: "Education")
 Topic.find_or_create_by!(name: "health", title: "Health")
 Topic.find_or_create_by!(name: "transport", title: "Transport")
+Topic.find_or_create_by!(name: "government-reference-data", title: "Government reference data")
+Topic.find_or_create_by!(name: "digital-services-performance", title: "Digital service performance")
 
 org = Organisation.find_or_create_by!(
   uuid: "90aefa0d-0e92-4895-a7fd-c1adb2b3f14f",
