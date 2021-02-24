@@ -3,7 +3,7 @@ applications:
   memory: 1G
   buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.8.17
   stack: cflinuxfs3
-  command: bundle exec sidekiq
+  command: bundle exec rake db:migrate db:seed && bundle exec sidekiq
   env:
     RAILS_ENV: staging
     RACK_ENV: staging
