@@ -3,7 +3,7 @@ language: ruby
 cache: bundler
 branches:
   only:
-  - master
+  - main
   - /^v\d+\.\d+\.\d+$/
 services:
   - postgresql
