@@ -5,6 +5,17 @@
 
 This repository contains the beta-stage publishing component of data.gov.uk.
 
+# Deployment
+
+Continuous Integration has been setup using Github Actions. 
+  - Tests are run on pull requests.
+  - Deployments to Staging happen automatically when marging branches into the `main` branch.
+  - In order to carry out a release to production a developer in the govuk team will need to create a release tag with a  leading `v` and [approve](https://docs.github.com/en/actions/managing-workflow-runs/reviewing-deployments) of the deployment in Github Actions.
+
+Further information about the deploying to PaaS are in the developer documents here: 
+
+https://docs.publishing.service.gov.uk/manual/data-gov-uk-deployment.html#paas-staging-and-production-environments
+
 ## Prerequisites
 
 You will need to install the following for development.
@@ -136,12 +147,6 @@ When running this sidekiq job it returns errors in the terminal such as:
 3. You will also need to [purge SOLR via CKAN](https://docs.ckan.org/en/ckan-2.7.3/maintaining/paster.html#search-index-rebuild-search-index)
 4. [Clear the Publish database](#clear-the-database)
 5. Then re-run sidekiq jobs - see [Run sidekiq jobs](#run-sidekiq-jobs)
-
-## Deployment
-
-See the developer documents here: 
-
-https://docs.publishing.service.gov.uk/manual/data-gov-uk-deployment.html#paas-staging-and-production-environments
 
 ## Documentation
 
