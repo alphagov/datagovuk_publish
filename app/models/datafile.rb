@@ -90,11 +90,12 @@ private
   end
 
   def validate_date
-    if (begin
-          daily_date
-        rescue StandardError
-          ArgumentError
-        end) == ArgumentError
+    if (
+      begin
+        daily_date
+      rescue StandardError
+        ArgumentError
+      end) == ArgumentError
       errors.add(:date, "Please enter a valid date")
     end
   end

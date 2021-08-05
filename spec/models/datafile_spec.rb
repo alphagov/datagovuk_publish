@@ -1,9 +1,9 @@
 require "rails_helper"
 
 describe Datafile, type: :model do
-  DAILY = "daily".freeze
-  MONTHLY = "monthly".freeze
-  ANNUALLY = "annually".freeze
+  daily = "daily".freeze
+  monthly = "monthly".freeze
+  annually = "annually".freeze
 
   before do
     @datafile = FactoryBot.create(:datafile)
@@ -16,9 +16,9 @@ describe Datafile, type: :model do
   end
 
   describe "date validation" do
-    describe "associated dataset has frequency: #{ANNUALLY}" do
+    describe "associated dataset has frequency: #{annually}" do
       before(:each) do
-        @datafile.dataset.frequency = ANNUALLY
+        @datafile.dataset.frequency = annually
       end
 
       it "is valid" do
@@ -46,9 +46,9 @@ describe Datafile, type: :model do
       end
     end
 
-    describe "associated dataset has frequency: #{MONTHLY}" do
+    describe "associated dataset has frequency: #{monthly}" do
       before(:each) do
-        @datafile.dataset.frequency = MONTHLY
+        @datafile.dataset.frequency = monthly
       end
 
       it "is valid" do
@@ -77,9 +77,9 @@ describe Datafile, type: :model do
       end
     end
 
-    describe "associated dataset has frequency #{DAILY}" do
+    describe "associated dataset has frequency #{daily}" do
       before(:each) do
-        @datafile.dataset.frequency = DAILY
+        @datafile.dataset.frequency = daily
       end
 
       it "is valid" do
@@ -106,7 +106,7 @@ describe Datafile, type: :model do
 
   describe "before saving" do
     before(:each) do
-      @datafile.dataset.frequency = ANNUALLY
+      @datafile.dataset.frequency = annually
     end
 
     it "sets an end date if year is not nil" do
@@ -134,7 +134,7 @@ describe Datafile, type: :model do
       # to save a datafile with no start or end dates
 
       before(:each) do
-        @datafile.dataset.frequency = ANNUALLY
+        @datafile.dataset.frequency = annually
       end
 
       it "does not set an end date if year is nil" do

@@ -1,5 +1,5 @@
 require "rails_helper"
-require_relative "../../../lib/tasks/update_organogram_filenames.rb"
+require_relative "../../../lib/tasks/update_organogram_filenames"
 
 describe UpdateOrganogramFilenames do
   before do

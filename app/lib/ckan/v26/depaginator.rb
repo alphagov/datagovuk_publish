@@ -83,8 +83,11 @@ module CKAN
       attr_reader(:base_url, :existing_total, :results)
 
       class DeletionTooLargeError < StandardError; end
+
       class ExpectedTotalChangedError < StandardError; end
+
       class MoreResultsThanExpectedError < StandardError; end
+
       class EarlyEmptyPageError < StandardError; end
     end
   end

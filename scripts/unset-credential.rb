@@ -36,7 +36,7 @@ def delete_cred
 end
 
 def user_response
-  STDIN.gets.chomp.downcase
+  $stdin.gets.chomp.downcase
 end
 
 def user_cancels?
