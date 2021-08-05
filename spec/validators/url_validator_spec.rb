@@ -16,23 +16,23 @@ RSpec.describe UrlValidator do
         allow_any_instance_of(UrlValidator).to receive(:valid_path?).and_call_original
       end
 
-      EXPECTED_ERROR_MESSAGE = "Please enter a valid url".freeze
+      expected_error_message = "Please enter a valid url".freeze
 
       it "the field is an empty string" do
         subject.url = ""
         subject.validate
-        expect(subject.errors[:url]).to include EXPECTED_ERROR_MESSAGE
+        expect(subject.errors[:url]).to include expected_error_message
       end
 
       it "the url does not exist" do
         subject.validate
-        expect(subject.errors[:url]).to include EXPECTED_ERROR_MESSAGE
+        expect(subject.errors[:url]).to include expected_error_message
       end
 
       it "the url does not start with 'http' or 'https' or 'ftp'" do
         subject.url = "google.com"
         subject.validate
-        expect(subject.errors[:url]).to include EXPECTED_ERROR_MESSAGE
+        expect(subject.errors[:url]).to include expected_error_message
       end
 
       it "the url path does not exist" do
@@ -40,7 +40,7 @@ RSpec.describe UrlValidator do
         stub_request(:any, url).to_return(status: 404)
         subject.url = url
         subject.validate
-        expect(subject.errors[:url]).to include EXPECTED_ERROR_MESSAGE
+        expect(subject.errors[:url]).to include expected_error_message
       end
 
       it "the host does not exists" do
@@ -49,7 +49,7 @@ RSpec.describe UrlValidator do
         stub_request(:any, url).to_raise(SocketError)
         subject.url = url
         subject.validate
-        expect(subject.errors[:url]).to include EXPECTED_ERROR_MESSAGE
+        expect(subject.errors[:url]).to include expected_error_message
       end
 
       it "the host refuses the connection" do
@@ -58,7 +58,7 @@ RSpec.describe UrlValidator do
         stub_request(:any, url).to_raise(Errno::ECONNREFUSED)
         subject.url = url
         subject.validate
-        expect(subject.errors[:url]).to include EXPECTED_ERROR_MESSAGE
+        expect(subject.errors[:url]).to include expected_error_message
       end
     end
 

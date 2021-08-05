@@ -33,8 +33,8 @@ class UpdateOrganogramFilenames
 
         index = @old_urls.index(link.url)
         if !index.nil?
-          puts "From dataset: " + link.dataset.name
-          puts "Replace url '" + link.url + "' with '" + @new_urls[index] + "'"
+          puts "From dataset: #{link.dataset.name}"
+          puts "Replace url '#{link.url}' with '#{@new_urls[index]}'"
           link.url = @new_urls[index]
           link.save!(validate: false)
 
@@ -44,7 +44,7 @@ class UpdateOrganogramFilenames
             puts "Url successfully replaced"
           end
         else
-          puts "WARNING: " + link.url + " not found"
+          puts "WARNING: #{link.url} not found"
         end
         puts "==============="
       end
