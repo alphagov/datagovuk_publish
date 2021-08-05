@@ -8,10 +8,10 @@ describe "ckan package sync" do
   let(:package_show_create) { JSON.parse(file_fixture("ckan/v26/package_show_create.json").read) }
   let(:package_show_update) { JSON.parse(file_fixture("ckan/v26/package_show_update.json").read) }
 
-  let(:dataset_to_update_id) { search_dataset_p1["results"][0]["id"] }
-  let(:dataset_not_to_update_id) { search_dataset_p1["results"][1]["id"] }
-  let(:dataset_to_create_id) { search_dataset_p1["results"][2]["id"] }
-  let(:dataset_from_test_publisher_id) { search_dataset_p1["results"][4]["id"] }
+  let(:dataset_to_update_id) { search_dataset_p1["result"]["results"][0]["id"] }
+  let(:dataset_not_to_update_id) { search_dataset_p1["result"]["results"][1]["id"] }
+  let(:dataset_to_create_id) { search_dataset_p1["result"]["results"][2]["id"] }
+  let(:dataset_from_test_publisher_id) { search_dataset_p1["result"]["results"][4]["id"] }
 
   let!(:dataset_to_delete) { create :dataset, legacy_name: "dataset_to_delete" }
   let!(:dataset_to_ignore) { create :dataset, legacy_name: nil }
@@ -20,9 +20,9 @@ describe "ckan package sync" do
     create(
       :dataset,
       legacy_name: "dataset_to_reimport",
-      uuid: search_dataset_p1["results"][3]["id"],
+      uuid: search_dataset_p1.dig("result", "results", 3, "id"),
       status: "draft",
-      updated_at: Time.zone.parse(search_dataset_p1["results"][3]["metadata_modified"]),
+      updated_at: Time.zone.parse(search_dataset_p1["result"]["results"][3]["metadata_modified"]),
     )
   end
 
