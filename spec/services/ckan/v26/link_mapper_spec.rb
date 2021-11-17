@@ -12,7 +12,7 @@ describe CKAN::V26::LinkMapper do
       expect(attributes[:format]).to eq resource.get("format")
       expect(attributes[:name]).to eq resource.get("name")
       expect(attributes[:created_at]).to eq resource.get("created")
-      expect(attributes[:updated_at]).to eq resource.get("created")
+      expect(attributes[:updated_at]).to eq resource.get("metadata_modified")
       expect(attributes[:type]).to eq "Datafile"
     end
 
@@ -38,7 +38,12 @@ describe CKAN::V26::LinkMapper do
       resource = build :ckan_v26_resource, created: ""
       attributes = subject.call(resource, dataset)
       expect(attributes[:created_at]).to eq dataset.created_at
-      expect(attributes[:updated_at]).to eq dataset.created_at
+    end
+
+    it "uses the dataset modified time if the resource has none" do
+      resource = build :ckan_v26_resource, metadata_modified: ""
+      attributes = subject.call(resource, dataset)
+      expect(attributes[:updated_at]).to eq dataset.updated_at
     end
   end
 end

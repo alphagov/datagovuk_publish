@@ -7,7 +7,7 @@ module CKAN
           format: resource.get("format"),
           name: build_name(resource),
           created_at: build_created_at(resource, dataset),
-          updated_at: build_created_at(resource, dataset),
+          updated_at: build_updated_at(resource, dataset),
           type: build_type(resource),
           dataset_id: dataset.id,
         }
@@ -20,6 +20,13 @@ module CKAN
         return created if created.present?
 
         dataset.created_at
+      end
+
+      def build_updated_at(resource, dataset)
+        updated = resource.get("metadata_modified")
+        return updated if updated.present?
+
+        dataset.updated_at
       end
 
       def build_name(resource)

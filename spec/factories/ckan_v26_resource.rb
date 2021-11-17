@@ -5,6 +5,7 @@ FactoryBot.define do
     name { "Resource locator" }
     description { "Resource locator" }
     created { "2016-04-05T09:48:43.164470" }
+    metadata_modified { "2017-04-05T09:48:43.164470" }
     resource_type { "file" }
 
     initialize_with do
