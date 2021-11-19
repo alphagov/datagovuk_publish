@@ -112,7 +112,7 @@
                 "position": 1,
                 "revision_id": "a0372fbf-c991-436c-b0a5-744d499054ee",
                 "id": "b7e53746-1154-425d-a85d-5bb03eb3f310",
-                "resource_type": "documentation",
+                "resource-type": "supporting-document",
                 "name": "Landing page"
             }
         ],
@@ -196,7 +196,7 @@
                 "position": 1,
                 "revision_id": "a0372fbf-c991-436c-b0a5-744d499054ee",
                 "id": "b7e53746-1154-425d-a85d-5bb03eb3f310",
-                "resource_type": "documentation",
+                "resource-type": "supporting-document",
                 "name": "Landing page"
             }
         ],

@@ -40,8 +40,8 @@ module CKAN
       end
 
       def build_type(resource)
-        type = resource.get("resource_type")
-        type == "documentation" ? "Doc" : "Datafile"
+        type = resource.get("resource-type")
+        type == "supporting-document" ? "Doc" : "Datafile"
       end
     end
   end
