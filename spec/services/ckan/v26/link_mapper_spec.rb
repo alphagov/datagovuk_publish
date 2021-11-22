@@ -17,7 +17,7 @@ describe CKAN::V26::LinkMapper do
     end
 
     it "correctly distinguishes between datafiles and docs" do
-      resource = build :ckan_v26_resource, resource_type: "documentation"
+      resource = build :ckan_v26_resource, "resource-type": "supporting-document"
       attributes = subject.call(resource, dataset)
       expect(attributes[:type]).to eq "Doc"
     end
