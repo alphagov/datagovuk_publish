@@ -47,7 +47,7 @@ module PublishDataBeta
       html_tag
     }
 
-    config.elasticsearch = config_for(:elasticsearch)
+    config.elasticsearch = config_for(:opensearch)
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

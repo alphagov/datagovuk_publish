@@ -12,5 +12,5 @@ applications:
   - publish-beta-production-pg-12
   - publish-beta-production-redis
   - logit-ssl-drain
-  - elasticsearch-7-production
+  - opensearch-production
   health-check-type: process

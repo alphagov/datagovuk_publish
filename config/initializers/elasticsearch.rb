@@ -1,7 +1,7 @@
 def es_config_from_vcap
   begin
     vcap = JSON.parse(Rails.configuration.elasticsearch["vcap_services"])
-    es_server = vcap["elasticsearch"][0]["credentials"]["uri"]
+    es_server = vcap["opensearch"][0]["credentials"]["uri"]
   rescue StandardError => e
     Rails.logger.fatal "Failed to extract ES creds from VCAP_SERVICES. Exiting"
     Rails.logger.fatal Rails.configuration.elasticsearch["vcap_services"]

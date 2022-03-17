@@ -12,5 +12,5 @@ applications:
   - publish-beta-integration-pg-12
   - publish-beta-integration-redis
   - logit-ssl-drain
-  - elasticsearch-7-integration
+  - opensearch-integration
   health-check-type: process
