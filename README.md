@@ -22,7 +22,7 @@ You will need to install the following for development.
 
   * [rbenv](https://github.com/rbenv/rbenv) or similar to manage ruby versions
   * [bundler](https://rubygems.org/gems/bundler) to manage gems
-  * [elasticsearch](https://www.elastic.co/) search engine
+  * [opensearch](https://opensearch.org/) search engine
   * [postgresql](https://www.postgresql.org/) database
 
 Most of these can be installed with Homebrew on a Mac.
@@ -38,17 +38,17 @@ brew install postgresql
 ## Redis
 brew install redis
 
-## Elasticsearch
+## Opensearch
 brew tap caskroom/versions
 brew cask install java8
-brew install elasticsearch
+brew install opensearch
 ```
 
 ### Start the services on your machine
 
 ```
 brew services start postgresql
-brew services start elasticsearch
+brew services start opensearch
 brew services start redis
 ```
 
@@ -99,9 +99,9 @@ To completely clear the database:
 bin/rails db:drop db:setup
 ```
 
-### Re-index Elasticsearch
+### Re-index Opensearch
 
-To re-index Elasticsearch based on the current database contents, run:
+To re-index Opensearch based on the current database contents, run:
 
 ```
 bin/rails search:reindex
