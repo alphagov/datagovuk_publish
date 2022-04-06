@@ -22,7 +22,6 @@ updates:
         dependency-type: direct
       - dependency-name: pg
         dependency-type: direct
-      - dependency-name: puma
         dependency-type: direct
       - dependency-name: rails
         dependency-type: direct
