@@ -15,16 +15,22 @@ gem "govuk_template"
 gem "iconv"
 gem "jbuilder"
 gem "jquery-rails"
-gem "kaminari", "< 1.2" # do not upgrade this unless elasticsearch is also upgraded
+# gem "kaminari", "< 1.2" # do not upgrade this unless elasticsearch is also upgraded
+gem "kaminari"
 gem "lograge"
 gem "logstash-event"
+gem "matrix"
 gem "mime-types"
+gem "net-smtp"
+gem 'net-imap', require: false
+gem 'net-pop', require: false
 gem "pg"
 gem "plek"
 gem "rest-client"
 gem "rubyzip"
 gem "sass-rails"
 gem "sentry-raven"
+gem "sentry-sidekiq"
 gem "sidekiq-limit_fetch"
 gem "sidekiq-scheduler"
 gem "turbolinks"
