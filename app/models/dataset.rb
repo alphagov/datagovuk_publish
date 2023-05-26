@@ -25,7 +25,7 @@ class Dataset < ApplicationRecord
   validates :licence_code, presence: { message: "Please select a licence for your dataset" }, on: :dataset_licence_form
   validates :topic, presence: { message: "Please choose a topic" }, on: :dataset_topic_form
 
-  scope :owned_by, ->(creator_id) { where(creator_id: creator_id) }
+  scope :owned_by, ->(creator_id) { where(creator_id:) }
   scope :published, -> { where(status: "published") }
   scope :with_datafiles, -> { joins(:datafiles) }
   scope :with_no_datafiles, -> { left_outer_joins(:datafiles).where(links: { id: nil }) }

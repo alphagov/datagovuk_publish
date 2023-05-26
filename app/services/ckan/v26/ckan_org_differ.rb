@@ -23,7 +23,7 @@ module CKAN
 
       def client
         base_url = Rails.configuration.ckan_v26_base_url
-        CKAN::V26::Client.new(base_url: base_url)
+        CKAN::V26::Client.new(base_url:)
       end
     end
   end

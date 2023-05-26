@@ -36,7 +36,7 @@ private
 
   def delete(indexes)
     indexes.each do |index|
-      client.indices.delete index: index
+      client.indices.delete(index:)
       logger.info "Deleted #{index}"
     end
   end

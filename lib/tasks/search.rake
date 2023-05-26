@@ -10,24 +10,24 @@ namespace :search do
     new_index_name = "#{Dataset.index_name}_#{date}"
 
     indexer_args = {
-      batch_size: batch_size,
-      date: date,
-      new_index_name: new_index_name,
-      client: client,
-      logger: logger,
+      batch_size:,
+      date:,
+      new_index_name:,
+      client:,
+      logger:,
     }
 
     alias_updater_args = {
-      new_index_name: new_index_name,
-      index_alias: index_alias,
-      client: client,
-      logger: logger,
+      new_index_name:,
+      index_alias:,
+      client:,
+      logger:,
     }
 
     index_deleter_args = {
-      index_alias: index_alias,
-      client: client,
-      logger: logger,
+      index_alias:,
+      client:,
+      logger:,
     }
 
     indexer = DatasetsIndexerService.new(indexer_args)
@@ -35,10 +35,10 @@ namespace :search do
     index_deleter = IndexDeletionService.new(index_deleter_args)
 
     reindex_service = ReindexService.new(
-      indexer: indexer,
-      alias_updater: alias_updater,
-      index_deleter: index_deleter,
-      logger: logger,
+      indexer:,
+      alias_updater:,
+      index_deleter:,
+      logger:,
     )
 
     indexes = client.indices.get_alias.keys

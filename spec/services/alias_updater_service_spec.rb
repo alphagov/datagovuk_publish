@@ -7,7 +7,7 @@ describe AliasUpdaterService do
     described_class.new(
       new_index_name: "new_index",
       index_alias: "my_alias",
-      client: client,
+      client:,
       logger: Rails.logger,
     )
   end

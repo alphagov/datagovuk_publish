@@ -20,17 +20,17 @@ module CKAN
       end
 
       def show_organization(id:)
-        url = build_url(path: SHOW_ORGANIZATION_PATH, params: { id: id })
+        url = build_url(path: SHOW_ORGANIZATION_PATH, params: { id: })
         JSON.parse(url.read)["result"]
       end
 
       def search_dataset(fl:, existing_total:) # rubocop:disable Naming/MethodParameterName
         url = build_url(path: SEARCH_DATASET_PATH, params: { q: "type:dataset", rows: 1000, fl: fl.join(",") })
-        Depaginator.depaginate(url, existing_total: existing_total)
+        Depaginator.depaginate(url, existing_total:)
       end
 
       def show_dataset(id:)
-        url = build_url(path: SHOW_DATASET_PATH, params: { id: id })
+        url = build_url(path: SHOW_DATASET_PATH, params: { id: })
         JSON.parse(url.read)["result"]
       end
     end

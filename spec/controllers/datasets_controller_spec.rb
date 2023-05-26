@@ -12,7 +12,7 @@ describe DatasetsController, type: :controller do
     dataset = FactoryBot.create(
       :dataset,
       name: "legit-name",
-      organisation: organisation,
+      organisation:,
       datafiles: [FactoryBot.create(:datafile)],
     )
 
@@ -26,7 +26,7 @@ describe DatasetsController, type: :controller do
 
     _allowed_dataset = FactoryBot.create(
       :dataset,
-      organisation: organisation,
+      organisation:,
       datafiles: [FactoryBot.create(:datafile)],
     )
 
@@ -46,7 +46,7 @@ describe DatasetsController, type: :controller do
 
     _allowed_dataset = FactoryBot.create(
       :dataset,
-      organisation: organisation,
+      organisation:,
       datafiles: [FactoryBot.create(:datafile)],
     )
 

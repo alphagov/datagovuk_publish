@@ -29,7 +29,7 @@ module CKAN
       def diff_update(packages, datasets)
         dataset_fields = datasets.pluck(:uuid, :updated_at, :status)
         dataset_info = dataset_fields.each_with_object({}) do |(uuid, updated_at, status), hash|
-          hash[uuid] = { updated_at: updated_at, status: status }
+          hash[uuid] = { updated_at:, status: }
         end
 
         packages.select do |package|
@@ -50,7 +50,7 @@ module CKAN
 
       def client
         base_url = Rails.configuration.ckan_v26_base_url
-        CKAN::V26::Client.new(base_url: base_url)
+        CKAN::V26::Client.new(base_url:)
       end
     end
   end
