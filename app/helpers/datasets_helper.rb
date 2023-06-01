@@ -1,6 +1,6 @@
 module DatasetsHelper
   def dataset_field(f, dataset, options) # rubocop:disable Naming/MethodParameterName
-    render "/datasets/dataset_field", f: f, dataset: dataset, field: options
+    render "/datasets/dataset_field", f:, dataset:, field: options
   end
 
   FRIENDLY_FREQUENCIES = {

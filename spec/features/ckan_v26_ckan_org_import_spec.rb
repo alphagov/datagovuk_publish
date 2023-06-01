@@ -46,8 +46,8 @@ describe "ckan organisation import" do
 
   describe "dataset publish" do
     let(:organisation) { create :organisation, name: organisation_id }
-    let!(:dataset_to_republish) { create :dataset, organisation: organisation }
-    let!(:dataset_not_to_publish) { create :dataset, organisation: organisation, status: "draft" }
+    let!(:dataset_to_republish) { create :dataset, organisation: }
+    let!(:dataset_not_to_publish) { create :dataset, organisation:, status: "draft" }
 
     before do
       subject.perform(organisation_id)

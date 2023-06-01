@@ -38,7 +38,7 @@ module CKAN
         name = package.get("theme-primary")
           .gsub("&", "and").tr(" ", "-").downcase
 
-        Topic.find_by(name: name)&.id
+        Topic.find_by(name:)&.id
       end
 
       def harvested?(package)

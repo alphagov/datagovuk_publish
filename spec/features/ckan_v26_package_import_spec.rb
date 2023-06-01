@@ -68,7 +68,7 @@ describe "ckan package import" do
       dataset = Dataset.new(uuid: package_inspire_id, title: "")
       dataset.save!(validate: false)
 
-      inspire_dataset = InspireDataset.new(dataset: dataset)
+      inspire_dataset = InspireDataset.new(dataset:)
       inspire_dataset.save!(validate: false)
 
       expect { subject.perform(package_inspire_id) }
@@ -95,7 +95,7 @@ describe "ckan package import" do
       dataset = Dataset.new(uuid: package_create_id, title: "")
       dataset.save!(validate: false)
 
-      datafile = Datafile.new(dataset: dataset, uuid: datafile_create_id)
+      datafile = Datafile.new(dataset:, uuid: datafile_create_id)
       datafile.save!(validate: false)
 
       expect { subject.perform(package_create_id) }

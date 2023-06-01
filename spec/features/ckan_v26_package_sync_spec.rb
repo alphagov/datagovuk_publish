@@ -30,7 +30,7 @@ describe "ckan package sync" do
     create :dataset,
            legacy_name: "dataset_to_update",
            uuid: dataset_to_update_id,
-           updated_at: 5.years.ago
+           updated_at: 2000.years.ago
   end
 
   let!(:dataset_not_to_update) do

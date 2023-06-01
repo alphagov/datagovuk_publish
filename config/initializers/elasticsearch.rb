@@ -14,7 +14,7 @@ end
 
 def es_config_from_host(host)
   {
-    host: host,
+    host:,
     transport_options: {
       request: {
         timeout: Rails.configuration.elasticsearch["elastic_timeout"],
