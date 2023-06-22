@@ -10,7 +10,7 @@ applications:
   services:
   - publish-staging-secrets
   - publish-beta-staging-pg-12
-  - publish-beta-staging-redis
+  - publish-beta-staging-redis-6
   - logit-ssl-drain
   - opensearch-staging
   health-check-type: process

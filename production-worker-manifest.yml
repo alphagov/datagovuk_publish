@@ -10,7 +10,7 @@ applications:
   services:
   - publish-production-secrets
   - publish-beta-production-pg-12
-  - publish-beta-production-redis
+  - publish-beta-production-redis-6
   - logit-ssl-drain
   - opensearch-production
   health-check-type: process
