@@ -61,6 +61,7 @@ class UrlValidator < ActiveModel::Validator
   def create_validation_error(record, error)
     Rails.logger.debug("Validation error: #{error}")
     record.errors[:url] << "Please enter a valid url"
+    puts "### validation #{record.errors[:url]}"
     false
   end
 end
