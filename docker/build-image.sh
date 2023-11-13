@@ -4,9 +4,9 @@ set -eux
 
 build () {
   if [ "${ARCH}" = "amd64" ]; then
-    docker build . -t "ghcr.io/alphagov/${APP}:${1}" -f "Dockerfile"
+    docker build . -t "ghcr.io/alphagov/${APP}:${1}" -f "docker/Dockerfile"
   else
-    docker buildx build --platform "linux/${ARCH}" . -t "ghcr.io/alphagov/${APP}:${1}" -f "Dockerfile"
+    docker buildx build --platform "linux/${ARCH}" . -t "ghcr.io/alphagov/${APP}:${1}" -f "docker/Dockerfile"
   fi
 }
 
