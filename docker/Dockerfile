@@ -1,4 +1,4 @@
-FROM ruby:2.7.5
+FROM ruby:3.2.0
 
 WORKDIR /srv/app/datagovuk_publish
 
