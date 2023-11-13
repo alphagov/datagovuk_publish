@@ -10,5 +10,4 @@ ENV DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL true
 
 COPY ./ /srv/app/datagovuk_publish
 
-RUN gem install bundler --conservative && \
-    bundle install
+RUN gem install bundler && bundle install
