@@ -1,7 +1,7 @@
 applications:
 - name: publish-beta-production-worker
   memory: 1G
-  buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.9.3
+  buildpack: https://github.com/cloudfoundry/ruby-buildpack.git#v1.10.4
   stack: cflinuxfs3
   command: bundle exec rake db:migrate db:seed && bundle exec sidekiq
   env:
