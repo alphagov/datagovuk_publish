@@ -18,8 +18,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: alphagov/datagovuk_publish
-          path: ckanext
-      - run: bash ./docker/create-pr.sh
+      - name: Create PR
+        run: bash ./docker/create-pr.sh
         env:
           GH_TOKEN: ${{ secrets.PR_GITHUB_TOKEN }}
           GH_REF: ${{ github.ref_name }}
