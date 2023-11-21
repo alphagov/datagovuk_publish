@@ -15,15 +15,15 @@ test:
 
 integration:
   <<: *default
-  url: '<%= JSON.parse(ENV["VCAP_SERVICES"] || "{}")
+  url: '<%= ENV["REDIS_HOST"] || JSON.parse(ENV["VCAP_SERVICES"] || "{}")
                 .dig("redis", 0, "credentials", "uri") %>'
 
 staging:
   <<: *default
-  url: '<%= JSON.parse(ENV["VCAP_SERVICES"] || "{}")
-                .dig("redis", 0, "credentials", "uri") %>'
+  url: '<%= ENV["REDIS_HOST"] || JSON.parse(ENV["VCAP_SERVICES"] || "{}")
+                .dig("redis", 0, "credentials", "uri")%>'
 
 production:
   <<: *default
-  url: '<%= JSON.parse(ENV["VCAP_SERVICES"] || "{}")
+  url: '<%= ENV["REDIS_HOST"] || JSON.parse(ENV["VCAP_SERVICES"] || "{}")
                 .dig("redis", 0, "credentials", "uri") %>'
