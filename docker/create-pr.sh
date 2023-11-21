@@ -27,18 +27,16 @@ for ENV in $(echo $ENVS | tr "," " "); do
       git checkout -b ${BRANCH}
 
       cd "${ENV}"
-      for APP in ckan pycsw solr; do
-        yq -i '.tag = env(IMAGE_TAG)' "${APP}.yaml"
-        yq -i '.branch = env(SOURCE_BRANCH)' "${APP}.yaml"
-        git add "${APP}.yaml"
-      done
+      yq -i '.tag = env(IMAGE_TAG)' "publish.yaml"
+      yq -i '.branch = env(SOURCE_BRANCH)' "publish.yaml"
+      git add "publish.yaml"
 
       if [[ $(git status | grep "nothing to commit") ]]; then
         echo "Nothing to commit"
       else
-        git commit -m "Update image tags for ${ENV} to ${IMAGE_TAG}"
+        git commit -m "Update datagovuk_publish image tags for ${ENV} to ${IMAGE_TAG}"
         git push --set-upstream origin "${BRANCH}"
-        gh pr create --title "Update image tags for ${ENV} (${IMAGE_TAG})" --base main --head "${BRANCH}" --fill
+        gh pr create --title "Update datagovuk_publish image tags for ${ENV} (${IMAGE_TAG})" --base main --head "${BRANCH}" --fill
       fi
     fi
   )
