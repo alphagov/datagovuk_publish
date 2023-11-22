@@ -7,7 +7,7 @@ on:
 
 jobs:
   build_and_push:
-    name: datagovuk-publish
+    name: datagovuk_publish
     runs-on: ubuntu-latest
     permissions:
       packages: write
