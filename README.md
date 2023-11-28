@@ -5,16 +5,26 @@
 
 This repository contains the beta-stage publishing component of data.gov.uk.
 
-# Deployment
+## Deployment
 
 Continuous Integration has been setup using Github Actions. 
   - Tests are run on pull requests.
-  - Deployments to Staging happen automatically when marging branches into the `main` branch.
+  - Deployments to Integration happen automatically when marging branches into the `main` branch.
   - In order to carry out a release to production a developer in the govuk team will need to create a release tag with a  leading `v` and [approve](https://docs.github.com/en/actions/managing-workflow-runs/reviewing-deployments) of the deployment in Github Actions.
 
-Further information about the deploying to PaaS are in the developer documents here: 
+### Integration
 
-https://docs.publishing.service.gov.uk/manual/data-gov-uk-deployment.html#paas-staging-and-production-environments
+To deploy to integration merge a PR into `main`.
+
+### Staging & Production
+
+To deploy to staging/production you need to tag the release, the tag needs to be in this format - `v9.9.9` where 9 is a number and the leading `v` is required. E.g. `v0.1.11` is valid, `0.1.11` is not.
+
+This will create a PR on [govuk-dgu-charts](https://github.com/alphagov/govuk-dgu-charts/pulls) which you should be able to approve and merge into main for testing.
+
+Test that your changes are working in staging by looking at the publish pod logs for evidence of jobs being processed.
+
+Then merge in the production release PR.
 
 ## Prerequisites
 
@@ -27,7 +37,12 @@ You will need to install the following for development.
 
 Most of these can be installed with Homebrew on a Mac.
 
-## Developing on a Mac with a local CKAN installation
+## How to run this repo locally
+
+There are currently 2 ways to run this repo locally:
+
+1. Via  [govuk-dgu-charts](https://github.com/alphagov/govuk-dgu-charts) - An end to end setup from ckan to opensearch to Find. This is the presently most supported means for running Find and is recommended for local development. Instructions for how to setup and run Find this way available on the linked repo.
+2. Manual installation. Instructions for this below. (needs CKAN running)
 
 ### Install requirements for this app using Homebrew
 
@@ -108,14 +123,6 @@ bin/rails search:reindex
 ```
 
 ## Troubleshooting
-
-### Running commands on PaaS
-
-If you need to run commands on Staging or Production PaaS you will need to run this command first - 
-
-`/tmp/lifecycle/shell`
-
-Further information can be found here - https://docs.cloud.service.gov.uk/troubleshooting.html#connecting-with-ssh
 
 ### Flush Redis
 
