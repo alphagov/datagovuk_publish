@@ -19,3 +19,5 @@ RUN gem install bundler && bundle install
 
 RUN chown -R datagovuk:datagovuk $DATAGOVUK_HOME
 USER datagovuk
+
+# TODO: check if we really need the datagovuk user to own DATAGOVUK_HOME
