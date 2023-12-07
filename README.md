@@ -140,6 +140,14 @@ $ redis-cli
 (integer) 0
 ```
 
+### Delete the index on opensearch
+
+If when attempting to run `bin/rails search:reindex` you get `An alias can not be assigned to index of the same name. Please delete index 'datasets-development' before continuing`, then you should run the following command on the publish pod before running the search reindex:
+
+```
+$ curl -XDELETE $ES_HOST/datasets-development
+```
+
 ### Running the PackageSyncWorker sidekiq job attempts to sync non existent data
 
 When running this sidekiq job it returns errors in the terminal such as:
