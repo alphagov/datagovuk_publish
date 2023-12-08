@@ -18,7 +18,7 @@ describe CKAN::V26::InspireMapper do
       expect(attributes[:harvest_object_id]).to eq package.get_extra("harvest_object_id")
       expect(attributes[:harvest_source_reference]).to eq package.get_extra("harvest_source_reference")
       expect(attributes[:import_source]).to eq package.get_extra("import_source")
-      expect(attributes[:metadata_date]).to eq package.get_extra("metadata-date")
+      expect(attributes[:metadata_date]).to eq package.get_extra("metadata-date", 10)
       expect(attributes[:metadata_language]).to eq package.get_extra("metadata-language")
       expect(attributes[:provider]).to eq package.get_extra("provider")
       expect(attributes[:resource_type]).to eq package.get_extra("resource-type")
