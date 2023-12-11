@@ -9,9 +9,13 @@ module CKAN
         @package[key]
       end
 
-      def get_extra(key)
+      def get_extra(key, max_length = 0)
         @extras ||= hashify(@package["extras"] || [])
-        @extras[key]
+        if max_length.positive? && @extras[key].present?
+          @extras[key][0, max_length]
+        else
+          @extras[key]
+        end
       end
 
       def get_harvest(key)

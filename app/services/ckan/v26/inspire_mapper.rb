@@ -14,7 +14,7 @@ module CKAN
           harvest_object_id: package.get_extra("harvest_object_id") || package.get_harvest("harvest_object_id"),
           harvest_source_reference: package.get_extra("harvest_source_reference"),
           import_source: package.get_extra("import_source"),
-          metadata_date: package.get_extra("metadata-date"),
+          metadata_date: package.get_extra("metadata-date", 10),
           metadata_language: package.get_extra("metadata-language"),
           provider: package.get_extra("provider"),
           resource_type: package.get_extra("resource-type"),
