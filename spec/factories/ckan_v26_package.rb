@@ -39,7 +39,7 @@ FactoryBot.define do
       add_attribute("harvest_object_id") { SecureRandom.uuid }
       add_attribute("harvest_source_reference") { SecureRandom.uuid }
       add_attribute("import_source") { "harvest" }
-      add_attribute("metadata-date") { "2018-06-05" }
+      add_attribute("metadata-date") { "2018-06-05T11:00:00" }
       add_attribute("metadata-language") { "eng" }
       add_attribute("provider") { "" }
       add_attribute("resource-type") { "dataset" }
