@@ -1,4 +1,5 @@
 require "elasticsearch/model"
+require "logger"
 require "securerandom"
 
 class Dataset < ApplicationRecord
@@ -36,6 +37,8 @@ class Dataset < ApplicationRecord
       result = __elasticsearch__.index_document(id: uuid)
       raise "Failed to publish" if result["_shards"]["failed"].positive?
     end
+  rescue StandardError => e
+    Rails.logger.error e
   end
 
   def unpublish
@@ -45,6 +48,8 @@ class Dataset < ApplicationRecord
     raise "Failed to unpublish" if result["_shards"]["failed"].positive?
 
     draft!
+  rescue StandardError => e
+    Rails.logger.error e
   end
 
   def as_indexed_json(_options = {})

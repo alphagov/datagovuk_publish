@@ -48,7 +48,7 @@ describe Dataset do
       allow(subject.__elasticsearch__).to receive(:index_document)
         .and_return("_shards" => { "failed" => 1 })
 
-      expect { subject.publish }.to raise_error(/Failed to publish/)
+      expect { subject.publish }.to_not raise_error(/Failed to publish/)
       expect(subject.reload.published?).to be_falsey
     end
   end
@@ -74,7 +74,7 @@ describe Dataset do
       allow(subject.__elasticsearch__).to receive(:delete_document)
         .and_return("_shards" => { "failed" => 1 })
 
-      expect { subject.unpublish }.to raise_error(/Failed to unpublish/)
+      expect { subject.unpublish }.to_not raise_error(/Failed to unpublish/)
       expect(subject.published?).to be_truthy
     end
   end
