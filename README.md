@@ -7,24 +7,7 @@ This repository contains the beta-stage publishing component of data.gov.uk.
 
 ## Deployment
 
-Continuous Integration has been setup using Github Actions. 
-  - Tests are run on pull requests.
-  - Deployments to Integration happen automatically when marging branches into the `main` branch.
-  - In order to carry out a release to production a developer in the govuk team will need to create a release tag with a  leading `v` and [approve](https://docs.github.com/en/actions/managing-workflow-runs/reviewing-deployments) of the deployment in Github Actions.
-
-### Integration
-
-To deploy to integration merge a PR into `main`.
-
-### Staging & Production
-
-To deploy to staging/production you need to tag the release, the tag needs to be in this format - `v9.9.9` where 9 is a number and the leading `v` is required. E.g. `v0.1.11` is valid, `0.1.11` is not.
-
-This will create a PR on [govuk-dgu-charts](https://github.com/alphagov/govuk-dgu-charts/pulls) which you should be able to approve and merge into main for testing.
-
-Test that your changes are working in staging by looking at the publish pod logs for evidence of jobs being processed.
-
-Then merge in the production release PR.
+See [the developer docs on data.gov.uk deployment](https://docs.publishing.service.gov.uk/manual/data-gov-uk-deployment.html)
 
 ## Prerequisites
 
