@@ -35,7 +35,8 @@ private
     return monthly_date(date_type)          if dataset.monthly?
     return quarterly_date(date_type)        if dataset.quarterly?
     return yearly_date(date_type)           if dataset.annually?
-    return financial_yearly_date(date_type) if dataset.financial_yearly?
+
+    financial_yearly_date(date_type) if dataset.financial_yearly?
   end
 
   def daily_date
