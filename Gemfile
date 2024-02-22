@@ -59,6 +59,6 @@ end
 group :test do
   gem "capybara"
   gem "database_cleaner"
-  gem "simplecov", "< 0.18" # see https://github.com/codeclimate/test-reporter/issues/413
+  gem "simplecov", "< 0.23" # see https://github.com/codeclimate/test-reporter/issues/413
   gem "webmock"
 end
