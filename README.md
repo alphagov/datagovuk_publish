@@ -1,7 +1,7 @@
 [![Code Climate](https://codeclimate.com/github/datagovuk/find_data_beta/badges/gpa.svg)](https://codeclimate.com/github/datagovuk/find_data_beta)
 [![Test Coverage](https://codeclimate.com/github/datagovuk/find_data_beta/badges/coverage.svg)](https://codeclimate.com/github/datagovuk/find_data_beta/coverage)
 
-# data.gov.uk Publish
+# data.gov.uk Publish test
 
 This repository contains the beta-stage publishing component of data.gov.uk.
 
