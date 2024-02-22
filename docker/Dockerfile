@@ -1,23 +1,22 @@
-FROM ruby:3.2.2
+ARG ruby_version=3.2
+ARG base_image=ghcr.io/alphagov/govuk-ruby-base:$ruby_version
+ARG builder_image=ghcr.io/alphagov/govuk-ruby-builder:$ruby_version
 
-WORKDIR /srv/app/datagovuk_publish
+FROM $builder_image AS builder
 
-RUN apt-get update
-RUN apt-get install -y nodejs postgresql postgresql-contrib
+WORKDIR $APP_HOME
+COPY Gemfile* ./
+RUN bundle install
+COPY . ./
 
-# To allow tests to be run with the test database
-ENV DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL true
 
-ENV DATAGOVUK_HOME /srv/app/datagovuk_publish
+FROM $base_image
 
-# Create datagovuk user
-RUN useradd -r -u 900 -m -c "datagovuk account" -d $DATAGOVUK_HOME -s /bin/false datagovuk
+WORKDIR $APP_HOME
+COPY --from=builder $BUNDLE_PATH $BUNDLE_PATH
+COPY --from=builder $APP_HOME .
 
-COPY ./ $DATAGOVUK_HOME
+USER app
+CMD ["sidekiq"]
 
-RUN gem install bundler && bundle install
-
-RUN chown -R datagovuk:datagovuk $DATAGOVUK_HOME
-USER datagovuk
-
-# TODO: check if we really need the datagovuk user to own DATAGOVUK_HOME
+LABEL org.opencontainers.image.source=https://github.com/alphagov/datagovuk_publish

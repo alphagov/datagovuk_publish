@@ -8,7 +8,6 @@ require "rspec/rails"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 
-Sidekiq::Logging.logger = Rails.logger
 Sidekiq::Testing.inline!
 SimpleCov.start
 ActiveRecord::Migration.maintain_test_schema!
