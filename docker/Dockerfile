@@ -17,6 +17,6 @@ COPY --from=builder $BUNDLE_PATH $BUNDLE_PATH
 COPY --from=builder $APP_HOME .
 
 USER app
-CMD ["sidekiq"]
+# CMD ["sidekiq"]
 
 LABEL org.opencontainers.image.source=https://github.com/alphagov/datagovuk_publish
