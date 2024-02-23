@@ -7,42 +7,4 @@
   sync: 1
   import: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } - 1 %>
 
-development:
-  :scheduler:
-    :schedule:
-      ckan_v26_package_sync:
-        class: CKAN::V26::PackageSyncWorker
-        cron: '*/10 * * * *'
-      ckan_v26_ckan_org_sync:
-        class: CKAN::V26::CKANOrgSyncWorker
-        cron: '*/10 * * * *'
-
-integration:
-  :scheduler:
-    :schedule:
-      ckan_v26_package_sync:
-        class: CKAN::V26::PackageSyncWorker
-        cron: '*/10 * * * *'
-      ckan_v26_ckan_org_sync:
-        class: CKAN::V26::CKANOrgSyncWorker
-        cron: '0 0 * * *'
-
-staging:
-  :scheduler:
-    :schedule:
-      ckan_v26_package_sync:
-        class: CKAN::V26::PackageSyncWorker
-        cron: '*/10 * * * *'
-      ckan_v26_ckan_org_sync:
-        class: CKAN::V26::CKANOrgSyncWorker
-        cron: '0 0 * * *'
-
-production:
-  :scheduler:
-    :schedule:
-      ckan_v26_package_sync:
-        class: CKAN::V26::PackageSyncWorker
-        cron: '*/10 * * * *'
-      ckan_v26_ckan_org_sync:
-        class: CKAN::V26::CKANOrgSyncWorker
-        cron: '0 0 * * *'
+# sidekiq schedule is replaced by cronjobs the govuk-dgu-charts repo
