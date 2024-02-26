@@ -45,7 +45,6 @@ namespace :search do
 
     if indexes.include?(legacy_index)
       msg = "An alias can not be assigned to index of the same name. Please delete index '#{legacy_index}' before continuing."
-      Raven.capture_exception msg
       raise msg
     end
 
