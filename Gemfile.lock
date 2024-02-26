@@ -648,8 +648,6 @@ GEM
     sentry-rails (5.16.1)
       railties (>= 5.0)
       sentry-ruby (~> 5.16.1)
-    sentry-raven (3.1.2)
-      faraday (>= 1.0)
     sentry-ruby (5.16.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
     sentry-sidekiq (5.16.1)
@@ -721,6 +719,7 @@ GEM
 
 PLATFORMS
   aarch64-linux
+  arm64-darwin-22
   arm64-darwin-23
   x86_64-darwin-21
   x86_64-linux
@@ -766,7 +765,6 @@ DEPENDENCIES
   rubocop-govuk
   rubyzip
   sass-rails
-  sentry-raven
   sentry-sidekiq
   sidekiq-limit_fetch
   sidekiq-scheduler

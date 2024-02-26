@@ -20,7 +20,6 @@ private
   rescue StandardError => e
     msg = "Could not update alias.\n #{e.message}"
     @logger.error msg
-    Raven.capture_exception msg
   end
 
   def remove_index_actions

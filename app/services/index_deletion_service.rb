@@ -15,7 +15,6 @@ class IndexDeletionService
   rescue StandardError => e
     msg = "Failed to delete old indexes.\n#{e.message}"
     logger.error msg
-    Raven.capture_exception(e)
   end
 
 private
