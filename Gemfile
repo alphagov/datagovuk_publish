@@ -4,7 +4,7 @@ gem "rails", "6.1.6.1"
 
 gem "audited"
 gem "cancancan"
-gem "elasticsearch", "~> 7.9.0" # gem's major must match db's
+gem "elasticsearch", "~> 7.17.11" # gem's major must match db's
 gem "elasticsearch-model"
 gem "elasticsearch-rails"
 gem "gds-sso"
