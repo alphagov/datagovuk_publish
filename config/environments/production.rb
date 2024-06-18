@@ -109,6 +109,6 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-  config.ckan_v26_base_url = "https://ckan.publishing.service.gov.uk"
+  config.ckan_v26_base_url = ENV.fetch("CKAN_URL") { "https://ckan.publishing.service.gov.uk" }
   config.test_publisher = "test-valley-borough-council"
 end
