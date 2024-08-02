@@ -63,9 +63,9 @@ GEM
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
-    audited (5.4.3)
-      activerecord (>= 5.0, < 7.2)
-      request_store (~> 1.2)
+    audited (5.6.0)
+      activerecord (>= 5.2, < 7.2)
+      activesupport (>= 5.2, < 7.2)
     base64 (0.2.0)
     bigdecimal (3.1.6)
     binding_of_caller (1.0.0)
@@ -562,7 +562,7 @@ GEM
     redis-namespace (1.11.0)
       redis (>= 4)
     regexp_parser (2.9.2)
-    request_store (1.6.0)
+    request_store (1.7.0)
       rack (>= 1.4)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
@@ -716,7 +716,7 @@ GEM
       whois (>= 4.1.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.16)
+    zeitwerk (2.6.17)
 
 PLATFORMS
   aarch64-linux
