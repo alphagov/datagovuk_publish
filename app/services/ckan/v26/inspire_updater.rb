@@ -12,6 +12,7 @@ module CKAN
     private
 
       def create_or_update_inspire_dataset(dataset, package)
+        puts "DGU- inspire create or update #{dataset.id}"
         inspire_dataset = InspireDataset.find_or_initialize_by(dataset_id: dataset.id)
         attributes = InspireMapper.new.call(package)
 

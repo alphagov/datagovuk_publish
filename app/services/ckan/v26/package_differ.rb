@@ -34,6 +34,7 @@ module CKAN
 
         packages.select do |package|
           dataset = dataset_info[package.get("id")]
+          puts "DGU- Select #{package.get("id")} - #{package_changed?(package, dataset)}"
           dataset && package_changed?(package, dataset)
         end
       end
