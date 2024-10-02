@@ -1,3 +1,5 @@
+require 'byebug'
+
 module CKAN
   module V26
     class PackageDiffer
@@ -36,6 +38,7 @@ module CKAN
           dataset = dataset_info[package.get("id")]
           if package.get("id") == "f36f4793-39af-42d3-ae9d-c2b560f09786"
             puts "DGU- Select #{package.get("id")} - #{dataset[:updated_at].iso8601} = #{package.get("metadata_modified")} #{package_changed?(package, dataset)}"
+            byebug
           end
           dataset && package_changed?(package, dataset)
         end
