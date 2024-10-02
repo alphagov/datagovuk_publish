@@ -35,7 +35,7 @@ module CKAN
         packages.select do |package|
           dataset = dataset_info[package.get("id")]
           if package.get("id") == "f36f4793-39af-42d3-ae9d-c2b560f09786"
-            puts "DGU- Select #{package.get("id")} - #{package_changed?(package, dataset)}"
+            puts "DGU- Select #{package.get("id")} - #{dataset[:updated_at].iso8601} = #{package.get("metadata_modified")}"
           end
           dataset && package_changed?(package, dataset)
         end
