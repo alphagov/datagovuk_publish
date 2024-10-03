@@ -9,6 +9,7 @@ on:
         type: choice
         options:
           - build_push
+          - build_push_dev
           - build_only
   push:
     branches:
@@ -42,4 +43,11 @@ jobs:
         env:
           APP: datagovuk_publish
           ARCH: amd64
+        run: ./docker/build-image.sh
+      - name: Build and push dev images
+        if: ${{ inputs.buildType == 'build_push_dev' || github.ref == 'refs/heads/main' }}
+        env:
+          APP: datagovuk_publish
+          ARCH: amd64
+          DEV: "1"
         run: ./docker/build-image.sh
