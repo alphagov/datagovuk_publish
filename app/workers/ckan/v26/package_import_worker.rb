@@ -9,6 +9,9 @@ module CKAN
         dataset = Dataset.find_or_initialize_by(uuid: package_id)
         update_dataset_from_package(package, dataset)
       rescue OpenURI::HTTPError
+        msg = "PackageImportWorker - #{e} - #{package_id}"
+        Rails.logger.error msg
+
         raise if Rails.env.production?
       end
 
