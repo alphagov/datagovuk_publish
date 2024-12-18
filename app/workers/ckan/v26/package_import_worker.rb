@@ -9,7 +9,7 @@ module CKAN
         dataset = Dataset.find_or_initialize_by(uuid: package_id)
         update_dataset_from_package(package, dataset)
       rescue OpenURI::HTTPError
-        raise if Rails.env.production?
+        raise if Rails.env.production? && package_id != "85f9f30b-4e09-4968-b24d-d4c68f17b9af"
       end
 
     private
