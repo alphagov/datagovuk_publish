@@ -19,8 +19,7 @@ on:
         type: choice
         options:
           - build_push
-          - build_push_dev
-          - build_push_dev_with_gittag
+          - build_push_with_gittag
           - build_only
       gitRef:
         description: Commit, tag or branch name to deploy
@@ -92,14 +91,13 @@ jobs:
         run: |
           buildType="${{ env.BUILD_TYPE }}"
 
-          if [ "$buildType" = "build_push_dev_with_gittag" ]; then
+          if [ "$buildType" = "build_push_with_gittag" ]; then
             echo "GH_TAG=${{ inputs.gitRef || github.ref }}" >> $GITHUB_ENV
           else
             echo "GH_TAG=${{ github.sha }}" >> $GITHUB_ENV
           fi
 
       - name: Generate App Image Metadata
-        if: ${{ env.BUILD_TYPE == 'build_only' || env.BUILD_TYPE == 'build_push' }}
         uses: docker/metadata-action@v5
         id: app-metadata
         with:
@@ -122,7 +120,6 @@ jobs:
             org.opencontainers.image.vendor=GDS
 
       - name: Build App Image
-        if: ${{ env.BUILD_TYPE == 'build_only' || env.BUILD_TYPE == 'build_push' }}
         id: build-app-image
         uses: docker/build-push-action@v6
         with:
@@ -137,62 +134,14 @@ jobs:
           cache-from: type=gha,scope=${{ needs.configure_builds.outputs.app_version.name }}-app-${{ matrix.runs_on.arch }}
           cache-to: type=gha,scope=${{ needs.configure_builds.outputs.app_version.name }}-app-${{ matrix.runs_on.arch }},mode=max
 
-      - name: Generate Dev Image Metadata
-        if: ${{ env.BUILD_TYPE != 'build_push' }}
-        uses: docker/metadata-action@v5
-        id: dev-metadata
-        with:
-          flavor: |
-            latest=false
-          images: |
-            ${{ env.REGISTRY_BASE }}/dev.${{ needs.configure_builds.outputs.app_version.name }}
-          tags: |
-            type=raw,value=${{ env.GH_TAG }}
-            type=raw,value=v${{ needs.configure_builds.outputs.app_version.version }}
-            type=sha,format=short
-            type=sha,priority=100,format=long
-          labels: |
-            org.opencontainers.image.title=${{ needs.configure_builds.outputs.app_version.name }}-dev
-            org.opencontainers.image.authors="GOV.UK Platform Engineering"
-            org.opencontainers.image.description="Dev Publish image for data.gov.uk"
-            org.opencontainers.image.source="https://github.com/alphagov/datagovuk_publish"
-            org.opencontainers.image.version=${{ needs.configure_builds.outputs.app_version.version }}
-            org.opencontainers.image.created=${{ steps.calculate-image-tags.outputs.createdDate }}
-            org.opencontainers.image.vendor=GDS
-
-      - name: Build Dev Image
-        if: ${{ env.BUILD_TYPE != 'build_push' }}
-        id: build-dev-image
-        uses: docker/build-push-action@v6
-        with:
-          file: docker/Dockerfile
-          context: .
-          platforms: "linux/${{ matrix.runs_on.arch }}"
-          load: true
-          provenance: false
-          labels: ${{ steps.app-metadata.outputs.labels }}
-          outputs: |
-            type=image,name=${{ env.REGISTRY_BASE }}/${{ needs.configure_builds.outputs.app_version.name }},push-by-digest=true,name-canonical=true,push=true
-          cache-from: type=gha,scope=${{ needs.configure_builds.outputs.app_version.name }}-app-${{ matrix.runs_on.arch }}
-          cache-to: type=gha,scope=${{ needs.configure_builds.outputs.app_version.name }}-app-${{ matrix.runs_on.arch }},mode=max
-
       - name: Export App Image Digests
-        if: ${{ env.BUILD_TYPE == 'build_push' }}
+        if: ${{ env.BUILD_TYPE != 'build_only' }}
         id: export-app-digests
         env:
           DIGEST: "${{ steps.build-app-image.outputs.digest }}"
         run: |
           mkdir -p /tmp/digests/app
           touch "/tmp/digests/app/${DIGEST#sha256:}"
-
-      - name: Export Dev Image Digests
-        if: ${{ env.BUILD_TYPE != 'build_only' && env.BUILD_TYPE != 'build_push' }}
-        id: export-dev-digests
-        env:
-          DIGEST: "${{ steps.build-dev-image.outputs.digest }}"
-        run: |
-          mkdir -p /tmp/digests/dev
-          touch "/tmp/digests/dev/${DIGEST#sha256:}"
 
       - name: Upload Digest Artifacts
         if: ${{ env.BUILD_TYPE != 'build_only' }}
@@ -232,7 +181,7 @@ jobs:
         run: |
           buildType="${{ env.BUILD_TYPE }}"
 
-          if [ "$buildType" = "build_push_dev_with_gittag" ]; then
+          if [ "$buildType" = "build_push_with_gittag" ]; then
             echo "GH_TAG=${{ inputs.gitRef || github.ref }}" >> $GITHUB_ENV
           else
             echo "GH_TAG=${{ github.sha }}" >> $GITHUB_ENV
@@ -246,7 +195,6 @@ jobs:
           merge-multiple: true
 
       - name: Generate App Image Metadata
-        if: ${{ env.BUILD_TYPE == 'build_only' || env.BUILD_TYPE == 'build_push' }}
         uses: docker/metadata-action@v5
         id: app-metadata
         with:
@@ -278,49 +226,8 @@ jobs:
           # shellcheck disable=SC2086 # Intentional word-splitting on $tag_args and $sources.
           docker buildx imagetools create $tag_args $sources
 
-      - name: Generate Dev Image Metadata
-        if: ${{ env.BUILD_TYPE != 'build_push' }}
-        uses: docker/metadata-action@v5
-        id: dev-metadata
-        with:
-          flavor: |
-            latest=false
-          images: |
-            ${{ env.REGISTRY_BASE }}/dev.${{ needs.configure_builds.outputs.app_version.name }}
-          tags: |
-            type=raw,value=${{ env.GH_TAG }}
-            type=raw,value=v${{ needs.configure_builds.outputs.app_version.version }}
-            type=sha,format=short
-            type=sha,priority=100,format=long
-          labels: |
-            org.opencontainers.image.title=${{ needs.configure_builds.outputs.app_version.name }}-dev
-            org.opencontainers.image.authors="GOV.UK Platform Engineering"
-            org.opencontainers.image.description="Dev Publish image for data.gov.uk"
-            org.opencontainers.image.source="https://github.com/alphagov/datagovuk_publish"
-            org.opencontainers.image.version=${{ needs.configure_builds.outputs.app_version.version }}
-            org.opencontainers.image.created=${{ steps.calculate-image-tags.outputs.createdDate }}
-            org.opencontainers.image.vendor=GDS
-
-      - name: Create Dev Image Manifest Lists
-        if: ${{ env.BUILD_TYPE != 'build_push' }}
-        env:
-          IMAGEREF_PREFIX: '${{ env.REGISTRY_BASE }}/${{ needs.configure_builds.outputs.app_version.name }}'
-        working-directory: /tmp/digests/dev
-        run: |
-          tag_args=$(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON")
-          printf -v sources "${IMAGEREF_PREFIX}@sha256:%s " *
-          # shellcheck disable=SC2086 # Intentional word-splitting on $tag_args and $sources.
-          docker buildx imagetools create $tag_args $sources
-
       - name: Inspect App Images
         env:
           IMAGEREF: '${{ env.REGISTRY_BASE }}/${{ needs.configure_builds.outputs.app_version.name }}:${{ steps.app-metadata.outputs.version }}'
-        run: |
-          docker buildx imagetools inspect "$IMAGEREF"
-
-      - name: Inspect Base Images
-        if: ${{ env.BUILD_TYPE != 'build_push' }}
-        env:
-          IMAGEREF: '${{ env.REGISTRY_BASE }}/${{ needs.configure_builds.outputs.app_version.name }}:${{ steps.dev-metadata.outputs.version }}'
         run: |
           docker buildx imagetools inspect "$IMAGEREF"
