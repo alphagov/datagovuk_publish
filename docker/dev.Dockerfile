@@ -1,4 +1,5 @@
-FROM ghcr.io/alphagov/datagovuk_publish:v2.16.0
+ARG DGUPUB_BASE_VERSION=v2.21.0
+FROM ghcr.io/alphagov/datagovuk_publish:${DGUPUB_BASE_VERSION}
 
 USER root
 ENV BUNDLE_WITHOUT=""
