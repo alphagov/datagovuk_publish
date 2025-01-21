@@ -1,3 +1,5 @@
+This repo has been retired as we are no longer using OpenSearch as the Search Index for Find so do not need to translate datasets from the CKAN API.
+
 [![Code Climate](https://codeclimate.com/github/datagovuk/find_data_beta/badges/gpa.svg)](https://codeclimate.com/github/datagovuk/find_data_beta)
 [![Test Coverage](https://codeclimate.com/github/datagovuk/find_data_beta/badges/coverage.svg)](https://codeclimate.com/github/datagovuk/find_data_beta/coverage)
 
